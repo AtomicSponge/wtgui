@@ -19,7 +19,7 @@ const argParser = (scope, data, args) => {
  *
  */
 const WtCanvas = {
-    canvases = [],
+    canvases: [],
 
     /*
      *

@@ -4,6 +4,7 @@
  * 
  **************************************** */
 
+const { WtCanvas } = require('./WtCanvas')
 //const { Gamepads } = require('gamepads')
 
 //Gamepads.start()
@@ -72,8 +73,7 @@ class WtGuiMenu {
         var args = args || {}
         argParser(this, args,
             [ 'pos_x', 'pos_y',
-              'width', 'height',
-              'items' ])
+              'width', 'height' ])
     }
 }
 exports.WtGuiMenu = WtGuiMenu
