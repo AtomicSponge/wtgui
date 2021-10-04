@@ -22,11 +22,13 @@ exports.WtGuiConfig = WtGuiConfig
 /*
  *
  */
-class WtGuiError extends Error {
-    constructor(args) {
-        var args = args || {}
-    }
+const WtGuiError = (location, message) => {
+    this.name = 'WtGuiError'
+    this.message = `${location}\n${message}`
+    this.stack = (new Error()).stack
 }
+WtGuiError.prototype = new Error
+exports.WtGuiError = WtGuiError
 
 /*
  *
@@ -34,7 +36,7 @@ class WtGuiError extends Error {
 const arg_parser = (scope, data, args) => {
     args.forEach((arg) => {
         if(data[arg] === undefined)
-            throw new WtGuiError(`Error: ${arg} undefined.`)
+            throw new WtGuiError(scope.toString(), `${arg} undefined.`)
         scope[arg] = data[arg]
     })
 }
