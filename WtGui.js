@@ -19,11 +19,17 @@ const WtGuiConfig = {
 }
 exports.WtGuiConfig = WtGuiConfig
 
+/*
+ *
+ */
 const WtGui = {
     //
 }
 exports.WtGui = WtGui
 
+/*
+ *
+ */
 class WtGuiError extends Error {
     constructor(args) {
         var args = args || {}
