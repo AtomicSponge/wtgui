@@ -1,6 +1,28 @@
 /*
  *
  */
-exports.WtGui.something = () => {
-    console.log("This is a message from the demo package")
+exports.WtGui = {
+    canvas: 'test',
+
+    SetCanvas: () => {
+        //
+    },
+
+    Menu = {
+        AddMenu: () => {
+            //
+        },
+
+        DeleteMenu: () => {
+            //
+        },
+
+        OpenMenu: () => {
+            //
+        },
+
+        CloseMenu: () => {
+            //
+        }
+    }
 }
