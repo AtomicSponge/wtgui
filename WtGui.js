@@ -10,9 +10,19 @@
  *
  */
 const WtGuiConfig = {
-    canvas: ''
+    canvas: '',
+
+    renderer: {
+        width: 0,
+        height: 0
+    }
 }
 exports.WtGuiConfig = WtGuiConfig
+
+const WtGui = {
+    //
+}
+exports.WtGui = WtGui
 
 /*
  *

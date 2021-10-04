@@ -4,7 +4,7 @@
 const path = require('path')
 const { app, dialog, ipcMain, Tray, Menu, MenuItem, BrowserWindow } = require('electron')
 
-const { WtGuiConfig } = require('./src/WtGui')
+const { WtGuiConfig } = require('./WtGui')
 
 /*
  *
