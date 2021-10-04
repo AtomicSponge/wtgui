@@ -9,6 +9,17 @@
 /*
  *
  */
+const argParser = (scope, data, args) => {
+    args.forEach((arg) => {
+        if(data[arg] === undefined)
+            throw new Error(`${arg} undefined.`)
+        scope[arg] = data[arg]
+    })
+}
+
+/*
+ *
+ */
 const WtGuiConfig = {
     canvas: '',
 
@@ -33,13 +44,10 @@ exports.WtGuiError = WtGuiError
 /*
  *
  */
-const argParser = (scope, data, args) => {
-    args.forEach((arg) => {
-        if(data[arg] === undefined)
-            throw new Error(`${arg} undefined.`)
-        scope[arg] = data[arg]
-    })
+const WtGuiRenderer = {
+    //
 }
+exports.WtGuiRenderer = WtGuiRenderer
 
 /*
  *
