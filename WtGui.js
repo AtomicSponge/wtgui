@@ -8,6 +8,19 @@
 
 //Gamepads.start()
 
+/*
+ *
+ */
+const WtGuiConfig = {
+    canvas: '',
+
+    renderer: {
+        width: 0,
+        height: 0
+    }
+}
+exports.WtGuiConfig = WtGuiConfig
+
 /* ****************************************
  *
  *
@@ -29,20 +42,6 @@ const argParser = (scope, data, args) => {
  *
  * 
  **************************************** */
-
-/*
- *
- */
-const WtGuiConfig = {
-    canvas: '',
-
-    renderer: {
-        width: 0,
-        height: 0
-    }
-}
-exports.WtGuiConfig = WtGuiConfig
-
 /*
  *
  */
