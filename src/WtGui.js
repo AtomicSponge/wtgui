@@ -10,7 +10,7 @@ Gamepads.start()
  *
  */
 export const WtGuiConfig = {
-    //
+    test = true
 }
 
 /*
