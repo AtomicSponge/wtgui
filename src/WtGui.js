@@ -17,28 +17,39 @@ exports.WtGuiConfig = WtGuiConfig
 /*
  *
  */
-class WtGuiMenu {}
+class WtGuiMenu {
+    //
+}
 exports.WtGuiMenu = WtGuiMenu
 
 /*
  *
  */
-class WtGuiItem {}
+class WtGuiItem {
+    //
+}
+exports.WtGuiItem = WtGuiItem
 
 /*
  *
  */
-class WtGuiButton extends WtGuiItem {}
+class WtGuiButton extends WtGuiItem {
+    //
+}
 exports.WtGuiButton = WtGuiButton
 
 /*
  *
  */
-class WtGuiLabel extends WtGuiItem {}
+class WtGuiLabel extends WtGuiItem {
+    //
+}
 exports.WtGuiLabel = WtGuiLabel
 
 /*
  *
  */
-class WtGuiInput extends WtGuiItem {}
+class WtGuiInput extends WtGuiItem {
+    //
+}
 exports.WtGuiInput = WtGuiInput
