@@ -45,6 +45,9 @@ const arg_parser = (scope, data, args) => {
  *
  */
 class WtGuiMenu {
+    /*
+     *
+     */
     constructor(args) {
         var args = args || {}
         arg_parser(this, args,
@@ -57,6 +60,9 @@ exports.WtGuiMenu = WtGuiMenu
  *
  */
 class WtGuiItem {
+    /*
+     *
+     */
     constructor(args) {
         var args = args || {}
         arg_parser(this, args,
@@ -69,7 +75,13 @@ exports.WtGuiItem = WtGuiItem
  *
  */
 class WtGuiButton extends WtGuiItem {
-    //
+    /*
+     *
+     */
+    constructor(args) {
+        var args = args || {}
+        super(args)
+    }
 }
 exports.WtGuiButton = WtGuiButton
 
@@ -77,7 +89,13 @@ exports.WtGuiButton = WtGuiButton
  *
  */
 class WtGuiLabel extends WtGuiItem {
-    //
+    /*
+     *
+     */
+    constructor(args) {
+        var args = args || {}
+        super(args)
+    }
 }
 exports.WtGuiLabel = WtGuiLabel
 
@@ -85,6 +103,12 @@ exports.WtGuiLabel = WtGuiLabel
  *
  */
 class WtGuiInput extends WtGuiItem {
-    //
+    /*
+     *
+     */
+    constructor(args) {
+        var args = args || {}
+        super(args)
+    }
 }
 exports.WtGuiInput = WtGuiInput
