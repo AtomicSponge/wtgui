@@ -33,7 +33,7 @@ exports.WtGuiError = WtGuiError
 /*
  *
  */
-const arg_parser = (scope, data, args) => {
+const argParser = (scope, data, args) => {
     args.forEach((arg) => {
         if(data[arg] === undefined)
             throw new Error(`${arg} undefined.`)
@@ -50,7 +50,7 @@ class WtGuiMenu {
      */
     constructor(args) {
         var args = args || {}
-        arg_parser(this, args,
+        argParser(this, args,
             [ 'pos_x', 'pos_y', 'width', 'height' ])
     }
 }
@@ -65,7 +65,7 @@ class WtGuiItem {
      */
     constructor(args) {
         var args = args || {}
-        arg_parser(this, args,
+        argParser(this, args,
             [ 'pos_x', 'pos_y', 'width', 'height' ])
     }
 }
