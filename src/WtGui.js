@@ -2,6 +2,10 @@
  *
  */
 
+export const WtGuiConfig = {
+    //
+}
+
 export class WtGuiMenu {}
 
 class WtGuiItem {}
@@ -13,6 +17,7 @@ export class WtGuiLabel extends WtGuiItem {}
 export class WtGuiInput extends WtGuiItem {}
 
 export default (
+    WtGuiConfig,
     WtGuiMenu,
     WtGuiButton,
     WtGuiLabel,
