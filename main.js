@@ -4,7 +4,7 @@
 const path = require('path')
 const { app, dialog, ipcMain, Tray, Menu, MenuItem, BrowserWindow } = require('electron')
 
-const { WtGuiConfig } = require('./WtGui')
+const { WtGuiConfig, WtGuiMenu } = require('./WtGui')
 
 /*
  *
@@ -57,4 +57,10 @@ app.on('before-quit', () => {
  */
 app.whenReady().then(() => {
     createMainWindow()
+	const test = new WtGuiMenu({
+		pos_x: 10,
+		pos_y: 10,
+		width: 19,
+		height: 10
+	})
 })

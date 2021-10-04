@@ -36,7 +36,7 @@ exports.WtGuiError = WtGuiError
 const arg_parser = (scope, data, args) => {
     args.forEach((arg) => {
         if(data[arg] === undefined)
-            throw new WtGuiError(scope.toString(), `${arg} undefined.`)
+            throw new Error(`${arg} undefined.`)
         scope[arg] = data[arg]
     })
 }
@@ -49,8 +49,6 @@ class WtGuiMenu {
         var args = args || {}
         arg_parser(this, args,
             [ 'pos_x', 'pos_y', 'width', 'height' ])
-
-        this.something = args.something || true
     }
 }
 exports.WtGuiMenu = WtGuiMenu
@@ -59,7 +57,11 @@ exports.WtGuiMenu = WtGuiMenu
  *
  */
 class WtGuiItem {
-    //
+    constructor(args) {
+        var args = args || {}
+        arg_parser(this, args,
+            [ 'pos_x', 'pos_y', 'width', 'height' ])
+    }
 }
 exports.WtGuiItem = WtGuiItem
 
