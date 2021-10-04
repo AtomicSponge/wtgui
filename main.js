@@ -1,16 +1,22 @@
 /*
  *
  */
-
+const path = require('path')
 const { app, dialog, ipcMain, Tray, Menu, MenuItem, BrowserWindow } = require('electron')
 
-import { WtGuiConfig } from "./src/WtGui"
+const { WtGuiConfig } = require('./src/WtGui')
 
+/*
+ *
+ */
 WtGuiConfig.canvas = 'set'
 
+/*
+ *
+ */
 let mainWindow = null
-const mainWindow = () => {
-	settingsWin = new BrowserWindow({
+const createMainWindow = () => {
+	mainWindow = new BrowserWindow({
 		title: `TESTING`,
 		width: 1024,
 		height: 768,
@@ -23,11 +29,32 @@ const mainWindow = () => {
 			preload: path.join(__dirname, '_wtguitest.js')
 		}
 	})
-	settingsWin.on('close', (event) => {
-		settingsWin.destroy()
+	mainWindow.on('close', (event) => {
+		mainWindow.destroy()
 	})
-	settingsWin.webContents.on('dom-ready', () => {
-		settingsWin.webContents.send('send-json-data', data)
+	mainWindow.webContents.on('dom-ready', () => {
+		mainWindow.webContents.send('send-json-data', {})
 	})
-	settingsWin.loadFile('_wtguitest.html')
+	mainWindow.loadFile('_wtguitest.html')
 }
+
+/*
+ *
+ */
+ipcMain.on('recieve-json-data', (event, data) => {
+	//
+})
+
+/*
+ *
+ */
+app.on('before-quit', () => { 
+	mainWindow.destroy()
+})
+
+/*
+ *
+ */
+app.whenReady().then(() => {
+    createMainWindow()
+})

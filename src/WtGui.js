@@ -2,21 +2,23 @@
  *
  */
 
-import Gamepads from 'gamepads'
+//const { Gamepads } = require('gamepads')
 
-Gamepads.start()
+//Gamepads.start()
 
 /*
  *
  */
-export const WtGuiConfig = {
-    canvas = ''
+const WtGuiConfig = {
+    canvas: ''
 }
+exports.WtGuiConfig = WtGuiConfig
 
 /*
  *
  */
-export class WtGuiMenu {}
+class WtGuiMenu {}
+exports.WtGuiMenu = WtGuiMenu
 
 /*
  *
@@ -26,25 +28,17 @@ class WtGuiItem {}
 /*
  *
  */
-export class WtGuiButton extends WtGuiItem {}
+class WtGuiButton extends WtGuiItem {}
+exports.WtGuiButton = WtGuiButton
 
 /*
  *
  */
-export class WtGuiLabel extends WtGuiItem {}
+class WtGuiLabel extends WtGuiItem {}
+exports.WtGuiLabel = WtGuiLabel
 
 /*
  *
  */
-export class WtGuiInput extends WtGuiItem {}
-
-/*
- *
- */
-export default (
-    WtGuiConfig,
-    WtGuiMenu,
-    WtGuiButton,
-    WtGuiLabel,
-    WtGuiInput
-)
+class WtGuiInput extends WtGuiItem {}
+exports.WtGuiInput = WtGuiInput
