@@ -22,14 +22,6 @@ exports.WtGuiConfig = WtGuiConfig
 /*
  *
  */
-const WtGui = {
-    //
-}
-exports.WtGui = WtGui
-
-/*
- *
- */
 class WtGuiError extends Error {
     constructor(args) {
         var args = args || {}
@@ -39,16 +31,22 @@ class WtGuiError extends Error {
 /*
  *
  */
+const arg_parser = (scope, data, args) => {
+    args.forEach((arg) => {
+        if(data[arg] === undefined)
+            throw new WtGuiError(`Error: ${arg} undefined.`)
+        scope[arg] = data[arg]
+    })
+}
+
+/*
+ *
+ */
 class WtGuiMenu {
     constructor(args) {
         var args = args || {}
-
-        if(args.width === undefined)
-            throw new WtGuiError("Error: width undefined.")
-        this.width = args.width
-        if(args.height === undefined)
-            throw new WtGuiError("Error: height undefined.")
-        this.height = args.height
+        arg_parser(this, args,
+            [ 'pos_x', 'pos_y', 'width', 'height' ])
 
         this.something = args.something || true
     }
