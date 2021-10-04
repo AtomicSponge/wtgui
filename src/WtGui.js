@@ -1,28 +1,20 @@
 /*
  *
  */
-exports.WtGui = {
-    canvas: 'test',
 
-    SetCanvas: () => {
-        //
-    },
+export class WtGuiMenu {}
 
-    Menu = {
-        AddMenu: () => {
-            //
-        },
+class WtGuiItem {}
 
-        DeleteMenu: () => {
-            //
-        },
+export class WtGuiButton extends WtGuiItem {}
 
-        OpenMenu: () => {
-            //
-        },
+export class WtGuiLabel extends WtGuiItem {}
 
-        CloseMenu: () => {
-            //
-        }
-    }
-}
+export class WtGuiInput extends WtGuiItem {}
+
+export default (
+    WtGuiMenu,
+    WtGuiButton,
+    WtGuiLabel,
+    WtGuiInput
+)
