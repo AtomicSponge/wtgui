@@ -1,3 +1,3 @@
-import { WtGuiConfig  } from "./src/WtGui"
+import { WtGuiConfig } from "./src/WtGui"
 
-WtGuiConfig.test = false
+WtGuiConfig.canvas = 'set'
