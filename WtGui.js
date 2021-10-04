@@ -24,11 +24,28 @@ const WtGui = {
 }
 exports.WtGui = WtGui
 
+class WtGuiError extends Error {
+    constructor(args) {
+        var args = args || {}
+    }
+}
+
 /*
  *
  */
 class WtGuiMenu {
-    //
+    constructor(args) {
+        var args = args || {}
+
+        if(args.width === undefined)
+            throw new WtGuiError("Error: width undefined.")
+        this.width = args.width
+        if(args.height === undefined)
+            throw new WtGuiError("Error: height undefined.")
+        this.height = args.height
+
+        this.something = args.something || true
+    }
 }
 exports.WtGuiMenu = WtGuiMenu
 
