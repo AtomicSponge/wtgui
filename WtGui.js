@@ -59,7 +59,9 @@ class WtGuiMenu {
     constructor(args) {
         var args = args || {}
         argParser(this, args,
-            [ 'pos_x', 'pos_y', 'width', 'height' ])
+            [ 'pos_x', 'pos_y',
+              'width', 'height',
+              'items' ])
     }
 }
 exports.WtGuiMenu = WtGuiMenu
@@ -74,7 +76,8 @@ class WtGuiItem {
     constructor(args) {
         var args = args || {}
         argParser(this, args,
-            [ 'pos_x', 'pos_y', 'width', 'height' ])
+            [ 'pos_x', 'pos_y',
+              'width', 'height' ])
     }
 }
 exports.WtGuiItem = WtGuiItem
