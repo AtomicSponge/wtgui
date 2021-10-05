@@ -49,8 +49,14 @@ const WtGui = {
     /*
      *
      */
-    render: () => {
-        //opened_menus[(opened_menus.length - 1)]
+    init: () => {
+        //
+        /*
+         *
+         */
+        const render = setInterval(() => {
+            //this.opened_menus[(this.opened_menus.length - 1)]
+        }, 30)
     },
 
     /*
@@ -64,15 +70,15 @@ const WtGui = {
      *
      */
     openMenu: (name) => {
-        opened_menus.push(name)
+        this.opened_menus.push(name)
     },
 
     /*
      *
      */
     closeMenu: (arg) => {
-        if(arg === 'all') opened_menus = []
-        else opened_menus.pop()
+        if(arg === 'all') this.opened_menus = []
+        else this.opened_menus.pop()
     }
 }
 exports.WtGui = WtGui
