@@ -12,7 +12,7 @@
  *
  */
 const WtGuiConfig = {
-    canvas: '',
+    canvas: 'WTEMenuCanvas',
 
     renderer: {
         width: 0,
@@ -57,17 +57,14 @@ exports.WtGuiError = WtGuiError
  *
  */
 const WtGui = {
-    //
+    menus: [ 'main_menu', 'game_menu' ],
+    opened_menus: [],
+
+    render: () => {
+        //
+    }
 }
 exports.WtGui = WtGui
-
-/*
- *
- */
-const WtGuiRenderer = {
-    //
-}
-exports.WtGuiRenderer = WtGuiRenderer
 
 /*
  *
