@@ -31,55 +31,65 @@ const argParser = (scope, data, args) => {
 /*
  *
  */
-const WtGui = {
-    renderer: {
+class WtGui {
+    renderer = {
         width: 0,
         height: 0,
         canvas: 'WTGuiCanvas'
-    },
+    }
 
-    menus: [ { name: 'main_menu' }, { name: 'game_menu' } ],
+    #menus = [ { name: 'main_menu' }, { name: 'game_menu' } ]
+
+    #opened_menus = []
+    #menus_active = true
+    #game_running = false
 
     /*
      *
      */
-    init: () => {
-        const WtGuiData = {
-            opened_menus: [],
-            menus_active: true,
-            game_running: false
-        }
-        //
+    init = () => {
+        const canvas = document.getElementById(this.renderer.canvas)
+        const ctx = canvas.getContext('2d')
+        canvas.width = this.renderer.width
+        canvas.height = this.renderer.height
+
         /*
          *
          */
         const render = setInterval(() => {
-            WtGuiData.opened_menus[(WtGuiData.opened_menus.length - 1)]
+            this.#opened_menus[(this.#opened_menus.length - 1)]
+            //ctx
         }, 30)
 
         while(alive) {}
-    },
+    }
 
     /*
      *
      */
-    addMenu: (menu) => {
+    addMenu = (menu) => {
         //
-    },
+    }
 
     /*
      *
      */
-    openMenu: (name) => {
-        this.opened_menus.push(name)
-    },
+    addItem = (menu, item) => {
+        //
+    }
 
     /*
      *
      */
-    closeMenu: (arg) => {
-        if(arg === 'all') this.opened_menus = []
-        else this.opened_menus.pop()
+    openMenu = (name) => {
+        this.#opened_menus.push(name)
+    }
+
+    /*
+     *
+     */
+    closeMenu = (bool) => {
+        (bool) ? this.#opened_menus = [] : this.#opened_menus.pop()
     }
 }
 exports.WtGui = WtGui
