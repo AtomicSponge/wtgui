@@ -2,14 +2,7 @@
  *
  */
 const path = require('path')
-const { app, dialog, ipcMain, Tray, Menu, MenuItem, BrowserWindow } = require('electron')
-
-const { WtGuiConfig, WtGuiMenu } = require('./WtGui')
-
-/*
- *
- */
-WtGuiConfig.canvas = 'set'
+const { app, ipcMain, BrowserWindow } = require('electron')
 
 /*
  *
@@ -36,6 +29,7 @@ const createMainWindow = () => {
 		mainWindow.webContents.send('send-json-data', {})
 	})
 	mainWindow.loadFile('_wtguitest.html')
+	mainWindow.webContents.openDevTools()
 }
 
 /*
@@ -57,10 +51,4 @@ app.on('before-quit', () => {
  */
 app.whenReady().then(() => {
     createMainWindow()
-	const test = new WtGuiMenu({
-		pos_x: 10,
-		pos_y: 10,
-		width: 19,
-		height: 10
-	})
 })

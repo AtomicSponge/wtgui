@@ -4,7 +4,6 @@
  * 
  **************************************** */
 
-const { WtCanvas } = require('./WtCanvas')
 //const { Gamepads } = require('gamepads')
 
 //Gamepads.start()
@@ -53,6 +52,14 @@ const WtGuiError = (location, message) => {
 }
 WtGuiError.prototype = new Error
 exports.WtGuiError = WtGuiError
+
+/*
+ *
+ */
+const WtGui = {
+    //
+}
+exports.WtGui = WtGui
 
 /*
  *
