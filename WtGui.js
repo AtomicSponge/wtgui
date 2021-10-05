@@ -32,9 +32,6 @@ const argParser = (scope, data, args) => {
  *
  */
 const WtGui = {
-    menu_active: true,
-    game_running: false,
-
     renderer: {
         width: 0,
         height: 0,
@@ -42,19 +39,25 @@ const WtGui = {
     },
 
     menus: [ { name: 'main_menu' }, { name: 'game_menu' } ],
-    opened_menus: [],
 
     /*
      *
      */
     init: () => {
+        const WtGuiData = {
+            opened_menus: [],
+            menus_active: true,
+            game_running: false
+        }
         //
         /*
          *
          */
         const render = setInterval(() => {
-            //this.opened_menus[(this.opened_menus.length - 1)]
+            WtGuiData.opened_menus[(WtGuiData.opened_menus.length - 1)]
         }, 30)
+
+        while(alive) {}
     },
 
     /*
