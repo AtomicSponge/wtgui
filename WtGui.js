@@ -4,9 +4,7 @@
  * 
  **************************************** */
 
-//const { Gamepads } = require('gamepads')
-
-//Gamepads.start()
+const { Gamepads } = require('gamepads')
 
 /*
  *
@@ -34,13 +32,13 @@ const argParser = (scope, data, args) => {
  *
  */
 const WtGui = {
-    menu_active = true,
-    game_running = false,
+    menu_active: true,
+    game_running: false,
 
     renderer: {
         width: 0,
         height: 0,
-        canvas: 'WTEMenuCanvas'
+        canvas: 'WTGuiCanvas'
     },
 
     menus: [ { name: 'main_menu' }, { name: 'game_menu' } ],
