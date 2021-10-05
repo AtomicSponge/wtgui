@@ -11,24 +11,6 @@
 /*
  *
  */
-const WtGuiConfig = {
-    canvas: 'WTEMenuCanvas',
-
-    renderer: {
-        width: 0,
-        height: 0
-    }
-}
-exports.WtGuiConfig = WtGuiConfig
-
-/* ****************************************
- *
- *
- * 
- **************************************** */
-/*
- *
- */
 const argParser = (scope, data, args) => {
     args.forEach((arg) => {
         if(data[arg] === undefined)
@@ -37,11 +19,6 @@ const argParser = (scope, data, args) => {
     })
 }
 
-/* ****************************************
- *
- *
- * 
- **************************************** */
 /*
  *
  */
@@ -57,11 +34,30 @@ exports.WtGuiError = WtGuiError
  *
  */
 const WtGui = {
-    menus: [ 'main_menu', 'game_menu' ],
+    renderer: {
+        width: 0,
+        height: 0,
+        canvas: 'WTEMenuCanvas'
+    },
+
+    menus: [ { name: 'main_menu' }, { name: 'game_menu' } ],
     opened_menus: [],
 
     render: () => {
         //
+    },
+
+    addMenu: (name, items) => {
+        //
+    },
+
+    openMenu: (name) => {
+        //
+    },
+
+    closeMenu: (arg) => {
+        if(arg === 'all') opened_menus = []
+        else opened_menus.pop()
     }
 }
 exports.WtGui = WtGui
