@@ -11,17 +11,6 @@
 /*
  *
  */
-const argParser = (scope, data, args) => {
-    args.forEach((arg) => {
-        if(data[arg] === undefined)
-            throw new Error(`${arg} undefined.`)
-        scope[arg] = data[arg]
-    })
-}
-
-/*
- *
- */
 const WtGuiError = (location, message) => {
     this.name = 'WtGuiError'
     this.message = `${location}\n${message}`
@@ -33,7 +22,21 @@ exports.WtGuiError = WtGuiError
 /*
  *
  */
+const argParser = (scope, data, args) => {
+    args.forEach((arg) => {
+        if(data[arg] === undefined)
+            throw new Error(`${arg} undefined.`)
+        scope[arg] = data[arg]
+    })
+}
+
+/*
+ *
+ */
 const WtGui = {
+    menu_active = true,
+    game_running = false,
+
     renderer: {
         width: 0,
         height: 0,
@@ -43,18 +46,30 @@ const WtGui = {
     menus: [ { name: 'main_menu' }, { name: 'game_menu' } ],
     opened_menus: [],
 
+    /*
+     *
+     */
     render: () => {
+        //opened_menus[(opened_menus.length - 1)]
+    },
+
+    /*
+     *
+     */
+    addMenu: (menu) => {
         //
     },
 
-    addMenu: (name, items) => {
-        //
-    },
-
+    /*
+     *
+     */
     openMenu: (name) => {
-        //
+        opened_menus.push(name)
     },
 
+    /*
+     *
+     */
     closeMenu: (arg) => {
         if(arg === 'all') opened_menus = []
         else opened_menus.pop()
