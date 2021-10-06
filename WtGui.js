@@ -52,6 +52,8 @@ class WtGui {
      *
      */
     constructor(args) {
+        if(!(WtGui.settings.width > 0)) throw new Error(`width undefined.`)
+        if(!(WtGui.settings.height > 0)) throw new Error(`height undefined.`)
     }
 
     /*
