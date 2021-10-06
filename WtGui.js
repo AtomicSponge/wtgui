@@ -55,6 +55,7 @@ class WtGui {
      */
     constructor(args) {
         if(WtGui.#singleton === undefined) WtGui.#singleton = this
+        else return WtGui.#singleton
         var args = args || {}
         if(args.width !== undefined) WtGui.settings.width = args.width
         if(args.height !== undefined) WtGui.settings.height = args.height
