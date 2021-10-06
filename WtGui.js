@@ -43,7 +43,7 @@ class WtGui {
 
     #menus = [ { name: 'main_menu' }, { name: 'game_menu' } ]
     #openedMenus = []
-    #renderer
+    #renderer = {}
 
     #menuRunning = false
     #gameRunning = false
@@ -71,7 +71,7 @@ class WtGui {
      *
      */
     #configCanvas = () => {
-        const canvas = document.getElementById(WtGui.settings.canvas)
+        const canvas = this.#getCanvas()
         canvas.width = WtGui.settings.width
         canvas.height = WtGui.settings.height
     }
@@ -79,9 +79,16 @@ class WtGui {
     /*
      *
      */
+    #getCanvas = () => {
+        return document.getElementById(WtGui.settings.canvas)
+    }
+
+    /*
+     *
+     */
     startRenderer = () => {
         this.#configCanvas()
-        this.#renderer = setInterval(this.#renderGui(), 30)
+        this.#renderer = setInterval(this.#renderGui(), 33)
         this.#menuRunning = true
     }
 
@@ -97,7 +104,15 @@ class WtGui {
      *
      */
     addMenu = (name) => {
-        //
+        if(this.getMenu(name) !== undefined) return false
+        return true
+    }
+
+    /*
+     *
+     */
+    getMenu = (name) => {
+        return this.#menus.find((elm) => { elm.name === name })
     }
 
     /*
@@ -111,7 +126,9 @@ class WtGui {
      *
      */
     openMenu = (name) => {
-        this.#openedMenus.push(name)
+        if(this.getMenu(name) === undefined) return false
+        this.#openedMenus.push(this.getMenu(name))
+        return true
     }
 
     /*
