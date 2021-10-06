@@ -43,21 +43,15 @@ class WtGui {
 
     #menus = [ { name: 'main_menu' }, { name: 'game_menu' } ]
     #opened_menus = []
+    #renderer
 
     #menus_active = true
     #game_running = false
-    #canvas = {}
-    #ctx = {}
-    #renderer = {}
 
     /*
      *
      */
     constructor(args) {
-        this.#canvas = document.getElementById(WtGui.settings.canvas)
-        //this.#ctx = this.#canvas.getContext('2d')
-        //this.#canvas.width = WtGui.settings.width
-        //this.#canvas.height = WtGui.settings.height
     }
 
     /*
@@ -71,7 +65,17 @@ class WtGui {
     /*
      *
      */
+    #configCanvas = () => {
+        const canvas = document.getElementById(WtGui.settings.canvas)
+        canvas.width = WtGui.settings.width
+        canvas.height = WtGui.settings.height
+    }
+
+    /*
+     *
+     */
     startRenderer = () => {
+        this.#configCanvas()
         this.#renderer = setInterval(this.#renderGui(), 30)
     }
 
