@@ -2,6 +2,8 @@ const { contextBridge, ipcRenderer } = require('electron')
 
 const { WtGui, WtGuiMenu } = require('./WtGui')
 
+const testMe = new WtGui()
+
 /*
  *
  */
