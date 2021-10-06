@@ -43,15 +43,17 @@ class WtGui {
     #opened_menus = []
     #menus_active = true
     #game_running = false
+    #canvas = Element()
+    #ctx = CanvasRenderingContext2D()
 
     /*
      *
      */
     init = () => {
-        const canvas = document.getElementById(this.renderer.canvas)
-        const ctx = canvas.getContext('2d')
-        canvas.width = this.renderer.width
-        canvas.height = this.renderer.height
+        this.#canvas = document.getElementById(this.renderer.canvas)
+        this.#ctx = this.#canvas.getContext('2d')
+        this.#canvas.width = this.renderer.width
+        this.#canvas.height = this.renderer.height
 
         /*
          *
