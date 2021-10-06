@@ -49,7 +49,7 @@ class WtGui {
     /*
      *
      */
-    init = () => {
+    constructor() {
         this.#canvas = document.getElementById(this.renderer.canvas)
         this.#ctx = this.#canvas.getContext('2d')
         this.#canvas.width = this.renderer.width
@@ -58,12 +58,12 @@ class WtGui {
         /*
          *
          */
-        const render = setInterval(() => {
-            this.#opened_menus[(this.#opened_menus.length - 1)]
-            //ctx
-        }, 30)
+        render = setInterval(this.#renderFunc(), 30)
+    }
 
-        while(alive) {}
+    #renderFunc = () => {
+        this.#opened_menus[(this.#opened_menus.length - 1)]
+        //this.#ctx
     }
 
     /*
