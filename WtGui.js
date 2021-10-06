@@ -52,6 +52,9 @@ class WtGui {
      *
      */
     constructor(args) {
+        var args = args || {}
+        if(args.width !== undefined) WtGui.settings.width = args.width
+        if(args.height !== undefined) WtGui.settings.height = args.height
         if(!(WtGui.settings.width > 0)) throw new Error(`width undefined.`)
         if(!(WtGui.settings.height > 0)) throw new Error(`height undefined.`)
     }
