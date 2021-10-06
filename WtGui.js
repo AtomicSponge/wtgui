@@ -42,11 +42,11 @@ class WtGui {
     }
 
     #menus = [ { name: 'main_menu' }, { name: 'game_menu' } ]
-    #opened_menus = []
+    #openedMenus = []
     #renderer
 
-    #menus_active = true
-    #game_running = false
+    #menuRunning = false
+    #gameRunning = false
 
     /*
      *
@@ -63,7 +63,7 @@ class WtGui {
      *
      */
     #renderGui = () => {
-        this.#opened_menus[(this.#opened_menus.length - 1)]
+        this.#openedMenus[(this.#openedMenus.length - 1)]
         //this.#ctx
     }
 
@@ -82,6 +82,7 @@ class WtGui {
     startRenderer = () => {
         this.#configCanvas()
         this.#renderer = setInterval(this.#renderGui(), 30)
+        this.#menuRunning = true
     }
 
     /*
@@ -89,6 +90,7 @@ class WtGui {
      */
     stopRenderer = () => {
         clearInterval(this.#renderer)
+        this.#menuRunning = false
     }
 
     /*
@@ -109,14 +111,14 @@ class WtGui {
      *
      */
     openMenu = (name) => {
-        this.#opened_menus.push(name)
+        this.#openedMenus.push(name)
     }
 
     /*
      *
      */
     closeMenu = (bool) => {
-        (bool) ? this.#opened_menus = [] : this.#opened_menus.pop()
+        (bool) ? this.#openedMenus = [] : this.#openedMenus.pop()
     }
 }
 exports.WtGui = WtGui
