@@ -32,7 +32,10 @@ const argParser = (scope, data, args) => {
  *
  */
 class WtGui {
-    renderer = {
+    /*
+     *
+     */
+    static settings = {
         width: 0,
         height: 0,
         canvas: 'WTGuiCanvas'
@@ -45,25 +48,38 @@ class WtGui {
     #game_running = false
     #canvas = Element()
     #ctx = CanvasRenderingContext2D()
+    #renderer = {}
 
     /*
      *
      */
-    constructor() {
-        this.#canvas = document.getElementById(this.renderer.canvas)
+    constructor(args) {
+        this.#canvas = document.getElementById(this.settings.canvas)
         this.#ctx = this.#canvas.getContext('2d')
-        this.#canvas.width = this.renderer.width
-        this.#canvas.height = this.renderer.height
-
-        /*
-         *
-         */
-        render = setInterval(this.#renderFunc(), 30)
+        this.#canvas.width = this.settings.width
+        this.#canvas.height = this.settings.height
     }
 
-    #renderFunc = () => {
+    /*
+     *
+     */
+    #renderGui = () => {
         this.#opened_menus[(this.#opened_menus.length - 1)]
         //this.#ctx
+    }
+
+    /*
+     *
+     */
+    #startRender = () => {
+        this.#renderer = setInterval(this.#renderGui(), 30)
+    }
+
+    /*
+     *
+     */
+    #stopRender = () => {
+        clearInterval(this.#renderer)
     }
 
     /*
