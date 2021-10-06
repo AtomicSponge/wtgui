@@ -42,7 +42,8 @@ class WtGui {
     }
     static #singleton = undefined
 
-    #menus = [ { name: 'main_menu' }, { name: 'game_menu' } ]
+    #menus = [ { name: 'main_menu', title: 'Main Menu', items: [] },
+               { name: 'game_menu', title: 'Game Menu', items: [] } ]
     #openedMenus = []
     #renderer = {}
 
@@ -106,8 +107,9 @@ class WtGui {
     /*
      *
      */
-    addMenu = (name) => {
+    addMenu = (name, title) => {
         if(this.getMenu(name) !== undefined) return false
+        this.#menus.push({ name: name, title: title, items: [] })
         return true
     }
 
@@ -122,7 +124,10 @@ class WtGui {
      *
      */
     addItem = (name, item) => {
-        //
+        const menu = this.getMenu(name)
+        if(menu === undefined) return false
+        menu.items.push(item)
+        return true
     }
 
     /*
