@@ -40,12 +40,12 @@ class WtGui {
     static settings = {
         width: 0,
         height: 0,
+        bgcolor: 'rgba(0,0,0,255)',
         canvas: 'WTGuiCanvas'
     }
     static #singleton = undefined
 
-    #menus = [ { id: 'main_menu', title: 'Main Menu', items: [] },
-               { id: 'game_menu', title: 'Game Menu', items: [] } ]
+    #menus = []
     #openedMenus = []
     #renderer = {}
 
@@ -70,8 +70,15 @@ class WtGui {
      *
      */
     #renderGui = () => {
+        if(this.#openedMenus.length === 0) {
+            if(this.#gameRunning) this.openMenu('game_menu')
+            else this.openMenu('main_menu')
+        }
+        if(this.#openedMenus.length === 0) throw new WtGuiError(`No menus available.`)
         this.#openedMenus[(this.#openedMenus.length - 1)]
-        //this.#ctx
+        const ctx = this.#getCanvas().getContext('2d')
+        ctx.fillStyle = WtGui.settings.bgcolor
+        ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
     }
 
     /*
@@ -94,8 +101,8 @@ class WtGui {
      *
      */
     startRenderer = () => {
-        if(this.getMenu('main_menu') === undefined) throw new WtGuiError(`width undefined.`)
-        if(this.getMenu('game_menu') === undefined) throw new WtGuiError(`width undefined.`)
+        if(this.getMenu('main_menu') === undefined) throw new WtGuiError(`main_menu undefined.`)
+        if(this.getMenu('game_menu') === undefined) throw new WtGuiError(`game_menu undefined.`)
         this.#configCanvas()
         this.#renderer = setInterval(this.#renderGui(), 33)
         this.#menuRunning = true
@@ -138,9 +145,10 @@ class WtGui {
     /*
      *
      */
-    openMenu = (name) => {
-        if(this.getMenu(name) === undefined) return false
-        this.#openedMenus.push(this.getMenu(name))
+    openMenu = (id) => {
+        const tempMenu = this.getMenu(id)
+        if(tempMenu === undefined) return false
+        this.#openedMenus.push(tempMenu)
         return true
     }
 
