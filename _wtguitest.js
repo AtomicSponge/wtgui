@@ -1,3 +1,6 @@
+/*
+ *
+ */
 const { contextBridge, ipcRenderer } = require('electron')
 
 const { WtGui, WtGuiMenu, WtGuiButton } = require('./WtGui')
@@ -13,13 +16,12 @@ if(!menuSystem.addMenu(new WtGuiMenu({
     width: 50, height: 50
 }))) throw new Error('Unable to create main menu')
 
-{const res = menuSystem.addItem('main_menu', new WtGuiButton({
+if(!menuSystem.addItem('main_menu', new WtGuiButton({
     id: 'apply_btn',
     title: 'Apply',
     pos_x: 10, pos_y: 10,
     width: 40, height: 20
-}))
-if(!res) console.log('shit')}
+}))) console.log('shit')
 
 /*
  *
