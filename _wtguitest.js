@@ -20,7 +20,7 @@ if(!res) throw new Error('shit')}
     pos_x: 10, pos_y: 10,
     width: 40, height: 20
 }))
-if(!res) throw new Error('shit')}
+if(!res) console.log('shit')}
 
 /*
  *

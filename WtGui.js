@@ -130,15 +130,16 @@ class WtGui {
     /*
      *
      */
-    getMenu = (id) => { return this.#menus.find((elm) => { elm.id === id }) }
+    getMenu = (menuId) => { return this.#menus.find(({ id }) => { id === menuId }) }
 
     /*
      *
      */
-    addItem = (menuid, itemObj) => {
-        const menu = this.getMenu(menuid)
+    addItem = (menuId, itemObj) => {
+        const menu = this.getMenu(menuId)
+        console.log(menu)
         if(menu === undefined) return false
-        if(!(menuObj instanceof WtGuiItem)) return false
+        if(!(itemObj instanceof WtGuiItem)) return false
         menu.items.push(itemObj)
         return true
     }
@@ -146,8 +147,8 @@ class WtGui {
     /*
      *
      */
-    openMenu = (id) => {
-        const tempMenu = this.getMenu(id)
+    openMenu = (menuId) => {
+        const tempMenu = this.getMenu(menuId)
         if(tempMenu === undefined) return false
         this.#openedMenus.push(tempMenu)
         return true
