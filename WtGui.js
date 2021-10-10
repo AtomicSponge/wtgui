@@ -121,9 +121,9 @@ class WtGui {
      *
      */
     addMenu = (menuObj) => {
-        if(this.getMenu(menuObj.id) !== undefined) return false
-        if(!(menuObj instanceof WtGuiMenu)) return false
-        this.#menus.push(menuObj)
+        if(!(menuObj instanceof WtGuiMenu)) return false         //  Verify proper menu object
+        if(this.getMenu(menuObj.id) !== undefined) return false  //  Verify menu does not exist
+        this.#menus.push(menuObj)                                //  Add menu
         return true
     }
 
@@ -136,11 +136,13 @@ class WtGui {
      *
      */
     addItem = (menuId, itemObj) => {
+        if(!(itemObj instanceof WtGuiItem)) return false  //  Verify proper item object
         const menu = this.getMenu(menuId)
         console.log(menu)
-        if(menu === undefined) return false
-        if(!(itemObj instanceof WtGuiItem)) return false
-        menu.items.push(itemObj)
+        if(menu === undefined) return false               //  Verify menu exists
+        //  Verify item does not already exist
+        if(menu.items.find(({ id }) => { id === itemObj.id }) !== undefined) return false
+        menu.items.push(itemObj)                          //  Add item
         return true
     }
 
