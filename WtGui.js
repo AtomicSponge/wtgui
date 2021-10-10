@@ -122,7 +122,7 @@ class WtGui {
      */
     addMenu = (menuObj) => {
         if(this.getMenu(menuObj.id) !== undefined) return false
-        if(typeof menu !== WtGuiMenu) return false
+        if(!(menuObj instanceof WtGuiMenu)) return false
         this.#menus.push(menuObj)
         return true
     }
@@ -138,7 +138,7 @@ class WtGui {
     addItem = (menuid, itemObj) => {
         const menu = this.getMenu(menuid)
         if(menu === undefined) return false
-        if(typeof itemObj !== WtGuiItem) return false
+        if(!(menuObj instanceof WtGuiItem)) return false
         menu.items.push(itemObj)
         return true
     }
