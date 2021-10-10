@@ -9,12 +9,14 @@ const { Gamepads } = require('gamepads')
 /*
  *
  */
-const WtGuiError = (location, message) => {
-    this.name = 'WtGuiError'
-    this.message = `${location}\n${message}`
-    this.stack = (new Error()).stack
+class WtGuiError extends Error {
+    constructor(message) {
+        super(message)
+        if(Error.captureStackTrace) {
+            Error.captureStackTrace(this, WtGuiError);
+        }
+    }
 }
-WtGuiError.prototype = new Error
 exports.WtGuiError = WtGuiError
 
 /*
@@ -23,7 +25,7 @@ exports.WtGuiError = WtGuiError
 const argParser = (scope, data, args) => {
     args.forEach((arg) => {
         if(data[arg] === undefined)
-            throw new Error(`${arg} undefined.`)
+            throw new WtGuiError(`${arg} undefined.`)
         scope[arg] = data[arg]
     })
 }
@@ -42,8 +44,8 @@ class WtGui {
     }
     static #singleton = undefined
 
-    #menus = [ { name: 'main_menu', title: 'Main Menu', items: [] },
-               { name: 'game_menu', title: 'Game Menu', items: [] } ]
+    #menus = [ { id: 'main_menu', title: 'Main Menu', items: [] },
+               { id: 'game_menu', title: 'Game Menu', items: [] } ]
     #openedMenus = []
     #renderer = {}
 
@@ -54,13 +56,13 @@ class WtGui {
      *
      */
     constructor(args) {
-        if(WtGui.#singleton === undefined) WtGui.#singleton = this
+        if(WtGui.#singleton === undefined) WtGui.#singleton = this 
         else return WtGui.#singleton
         var args = args || {}
         if(args.width !== undefined) WtGui.settings.width = args.width
         if(args.height !== undefined) WtGui.settings.height = args.height
-        if(!(WtGui.settings.width > 0)) throw new Error(`width undefined.`)
-        if(!(WtGui.settings.height > 0)) throw new Error(`height undefined.`)
+        if(!(WtGui.settings.width > 0)) throw new WtGuiError(`width undefined.`)
+        if(!(WtGui.settings.height > 0)) throw new WtGuiError(`height undefined.`)
         return WtGui.#singleton
     }
 
@@ -92,6 +94,8 @@ class WtGui {
      *
      */
     startRenderer = () => {
+        if(this.getMenu('main_menu') === undefined) throw new WtGuiError(`width undefined.`)
+        if(this.getMenu('game_menu') === undefined) throw new WtGuiError(`width undefined.`)
         this.#configCanvas()
         this.#renderer = setInterval(this.#renderGui(), 33)
         this.#menuRunning = true
@@ -108,17 +112,17 @@ class WtGui {
     /*
      *
      */
-    addMenu = (name, title) => {
-        if(this.getMenu(name) !== undefined) return false
-        this.#menus.push({ name: name, title: title, items: [] })
+    addMenu = (menu) => {
+        if(this.getMenu(menu.id) !== undefined) return false
+        this.#menus.push(menu)
         return true
     }
 
     /*
      *
      */
-    getMenu = (name) => {
-        return this.#menus.find((elm) => { elm.name === name })
+    getMenu = (id) => {
+        return this.#menus.find((elm) => { elm.id === id })
     }
 
     /*
@@ -159,8 +163,10 @@ class WtGuiMenu {
     constructor(args) {
         var args = args || {}
         argParser(this, args,
-            [ 'pos_x', 'pos_y',
+            [ 'id', 'title',
+              'pos_x', 'pos_y',
               'width', 'height' ])
+        this.items = []
     }
 }
 exports.WtGuiMenu = WtGuiMenu
@@ -175,7 +181,8 @@ class WtGuiItem {
     constructor(args) {
         var args = args || {}
         argParser(this, args,
-            [ 'pos_x', 'pos_y',
+            [ 'id', 'title',
+              'pos_x', 'pos_y',
               'width', 'height' ])
     }
 }
