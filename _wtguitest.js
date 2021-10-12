@@ -2,7 +2,6 @@
  *
  */
 const { contextBridge, ipcRenderer } = require('electron')
-
 const { WtGui, WtGuiMenu, WtGuiButton } = require('./WtGui')
 
 WtGui.settings.width = 100
