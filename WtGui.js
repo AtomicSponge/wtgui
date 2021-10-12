@@ -130,7 +130,7 @@ class WtGui {
     /*
      *
      */
-    getMenu = (menuId) => { return this.#menus.find(({ id }) => { id === menuId }) }
+    getMenu = (menuId) => { return this.#menus.find(elm => elm.id === menuId) }
 
     /*
      *
@@ -141,7 +141,7 @@ class WtGui {
         console.log(menu)
         if(menu === undefined) return false               //  Verify menu exists
         //  Verify item does not already exist
-        if(menu.items.find(({ id }) => { id === itemObj.id }) !== undefined) return false
+        if(menu.items.find(elm => elm.id === itemObj.id) !== undefined) return false
         menu.items.push(itemObj)                          //  Add item
         return true
     }

@@ -21,7 +21,7 @@ if(!menuSystem.addItem('main_menu', new WtGuiButton({
     title: 'Apply',
     pos_x: 10, pos_y: 10,
     width: 40, height: 20
-}))) console.log('shit')
+}))) throw new Error('Unable to add item')
 
 /*
  *
