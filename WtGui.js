@@ -68,7 +68,7 @@ class WtGui {
             if(WtGui.#gameRunning) WtGui.openMenu('game_menu')
             else WtGui.openMenu('main_menu')
         }
-        if(this.#openedMenus.length === 0) throw new WtGuiError(`No menus available.`)
+        if(WtGui.#openedMenus.length === 0) throw new WtGuiError(`No menus available.`)
         WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
         const ctx = WtGui.#getCanvas().getContext('2d')
         ctx.fillStyle = WtGui.settings.bgcolor
@@ -120,7 +120,7 @@ class WtGui {
      *
      */
     static addMenu = (menuObj) => {
-        if(!(menuObj instanceof WtGuiMenu)) return false         //  Verify proper menu object
+        if(!(menuObj instanceof WtGuiMenu)) return false          //  Verify proper menu object
         if(WtGui.getMenu(menuObj.id) !== undefined) return false  //  Verify menu does not exist
         WtGui.#menus.push(menuObj)                                //  Add menu
         return true
@@ -159,7 +159,7 @@ class WtGui {
      */
     static closeMenu = (bool) => { (bool) ? WtGui.#openedMenus = [] : WtGui.#openedMenus.pop() }
 }
-module.exports.WtGui = WtGui
+exports.WtGui = WtGui
 
 /*
  *
