@@ -4,7 +4,7 @@
  * 
  **************************************** */
 
-const { Gamepads } = require('gamepads')
+//const { Gamepads } = require('gamepads')
 
 /*
  *
@@ -45,38 +45,32 @@ class WtGui {
     }
     static #singleton = undefined
 
-    #menus = []
-    #openedMenus = []
-    #renderer = {}
+    static #menus = []
+    static #openedMenus = []
+    static #renderer = {}
 
-    #menuRunning = false
-    #gameRunning = false
+    static #menuRunning = false
+    static #gameRunning = false
 
     /*
      *
      */
-    constructor(args) {
+    constructor() {
         if(WtGui.#singleton === undefined) WtGui.#singleton = this 
-        else return WtGui.#singleton
-        var args = args || {}
-        if(args.width !== undefined) WtGui.settings.width = args.width
-        if(args.height !== undefined) WtGui.settings.height = args.height
-        if(!(WtGui.settings.width > 0)) throw new WtGuiError(`width undefined.`)
-        if(!(WtGui.settings.height > 0)) throw new WtGuiError(`height undefined.`)
         return WtGui.#singleton
     }
 
     /*
      *
      */
-    #renderGui = () => {
-        if(this.#openedMenus.length === 0) {
-            if(this.#gameRunning) this.openMenu('game_menu')
-            else this.openMenu('main_menu')
+    static #renderGui = () => {
+        if(WtGui.#openedMenus.length === 0) {
+            if(WtGui.#gameRunning) WtGui.openMenu('game_menu')
+            else WtGui.openMenu('main_menu')
         }
         if(this.#openedMenus.length === 0) throw new WtGuiError(`No menus available.`)
-        this.#openedMenus[(this.#openedMenus.length - 1)]
-        const ctx = this.#getCanvas().getContext('2d')
+        WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
+        const ctx = WtGui.#getCanvas().getContext('2d')
         ctx.fillStyle = WtGui.settings.bgcolor
         ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
     }
@@ -84,8 +78,8 @@ class WtGui {
     /*
      *
      */
-    #configCanvas = () => {
-        const canvas = this.#getCanvas()
+    static #configCanvas = () => {
+        const canvas = WtGui.#getCanvas()
         canvas.width = WtGui.settings.width
         canvas.height = WtGui.settings.height
     }
@@ -93,52 +87,56 @@ class WtGui {
     /*
      *
      */
-    #getCanvas = () => { return document.getElementById(WtGui.settings.canvas) }
+    static #getCanvas = () => { return document.getElementById(WtGui.settings.canvas) }
 
     /*
      *
      */
-    startRenderer = () => {
-        this.#configCanvas()
-        this.#renderer = setInterval(this.#renderGui(), 33)
-        this.#menuRunning = true
+    static startRenderer = () => {
+        WtGui.#configCanvas()
+        WtGui.#renderer = setInterval(WtGui.#renderGui(), 33)
+        WtGui.#menuRunning = true
     }
 
     /*
      *
      */
-    stopRenderer = () => {
-        clearInterval(this.#renderer)
-        this.#menuRunning = false
+    static stopRenderer = () => {
+        clearInterval(WtGui.#renderer)
+        WtGui.#menuRunning = false
+    }
+
+    static printmenu = () => {
+        console.log('menu:')
+        console.log(WtGui.#menus)
     }
 
     /*
      *
      */
-    isRunning = () => { return this.#menuRunning }
+    static isRunning = () => { return WtGui.#menuRunning }
 
     /*
      *
      */
-    addMenu = (menuObj) => {
+    static addMenu = (menuObj) => {
         if(!(menuObj instanceof WtGuiMenu)) return false         //  Verify proper menu object
-        if(this.getMenu(menuObj.id) !== undefined) return false  //  Verify menu does not exist
-        this.#menus.push(menuObj)                                //  Add menu
+        if(WtGui.getMenu(menuObj.id) !== undefined) return false  //  Verify menu does not exist
+        WtGui.#menus.push(menuObj)                                //  Add menu
         return true
     }
 
     /*
      *
      */
-    getMenu = (menuId) => { return this.#menus.find(elm => elm.id === menuId) }
+    static getMenu = (menuId) => { return WtGui.#menus.find(elm => elm.id === menuId) }
 
     /*
      *
      */
-    addItem = (menuId, itemObj) => {
+    static addItem = (menuId, itemObj) => {
         if(!(itemObj instanceof WtGuiItem)) return false  //  Verify proper item object
-        const menu = this.getMenu(menuId)
-        console.log(menu)
+        const menu = WtGui.getMenu(menuId)
         if(menu === undefined) return false               //  Verify menu exists
         //  Verify item does not already exist
         if(menu.items.find(elm => elm.id === itemObj.id) !== undefined) return false
@@ -149,19 +147,19 @@ class WtGui {
     /*
      *
      */
-    openMenu = (menuId) => {
-        const tempMenu = this.getMenu(menuId)
+    static openMenu = (menuId) => {
+        const tempMenu = WtGui.getMenu(menuId)
         if(tempMenu === undefined) return false
-        this.#openedMenus.push(tempMenu)
+        WtGui.#openedMenus.push(tempMenu)
         return true
     }
 
     /*
      *
      */
-    closeMenu = (bool) => { (bool) ? this.#openedMenus = [] : this.#openedMenus.pop() }
+    static closeMenu = (bool) => { (bool) ? WtGui.#openedMenus = [] : WtGui.#openedMenus.pop() }
 }
-exports.WtGui = WtGui
+module.exports.WtGui = WtGui
 
 /*
  *
