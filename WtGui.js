@@ -40,7 +40,7 @@ class WtGui {
     static settings = {
         width: 0,
         height: 0,
-        bgcolor: 'rgba(0,0,0,255)',
+        bgcolor: 'rgba(0,0,0,0)',
     }
 
     static #menus = []
@@ -101,12 +101,19 @@ class WtGui {
             else WtGui.openMenu('main_menu')
         }
         if(WtGui.#openedMenus.length === 0) throw new WtGuiError(`No menus available.`)
-        WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)].items.forEach(elm => {
-            console.log(elm)
-        })
+        const currentMenu = WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
+
         const ctx = WtGui.#canvas.getContext('2d')
         ctx.fillStyle = WtGui.settings.bgcolor
         ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
+
+        ctx.fillStyle = currentMenu.bgcolor
+        ctx.fillRect(currentMenu.pos_x, currentMenu.pos_y, currentMenu.width, currentMenu.height)
+
+        currentMenu.items.forEach(elm => {
+            ctx.fillStyle = elm.bgcolor
+            ctx.fillRect(elm.pos_x, elm.pos_y, elm.width, elm.height)
+        })
     }
 
     /*
@@ -175,6 +182,8 @@ class WtGuiMenu {
               'pos_x', 'pos_y',
               'width', 'height' ])
         this.items = []
+        this.bgcolor = args.bgcolor || 'rgb(0,0,0)'
+        this.fgcolor = args.fgcolor || 'rgb(255,255,255)'
     }
 }
 exports.WtGuiMenu = WtGuiMenu
@@ -191,7 +200,9 @@ class WtGuiItem {
         argParser(this, args,
             [ 'id', 'title',
               'pos_x', 'pos_y',
-              'width', 'height' ])
+              'width', 'height'])
+        this.bgcolor = args.bgcolor || 'rgb(255,0,0)'
+        this.fgcolor = args.fgcolor || 'rgb(255,255,255)'
     }
 }
 exports.WtGuiItem = WtGuiItem

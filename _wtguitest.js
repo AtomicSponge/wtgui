@@ -6,7 +6,6 @@ const { WtGui, WtGuiMenu, WtGuiButton } = require('./WtGui')
 
 WtGui.settings.width = 1024
 WtGui.settings.height = 768
-WtGui.settings.bgcolor = 'rgb(0,0,0)'
 
 if(!WtGui.addMenu(new WtGuiMenu({
     id: 'main_menu',
