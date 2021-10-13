@@ -107,11 +107,6 @@ class WtGui {
         ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
     }
 
-    static printmenu = () => {
-        console.log('menu:')
-        console.log(WtGui.#menus)
-    }
-
     /*
      *
      */
@@ -154,6 +149,13 @@ class WtGui {
      *
      */
     static closeMenu = (bool) => { (bool) ? WtGui.#openedMenus = [] : WtGui.#openedMenus.pop() }
+
+    tests = {
+        printmenu: () => {
+            console.log('menu:')
+            console.log(WtGui.#menus)
+        }
+    }
 }
 exports.WtGui = WtGui
 
