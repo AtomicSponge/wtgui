@@ -40,6 +40,7 @@ class WtGui {
         width: 0,
         height: 0,
         bgcolor: 'rgba(0,0,0,0)',
+        bgimage: undefined
     }
 
     static #menus = []
@@ -189,6 +190,7 @@ class WtGuiMenu {
               'pos_x', 'pos_y',
               'width', 'height' ])
         this.items = []
+        this.bgimage = args.bgimage || undefined
         this.bgcolor = args.bgcolor || 'rgb(0,0,0)'
         this.fgcolor = args.fgcolor || 'rgb(255,255,255)'
     }
