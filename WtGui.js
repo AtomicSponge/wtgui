@@ -129,6 +129,13 @@ class WtGui {
     /*
      *
      */
+    static #buildMenu = () => {
+        //
+    }
+
+    /*
+     *
+     */
     static getMenu = (menuId) => { return WtGui.#menus.find(elm => elm.id === menuId) }
 
     /*
