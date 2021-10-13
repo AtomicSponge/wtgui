@@ -42,7 +42,7 @@ class WtGui {
         height: 0,
         bgcolor: 'rgba(0,0,0,255)',
     }
-    static #singleton = undefined
+    //static #singleton = undefined
 
     static #menus = []
     static #openedMenus = []
@@ -56,8 +56,9 @@ class WtGui {
      *
      */
     constructor() {
-        if(WtGui.#singleton === undefined) WtGui.#singleton = this 
-        return WtGui.#singleton
+        //if(WtGui.#singleton === undefined) WtGui.#singleton = this 
+        //return WtGui.#singleton
+        return false
     }
 
     /*
@@ -78,18 +79,14 @@ class WtGui {
     /*
      *
      */
-    static #configCanvas = () => {
-        console.log(WtGui.#canvas)
-        WtGui.#canvas.width = WtGui.settings.width
-        WtGui.#canvas.height = WtGui.settings.height
-    }
+    static setCanvas = (canvas) => { WtGui.#canvas = canvas }
 
     /*
      *
      */
-    static setCanvas = (canvas) => {
-        WtGui.#canvas = canvas
-        console.log(WtGui.#canvas)
+    static #configCanvas = () => {
+        WtGui.#canvas.width = WtGui.settings.width
+        WtGui.#canvas.height = WtGui.settings.height
     }
 
     /*
