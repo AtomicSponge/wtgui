@@ -24,8 +24,7 @@ exports.WtGuiError = WtGuiError
  */
 const argParser = (scope, data, args) => {
     args.forEach((arg) => {
-        if(data[arg] === undefined)
-            throw new WtGuiError(`${arg} undefined.`)
+        if(data[arg] === undefined) throw new WtGuiError(`${arg} undefined.`)
         scope[arg] = data[arg]
     })
 }
