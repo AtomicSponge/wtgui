@@ -101,7 +101,9 @@ class WtGui {
             else WtGui.openMenu('main_menu')
         }
         if(WtGui.#openedMenus.length === 0) throw new WtGuiError(`No menus available.`)
-        //WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
+        WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)].items.forEach(elm => {
+            console.log(elm)
+        })
         const ctx = WtGui.#canvas.getContext('2d')
         ctx.fillStyle = WtGui.settings.bgcolor
         ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
