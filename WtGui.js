@@ -53,13 +53,9 @@ class WtGui {
     static #gameRunning = false
 
     /*
-     *
+     * Don't allow direct construction
      */
-    constructor() {
-        //if(WtGui.#singleton === undefined) WtGui.#singleton = this 
-        //return WtGui.#singleton
-        return false
-    }
+    constructor() { return false }
 
     /*
      *
