@@ -42,36 +42,19 @@ class WtGui {
         height: 0,
         bgcolor: 'rgba(0,0,0,255)',
     }
-    //static #singleton = undefined
 
     static #menus = []
     static #openedMenus = []
-    static #renderer = {}
     static #canvas = null
-
     static #menuRunning = false
     static #gameRunning = false
+
+    static #renderer = null
 
     /*
      * Don't allow direct construction
      */
     constructor() { return false }
-
-    /*
-     *
-     */
-    static #renderGui = () => {
-        if(WtGui.#openedMenus.length === 0) {
-            if(WtGui.#gameRunning) WtGui.openMenu('game_menu')
-            else WtGui.openMenu('main_menu')
-        }
-        if(WtGui.#openedMenus.length === 0) throw new WtGuiError(`No menus available.`)
-        //WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
-        const ctx = WtGui.#canvas.getContext('2d')
-        console.log(ctx)
-        ctx.fillStyle = WtGui.settings.bgcolor
-        ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
-    }
 
     /*
      *
@@ -91,7 +74,8 @@ class WtGui {
      */
     static startRenderer = () => {
         WtGui.#configCanvas()
-        WtGui.#renderer = setInterval(WtGui.#renderGui(), 33)
+        WtGui.stopRenderer()
+        WtGui.#renderer = setInterval(WtGui.#renderGui, 33)
         WtGui.#menuRunning = true
     }
 
@@ -103,15 +87,30 @@ class WtGui {
         WtGui.#menuRunning = false
     }
 
-    static printmenu = () => {
-        console.log('menu:')
-        console.log(WtGui.#menus)
-    }
-
     /*
      *
      */
     static isRunning = () => { return WtGui.#menuRunning }
+
+    /*
+     *
+     */
+    static #renderGui = () => {
+        if(WtGui.#openedMenus.length === 0) {
+            if(WtGui.#gameRunning) WtGui.openMenu('game_menu')
+            else WtGui.openMenu('main_menu')
+        }
+        if(WtGui.#openedMenus.length === 0) throw new WtGuiError(`No menus available.`)
+        //WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
+        const ctx = WtGui.#canvas.getContext('2d')
+        ctx.fillStyle = WtGui.settings.bgcolor
+        ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
+    }
+
+    static printmenu = () => {
+        console.log('menu:')
+        console.log(WtGui.#menus)
+    }
 
     /*
      *
