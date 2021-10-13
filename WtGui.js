@@ -150,8 +150,8 @@ class WtGui {
      */
     static closeMenu = (bool) => { (bool) ? WtGui.#openedMenus = [] : WtGui.#openedMenus.pop() }
 
-    tests = {
-        printmenu: () => {
+    static tests = {
+        printMenu: () => {
             console.log('menu:')
             console.log(WtGui.#menus)
         }

@@ -22,7 +22,7 @@ if(!WtGui.addItem('main_menu', new WtGuiButton({
     width: 40, height: 20
 }))) throw new Error('Unable to add item')
 
-//WtGui.printmenu()
+//WtGui.tests.printMenu()
 
 /*
  *
