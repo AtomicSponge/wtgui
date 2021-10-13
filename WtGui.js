@@ -112,7 +112,8 @@ class WtGui {
 
         currentMenu.items.forEach(elm => {
             ctx.fillStyle = elm.bgcolor
-            ctx.fillRect(elm.pos_x, elm.pos_y, elm.width, elm.height)
+            ctx.fillRect(currentMenu.pos_x + elm.pos_x, currentMenu.pos_y + elm.pos_y,
+                elm.width, elm.height)
         })
     }
 
