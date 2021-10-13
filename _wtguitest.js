@@ -4,8 +4,9 @@
 const { contextBridge, ipcRenderer } = require('electron')
 const { WtGui, WtGuiMenu, WtGuiButton } = require('./WtGui')
 
-WtGui.settings.width = 100
-WtGui.settings.height = 100
+WtGui.settings.width = 900
+WtGui.settings.height = 700
+WtGui.settings.bgcolor = 'rgb(255,255,255)'
 
 if(!WtGui.addMenu(new WtGuiMenu({
     id: 'main_menu',
@@ -21,7 +22,7 @@ if(!WtGui.addItem('main_menu', new WtGuiButton({
     width: 40, height: 20
 }))) throw new Error('Unable to add item')
 
-WtGui.printmenu()
+//WtGui.printmenu()
 
 /*
  *
@@ -34,8 +35,9 @@ ipcRenderer.on('send-input-data', (event, message) => {
  *
  */
 contextBridge.exposeInMainWorld(
-    'something',
+    'WtGui',
     {
-        data: 'none'
+        startRenderer: WtGui.startRenderer()
+        //stopRenderer: WtGui.stopRenderer()
     }
 )
