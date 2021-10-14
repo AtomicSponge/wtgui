@@ -47,6 +47,7 @@ class WtGui {
     static #openedMenus = []
     static #currentMenu = null
     static #canvas = null
+    static #ctx = null
     static #menuRunning = false
     static #gameRunning = false
     static #configRan = false
@@ -79,6 +80,8 @@ class WtGui {
 
         WtGui.#canvas.width = WtGui.settings.width
         WtGui.#canvas.height = WtGui.settings.height
+
+        WtGui.#ctx = WtGui.#canvas.getContext('2d')
     }
 
     /*
@@ -114,17 +117,16 @@ class WtGui {
         }
         if(WtGui.#openedMenus.length === 0) throw new WtGuiError(`No menus available.`)
 
-        const ctx = WtGui.#canvas.getContext('2d')
-        ctx.fillStyle = WtGui.settings.bgcolor
-        ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
+        WtGui.#ctx.fillStyle = WtGui.settings.bgcolor
+        WtGui.#ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
 
-        ctx.fillStyle = WtGui.#currentMenu.bgcolor
-        ctx.fillRect(WtGui.#currentMenu.pos_x, WtGui.#currentMenu.pos_y,
+        WtGui.#ctx.fillStyle = WtGui.#currentMenu.bgcolor
+        WtGui.#ctx.fillRect(WtGui.#currentMenu.pos_x, WtGui.#currentMenu.pos_y,
             WtGui.#currentMenu.width, WtGui.#currentMenu.height)
 
         WtGui.#currentMenu.items.forEach(elm => {
-            ctx.fillStyle = elm.bgcolor
-            ctx.fillRect(WtGui.#currentMenu.pos_x + elm.pos_x,
+            WtGui.#ctx.fillStyle = elm.bgcolor
+            WtGui.#ctx.fillRect(WtGui.#currentMenu.pos_x + elm.pos_x,
                 WtGui.#currentMenu.pos_y + elm.pos_y,
                 elm.width, elm.height)
         })
