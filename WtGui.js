@@ -49,6 +49,7 @@ class WtGui {
     static #canvas = null
     static #menuRunning = false
     static #gameRunning = false
+    static #configRan = false
 
     static #renderer = null
 
@@ -65,22 +66,26 @@ class WtGui {
     /*
      *
      */
-    static #configCanvas = () => {
+    static #configWtGui = () => {
+        if(!WtGui.#configRan) {
+            WtGui.#canvas.addEventListener('mousedown', WtGui.#events.onMouseDown, false)
+            WtGui.#canvas.addEventListener('mouseup', WtGui.#events.onMouseUp, false)
+
+            window.addEventListener('keydown', WtGui.#events.onKeyDown, false)
+            window.addEventListener('keyup', WtGui.#events.onKeyUp, false)
+
+            WtGui.#configRan = true
+        }
+
         WtGui.#canvas.width = WtGui.settings.width
         WtGui.#canvas.height = WtGui.settings.height
-
-        WtGui.#canvas.addEventListener('mousedown', WtGui.#events.onMouseDown, false)
-        WtGui.#canvas.addEventListener('mouseup', WtGui.#events.onMouseUp, false)
-
-        window.addEventListener('keydown', WtGui.#events.onKeyDown, false)
-        window.addEventListener('keyup', WtGui.#events.onKeyUp, false)
     }
 
     /*
      *
      */
     static startRenderer = () => {
-        WtGui.#configCanvas()
+        WtGui.#configWtGui()
         WtGui.stopRenderer()
         WtGui.#renderer = setInterval(WtGui.#renderGui, 33)
         WtGui.#menuRunning = true
@@ -222,6 +227,9 @@ class WtGui {
         }
     }
 
+    /*
+     *
+     */
     static tests = {
         printMenu: () => {
             console.log('menu:')
