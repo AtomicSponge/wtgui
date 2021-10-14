@@ -69,11 +69,11 @@ class WtGui {
         WtGui.#canvas.width = WtGui.settings.width
         WtGui.#canvas.height = WtGui.settings.height
 
-        WtGui.#canvas.addEventListener("mousedown", WtGui.#events.onMouseDown, false)
-        WtGui.#canvas.addEventListener("mouseup", WtGui.#events.onMouseUp, false)
+        WtGui.#canvas.addEventListener('mousedown', WtGui.#events.onMouseDown, false)
+        WtGui.#canvas.addEventListener('mouseup', WtGui.#events.onMouseUp, false)
 
-        WtGui.#canvas.addEventListener("keydown", WtGui.#events.onKeyDown, false)
-        WtGui.#canvas.addEventListener("keyup", WtGui.#events.onKeyUp, false)
+        window.addEventListener('keydown', WtGui.#events.onKeyDown, false)
+        window.addEventListener('keyup', WtGui.#events.onKeyUp, false)
     }
 
     /*
@@ -197,28 +197,28 @@ class WtGui {
          *
          */
         onMouseDown: (event) => {
-            //
+            //alert(event)
         },
 
         /*
          *
          */
         onMouseUp: (event) => {
-            //
+            //alert(event)
         },
 
         /*
          *
          */
         onKeyDown: (event) => {
-            //
+            //alert(event)
         },
 
         /*
          *
          */
         onKeyUp: (event) => {
-            //
+            //alert(event)
         }
     }
 
