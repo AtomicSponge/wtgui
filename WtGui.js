@@ -117,13 +117,16 @@ class WtGui {
         }
         if(WtGui.#openedMenus.length === 0) throw new WtGuiError(`No menus available.`)
 
+        //  Render the background
         WtGui.#ctx.fillStyle = WtGui.settings.bgcolor
         WtGui.#ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
 
+        //  Render the menu
         WtGui.#ctx.fillStyle = WtGui.#currentMenu.bgcolor
         WtGui.#ctx.fillRect(WtGui.#currentMenu.pos_x, WtGui.#currentMenu.pos_y,
             WtGui.#currentMenu.width, WtGui.#currentMenu.height)
 
+        //  Render menu items
         WtGui.#currentMenu.items.forEach(elm => {
             WtGui.#ctx.fillStyle = elm.bgcolor
             WtGui.#ctx.fillRect(WtGui.#currentMenu.pos_x + elm.pos_x,
@@ -136,7 +139,10 @@ class WtGui {
      *
      */
     static addMenu = (menuObj) => {
-        if(!(menuObj instanceof WtGuiMenu)) return false          //  Verify proper menu object
+        if(!(menuObj instanceof WtGuiMenu)) {                     //  Verify proper menu object
+            menuObj = WtGui.#buildMenu(menuObj)                   //  Try to build menu
+            if(!(menuObj instanceof WtGuiMenu)) return false      //  Fail if still not a menu
+        }
         if(WtGui.getMenu(menuObj.id) !== undefined) return false  //  Verify menu does not exist
         WtGui.#menus.push(menuObj)                                //  Add menu
         return true
@@ -145,8 +151,8 @@ class WtGui {
     /*
      *
      */
-    static #buildMenu = () => {
-        //
+    static #buildMenu = (menuObj) => {
+        return menuObj
     }
 
     /*
