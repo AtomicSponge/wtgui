@@ -71,6 +71,7 @@ class WtGui {
         if(!WtGui.#configRan) {
             WtGui.#canvas.addEventListener('mousedown', WtGui.#events.onMouseDown, false)
             WtGui.#canvas.addEventListener('mouseup', WtGui.#events.onMouseUp, false)
+            WtGui.#canvas.addEventListener('mousemove', WtGui.#events.onMouseMove, false)
 
             window.addEventListener('keydown', WtGui.#events.onKeyDown, false)
             window.addEventListener('keyup', WtGui.#events.onKeyUp, false)
@@ -217,6 +218,13 @@ class WtGui {
          *
          */
         onMouseUp: (event) => {
+            //alert(event)
+        },
+
+        /*
+         *
+         */
+        onMouseMove: (event) => {
             //alert(event)
         },
 
