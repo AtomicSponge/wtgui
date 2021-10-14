@@ -45,6 +45,7 @@ class WtGui {
 
     static #menus = []
     static #openedMenus = []
+    static #currentMenu = null
     static #canvas = null
     static #menuRunning = false
     static #gameRunning = false
@@ -69,6 +70,7 @@ class WtGui {
         WtGui.#canvas.height = WtGui.settings.height
 
         WtGui.#canvas.addEventListener("mousedown", WtGui.#events.onMouseDown, false)
+        WtGui.#canvas.addEventListener("mouseup", WtGui.#events.onMouseUp, false)
     }
 
     /*
@@ -103,18 +105,19 @@ class WtGui {
             else WtGui.openMenu('main_menu')
         }
         if(WtGui.#openedMenus.length === 0) throw new WtGuiError(`No menus available.`)
-        const currentMenu = WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
 
         const ctx = WtGui.#canvas.getContext('2d')
         ctx.fillStyle = WtGui.settings.bgcolor
         ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
 
-        ctx.fillStyle = currentMenu.bgcolor
-        ctx.fillRect(currentMenu.pos_x, currentMenu.pos_y, currentMenu.width, currentMenu.height)
+        ctx.fillStyle = WtGui.#currentMenu.bgcolor
+        ctx.fillRect(WtGui.#currentMenu.pos_x, WtGui.#currentMenu.pos_y,
+            WtGui.#currentMenu.width, WtGui.#currentMenu.height)
 
-        currentMenu.items.forEach(elm => {
+        WtGui.#currentMenu.items.forEach(elm => {
             ctx.fillStyle = elm.bgcolor
-            ctx.fillRect(currentMenu.pos_x + elm.pos_x, currentMenu.pos_y + elm.pos_y,
+            ctx.fillRect(WtGui.#currentMenu.pos_x + elm.pos_x,
+                WtGui.#currentMenu.pos_y + elm.pos_y,
                 elm.width, elm.height)
         })
     }
@@ -161,13 +164,27 @@ class WtGui {
         const tempMenu = WtGui.getMenu(menuId)
         if(tempMenu === undefined) return false
         WtGui.#openedMenus.push(tempMenu)
+        WtGui.#currentMenu = WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
         return true
     }
 
     /*
      *
      */
-    static closeMenu = (bool) => { (bool) ? WtGui.#openedMenus = [] : WtGui.#openedMenus.pop() }
+    static closeMenu = (bool) => {
+        if(bool) {
+            WtGui.#openedMenus = []
+            if(WtGui.#gameRunning) return // go back to game
+            else WtGui.openMenu('main_menu')
+        } else {
+            WtGui.#openedMenus.pop()
+            if(WtGui.#openedMenus.length === 0) {
+                if(WtGui.#gameRunning) return // go back to game
+                else WtGui.openMenu('main_menu')
+            }
+            WtGui.#currentMenu = WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
+        }
+    }
 
     /*
      *
