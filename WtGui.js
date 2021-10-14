@@ -71,6 +71,9 @@ class WtGui {
 
         WtGui.#canvas.addEventListener("mousedown", WtGui.#events.onMouseDown, false)
         WtGui.#canvas.addEventListener("mouseup", WtGui.#events.onMouseUp, false)
+
+        WtGui.#canvas.addEventListener("keydown", WtGui.#events.onKeyDown, false)
+        WtGui.#canvas.addEventListener("keyup", WtGui.#events.onKeyUp, false)
     }
 
     /*

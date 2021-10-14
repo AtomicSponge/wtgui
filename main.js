@@ -29,7 +29,7 @@ const createMainWindow = () => {
 		mainWindow.webContents.send('send-json-data', {})
 	})
 	mainWindow.loadFile('_wtguitest.html')
-	//mainWindow.webContents.openDevTools()
+	mainWindow.webContents.openDevTools()
 }
 
 /*
