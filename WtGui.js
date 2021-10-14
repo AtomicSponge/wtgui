@@ -43,6 +43,14 @@ class WtGui {
         bgimage: undefined
     }
 
+    /*
+     *
+     */
+    static #mouseCords = {
+        pos_x: 0,
+        pos_y: 0
+    }
+
     static #menus = []
     static #openedMenus = []
     static #currentMenu = null
@@ -225,7 +233,8 @@ class WtGui {
          *
          */
         onMouseMove: (event) => {
-            //alert(event)
+            WtGui.#mouseCords.pos_x = 0
+            WtGui.#mouseCords.pos_y = 0
         },
 
         /*
@@ -239,6 +248,20 @@ class WtGui {
          *
          */
         onKeyUp: (event) => {
+            //alert(event)
+        },
+
+        /*
+         *
+         */
+        onButtonDown: (event) => {
+            //alert(event)
+        },
+
+        /*
+         *
+         */
+        onButtonUp: (event) => {
             //alert(event)
         }
     }
