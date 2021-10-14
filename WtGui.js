@@ -67,6 +67,8 @@ class WtGui {
     static #configCanvas = () => {
         WtGui.#canvas.width = WtGui.settings.width
         WtGui.#canvas.height = WtGui.settings.height
+
+        WtGui.#canvas.addEventListener("mousedown", WtGui.#events.onMouseDown, false)
     }
 
     /*
@@ -166,6 +168,39 @@ class WtGui {
      *
      */
     static closeMenu = (bool) => { (bool) ? WtGui.#openedMenus = [] : WtGui.#openedMenus.pop() }
+
+    /*
+     *
+     */
+    static #events = {
+        /*
+         *
+         */
+        onMouseDown: (event) => {
+            //
+        },
+
+        /*
+         *
+         */
+        onMouseUp: (event) => {
+            //
+        },
+
+        /*
+         *
+         */
+        onKeyDown: (event) => {
+            //
+        },
+
+        /*
+         *
+         */
+        onKeyUp: (event) => {
+            //
+        }
+    }
 
     static tests = {
         printMenu: () => {
