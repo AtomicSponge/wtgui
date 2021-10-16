@@ -40,7 +40,9 @@ class WtGui {
         width: 0,
         height: 0,
         bgcolor: 'rgba(0,0,0,0)',
-        bgimage: undefined
+        bgimage: {
+            file: undefined
+        }
     }
 
     /*
