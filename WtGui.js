@@ -53,16 +53,13 @@ class WtGui {
         pos_y: 0
     }
 
-    static #menus = []
-    static #openedMenus = []
-    static #currentMenu = null
-    static #canvas = null
-    static #ctx = null
-    static #menuRunning = false
-    static #gameRunning = false
-    static #configRan = false
-
-    static #renderer = null
+    static #menus = []           //  Array of available menus
+    static #openedMenus = []     //  Array of opened menus
+    static #currentMenu = null   //  Current opened menu
+    static #canvas = null        //  Reference to canvas
+    static #ctx = null           //  Reference to canvas contex
+    static #menuRunning = false  //  Menu system currently running
+    static #gameRunning = false  //  Game is currently running
 
     /*
      * Don't allow direct construction
@@ -77,16 +74,17 @@ class WtGui {
     /*
      *
      */
+    static #configRan = false
     static #configWtGui = () => {
         if(!WtGui.#configRan) {
             WtGui.#canvas.addEventListener('mousedown', WtGui.#events.onMouseDown, false)
             WtGui.#canvas.addEventListener('mouseup', WtGui.#events.onMouseUp, false)
             WtGui.#canvas.addEventListener('mousemove', WtGui.#events.onMouseMove, false)
 
-            WtGui.#canvas.addEventListener("touchstart", onTouchStart, false)
-            WtGui.#canvas.addEventListener("touchend", onTouchEnd, false)
-            WtGui.#canvas.addEventListener("touchcancel", onTouchCancel, false)
-            WtGui.#canvas.addEventListener("touchmove", onTouchMove, false)
+            WtGui.#canvas.addEventListener("touchstart", WtGui.#events.onTouchStart, false)
+            WtGui.#canvas.addEventListener("touchend", WtGui.#events.onTouchEnd, false)
+            WtGui.#canvas.addEventListener("touchcancel", WtGui.#events.onTouchCancel, false)
+            WtGui.#canvas.addEventListener("touchmove", WtGui.#events.onTouchMove, false)
 
             window.addEventListener('keydown', WtGui.#events.onKeyDown, false)
             window.addEventListener('keyup', WtGui.#events.onKeyUp, false)
@@ -103,52 +101,67 @@ class WtGui {
     /*
      *
      */
+    static isRunning = () => { return WtGui.#menuRunning }
+
+    static #renderer = {
+        renderFunc: null,
+
+        start: () => {
+            WtGui.#configWtGui()
+            WtGui.stopRenderer()
+            this.renderFunc = setInterval(this.render, 33)
+            WtGui.#menuRunning = true
+        },
+    
+        /*
+         *
+         */
+        stop: () => {
+            clearInterval(this.renderFunc)
+            WtGui.#menuRunning = false
+        },
+
+        /*
+         *
+         */
+        render: () => {
+            if(WtGui.#openedMenus.length === 0) {
+                if(WtGui.#gameRunning) WtGui.openMenu('game_menu')
+                else WtGui.openMenu('main_menu')
+            }
+            if(WtGui.#openedMenus.length === 0) throw new WtGuiError(`No menus available.`)
+
+            //  Render the background
+            WtGui.#ctx.fillStyle = WtGui.settings.bgcolor
+            WtGui.#ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
+
+            //  Render the menu
+            WtGui.#ctx.fillStyle = WtGui.#currentMenu.bgcolor
+            WtGui.#ctx.fillRect(WtGui.#currentMenu.pos_x, WtGui.#currentMenu.pos_y,
+                WtGui.#currentMenu.width, WtGui.#currentMenu.height)
+
+            //  Render menu items
+            WtGui.#currentMenu.items.forEach(elm => {
+                WtGui.#ctx.fillStyle = elm.bgcolor
+                WtGui.#ctx.fillRect(WtGui.#currentMenu.pos_x + elm.pos_x,
+                    WtGui.#currentMenu.pos_y + elm.pos_y,
+                    elm.width, elm.height)
+            })
+        }
+    }
+
+    /*
+     *
+     */
     static startRenderer = () => {
-        WtGui.#configWtGui()
-        WtGui.stopRenderer()
-        WtGui.#renderer = setInterval(WtGui.#renderGui, 33)
-        WtGui.#menuRunning = true
+        WtGui.#renderer.start()
     }
 
     /*
      *
      */
     static stopRenderer = () => {
-        clearInterval(WtGui.#renderer)
-        WtGui.#menuRunning = false
-    }
-
-    /*
-     *
-     */
-    static isRunning = () => { return WtGui.#menuRunning }
-
-    /*
-     *
-     */
-    static #renderGui = () => {
-        if(WtGui.#openedMenus.length === 0) {
-            if(WtGui.#gameRunning) WtGui.openMenu('game_menu')
-            else WtGui.openMenu('main_menu')
-        }
-        if(WtGui.#openedMenus.length === 0) throw new WtGuiError(`No menus available.`)
-
-        //  Render the background
-        WtGui.#ctx.fillStyle = WtGui.settings.bgcolor
-        WtGui.#ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
-
-        //  Render the menu
-        WtGui.#ctx.fillStyle = WtGui.#currentMenu.bgcolor
-        WtGui.#ctx.fillRect(WtGui.#currentMenu.pos_x, WtGui.#currentMenu.pos_y,
-            WtGui.#currentMenu.width, WtGui.#currentMenu.height)
-
-        //  Render menu items
-        WtGui.#currentMenu.items.forEach(elm => {
-            WtGui.#ctx.fillStyle = elm.bgcolor
-            WtGui.#ctx.fillRect(WtGui.#currentMenu.pos_x + elm.pos_x,
-                WtGui.#currentMenu.pos_y + elm.pos_y,
-                elm.width, elm.height)
-        })
+        WtGui.#renderer.stop()
     }
 
     /*
