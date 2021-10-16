@@ -53,13 +53,13 @@ class WtGui {
         pos_y: 0
     }
 
-    static #menus = []           //  Array of available menus
-    static #openedMenus = []     //  Array of opened menus
-    static #currentMenu = null   //  Current opened menu
-    static #canvas = null        //  Reference to canvas
-    static #ctx = null           //  Reference to canvas contex
-    static #menuRunning = false  //  Menu system currently running
-    static #gameRunning = false  //  Game is currently running
+    static #menus = []               //  Array of available menus
+    static #openedMenus = []         //  Array of opened menus
+    static #currentMenu = undefined  //  Current opened menu
+    static #canvas = null            //  Reference to canvas
+    static #ctx = null               //  Reference to canvas contex
+    static #menuRunning = false      //  Menu system currently running
+    static #gameRunning = false      //  Game is currently running
 
     /*
      * Don't allow direct construction
@@ -190,6 +190,9 @@ class WtGui {
     static #renderer = {
         renderFunc: null,
 
+        /*
+         *
+         */
         start: () => {
             WtGui.#configWtGui()
             WtGui.stopRenderer()
@@ -209,11 +212,11 @@ class WtGui {
          *
          */
         render: () => {
-            if(WtGui.#openedMenus.length === 0) {
+            if(WtGui.#openedMenus.length === 0 || WtGui.#currentMenu === undefined) {
                 if(WtGui.#gameRunning) WtGui.openMenu('game_menu')
                 else WtGui.openMenu('main_menu')
             }
-            if(WtGui.#openedMenus.length === 0) throw new WtGuiError(`No menus available.`)
+            if(WtGui.#currentMenu === undefined) throw new WtGuiError(`No menus available.`)
 
             //  Render the background
             WtGui.#ctx.fillStyle = WtGui.settings.bgcolor
