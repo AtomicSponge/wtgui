@@ -195,8 +195,8 @@ class WtGui {
          */
         start: () => {
             WtGui.#configWtGui()
-            WtGui.stopRenderer()
-            this.renderFunc = setInterval(this.render, 33)
+            WtGui.#renderer.stop()
+            this.renderFunc = setInterval(WtGui.#renderer.render, 33)
             WtGui.#menuRunning = true
         },
     
