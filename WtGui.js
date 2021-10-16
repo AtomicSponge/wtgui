@@ -106,16 +106,12 @@ class WtGui {
     /*
      *
      */
-    static startRenderer = () => {
-        WtGui.#renderer.start()
-    }
+    static startRenderer = () => { WtGui.#renderer.start() }
 
     /*
      *
      */
-    static stopRenderer = () => {
-        WtGui.#renderer.stop()
-    }
+    static stopRenderer = () => { WtGui.#renderer.stop() }
 
     /*
      *
@@ -204,7 +200,7 @@ class WtGui {
          *
          */
         stop: () => {
-            clearInterval(this.renderFunc)
+            clearInterval(WtGui.#renderer.renderFunc)
             WtGui.#menuRunning = false
         },
 
