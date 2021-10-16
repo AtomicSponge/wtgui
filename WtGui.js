@@ -103,53 +103,6 @@ class WtGui {
      */
     static isRunning = () => { return WtGui.#menuRunning }
 
-    static #renderer = {
-        renderFunc: null,
-
-        start: () => {
-            WtGui.#configWtGui()
-            WtGui.stopRenderer()
-            this.renderFunc = setInterval(this.render, 33)
-            WtGui.#menuRunning = true
-        },
-    
-        /*
-         *
-         */
-        stop: () => {
-            clearInterval(this.renderFunc)
-            WtGui.#menuRunning = false
-        },
-
-        /*
-         *
-         */
-        render: () => {
-            if(WtGui.#openedMenus.length === 0) {
-                if(WtGui.#gameRunning) WtGui.openMenu('game_menu')
-                else WtGui.openMenu('main_menu')
-            }
-            if(WtGui.#openedMenus.length === 0) throw new WtGuiError(`No menus available.`)
-
-            //  Render the background
-            WtGui.#ctx.fillStyle = WtGui.settings.bgcolor
-            WtGui.#ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
-
-            //  Render the menu
-            WtGui.#ctx.fillStyle = WtGui.#currentMenu.bgcolor
-            WtGui.#ctx.fillRect(WtGui.#currentMenu.pos_x, WtGui.#currentMenu.pos_y,
-                WtGui.#currentMenu.width, WtGui.#currentMenu.height)
-
-            //  Render menu items
-            WtGui.#currentMenu.items.forEach(elm => {
-                WtGui.#ctx.fillStyle = elm.bgcolor
-                WtGui.#ctx.fillRect(WtGui.#currentMenu.pos_x + elm.pos_x,
-                    WtGui.#currentMenu.pos_y + elm.pos_y,
-                    elm.width, elm.height)
-            })
-        }
-    }
-
     /*
      *
      */
@@ -228,6 +181,56 @@ class WtGui {
                 else WtGui.openMenu('main_menu')
             }
             WtGui.#currentMenu = WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
+        }
+    }
+
+    /*
+     *
+     */
+    static #renderer = {
+        renderFunc: null,
+
+        start: () => {
+            WtGui.#configWtGui()
+            WtGui.stopRenderer()
+            this.renderFunc = setInterval(this.render, 33)
+            WtGui.#menuRunning = true
+        },
+    
+        /*
+         *
+         */
+        stop: () => {
+            clearInterval(this.renderFunc)
+            WtGui.#menuRunning = false
+        },
+
+        /*
+         *
+         */
+        render: () => {
+            if(WtGui.#openedMenus.length === 0) {
+                if(WtGui.#gameRunning) WtGui.openMenu('game_menu')
+                else WtGui.openMenu('main_menu')
+            }
+            if(WtGui.#openedMenus.length === 0) throw new WtGuiError(`No menus available.`)
+
+            //  Render the background
+            WtGui.#ctx.fillStyle = WtGui.settings.bgcolor
+            WtGui.#ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
+
+            //  Render the menu
+            WtGui.#ctx.fillStyle = WtGui.#currentMenu.bgcolor
+            WtGui.#ctx.fillRect(WtGui.#currentMenu.pos_x, WtGui.#currentMenu.pos_y,
+                WtGui.#currentMenu.width, WtGui.#currentMenu.height)
+
+            //  Render menu items
+            WtGui.#currentMenu.items.forEach(elm => {
+                WtGui.#ctx.fillStyle = elm.bgcolor
+                WtGui.#ctx.fillRect(WtGui.#currentMenu.pos_x + elm.pos_x,
+                    WtGui.#currentMenu.pos_y + elm.pos_y,
+                    elm.width, elm.height)
+            })
         }
     }
 
