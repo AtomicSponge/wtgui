@@ -199,7 +199,7 @@ class WtGui {
             this.renderFunc = setInterval(WtGui.#renderer.render, 33)
             WtGui.#menuRunning = true
         },
-    
+
         /*
          *
          */
