@@ -83,6 +83,11 @@ class WtGui {
             WtGui.#canvas.addEventListener('mouseup', WtGui.#events.onMouseUp, false)
             WtGui.#canvas.addEventListener('mousemove', WtGui.#events.onMouseMove, false)
 
+            WtGui.#canvas.addEventListener("touchstart", onTouchStart, false)
+            WtGui.#canvas.addEventListener("touchend", onTouchEnd, false)
+            WtGui.#canvas.addEventListener("touchcancel", onTouchCancel, false)
+            WtGui.#canvas.addEventListener("touchmove", onTouchMove, false)
+
             window.addEventListener('keydown', WtGui.#events.onKeyDown, false)
             window.addEventListener('keyup', WtGui.#events.onKeyUp, false)
 
@@ -237,6 +242,34 @@ class WtGui {
         onMouseMove: (event) => {
             WtGui.#mouseCords.pos_x = 0
             WtGui.#mouseCords.pos_y = 0
+        },
+
+        /*
+         *
+         */
+        onTouchStart: (event) => {
+            //alert(event)
+        },
+
+        /*
+         *
+         */
+        onTouchEnd: (event) => {
+            //alert(event)
+        },
+
+        /*
+         *
+         */
+        onTouchCancel: (event) => {
+            //alert(event)
+        },
+
+        /*
+         *
+         */
+        onTouchMove: (event) => {
+            //alert(event)
         },
 
         /*
