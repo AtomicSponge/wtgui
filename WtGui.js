@@ -39,7 +39,7 @@ class WtGui {
     static settings = {
         width: Number(0),
         height: Number(0),
-        bgcolor: 'rgba(0,0,0,0)',
+        clearColor: 'rgba(0,0,0,0)',
         bgimage: {
             file: undefined
         }
@@ -58,7 +58,7 @@ class WtGui {
      */
     static #data = {
         fps: Number(0),
-        ticks: BigInt(0)
+        ticks: BigInt('0')
     }
 
     /*
@@ -198,7 +198,7 @@ class WtGui {
             WtGui.#canvas.renderCanvas.width = WtGui.settings.width
             WtGui.#canvas.renderCanvas.height = WtGui.settings.height
             WtGui.#data.fps = 0
-            WtGui.#data.ticks = 0
+            WtGui.#data.ticks = 0n
             window.requestAnimationFrame(WtGui.#renderer.render)
             WtGui.#renderer.fpsReset = setInterval(() => {
                 WtGui.#data.fps = WtGui.#renderer.rate
@@ -217,8 +217,8 @@ class WtGui {
             if(WtGui.#currentMenu === undefined) throw new WtGuiError(`No menus available.`)
             const ctx = WtGui.#canvas.renderCanvas.getContext('2d')
 
-            //  Render the background
-            ctx.fillStyle = WtGui.settings.bgcolor
+            //  Clear the renderer
+            ctx.fillStyle = WtGui.settings.clearColor
             ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
 
             //  Render the menu
