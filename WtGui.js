@@ -37,8 +37,8 @@ class WtGui {
      * Config this
      */
     static settings = {
-        width: 0,
-        height: 0,
+        width: Number(0),
+        height: Number(0),
         bgcolor: 'rgba(0,0,0,0)',
         bgimage: {
             file: undefined
@@ -57,16 +57,16 @@ class WtGui {
      * From here
      */
     static #data = {
-        fps: 0,
-        ticks: 0
+        fps: Number(0),
+        ticks: BigInt(0)
     }
 
     /*
      *
      */
     static #mouseCords = {
-        pos_x: 0,
-        pos_y: 0
+        pos_x: Number(0),
+        pos_y: Number(0)
     }
 
     static #menus = []               //  Array of available menus
@@ -188,7 +188,7 @@ class WtGui {
      */
     static #renderer = {
         fpsReset: null,
-        rate: 0,
+        rate: Number(0),
 
         /*
          *
