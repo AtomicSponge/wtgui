@@ -188,7 +188,7 @@ class WtGui {
      *
      */
     static #renderer = {
-        fpsReset: null,
+        fpsCalc: null,
         rate: Number(0),
 
         /*
@@ -200,11 +200,11 @@ class WtGui {
             WtGui.#canvas.renderCanvas.height = WtGui.settings.height
             WtGui.#data.fps = 0
             WtGui.#data.ticks = 0n
-            window.requestAnimationFrame(WtGui.#renderer.render)
-            WtGui.#renderer.fpsReset = setInterval(() => {
+            WtGui.#renderer.fpsCalc = setInterval(() => {
                 WtGui.#data.fps = WtGui.#renderer.rate
                 WtGui.#renderer.rate = 0
             }, 1000)
+            window.requestAnimationFrame(WtGui.#renderer.render)
         },
 
         /*
