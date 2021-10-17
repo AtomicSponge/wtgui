@@ -66,7 +66,7 @@ class WtGui {
     static #data = {
         fps: Number(0),
         ticks: BigInt('0'),
-        mouseCords = {
+        mouseCords: {
             posX: Number(0),
             posY: Number(0)
         }
@@ -89,13 +89,8 @@ class WtGui {
     /*
      *
      */
-    static startRenderer = () => { WtGui.#renderer.start() }
-
-    /*
-     *
-     */
     static #configRan = false
-    static #configWtGui = () => {
+    static startRenderer = () => {
         if(!WtGui.#configRan) {
             WtGui.#canvas.addEventListener('mousedown', WtGui.#events.onMouseDown, false)
             WtGui.#canvas.addEventListener('mouseup', WtGui.#events.onMouseUp, false)
@@ -115,6 +110,8 @@ class WtGui {
 
         WtGui.#canvas.width = WtGui.settings.width
         WtGui.#canvas.height = WtGui.settings.height
+
+        WtGui.#renderer.start()
     }
 
     /*
@@ -195,7 +192,6 @@ class WtGui {
          *
          */
         start: () => {
-            WtGui.#configWtGui()
             WtGui.#canvas.renderCanvas.width = WtGui.settings.width
             WtGui.#canvas.renderCanvas.height = WtGui.settings.height
             WtGui.#data.fps = 0
