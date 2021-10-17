@@ -55,7 +55,9 @@ class WtGui {
      */
     static info = {
         fps: () => { return WtGui.#data.fps },
-        ticks: () => { return WtGui.#data.ticks }
+        ticks: () => { return WtGui.#data.ticks },
+        getMousePosX: () => { return WtGui.#data.mouseCords.posX },
+        getMousePosY: () => { return WtGui.#data.mouseCords.posY }
     }
 
     /*
@@ -63,15 +65,11 @@ class WtGui {
      */
     static #data = {
         fps: Number(0),
-        ticks: BigInt('0')
-    }
-
-    /*
-     *
-     */
-    static #mouseCords = {
-        pos_x: Number(0),
-        pos_y: Number(0)
+        ticks: BigInt('0'),
+        mouseCords = {
+            posX: Number(0),
+            posY: Number(0)
+        }
     }
 
     /*
@@ -266,8 +264,8 @@ class WtGui {
          *
          */
         onMouseMove: (event) => {
-            WtGui.#mouseCords.pos_x = 0
-            WtGui.#mouseCords.pos_y = 0
+            WtGui.#data.mouseCords.posX = 0
+            WtGui.#data.mouseCords.posY = 0
         },
 
         /*
