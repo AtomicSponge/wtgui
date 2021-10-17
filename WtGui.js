@@ -48,9 +48,17 @@ class WtGui {
     /*
      * Read this
      */
-    static data = {
-        rate: 0,
-        ticks: 0
+    static info = {
+        rate: () => { return WtGui.#data.rate },
+        ticks: () => { return WtGui.#data.ticks }
+    }
+
+    /*
+     * From here
+     */
+    static #data = {
+        rate: 10,
+        ticks: 20
     }
 
     /*
