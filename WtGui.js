@@ -84,13 +84,10 @@ class WtGui {
     /*
      *
      */
-    static setCanvas = (canvas) => { WtGui.#canvas = canvas }
-
-    /*
-     *
-     */
     static #configRan = false
-    static startRenderer = () => {
+    static startRenderer = (canvas) => {
+        WtGui.#canvas = canvas
+
         if(!WtGui.#configRan) {
             WtGui.#canvas.addEventListener('mousedown', WtGui.#events.onMouseDown, false)
             WtGui.#canvas.addEventListener('mouseup', WtGui.#events.onMouseUp, false)

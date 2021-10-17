@@ -61,7 +61,6 @@ ipcRenderer.on('send-input-data', (event, message) => {
 contextBridge.exposeInMainWorld(
     'WtGui',
     {
-        setCanvas: (canvas) => { WtGui.setCanvas(canvas) },
-        startRenderer: () => { WtGui.startRenderer() }
+        startRenderer: (canvas) => { WtGui.startRenderer(canvas) }
     }
 )
