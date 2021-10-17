@@ -34,6 +34,11 @@ const argParser = (scope, data, args) => {
  */
 class WtGui {
     /*
+     * Don't allow direct construction
+     */
+    constructor() { return false }
+
+    /*
      * Config this
      */
     static settings = {
@@ -69,16 +74,14 @@ class WtGui {
         pos_y: Number(0)
     }
 
+    /*
+     *
+     */
     static #menus = []               //  Array of available menus
     static #openedMenus = []         //  Array of opened menus
     static #currentMenu = undefined  //  Current opened menu
     static #canvas = null            //  Reference to canvas
     static #gameRunning = false      //  Game is currently running
-
-    /*
-     * Don't allow direct construction
-     */
-    constructor() { return false }
 
     /*
      *
