@@ -60,7 +60,6 @@ contextBridge.exposeInMainWorld(
     'WtGui',
     {
         setCanvas: (canvas) => { WtGui.setCanvas(canvas) },
-        startRenderer: () => { WtGui.startRenderer() },
-        stopRenderer: () => { WtGui.stopRenderer() }
+        startRenderer: () => { WtGui.startRenderer() }
     }
 )

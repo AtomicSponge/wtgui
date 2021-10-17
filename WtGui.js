@@ -57,8 +57,6 @@ class WtGui {
     static #openedMenus = []         //  Array of opened menus
     static #currentMenu = undefined  //  Current opened menu
     static #canvas = null            //  Reference to canvas
-    static #ctx = null               //  Reference to canvas contex
-    static #menuRunning = false      //  Menu system currently running
     static #gameRunning = false      //  Game is currently running
 
     /*
@@ -89,19 +87,13 @@ class WtGui {
             window.addEventListener('keydown', WtGui.#events.onKeyDown, false)
             window.addEventListener('keyup', WtGui.#events.onKeyUp, false)
 
+            WtGui.#canvas.renderCanvas = document.createElement('canvas')
             WtGui.#configRan = true
         }
 
         WtGui.#canvas.width = WtGui.settings.width
         WtGui.#canvas.height = WtGui.settings.height
-
-        WtGui.#ctx = WtGui.#canvas.getContext('2d')
     }
-
-    /*
-     *
-     */
-    static isRunning = () => { return WtGui.#menuRunning }
 
     /*
      *
@@ -191,17 +183,9 @@ class WtGui {
          */
         start: () => {
             WtGui.#configWtGui()
-            WtGui.#renderer.stop()
-            WtGui.#renderer.renderFunc = setInterval(WtGui.#renderer.render, 33)
-            WtGui.#menuRunning = true
-        },
-
-        /*
-         *
-         */
-        stop: () => {
-            clearInterval(WtGui.#renderer.renderFunc)
-            WtGui.#menuRunning = false
+            WtGui.#canvas.renderCanvas.width = WtGui.settings.width
+            WtGui.#canvas.renderCanvas.height = WtGui.settings.height
+            window.requestAnimationFrame(WtGui.#renderer.render)
         },
 
         /*
@@ -213,23 +197,27 @@ class WtGui {
                 else WtGui.openMenu('main_menu')
             }
             if(WtGui.#currentMenu === undefined) throw new WtGuiError(`No menus available.`)
+            const ctx = WtGui.#canvas.renderCanvas.getContext('2d')
 
             //  Render the background
-            WtGui.#ctx.fillStyle = WtGui.settings.bgcolor
-            WtGui.#ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
+            ctx.fillStyle = WtGui.settings.bgcolor
+            ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
 
             //  Render the menu
-            WtGui.#ctx.fillStyle = WtGui.#currentMenu.bgcolor
-            WtGui.#ctx.fillRect(WtGui.#currentMenu.pos_x, WtGui.#currentMenu.pos_y,
+            ctx.fillStyle = WtGui.#currentMenu.bgcolor
+            ctx.fillRect(WtGui.#currentMenu.pos_x, WtGui.#currentMenu.pos_y,
                 WtGui.#currentMenu.width, WtGui.#currentMenu.height)
 
             //  Render menu items
             WtGui.#currentMenu.items.forEach(elm => {
-                WtGui.#ctx.fillStyle = elm.bgcolor
-                WtGui.#ctx.fillRect(WtGui.#currentMenu.pos_x + elm.pos_x,
+                ctx.fillStyle = elm.bgcolor
+                ctx.fillRect(WtGui.#currentMenu.pos_x + elm.pos_x,
                     WtGui.#currentMenu.pos_y + elm.pos_y,
                     elm.width, elm.height)
             })
+
+            WtGui.#canvas.getContext('2d').drawImage(WtGui.#canvas.renderCanvas, 0, 0)
+            window.requestAnimationFrame(WtGui.#renderer.render)
         }
     }
 
