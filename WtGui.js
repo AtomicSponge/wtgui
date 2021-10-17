@@ -72,6 +72,11 @@ class WtGui {
     /*
      *
      */
+    static startRenderer = () => { WtGui.#renderer.start() }
+
+    /*
+     *
+     */
     static #configRan = false
     static #configWtGui = () => {
         if(!WtGui.#configRan) {
@@ -94,16 +99,6 @@ class WtGui {
         WtGui.#canvas.width = WtGui.settings.width
         WtGui.#canvas.height = WtGui.settings.height
     }
-
-    /*
-     *
-     */
-    static startRenderer = () => { WtGui.#renderer.start() }
-
-    /*
-     *
-     */
-    static stopRenderer = () => { WtGui.#renderer.stop() }
 
     /*
      *
