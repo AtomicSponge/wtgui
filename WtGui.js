@@ -49,7 +49,7 @@ class WtGui {
      * Read this
      */
     static info = {
-        rate: () => { return WtGui.#data.rate },
+        fps: () => { return WtGui.#data.fps },
         ticks: () => { return WtGui.#data.ticks }
     }
 
@@ -57,8 +57,8 @@ class WtGui {
      * From here
      */
     static #data = {
-        rate: 10,
-        ticks: 20
+        fps: 0,
+        ticks: 0
     }
 
     /*
@@ -187,7 +187,8 @@ class WtGui {
      *
      */
     static #renderer = {
-        renderFunc: null,
+        fpsReset: null,
+        rate: 0,
 
         /*
          *
@@ -196,7 +197,13 @@ class WtGui {
             WtGui.#configWtGui()
             WtGui.#canvas.renderCanvas.width = WtGui.settings.width
             WtGui.#canvas.renderCanvas.height = WtGui.settings.height
+            WtGui.#data.fps = 0
+            WtGui.#data.ticks = 0
             window.requestAnimationFrame(WtGui.#renderer.render)
+            WtGui.#renderer.fpsReset = setInterval(() => {
+                WtGui.#data.fps = WtGui.#renderer.rate
+                WtGui.#renderer.rate = 0
+            }, 1000)
         },
 
         /*
@@ -228,6 +235,8 @@ class WtGui {
             })
 
             WtGui.#canvas.getContext('2d').drawImage(WtGui.#canvas.renderCanvas, 0, 0)
+            WtGui.#renderer.rate++
+            WtGui.#data.ticks++
             window.requestAnimationFrame(WtGui.#renderer.render)
         }
     }
