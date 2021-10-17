@@ -34,7 +34,7 @@ const argParser = (scope, data, args) => {
  */
 class WtGui {
     /*
-     *
+     * Config this
      */
     static settings = {
         width: 0,
@@ -43,6 +43,14 @@ class WtGui {
         bgimage: {
             file: undefined
         }
+    }
+
+    /*
+     * Read this
+     */
+    static data = {
+        rate: 0,
+        ticks: 0
     }
 
     /*
