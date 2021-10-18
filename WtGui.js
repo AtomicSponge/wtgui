@@ -186,8 +186,8 @@ class WtGui {
      *
      */
     static #renderer = {
-        fpsCalc: null,
-        rate: Number(0),
+        fpsCalc: null,    //  Store timed func to calculate fps
+        rate: Number(0),  //  Used to calculate fps
 
         /*
          *
@@ -415,3 +415,45 @@ class WtGuiInput extends WtGuiItem {
     }
 }
 exports.WtGuiInput = WtGuiInput
+
+/*
+ *
+ */
+class WtGuiSelection extends WtGuiItem {
+    /*
+     *
+     */
+    constructor(args) {
+        var args = args || {}
+        super(args)
+    }
+}
+exports.WtGuiSelection = WtGuiSelection
+
+/*
+ *
+ */
+class WtGuiToggle extends WtGuiItem {
+    /*
+     *
+     */
+    constructor(args) {
+        var args = args || {}
+        super(args)
+    }
+}
+exports.WtGuiToggle = WtGuiToggle
+
+/*
+ *
+ */
+class WtGuiAction extends WtGuiItem {
+    /*
+     *
+     */
+    constructor(args) {
+        var args = args || {}
+        super(args)
+    }
+}
+exports.WtGuiAction = WtGuiAction
