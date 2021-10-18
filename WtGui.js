@@ -75,11 +75,12 @@ class WtGui {
     /*
      *
      */
-    static #menus = []               //  Array of available menus
-    static #openedMenus = []         //  Array of opened menus
-    static #currentMenu = undefined  //  Current opened menu
-    static #canvas = null            //  Reference to canvas
-    static #gameRunning = false      //  Game is currently running
+    static #menus = []                 //  Array of available menus
+    static #openedMenus = []           //  Array of opened menus
+    static #currentMenu = undefined    //  Current opened menu
+    static #defaultMenu = 'main_menu'  //  Default menu to use
+    static #canvas = null              //  Reference to canvas
+    static #gameRunning = false        //  Game is currently running
 
     /*
      *
@@ -172,14 +173,10 @@ class WtGui {
     static closeMenu = (bool) => {
         if(bool) {
             WtGui.#openedMenus = []
-            if(WtGui.#gameRunning) return // go back to game
-            else WtGui.openMenu('main_menu')
+            WtGui.#currentMenu = undefined
         } else {
             WtGui.#openedMenus.pop()
-            if(WtGui.#openedMenus.length === 0) {
-                if(WtGui.#gameRunning) return // go back to game
-                else WtGui.openMenu('main_menu')
-            }
+            if(WtGui.#openedMenus.length === 0) WtGui.openMenu(WtGui.#defaultMenu)
             WtGui.#currentMenu = WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
         }
     }
@@ -212,10 +209,8 @@ class WtGui {
          *
          */
         render: () => {
-            if(WtGui.#openedMenus.length === 0 || WtGui.#currentMenu === undefined) {
-                if(WtGui.#gameRunning) WtGui.openMenu('game_menu')
-                else WtGui.openMenu('main_menu')
-            }
+            if(WtGui.#openedMenus.length === 0 || WtGui.#currentMenu === undefined)
+                WtGui.openMenu(WtGui.#defaultMenu)
             if(WtGui.#currentMenu === undefined) throw new WtGuiError(`No menus available.`)
             const ctx = WtGui.#canvas.renderCanvas.getContext('2d')
 
