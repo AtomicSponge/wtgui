@@ -170,8 +170,8 @@ class WtGui {
         /*
          *
          */
-        closeMenu: (bool) => {
-            if(bool) {
+        closeMenu: (closeAll) => {
+            if(closeAll) {
                 WtGui.#openedMenus = []
                 WtGui.#currentMenu = undefined
             } else {
