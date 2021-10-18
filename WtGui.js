@@ -86,6 +86,7 @@ class WtGui {
      */
     static #configRan = false
     static startGui = (canvas) => {
+        if(!(canvas instanceof HTMLCanvasElement)) throw new WtGuiError(`${canvas} is not a HTMLCanvasElement`)
         WtGui.#canvas = canvas
 
         if(!WtGui.#configRan) {
