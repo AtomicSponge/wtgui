@@ -114,14 +114,14 @@ class WtGui {
      *
      */
     static addMenu = (menuObj) => {
-        if(!(menuObj instanceof WtGuiMenu)) {        //  Verify proper menu object
-            menuObj = WtGui.buildMenu(menuObj)       //  Try to build menu if not
-            if(!(menuObj instanceof WtGuiMenu))      //  Fail if still not a menu
+        if(!(menuObj instanceof WtGuiMenu)) {         //  Verify proper menu object
+            menuObj = WtGui.buildMenu(menuObj)        //  Try to build menu if not
+            if(!(menuObj instanceof WtGuiMenu))       //  Fail if still not a menu
                 throw new WtGuiError('Object is not a valid menu')
         }
         if(WtGui.#getMenu(menuObj.id) !== undefined)  //  Verify menu does not exist
             throw new WtGuiError('Menu ID already exists')
-        WtGui.#menus.push(menuObj)                   //  Add menu
+        WtGui.#menus.push(menuObj)                    //  Add menu
     }
 
     /*
@@ -155,25 +155,30 @@ class WtGui {
     /*
      *
      */
-    static #openMenu = (menuId) => {
-        const tempMenu = WtGui.#getMenu(menuId)
-        if(tempMenu === undefined) return false
-        WtGui.#openedMenus.push(tempMenu)
-        WtGui.#currentMenu = WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
-        return true
-    }
-
-    /*
-     *
-     */
-    static #closeMenu = (bool) => {
-        if(bool) {
-            WtGui.#openedMenus = []
-            WtGui.#currentMenu = undefined
-        } else {
-            WtGui.#openedMenus.pop()
-            if(WtGui.#openedMenus.length === 0) WtGui.#openMenu(WtGui.#defaultMenu)
+    static actions = {
+        /*
+         *
+         */
+        openMenu: (menuId) => {
+            const tempMenu = WtGui.#getMenu(menuId)
+            if(tempMenu === undefined) return false
+            WtGui.#openedMenus.push(tempMenu)
             WtGui.#currentMenu = WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
+            return true
+        },
+
+        /*
+         *
+         */
+        closeMenu: (bool) => {
+            if(bool) {
+                WtGui.#openedMenus = []
+                WtGui.#currentMenu = undefined
+            } else {
+                WtGui.#openedMenus.pop()
+                if(WtGui.#openedMenus.length === 0) WtGui.actions.openMenu(WtGui.#defaultMenu)
+                WtGui.#currentMenu = WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
+            }
         }
     }
 
@@ -206,7 +211,7 @@ class WtGui {
          */
         render: () => {
             if(WtGui.#openedMenus.length === 0 || WtGui.#currentMenu === undefined)
-                WtGui.#openMenu(WtGui.#defaultMenu)
+                WtGui.actions.openMenu(WtGui.#defaultMenu)
             if(WtGui.#currentMenu === undefined) throw new WtGuiError(`No menus available.`)
             const ctx = WtGui.#canvas.renderCanvas.getContext('2d')
 
