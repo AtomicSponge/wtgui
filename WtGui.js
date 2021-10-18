@@ -86,7 +86,8 @@ class WtGui {
      */
     static #configRan = false
     static startGui = (canvas) => {
-        if(!(canvas instanceof HTMLCanvasElement)) throw new WtGuiError(`${canvas} is not a HTMLCanvasElement`)
+        if(!(canvas instanceof HTMLCanvasElement))
+            throw new WtGuiError(`${canvas} is not a HTMLCanvasElement`)
         WtGui.#canvas = canvas
 
         WtGui.#canvas.width = WtGui.settings.width
@@ -116,13 +117,14 @@ class WtGui {
      *
      */
     static addMenu = (menuObj) => {
-        if(!(menuObj instanceof WtGuiMenu)) {                     //  Verify proper menu object
-            menuObj = WtGui.buildMenu(menuObj)                    //  Try to build menu if not
-            if(!(menuObj instanceof WtGuiMenu)) return false      //  Fail if still not a menu
+        if(!(menuObj instanceof WtGuiMenu)) {        //  Verify proper menu object
+            menuObj = WtGui.buildMenu(menuObj)       //  Try to build menu if not
+            if(!(menuObj instanceof WtGuiMenu))      //  Fail if still not a menu
+                throw new WtGuiError('1')
         }
-        if(WtGui.getMenu(menuObj.id) !== undefined) return false  //  Verify menu does not exist
-        WtGui.#menus.push(menuObj)                                //  Add menu
-        return true
+        if(WtGui.getMenu(menuObj.id) !== undefined)  //  Verify menu does not exist
+            throw new WtGuiError('2')
+        WtGui.#menus.push(menuObj)                   //  Add menu
     }
 
     /*
@@ -142,13 +144,14 @@ class WtGui {
      *
      */
     static addItem = (menuId, itemObj) => {
-        if(!(itemObj instanceof WtGuiItem)) return false  //  Verify proper item object
+        if(!(itemObj instanceof WtGuiItem))              //  Verify proper item object
+            throw new WtGuiError('')
         const menu = WtGui.getMenu(menuId)
-        if(menu === undefined) return false               //  Verify menu exists
+        if(menu === undefined) throw new WtGuiError('')  //  Verify menu exists
         //  Verify item does not already exist
-        if(menu.items.find(elm => elm.id === itemObj.id) !== undefined) return false
-        menu.items.push(itemObj)                          //  Add item
-        return true
+        if(menu.items.find(elm => elm.id === itemObj.id) !== undefined)
+            throw new WtGuiError('')
+        menu.items.push(itemObj)                         //  Add item
     }
 
     /*
