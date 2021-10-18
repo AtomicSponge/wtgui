@@ -89,6 +89,9 @@ class WtGui {
         if(!(canvas instanceof HTMLCanvasElement)) throw new WtGuiError(`${canvas} is not a HTMLCanvasElement`)
         WtGui.#canvas = canvas
 
+        WtGui.#canvas.width = WtGui.settings.width
+        WtGui.#canvas.height = WtGui.settings.height
+
         if(!WtGui.#configRan) {
             WtGui.#canvas.addEventListener('mousedown', WtGui.#events.onMouseDown, false)
             WtGui.#canvas.addEventListener('mouseup', WtGui.#events.onMouseUp, false)
@@ -105,9 +108,6 @@ class WtGui {
             WtGui.#canvas.renderCanvas = document.createElement('canvas')
             WtGui.#configRan = true
         }
-
-        WtGui.#canvas.width = WtGui.settings.width
-        WtGui.#canvas.height = WtGui.settings.height
 
         WtGui.#renderer.start()
     }
@@ -196,6 +196,7 @@ class WtGui {
             WtGui.#data.fps = 0
             WtGui.#renderer.rate = 0
             WtGui.#data.ticks = 0n
+            clearInterval(WtGui.#renderer.fpsCalc)
             WtGui.#renderer.fpsCalc = setInterval(() => {
                 WtGui.#data.fps = WtGui.#renderer.rate
                 WtGui.#renderer.rate = 0
