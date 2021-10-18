@@ -85,7 +85,7 @@ class WtGui {
      *
      */
     static #configRan = false
-    static startRenderer = (canvas) => {
+    static startGui = (canvas) => {
         WtGui.#canvas = canvas
 
         if(!WtGui.#configRan) {
@@ -116,7 +116,7 @@ class WtGui {
      */
     static addMenu = (menuObj) => {
         if(!(menuObj instanceof WtGuiMenu)) {                     //  Verify proper menu object
-            menuObj = WtGui.#buildMenu(menuObj)                   //  Try to build menu
+            menuObj = WtGui.buildMenu(menuObj)                    //  Try to build menu if not
             if(!(menuObj instanceof WtGuiMenu)) return false      //  Fail if still not a menu
         }
         if(WtGui.getMenu(menuObj.id) !== undefined) return false  //  Verify menu does not exist
@@ -127,8 +127,9 @@ class WtGui {
     /*
      *
      */
-    static #buildMenu = (menuObj) => {
-        return menuObj
+    static buildMenu = (menuObj) => {
+        const tempMenu = new WtGuiMenu(menuObj)
+        return tempMenu
     }
 
     /*
