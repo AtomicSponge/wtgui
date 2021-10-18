@@ -33,10 +33,7 @@ const argParser = (scope, data, args) => {
  *
  */
 class WtGui {
-    /*
-     * Don't allow direct construction
-     */
-    constructor() { return false }
+    constructor() { return false }  //  Don't allow direct construction
 
     /*
      * Config this
@@ -80,11 +77,11 @@ class WtGui {
     static #currentMenu = undefined    //  Current opened menu
     static #defaultMenu = 'main_menu'  //  Default menu to use
     static #canvas = null              //  Reference to canvas
+    static #configRan = false          //  Flag to verify config runs once
 
     /*
      *
      */
-    static #configRan = false
     static startGui = (canvas) => {
         if(!(canvas instanceof HTMLCanvasElement))
             throw new WtGuiError(`${canvas} is not a HTMLCanvasElement`)
