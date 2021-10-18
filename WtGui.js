@@ -192,6 +192,7 @@ class WtGui {
             WtGui.#canvas.renderCanvas.width = WtGui.settings.width
             WtGui.#canvas.renderCanvas.height = WtGui.settings.height
             WtGui.#data.fps = 0
+            WtGui.#renderer.rate = 0
             WtGui.#data.ticks = 0n
             WtGui.#renderer.fpsCalc = setInterval(() => {
                 WtGui.#data.fps = WtGui.#renderer.rate
