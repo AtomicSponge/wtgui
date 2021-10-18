@@ -80,7 +80,6 @@ class WtGui {
     static #currentMenu = undefined    //  Current opened menu
     static #defaultMenu = 'main_menu'  //  Default menu to use
     static #canvas = null              //  Reference to canvas
-    static #gameRunning = false        //  Game is currently running
 
     /*
      *
