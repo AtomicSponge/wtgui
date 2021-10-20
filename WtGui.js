@@ -186,8 +186,9 @@ class WtGui {
      *
      */
     static #renderer = {
-        fpsCalc: null,    //  Store timed func to calculate fps
-        rate: Number(0),  //  Used to calculate fps
+        fpsCalc: null,         //  Store timed func to calculate fps
+        rate: Number(0),       //  Used to calculate fps
+        nextFrame: Number(0),  //
 
         /*
          *
@@ -203,7 +204,9 @@ class WtGui {
                 WtGui.#data.fps = WtGui.#renderer.rate
                 WtGui.#renderer.rate = 0
             }, 1000)
-            window.requestAnimationFrame(WtGui.#renderer.render)
+            if(WtGui.#renderer.nextFrame > 0)
+                window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
+            WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
         },
 
         /*
@@ -235,7 +238,7 @@ class WtGui {
             WtGui.#canvas.getContext('2d').drawImage(WtGui.#canvas.renderCanvas, 0, 0)
             WtGui.#renderer.rate++
             WtGui.#data.ticks++
-            window.requestAnimationFrame(WtGui.#renderer.render)
+            WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
         }
     }
 
