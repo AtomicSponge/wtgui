@@ -12,9 +12,8 @@ const { Gamepads } = require('gamepads')
 class WtGuiError extends Error {
     constructor(message) {
         super(message)
-        if(Error.captureStackTrace) {
-            Error.captureStackTrace(this, WtGuiError);
-        }
+        if(Error.captureStackTrace)
+            Error.captureStackTrace(this, WtGuiError)
     }
 }
 exports.WtGuiError = WtGuiError
