@@ -16,8 +16,8 @@ WtGui.settings.height = 768
 WtGui.addMenu(new WtGuiMenu({
     id: 'main_menu',
     title: 'Test Main Menu',
-    pos_x: 10, pos_y: 10,
-    width: 50, height: 50
+    pos_x: 500, pos_y: 300,
+    width: 500, height: 450
 }))
 
 WtGui.addItem('main_menu', new WtGuiButton({
