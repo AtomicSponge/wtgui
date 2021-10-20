@@ -41,7 +41,8 @@ class WtGui {
     static settings = {
         width: Number(0),
         height: Number(0),
-        clearColor: 'rgba(0,0,0,0)',
+        clearColor: 'rgba(0,0,0,0)',  //
+        defaultMenu: 'main_menu',     //  Default menu to use
         bgimage: {
             file: undefined
         }
@@ -73,7 +74,6 @@ class WtGui {
     static #menus = []                 //  Array of available menus
     static #openedMenus = []           //  Array of opened menus
     static #currentMenu = undefined    //  Current opened menu
-    static #defaultMenu = 'main_menu'  //  Default menu to use
     static #canvas = null              //  Reference to canvas
     static #configRan = false          //  Flag to verify config runs once
 
@@ -174,7 +174,7 @@ class WtGui {
                 WtGui.#currentMenu = undefined
             } else {
                 WtGui.#openedMenus.pop()
-                if(WtGui.#openedMenus.length === 0) WtGui.actions.openMenu(WtGui.#defaultMenu)
+                if(WtGui.#openedMenus.length === 0) WtGui.actions.openMenu(WtGui.settings.defaultMenu)
                 WtGui.#currentMenu = WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
             }
         }
@@ -211,7 +211,7 @@ class WtGui {
          */
         render: () => {
             if(WtGui.#openedMenus.length === 0 || WtGui.#currentMenu === undefined)
-                WtGui.actions.openMenu(WtGui.#defaultMenu)
+                WtGui.actions.openMenu(WtGui.settings.defaultMenu)
             if(WtGui.#currentMenu === undefined) throw new WtGuiError(`No menus available.`)
             const ctx = WtGui.#canvas.renderCanvas.getContext('2d')
 
