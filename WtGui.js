@@ -377,20 +377,6 @@ exports.WtGuiItem = WtGuiItem
 /*
  *
  */
-class WtGuiButton extends WtGuiItem {
-    /*
-     *
-     */
-    constructor(args) {
-        var args = args || {}
-        super(args)
-    }
-}
-exports.WtGuiButton = WtGuiButton
-
-/*
- *
- */
 class WtGuiLabel extends WtGuiItem {
     /*
      *
@@ -401,6 +387,20 @@ class WtGuiLabel extends WtGuiItem {
     }
 }
 exports.WtGuiLabel = WtGuiLabel
+
+/*
+ *
+ */
+class WtGuiButton extends WtGuiItem {
+    /*
+     *
+     */
+    constructor(args) {
+        var args = args || {}
+        super(args)
+    }
+}
+exports.WtGuiButton = WtGuiButton
 
 /*
  *
