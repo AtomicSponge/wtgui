@@ -52,7 +52,6 @@ class WtGui {
      */
     static info = {
         fps: () => { return WtGui.#data.fps },
-        ticks: () => { return WtGui.#data.ticks },
         getMousePosX: () => { return WtGui.#data.mouseCords.posX },
         getMousePosY: () => { return WtGui.#data.mouseCords.posY }
     }
@@ -62,7 +61,6 @@ class WtGui {
      */
     static #data = {
         fps: Number(0),
-        ticks: BigInt('0'),
         mouseCords: {
             posX: Number(0),
             posY: Number(0)
@@ -188,7 +186,7 @@ class WtGui {
     static #renderer = {
         fpsCalc: null,         //  Store timed func to calculate fps
         rate: Number(0),       //  Used to calculate fps
-        nextFrame: Number(0),  //
+        nextFrame: Number(0),  //  Store the call to the animation frame
 
         /*
          *
@@ -198,7 +196,6 @@ class WtGui {
             WtGui.#canvas.renderCanvas.height = WtGui.settings.height
             WtGui.#data.fps = 0
             WtGui.#renderer.rate = 0
-            WtGui.#data.ticks = 0n
             clearInterval(WtGui.#renderer.fpsCalc)
             WtGui.#renderer.fpsCalc = setInterval(() => {
                 WtGui.#data.fps = WtGui.#renderer.rate
@@ -237,7 +234,6 @@ class WtGui {
 
             WtGui.#canvas.getContext('2d').drawImage(WtGui.#canvas.renderCanvas, 0, 0)
             WtGui.#renderer.rate++
-            WtGui.#data.ticks++
             WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
         }
     }
