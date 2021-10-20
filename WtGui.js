@@ -184,6 +184,7 @@ class WtGui {
      */
     static #renderer = {
         fpsCalc: null,         //  Store timed func to calculate fps
+        ctx: null,
         rate: Number(0),       //  Used to calculate fps
         nextFrame: Number(0),  //  Store the call to the animation frame
 
@@ -202,6 +203,7 @@ class WtGui {
             }, 1000)
             if(WtGui.#renderer.nextFrame > 0)
                 window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
+            WtGui.#renderer.ctx = WtGui.#canvas.renderCanvas.getContext('2d')
             WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
         },
 
@@ -212,7 +214,7 @@ class WtGui {
             if(WtGui.#openedMenus.length === 0 || WtGui.#currentMenu === undefined)
                 WtGui.actions.openMenu(WtGui.settings.defaultMenu)
             if(WtGui.#currentMenu === undefined) throw new WtGuiError(`No menus available.`)
-            const ctx = WtGui.#canvas.renderCanvas.getContext('2d')
+            const ctx = WtGui.#renderer.ctx
 
             //  Clear the renderer
             ctx.fillStyle = WtGui.settings.clearColor
