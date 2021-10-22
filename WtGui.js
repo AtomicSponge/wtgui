@@ -101,6 +101,10 @@ class WtGui {
         window.addEventListener('keyup', WtGui.#events.onKeyUp, false)
 
         WtGui.#canvas.renderCanvas = document.createElement('canvas')
+        WtGui.#canvas.renderCanvas.width = WtGui.settings.width
+        WtGui.#canvas.renderCanvas.height = WtGui.settings.height
+
+        WtGui.#data.fps = 0
         WtGui.#configRan = true
         WtGui.#renderer.start()
     }
@@ -201,9 +205,6 @@ class WtGui {
          *
          */
         start: () => {
-            WtGui.#canvas.renderCanvas.width = WtGui.settings.width
-            WtGui.#canvas.renderCanvas.height = WtGui.settings.height
-            WtGui.#data.fps = 0
             WtGui.#renderer.rate = 0
             clearInterval(WtGui.#renderer.fpsCalc)
             WtGui.#renderer.fpsCalc = setInterval(() => {
