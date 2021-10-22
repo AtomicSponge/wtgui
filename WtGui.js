@@ -128,7 +128,7 @@ class WtGui {
             if(!(menuObj instanceof WtGuiMenu))       //  Fail if still not a menu
                 throw new WtGuiError('Object is not a valid menu')
         }
-        if(WtGui.#getMenu(menuObj.id) !== undefined)  //  Verify menu does not exist
+        if(WtGui.getMenu(menuObj.id) !== undefined)  //  Verify menu does not exist
             throw new WtGuiError('Menu ID already exists')
         WtGui.#menus.push(menuObj)                    //  Add menu
     }
@@ -137,15 +137,9 @@ class WtGui {
      *
      */
     static addItem = (menuId, itemObj) => {
-        if(!(itemObj instanceof WtGuiItem))  //  Verify proper item object
-            throw new WtGuiError('Object is not a valid menu item')
-        const menu = WtGui.#getMenu(menuId)
-        //  Verify menu exists
+        const menu = WtGui.getMenu(menuId)
         if(menu === undefined) throw new WtGuiError('Menu does not exist')
-        //  Verify item does not already exist
-        if(menu.items.find(elm => elm.id === itemObj.id) !== undefined)
-            throw new WtGuiError('Item ID already exists')
-        menu.items.push(itemObj)             //  Add item
+        menu.addItem(itemObj)
     }
 
     /*
@@ -159,7 +153,7 @@ class WtGui {
     /*
      *
      */
-    static #getMenu = (menuId) => { return WtGui.#menus.find(elm => elm.id === menuId) }
+    static getMenu = (menuId) => { return WtGui.#menus.find(elm => elm.id === menuId) }
 
     /*
      *
@@ -169,7 +163,7 @@ class WtGui {
          *
          */
         openMenu: (menuId) => {
-            const tempMenu = WtGui.#getMenu(menuId)
+            const tempMenu = WtGui.getMenu(menuId)
             if(tempMenu === undefined) return false
             WtGui.#openedMenus.push(tempMenu)
             WtGui.#currentMenu = WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
@@ -364,6 +358,18 @@ class WtGuiMenu {
         this.bgimage = args.bgimage || undefined
         this.bgcolor = args.bgcolor || 'rgb(0,0,0)'
         this.fgcolor = args.fgcolor || 'rgb(255,255,255)'
+    }
+
+    /*
+     *
+     */
+    addItem = (itemObj) => {
+        if(!(itemObj instanceof WtGuiItem))  //  Verify proper item object
+            throw new WtGuiError('Object is not a valid menu item')
+        //  Verify item does not already exist
+        if(this.items.find(elm => elm.id === itemObj.id) !== undefined)
+            throw new WtGuiError('Item ID already exists')
+        this.items.push(itemObj)  //  Add item
     }
 }
 exports.WtGuiMenu = WtGuiMenu
