@@ -219,6 +219,7 @@ class WtGui {
                 WtGui.actions.openMenu(WtGui.settings.defaultMenu)
             if(WtGui.#currentMenu === undefined) throw new WtGuiError(`No menus available.`)
             const ctx = WtGui.#renderer.ctx
+            const currentMenu = WtGui.#currentMenu
 
             //  Clear the renderer
             ctx.fillStyle = WtGui.settings.clearColor
@@ -227,15 +228,15 @@ class WtGui {
             //  add background rendering
 
             //  Render the menu
-            ctx.fillStyle = WtGui.#currentMenu.bgcolor
-            ctx.fillRect(WtGui.#currentMenu.pos_x, WtGui.#currentMenu.pos_y,
-                WtGui.#currentMenu.width, WtGui.#currentMenu.height)
+            ctx.fillStyle = currentMenu.bgcolor
+            ctx.fillRect(currentMenu.pos_x, currentMenu.pos_y,
+                currentMenu.width, currentMenu.height)
 
             //  Render menu items
-            WtGui.#currentMenu.items.forEach(elm => {
+            currentMenu.items.forEach(elm => {
                 ctx.fillStyle = elm.bgcolor
-                ctx.fillRect(WtGui.#currentMenu.pos_x + elm.pos_x,
-                    WtGui.#currentMenu.pos_y + elm.pos_y,
+                ctx.fillRect(currentMenu.pos_x + elm.pos_x,
+                    currentMenu.pos_y + elm.pos_y,
                     elm.width, elm.height)
             })
 
