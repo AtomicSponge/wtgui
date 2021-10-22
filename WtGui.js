@@ -80,6 +80,7 @@ class WtGui {
      *
      */
     static startGui = (canvas) => {
+        if(WtGui.#configRan) throw new WtGuiError(`WtGui is already running.`)
         if(!(canvas instanceof HTMLCanvasElement))
             throw new WtGuiError(`${canvas} is not a HTMLCanvasElement`)
         WtGui.#canvas = canvas
@@ -87,23 +88,20 @@ class WtGui {
         WtGui.#canvas.width = WtGui.settings.width
         WtGui.#canvas.height = WtGui.settings.height
 
-        if(!WtGui.#configRan) {
-            WtGui.#canvas.addEventListener('mousedown', WtGui.#events.onMouseDown, false)
-            WtGui.#canvas.addEventListener('mouseup', WtGui.#events.onMouseUp, false)
-            WtGui.#canvas.addEventListener('mousemove', WtGui.#events.onMouseMove, false)
+        WtGui.#canvas.addEventListener('mousedown', WtGui.#events.onMouseDown, false)
+        WtGui.#canvas.addEventListener('mouseup', WtGui.#events.onMouseUp, false)
+        WtGui.#canvas.addEventListener('mousemove', WtGui.#events.onMouseMove, false)
 
-            WtGui.#canvas.addEventListener("touchstart", WtGui.#events.onTouchStart, false)
-            WtGui.#canvas.addEventListener("touchend", WtGui.#events.onTouchEnd, false)
-            WtGui.#canvas.addEventListener("touchcancel", WtGui.#events.onTouchCancel, false)
-            WtGui.#canvas.addEventListener("touchmove", WtGui.#events.onTouchMove, false)
+        WtGui.#canvas.addEventListener("touchstart", WtGui.#events.onTouchStart, false)
+        WtGui.#canvas.addEventListener("touchend", WtGui.#events.onTouchEnd, false)
+        WtGui.#canvas.addEventListener("touchcancel", WtGui.#events.onTouchCancel, false)
+        WtGui.#canvas.addEventListener("touchmove", WtGui.#events.onTouchMove, false)
 
-            window.addEventListener('keydown', WtGui.#events.onKeyDown, false)
-            window.addEventListener('keyup', WtGui.#events.onKeyUp, false)
+        window.addEventListener('keydown', WtGui.#events.onKeyDown, false)
+        window.addEventListener('keyup', WtGui.#events.onKeyUp, false)
 
-            WtGui.#canvas.renderCanvas = document.createElement('canvas')
-            WtGui.#configRan = true
-        }
-
+        WtGui.#canvas.renderCanvas = document.createElement('canvas')
+        WtGui.#configRan = true
         WtGui.#renderer.start()
     }
 
