@@ -51,9 +51,9 @@ class WtGui {
      * Read this
      */
     static info = {
-        fps: () => { return WtGui.#data.fps },
-        getMousePosX: () => { return WtGui.#data.mouseCords.posX },
-        getMousePosY: () => { return WtGui.#data.mouseCords.posY }
+        get fps() { return WtGui.#data.fps },
+        get mousePosX() { return WtGui.#data.mouseCords.posX },
+        get mousePosY() { return WtGui.#data.mouseCords.posY }
     }
 
     /*
@@ -230,6 +230,8 @@ class WtGui {
             //  Clear the renderer
             ctx.fillStyle = WtGui.settings.clearColor
             ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
+
+            //  add background rendering
 
             //  Render the menu
             ctx.fillStyle = WtGui.#currentMenu.bgcolor
