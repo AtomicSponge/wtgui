@@ -248,7 +248,7 @@ class WtGui {
             WtGui.#renderer.rate++
             while(WtGui.#renderer.paused) {}  //  Infinite loop for pause
             WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
-        },
+        }
     }
 
     /*
