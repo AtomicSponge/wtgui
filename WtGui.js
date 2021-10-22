@@ -269,8 +269,8 @@ class WtGui {
          *
          */
         onMouseMove: (event) => {
-            WtGui.#data.mouseCords.posX = 0
-            WtGui.#data.mouseCords.posY = 0
+            WtGui.#data.mouseCords.posX = event.offsetX
+            WtGui.#data.mouseCords.posY = event.offsetY
         },
 
         /*
