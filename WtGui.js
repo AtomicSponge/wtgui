@@ -112,16 +112,6 @@ class WtGui {
     /*
      *
      */
-    static pause = () => { WtGui.#renderer.paused = true }
-
-    /*
-     *
-     */
-    static unpause = () => { WtGui.#renderer.paused = false }
-
-    /*
-     *
-     */
     static addMenu = (menuObj) => {
         if(!(menuObj instanceof WtGuiMenu)) {         //  Verify proper menu object
             menuObj = WtGui.buildMenu(menuObj)        //  Try to build menu if not
@@ -159,6 +149,16 @@ class WtGui {
      *
      */
     static actions = {
+        /*
+         *
+         */
+        pause: () => { WtGui.#renderer.paused = true },
+
+        /*
+         *
+         */
+        unpause: () => { WtGui.#renderer.paused = false },
+
         /*
          *
          */
