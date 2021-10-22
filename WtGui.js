@@ -110,6 +110,16 @@ class WtGui {
     /*
      *
      */
+    static pause = () => { WtGui.#renderer.paused = true }
+
+    /*
+     *
+     */
+    static unpause = () => { WtGui.#renderer.paused = false }
+
+    /*
+     *
+     */
     static addMenu = (menuObj) => {
         if(!(menuObj instanceof WtGuiMenu)) {         //  Verify proper menu object
             menuObj = WtGui.buildMenu(menuObj)        //  Try to build menu if not
@@ -184,9 +194,10 @@ class WtGui {
      */
     static #renderer = {
         fpsCalc: null,         //  Store timed func to calculate fps
-        ctx: null,
+        ctx: null,             //  Contex to draw to
         rate: Number(0),       //  Used to calculate fps
         nextFrame: Number(0),  //  Store the call to the animation frame
+        paused: false,         //  Flag to pause renderer
 
         /*
          *
@@ -235,8 +246,9 @@ class WtGui {
 
             WtGui.#canvas.getContext('2d').drawImage(WtGui.#canvas.renderCanvas, 0, 0)
             WtGui.#renderer.rate++
+            while(WtGui.#renderer.paused) {}  //  Infinite loop for pause
             WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
-        }
+        },
     }
 
     /*
