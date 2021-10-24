@@ -35,32 +35,32 @@ class WtGui {
     constructor() { return false }  //  Don't allow direct construction
 
     /*
-     * Config this
+     * Module settings
      */
     static settings = {
         width: Number(0),
         height: Number(0),
         clearColor: 'rgba(0,0,0,0)',  //
         defaultMenu: 'main_menu',     //  Default menu to use
-        bgimage: {
+        bgImage: {
             file: undefined
         }
     }
 
     /*
-     * Read this
+     * Module info
      */
     static info = {
-        get fps() { return WtGui.#data.fps },
+        get fps() { return WtGui.#renderer.fps },
+        get frameDelta() { return WtGui.#renderer.frameDelta },
         get mousePosX() { return WtGui.#data.mouseCords.posX },
         get mousePosY() { return WtGui.#data.mouseCords.posY }
     }
 
     /*
-     * From here
+     * Gui Data
      */
     static #data = {
-        fps: Number(0),
         mouseCords: {
             posX: Number(0),
             posY: Number(0)
@@ -189,20 +189,23 @@ class WtGui {
      *
      */
     static #renderer = {
-        fpsCalc: null,         //  Store timed func to calculate fps
-        ctx: null,             //  Contex to draw to
-        rate: Number(0),       //  Used to calculate fps
-        nextFrame: Number(0),  //  Store the call to the animation frame
-        paused: false,         //  Flag to pause renderer
+        fpsCalc: null,          //  Store timed func to calculate fps
+        ctx: null,              //  Contex to draw to
+        nextFrame: Number(0),   //  Store the call to the animation frame
+        paused: false,          //  Flag to pause renderer
+        fps: Number(0),         //  Frame rate
+        rate: Number(0),        //  Used to calculate fps
+        frameDelta: Number(0),  //  Time in ms between frames
 
         /*
          *
          */
         start: () => {
             WtGui.#renderer.rate = 0
+            WtGui.#renderer.frameDelta = Date.now()
             clearInterval(WtGui.#renderer.fpsCalc)
             WtGui.#renderer.fpsCalc = setInterval(() => {
-                WtGui.#data.fps = WtGui.#renderer.rate
+                WtGui.#renderer.fps = WtGui.#renderer.rate
                 WtGui.#renderer.rate = 0
             }, 1000)
             if(WtGui.#renderer.nextFrame > 0)
@@ -242,6 +245,7 @@ class WtGui {
 
             WtGui.#canvas.getContext('2d').drawImage(WtGui.#canvas.renderCanvas, 0, 0)
             WtGui.#renderer.rate++
+            WtGui.#renderer.frameDelta = Date.now() - WtGui.#renderer.frameDelta
             while(WtGui.#renderer.paused) {}  //  Infinite loop for pause
             WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
         }
