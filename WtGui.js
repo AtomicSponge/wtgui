@@ -42,9 +42,7 @@ class WtGui {
         height: Number(0),
         clearColor: 'rgba(0,0,0,0)',  //
         defaultMenu: 'main_menu',     //  Default menu to use
-        bgImage: {
-            file: undefined
-        }
+        bgAnimation: null,
     }
 
     /*
@@ -61,6 +59,7 @@ class WtGui {
      * Gui Data
      */
     static #data = {
+        bgImages: [],
         mouseCords: {
             posX: Number(0),
             posY: Number(0)
@@ -112,6 +111,21 @@ class WtGui {
     /*
      *
      */
+    static addBgImage = (id, file) => {
+        if(WtGui.#data.bgImages.find(elm => elm.id === id) !== undefined)
+            throw new WtGuiError('Image ID already exists')
+        // load file
+        WtGui.#data.bgImages.push({ id: id, file: file })
+    }
+
+    /*
+     *
+     */
+    static getBgImage = (id) => { return WtGui.#data.bgImages.find(elm => elm.id === id) }
+
+    /*
+     *
+     */
     static addMenu = (menuObj) => {
         if(!(menuObj instanceof WtGuiMenu)) {         //  Verify proper menu object
             menuObj = WtGui.buildMenu(menuObj)        //  Try to build menu if not
@@ -143,7 +157,7 @@ class WtGui {
     /*
      *
      */
-    static getMenu = (menuId) => { return WtGui.#menus.find(elm => elm.id === menuId) }
+    static getMenu = (id) => { return WtGui.#menus.find(elm => elm.id === id) }
 
     /*
      *
