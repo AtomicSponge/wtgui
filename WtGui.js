@@ -69,11 +69,8 @@ class WtGui {
     /*
      *
      */
-    static #menus = []                 //  Array of available menus
-    static #openedMenus = []           //  Array of opened menus
-    static #currentMenu = undefined    //  Current opened menu
-    static #canvas = null              //  Reference to canvas
-    static #configRan = false          //  Flag to verify config runs once
+    static #canvas = null      //  Reference to canvas
+    static #configRan = false  //  Flag to verify config runs once
 
     /*
      *
@@ -121,6 +118,10 @@ class WtGui {
      *
      */
     static getBgImage = (id) => { return WtGui.#data.bgImages.find(elm => elm.id === id) }
+
+    static #menus = []               //  Array of available menus
+    static #openedMenus = []         //  Array of opened menus
+    static #currentMenu = undefined  //  Current opened menu
 
     /*
      *
