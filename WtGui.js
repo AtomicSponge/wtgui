@@ -231,6 +231,8 @@ class WtGui {
          *
          */
         render: () => {
+            WtGui.#renderer.rate++
+            WtGui.#renderer.frameDelta = Date.now() - WtGui.#renderer.frameDelta
             if(WtGui.#openedMenus.length === 0 || WtGui.#currentMenu === undefined)
                 WtGui.actions.openMenu(WtGui.settings.defaultMenu)
             if(WtGui.#currentMenu === undefined) throw new WtGuiError(`No menus available.`)
@@ -257,8 +259,6 @@ class WtGui {
             })
 
             WtGui.#canvas.getContext('2d').drawImage(WtGui.#canvas.renderCanvas, 0, 0)
-            WtGui.#renderer.rate++
-            WtGui.#renderer.frameDelta = Date.now() - WtGui.#renderer.frameDelta
             while(WtGui.#renderer.paused) {}  //  Infinite loop for pause
             WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
         }
