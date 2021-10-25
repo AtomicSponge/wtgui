@@ -40,9 +40,8 @@ class WtGui {
     static settings = {
         width: Number(0),
         height: Number(0),
-        drawfps: true,
         clearColor: 'rgb(255,255,255)',  //
-        defaultMenu: 'main_menu'      //  Default menu to use
+        defaultMenu: 'main_menu'         //  Default menu to use
     }
 
     /*
@@ -176,6 +175,13 @@ class WtGui {
         /*
          *
          */
+        drawFps: (toggle) => {
+            (toggle) ? WtGui.#renderer.drawFps = true : WtGui.#renderer.drawFps = false
+        },
+
+        /*
+         *
+         */
         openMenu: (menuId) => {
             const tempMenu = WtGui.getMenu(menuId)
             if(tempMenu === undefined) return false
@@ -207,6 +213,7 @@ class WtGui {
         ctx: null,              //  Contex to draw to
         nextFrame: Number(0),   //  Store the call to the animation frame
         paused: false,          //  Flag to pause renderer
+        drawFps: false,
         fps: Number(0),         //  Frame rate
         rate: Number(0),        //  Used to calculate fps
         frameDelta: Number(0),  //  Time in ms between frames
@@ -259,8 +266,8 @@ class WtGui {
                     elm.width, elm.height)
             })
 
-            //  FPS & Rate
-            if(WtGui.settings.drawfps) {
+            //  FPS
+            if(WtGui.#renderer.drawFps) {
                 ctx.font = '12px Arial'
                 ctx.fillStyle = 'orange'
                 ctx.textAlign = 'right'

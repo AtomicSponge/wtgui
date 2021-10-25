@@ -9,6 +9,7 @@ const { WtGui, WtGuiMenu, WtGuiButton } = require('./WtGui')
  */
 WtGui.settings.width = 1024
 WtGui.settings.height = 768
+WtGui.actions.drawFps(true)
 
 /*
  * Create main menu
