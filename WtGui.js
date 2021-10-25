@@ -40,6 +40,7 @@ class WtGui {
     static settings = {
         width: Number(0),
         height: Number(0),
+        defaultFont: '12px Arial',
         clearColor: 'rgb(255,255,255)',  //
         defaultMenu: 'main_menu'         //  Default menu to use
     }
@@ -392,6 +393,7 @@ class WtGuiMenu {
               'width', 'height' ])
         this.items = []
         this.bgimage = args.bgimage || undefined
+        this.font = args.font || WtGui.settings.defaultFont
         this.bgcolor = args.bgcolor || 'rgb(0,0,0)'
         this.fgcolor = args.fgcolor || 'rgb(255,255,255)'
     }
@@ -423,6 +425,7 @@ class WtGuiItem {
             [ 'id', 'title',
               'pos_x', 'pos_y',
               'width', 'height'])
+        this.font = args.font || WtGui.settings.defaultFont
         this.bgcolor = args.bgcolor || 'rgb(255,0,0)'
         this.fgcolor = args.fgcolor || 'rgb(255,255,255)'
     }
