@@ -66,9 +66,6 @@ class WtGui {
         }
     }
 
-    /*
-     *
-     */
     static #canvas = null      //  Reference to canvas
     static #configRan = false  //  Flag to verify config runs once
 
