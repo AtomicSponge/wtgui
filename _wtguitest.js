@@ -45,8 +45,6 @@ WtGui.addItem('game_menu', new WtGuiButton({
     width: 40, height: 20
 }))
 
-//console.log(WtGui.info.fps)
-//console.log(WtGui.info.ticks)
 //WtGui.tests.printMenu()
 
 /*
