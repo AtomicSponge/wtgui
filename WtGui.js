@@ -40,7 +40,8 @@ class WtGui {
     static settings = {
         width: Number(0),
         height: Number(0),
-        clearColor: 'rgba(0,0,0,0)',  //
+        drawfps: true,
+        clearColor: 'rgb(255,255,255)',  //
         defaultMenu: 'main_menu'      //  Default menu to use
     }
 
@@ -257,6 +258,14 @@ class WtGui {
                     currentMenu.pos_y + elm.pos_y,
                     elm.width, elm.height)
             })
+
+            //  FPS & Rate
+            if(WtGui.settings.drawfps) {
+                ctx.font = '12px Arial'
+                ctx.fillStyle = 'orange'
+                ctx.textAlign = 'right'
+                ctx.fillText(WtGui.#renderer.fps, WtGui.settings.width, 12)
+            }
 
             WtGui.#canvas.getContext('2d').drawImage(WtGui.#canvas.renderCanvas, 0, 0)
             while(WtGui.#renderer.paused) {}  //  Infinite loop for pause
