@@ -58,8 +58,6 @@ class WtGui {
      * Gui Data
      */
     static #data = {
-        bgImages: [],
-        bgAnimation: null,
         mouseCords: {
             posX: Number(0),
             posY: Number(0)
@@ -102,19 +100,23 @@ class WtGui {
         WtGui.#renderer.start()
     }
 
+    static #bgImages = []  //  Array of background images
+
     /*
      *
      */
     static addBgImage = (id, file) => {
         if(WtGui.getBgImage(id) !== undefined) throw new WtGuiError('Image ID already exists')
         // load file
-        WtGui.#data.bgImages.push({ id: id, file: file })
+        WtGui.#bgImages.push({ id: id, file: file })
     }
 
     /*
      *
      */
-    static getBgImage = (id) => { return WtGui.#data.bgImages.find(elm => elm.id === id) }
+    static getBgImage = (id) => { return WtGui.#bgImages.find(elm => elm.id === id) }
+
+    static #bgAnimation = null
 
     static #menus = []               //  Array of available menus
     static #openedMenus = []         //  Array of opened menus
