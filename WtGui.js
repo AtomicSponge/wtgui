@@ -76,6 +76,9 @@ class WtGui {
             throw new WtGuiError(`${canvas} is not a HTMLCanvasElement`)
         WtGui.#canvas = canvas
 
+        if(WtGui.settings.width < 1 || WtGui.settings.height < 1)
+            throw new WtGuiError(`Must define a width and height`)
+
         WtGui.#canvas.width = WtGui.settings.width
         WtGui.#canvas.height = WtGui.settings.height
 
