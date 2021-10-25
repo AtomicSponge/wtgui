@@ -103,7 +103,7 @@ class WtGui {
         WtGui.#canvas.renderCanvas.width = WtGui.settings.width
         WtGui.#canvas.renderCanvas.height = WtGui.settings.height
 
-        WtGui.#data.fps = 0
+        WtGui.#renderer.fps = 0
         WtGui.#configRan = true
         WtGui.#renderer.start()
     }
