@@ -7,7 +7,7 @@
 const { Gamepads } = require('gamepads')
 
 /*
- *
+ * Custom error object
  */
 class WtGuiError extends Error {
     constructor(message) {
@@ -19,7 +19,7 @@ class WtGuiError extends Error {
 exports.WtGuiError = WtGuiError
 
 /*
- *
+ * Parse required arguments
  */
 const argParser = (scope, data, args) => {
     args.forEach((arg) => {
@@ -68,7 +68,7 @@ class WtGui {
     static #configRan = false  //  Flag to verify config runs once
 
     /*
-     *
+     * Configure canvas
      */
     static startGui = (canvas) => {
         if(WtGui.#configRan) throw new WtGuiError(`WtGui is already running.`)
@@ -78,7 +78,6 @@ class WtGui {
 
         if(WtGui.settings.width < 1 || WtGui.settings.height < 1)
             throw new WtGuiError(`Must define a width and height`)
-
         WtGui.#canvas.width = WtGui.settings.width
         WtGui.#canvas.height = WtGui.settings.height
 
@@ -106,7 +105,7 @@ class WtGui {
     static #bgImages = []  //  Array of background images
 
     /*
-     *
+     * Add a background image
      */
     static addBgImage = (id, file) => {
         if(WtGui.getBgImage(id) !== undefined) throw new WtGuiError('Image ID already exists')
@@ -115,7 +114,7 @@ class WtGui {
     }
 
     /*
-     *
+     * Get a background image
      */
     static getBgImage = (id) => { return WtGui.#bgImages.find(elm => elm.id === id) }
 
@@ -126,7 +125,7 @@ class WtGui {
     static #currentMenu = undefined  //  Current opened menu
 
     /*
-     *
+     * Add a menu
      */
     static addMenu = (menuObj) => {
         if(!(menuObj instanceof WtGuiMenu)) {         //  Verify proper menu object
@@ -140,7 +139,7 @@ class WtGui {
     }
 
     /*
-     *
+     * Add a menu item
      */
     static addItem = (menuId, itemObj) => {
         const menu = WtGui.getMenu(menuId)
@@ -149,7 +148,7 @@ class WtGui {
     }
 
     /*
-     *
+     * Build a menu from an object
      */
     static buildMenu = (menuData) => {
         const tempMenu = new WtGuiMenu(menuData)
@@ -157,33 +156,33 @@ class WtGui {
     }
 
     /*
-     *
+     * Get a menu
      */
     static getMenu = (id) => { return WtGui.#menus.find(elm => elm.id === id) }
 
     /*
-     *
+     * Gui actions
      */
     static actions = {
         /*
-         *
+         * Pause Gui
          */
         pause: () => { WtGui.#renderer.paused = true },
 
         /*
-         *
+         * Unpause Gui
          */
         unpause: () => { WtGui.#renderer.paused = false },
 
         /*
-         *
+         * Draw fps
          */
         drawFps: (toggle) => {
             (toggle) ? WtGui.#renderer.drawFps = true : WtGui.#renderer.drawFps = false
         },
 
         /*
-         *
+         * Open a menu
          */
         openMenu: (menuId) => {
             const tempMenu = WtGui.getMenu(menuId)
@@ -194,7 +193,7 @@ class WtGui {
         },
 
         /*
-         *
+         * Close a menu
          */
         closeMenu: (closeAll) => {
             if(closeAll) {
@@ -209,7 +208,7 @@ class WtGui {
     }
 
     /*
-     *
+     * Renderer sub-object
      */
     static #renderer = {
         fpsCalc: null,          //  Store timed func to calculate fps
@@ -222,7 +221,7 @@ class WtGui {
         frameDelta: Number(0),  //  Time in ms between frames
 
         /*
-         *
+         * Start the renderer
          */
         start: () => {
             WtGui.#renderer.rate = 0
@@ -239,7 +238,7 @@ class WtGui {
         },
 
         /*
-         *
+         * Render draw method
          */
         render: () => {
             WtGui.#renderer.rate++
@@ -284,7 +283,7 @@ class WtGui {
     }
 
     /*
-     *
+     * Events sub-object
      */
     static #events = {
         /*
@@ -367,7 +366,7 @@ class WtGui {
     }
 
     /*
-     *
+     * Gui tests
      */
     static tests = {
         printMenu: () => {
