@@ -41,8 +41,7 @@ class WtGui {
         width: Number(0),
         height: Number(0),
         clearColor: 'rgba(0,0,0,0)',  //
-        defaultMenu: 'main_menu',     //  Default menu to use
-        bgAnimation: null,
+        defaultMenu: 'main_menu'      //  Default menu to use
     }
 
     /*
@@ -60,6 +59,7 @@ class WtGui {
      */
     static #data = {
         bgImages: [],
+        bgAnimation: null,
         mouseCords: {
             posX: Number(0),
             posY: Number(0)
@@ -112,8 +112,7 @@ class WtGui {
      *
      */
     static addBgImage = (id, file) => {
-        if(WtGui.#data.bgImages.find(elm => elm.id === id) !== undefined)
-            throw new WtGuiError('Image ID already exists')
+        if(WtGui.getBgImage(id) !== undefined) throw new WtGuiError('Image ID already exists')
         // load file
         WtGui.#data.bgImages.push({ id: id, file: file })
     }
