@@ -2,7 +2,7 @@
  * Imports
  */
 const { contextBridge, ipcRenderer } = require('electron')
-const { WtGui, WtGuiMenu, WtGuiButton } = require('./WtGui')
+const { WtGui, WtGuiMenu, WtGuiButton } = require('../WtGui')
 
 /*
  * Configure WtGui
