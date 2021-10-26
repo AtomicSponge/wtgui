@@ -93,10 +93,7 @@ class WtGui {
         window.addEventListener('keyup', WtGui.#events.onKeyUp, false)
 
         WtGui.#canvas.renderCanvas = document.createElement('canvas')
-        WtGui.#canvas.renderCanvas.width = WtGui.settings.width
-        WtGui.#canvas.renderCanvas.height = WtGui.settings.height
 
-        WtGui.#renderer.fps = 0
         WtGui.#configRan = true
         WtGui.#renderer.start()
     }
@@ -214,21 +211,22 @@ class WtGui {
         ctx: {},                //  Contex to draw to
         nextFrame: Number(0),   //  Store the call to the animation frame
         paused: false,          //  Flag to pause renderer
-        drawFps: false,
-        fps: Number(0),         //  Frame rate
-        rate: Number(0),        //  Used to calculate fps
+        drawFps: false,         //  Flag for drawing fps counter
+        fps: Number(0),         //  Store frame rate
+        step: Number(0),        //  Used to calculate fps
         frameDelta: Number(0),  //  Time in ms between frames
 
         /*
          * Start the renderer
          */
         start: () => {
-            WtGui.#renderer.rate = 0
             WtGui.#renderer.frameDelta = Date.now()
+            WtGui.#canvas.renderCanvas.width = WtGui.settings.width
+            WtGui.#canvas.renderCanvas.height = WtGui.settings.height
             clearInterval(WtGui.#renderer.fpsCalc)
             WtGui.#renderer.fpsCalc = setInterval(() => {
-                WtGui.#renderer.fps = WtGui.#renderer.rate
-                WtGui.#renderer.rate = 0
+                WtGui.#renderer.fps = WtGui.#renderer.step
+                WtGui.#renderer.step = 0
             }, 1000)
             if(WtGui.#renderer.nextFrame > 0)
                 window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
@@ -240,7 +238,7 @@ class WtGui {
          * Render draw method
          */
         render: () => {
-            WtGui.#renderer.rate++
+            WtGui.#renderer.step++
             WtGui.#renderer.frameDelta = Date.now() - WtGui.#renderer.frameDelta
             if(WtGui.#openedMenus.length === 0 || WtGui.#currentMenu === {})
                 WtGui.actions.openMenu(WtGui.settings.defaultMenu)
