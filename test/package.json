@@ -1,7 +1,7 @@
 {
-  "name": "wtgui",
+  "name": "wtgui_test",
   "version": "1.0.0",
-  "description": "HTML5 Canvas Menu System",
+  "description": "WtGui Test",
   "main": "main.js",
   "scripts": {
     "start": "electron ."

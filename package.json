@@ -1,0 +1,27 @@
+{
+  "name": "wtgui",
+  "version": "0.0.1",
+  "description": "HTML5 Canvas Menu System",
+  "main": "WtGui.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wtfsystems/wtgui.git"
+  },
+  "keywords": [
+    "HTML5",
+    "Canvas",
+    "Menu"
+  ],
+  "author": "Matthew Evans",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wtfsystems/wtgui/issues"
+  },
+  "homepage": "https://github.com/wtfsystems/wtgui#readme"
+}
