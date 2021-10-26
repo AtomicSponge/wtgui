@@ -63,7 +63,7 @@ class WtGui {
         }
     }
 
-    static #canvas = null      //  Reference to canvas
+    static #canvas = {}        //  Reference to canvas
     static #configRan = false  //  Flag to verify config runs once
 
     /*
@@ -117,11 +117,11 @@ class WtGui {
      */
     static getBgImage = (id) => { return WtGui.#bgImages.find(elm => elm.id === id) }
 
-    static #bgAnimation = null
+    static #bgAnimation = {}
 
-    static #menus = []               //  Array of available menus
-    static #openedMenus = []         //  Array of opened menus
-    static #currentMenu = undefined  //  Current opened menu
+    static #menus = []        //  Array of available menus
+    static #openedMenus = []  //  Array of opened menus
+    static #currentMenu = {}  //  Current opened menu
 
     /*
      * Add a menu
@@ -197,7 +197,7 @@ class WtGui {
         closeMenu: (closeAll) => {
             if(closeAll) {
                 WtGui.#openedMenus = []
-                WtGui.#currentMenu = undefined
+                WtGui.#currentMenu = {}
             } else {
                 WtGui.#openedMenus.pop()
                 if(WtGui.#openedMenus.length === 0) WtGui.actions.openMenu(WtGui.settings.defaultMenu)
@@ -210,8 +210,8 @@ class WtGui {
      * Renderer sub-object
      */
     static #renderer = {
-        fpsCalc: null,          //  Store timed func to calculate fps
-        ctx: null,              //  Contex to draw to
+        fpsCalc: {},            //  Store timed func to calculate fps
+        ctx: {},                //  Contex to draw to
         nextFrame: Number(0),   //  Store the call to the animation frame
         paused: false,          //  Flag to pause renderer
         drawFps: false,
@@ -242,7 +242,7 @@ class WtGui {
         render: () => {
             WtGui.#renderer.rate++
             WtGui.#renderer.frameDelta = Date.now() - WtGui.#renderer.frameDelta
-            if(WtGui.#openedMenus.length === 0 || WtGui.#currentMenu === undefined)
+            if(WtGui.#openedMenus.length === 0 || WtGui.#currentMenu === {})
                 WtGui.actions.openMenu(WtGui.settings.defaultMenu)
             if(WtGui.#currentMenu === undefined) throw new WtGuiError(`No menus available.`)
             const ctx = WtGui.#renderer.ctx
