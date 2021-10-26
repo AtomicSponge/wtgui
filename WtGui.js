@@ -4,8 +4,6 @@
  * 
  **************************************** */
 
-//const { Gamepads } = require('gamepads')
-
 /*
  * Custom error object
  */
