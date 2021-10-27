@@ -1,13 +1,21 @@
-/* ****************************************
+/** ****************************************
  *
  * Filename:  WtGui.js
  * 
+ * @author Matthew Evans
+ * @version 0.0.1
+ * @see README.me
+ * 
  **************************************** */
 
-/*
+/**
  * Custom error object
  */
 class WtGuiError extends Error {
+    /**
+     * Create a new WtGuiError
+     * @param {*} message 
+     */
     constructor(message) {
         super(message)
         if(Error.captureStackTrace)
@@ -16,8 +24,11 @@ class WtGuiError extends Error {
 }
 exports.WtGuiError = WtGuiError
 
-/*
- * Parse required arguments
+/**
+ * Parse required arguments.
+ * @param {*} scope The scope (this).
+ * @param {*} data Data to parse.
+ * @param {*} args Arguments to parse for.
  */
 const argParser = (scope, data, args) => {
     args.forEach((arg) => {
@@ -66,8 +77,9 @@ class WtGui {
     static #canvas = {}        //  Reference to canvas
     static #configRan = false  //  Flag to verify config runs once
 
-    /*
+    /**
      * Configure canvas
+     * @param {*} canvas 
      */
     static startGui = (canvas) => {
         if(WtGui.#configRan) throw new WtGuiError(`WtGui is already running.`)
@@ -100,8 +112,10 @@ class WtGui {
 
     static #bgImages = []  //  Array of background images
 
-    /*
+    /**
      * Add a background image
+     * @param {*} id 
+     * @param {*} file 
      */
     static addBgImage = (id, file) => {
         if(WtGui.getBgImage(id) !== undefined) throw new WtGuiError('Image ID already exists')
@@ -120,8 +134,9 @@ class WtGui {
     static #openedMenus = []  //  Array of opened menus
     static #currentMenu = {}  //  Current opened menu
 
-    /*
+    /**
      * Add a menu
+     * @param {*} menuObj 
      */
     static addMenu = (menuObj) => {
         if(!(menuObj instanceof WtGuiMenu)) {         //  Verify proper menu object
@@ -134,8 +149,10 @@ class WtGui {
         WtGui.#menus.push(menuObj)                    //  Add menu
     }
 
-    /*
+    /**
      * Add a menu item
+     * @param {*} menuId 
+     * @param {*} itemObj 
      */
     static addItem = (menuId, itemObj) => {
         const menu = WtGui.getMenu(menuId)
@@ -143,24 +160,28 @@ class WtGui {
         menu.addItem(itemObj)
     }
 
-    /*
+    /**
      * Build a menu from an object
+     * @param {*} menuData 
+     * @returns 
      */
     static buildMenu = (menuData) => {
         const tempMenu = new WtGuiMenu(menuData)
         return tempMenu
     }
 
-    /*
+    /**
      * Get a menu
+     * @param {*} id 
+     * @returns 
      */
     static getMenu = (id) => { return WtGui.#menus.find(elm => elm.id === id) }
 
-    /*
+    /**
      * Gui actions
      */
     static actions = {
-        /*
+        /**
          * Pause Gui
          */
         pause: () => { WtGui.#renderer.paused = true },
@@ -374,12 +395,13 @@ class WtGui {
 }
 exports.WtGui = WtGui
 
-/*
- *
+/**
+ * 
  */
 class WtGuiMenu {
-    /*
-     *
+    /**
+     * 
+     * @param {*} args 
      */
     constructor(args) {
         var args = args || {}
@@ -394,8 +416,9 @@ class WtGuiMenu {
         this.fgcolor = args.fgcolor || 'rgb(255,255,255)'
     }
 
-    /*
-     *
+    /**
+     * 
+     * @param {*} itemObj 
      */
     addItem = (itemObj) => {
         if(!(itemObj instanceof WtGuiItem))  //  Verify proper item object
@@ -408,12 +431,13 @@ class WtGuiMenu {
 }
 exports.WtGuiMenu = WtGuiMenu
 
-/*
- *
+/**
+ * 
  */
 class WtGuiItem {
-    /*
-     *
+    /**
+     * 
+     * @param {*} args 
      */
     constructor(args) {
         var args = args || {}
@@ -428,12 +452,13 @@ class WtGuiItem {
 }
 exports.WtGuiItem = WtGuiItem
 
-/*
- *
+/**
+ * 
  */
 class WtGuiLabel extends WtGuiItem {
-    /*
-     *
+    /**
+     * 
+     * @param {*} args 
      */
     constructor(args) {
         var args = args || {}
@@ -442,12 +467,13 @@ class WtGuiLabel extends WtGuiItem {
 }
 exports.WtGuiLabel = WtGuiLabel
 
-/*
- *
+/**
+ * 
  */
 class WtGuiButton extends WtGuiItem {
-    /*
-     *
+    /**
+     * 
+     * @param {*} args 
      */
     constructor(args) {
         var args = args || {}
@@ -456,12 +482,13 @@ class WtGuiButton extends WtGuiItem {
 }
 exports.WtGuiButton = WtGuiButton
 
-/*
- *
+/**
+ * 
  */
 class WtGuiInput extends WtGuiItem {
-    /*
-     *
+    /**
+     * 
+     * @param {*} args 
      */
     constructor(args) {
         var args = args || {}
@@ -470,12 +497,13 @@ class WtGuiInput extends WtGuiItem {
 }
 exports.WtGuiInput = WtGuiInput
 
-/*
- *
+/**
+ * 
  */
 class WtGuiSelection extends WtGuiItem {
-    /*
-     *
+    /**
+     * 
+     * @param {*} args 
      */
     constructor(args) {
         var args = args || {}
@@ -484,12 +512,13 @@ class WtGuiSelection extends WtGuiItem {
 }
 exports.WtGuiSelection = WtGuiSelection
 
-/*
- *
+/**
+ * 
  */
 class WtGuiToggle extends WtGuiItem {
-    /*
-     *
+    /**
+     * 
+     * @param {*} args 
      */
     constructor(args) {
         var args = args || {}
@@ -498,12 +527,13 @@ class WtGuiToggle extends WtGuiItem {
 }
 exports.WtGuiToggle = WtGuiToggle
 
-/*
- *
+/**
+ * 
  */
 class WtGuiAction extends WtGuiItem {
-    /*
-     *
+    /**
+     * 
+     * @param {*} args 
      */
     constructor(args) {
         var args = args || {}

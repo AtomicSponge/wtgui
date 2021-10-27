@@ -5,6 +5,7 @@ __WIP__
 
 https://www.npmjs.com/package/@wtfsystems/wtgui
 
+const { WtGui } = require('@wtfsystems/wtgui')
 
 
 https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
