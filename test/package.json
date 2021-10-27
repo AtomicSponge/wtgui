@@ -19,5 +19,8 @@
   "license": "MIT",
   "devDependencies": {
     "electron": "^15.1.0"
+  },
+  "dependencies": {
+    "@wtfsystems/wtgui": "^0.0.1"
   }
 }

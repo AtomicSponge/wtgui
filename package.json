@@ -1,5 +1,5 @@
 {
-  "name": "wtgui",
+  "name": "@wtfsystems/wtgui",
   "version": "0.0.1",
   "description": "HTML5 Canvas Menu System",
   "main": "WtGui.js",
