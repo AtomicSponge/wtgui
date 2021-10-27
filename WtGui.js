@@ -37,13 +37,17 @@ const argParser = (scope, data, args) => {
     })
 }
 
-/*
- *
+/**
+ * 
  */
 class WtGui {
-    constructor() { return false }  //  Don't allow direct construction
+    /**
+     * Don't allow direct construction
+     * @returns false
+     */
+    constructor() { return false }
 
-    /*
+    /**
      * Module settings
      */
     static settings = {
@@ -54,7 +58,7 @@ class WtGui {
         defaultMenu: 'main_menu'         //  Default menu to use
     }
 
-    /*
+    /**
      * Module info
      */
     static info = {
@@ -64,7 +68,7 @@ class WtGui {
         get mousePosY() { return WtGui.#data.mouseCords.posY }
     }
 
-    /*
+    /**
      * Gui Data
      */
     static #data = {
@@ -186,20 +190,23 @@ class WtGui {
          */
         pause: () => { WtGui.#renderer.paused = true },
 
-        /*
+        /**
          * Unpause Gui
          */
         unpause: () => { WtGui.#renderer.paused = false },
 
-        /*
+        /**
          * Draw fps
+         * @param {*} toggle 
          */
         drawFps: (toggle) => {
             (toggle) ? WtGui.#renderer.drawFps = true : WtGui.#renderer.drawFps = false
         },
 
-        /*
+        /**
          * Open a menu
+         * @param {*} menuId 
+         * @returns 
          */
         openMenu: (menuId) => {
             const tempMenu = WtGui.getMenu(menuId)
@@ -209,8 +216,9 @@ class WtGui {
             return true
         },
 
-        /*
-         * Close a menu
+        /**
+         * 
+         * @param {*} closeAll 
          */
         closeMenu: (closeAll) => {
             if(closeAll) {
@@ -224,7 +232,7 @@ class WtGui {
         }
     }
 
-    /*
+    /**
      * Renderer sub-object
      */
     static #renderer = {
@@ -237,7 +245,7 @@ class WtGui {
         step: Number(0),        //  Used to calculate fps
         frameDelta: Number(0),  //  Time in ms between frames
 
-        /*
+        /**
          * Start the renderer
          */
         start: () => {
@@ -255,7 +263,7 @@ class WtGui {
             WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
         },
 
-        /*
+        /**
          * Render draw method
          */
         render: () => {
@@ -300,93 +308,107 @@ class WtGui {
         }
     }
 
-    /*
+    /**
      * Events sub-object
      */
     static #events = {
-        /*
-         *
+        /**
+         * 
+         * @param {*} event 
          */
         onMouseDown: (event) => {
             //alert(event)
         },
 
-        /*
-         *
+        /**
+         * 
+         * @param {*} event 
          */
         onMouseUp: (event) => {
             //alert(event)
         },
 
-        /*
-         *
+        /**
+         * 
+         * @param {*} event 
          */
         onMouseMove: (event) => {
             WtGui.#data.mouseCords.posX = event.offsetX
             WtGui.#data.mouseCords.posY = event.offsetY
         },
 
-        /*
-         *
+        /**
+         * 
+         * @param {*} event 
          */
         onTouchStart: (event) => {
             //alert(event)
         },
 
-        /*
-         *
+        /**
+         * 
+         * @param {*} event 
          */
         onTouchEnd: (event) => {
             //alert(event)
         },
 
-        /*
-         *
+        /**
+         * 
+         * @param {*} event 
          */
         onTouchCancel: (event) => {
             //alert(event)
         },
 
-        /*
-         *
+        /**
+         * 
+         * @param {*} event 
          */
         onTouchMove: (event) => {
             //alert(event)
         },
 
-        /*
-         *
+        /**
+         * 
+         * @param {*} event 
          */
         onKeyDown: (event) => {
             //alert(event)
         },
 
-        /*
-         *
+        /**
+         * 
+         * @param {*} event 
          */
         onKeyUp: (event) => {
             //alert(event)
         },
 
-        /*
-         *
+        /**
+         * 
+         * @param {*} event 
          */
         onButtonDown: (event) => {
             //alert(event)
         },
 
-        /*
-         *
+        /**
+         * 
+         * @param {*} event 
          */
         onButtonUp: (event) => {
             //alert(event)
         }
     }
 
-    /*
+    /**
      * Gui tests
      */
     static tests = {
+        /**
+         * Print the menu
+         */
         printMenu: () => {
             console.log('menu:')
             console.log(WtGui.#menus)
