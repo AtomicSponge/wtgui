@@ -1,8 +1,7 @@
 /** ****************************************
- *
- * Filename:  WtGui.js
  * 
  * @author Matthew Evans
+ * @module wtfsystems/wtgui
  * @version 0.0.1
  * @see README.me
  * 
@@ -83,7 +82,7 @@ class WtGui {
 
     /**
      * Configure canvas
-     * @param {*} canvas 
+     * @param {HTMLCanvasElement} canvas 
      */
     static startGui = (canvas) => {
         if(WtGui.#configRan) throw new WtGuiError(`WtGui is already running.`)
@@ -118,7 +117,7 @@ class WtGui {
 
     /**
      * Add a background image
-     * @param {*} id 
+     * @param {String} id 
      * @param {*} file 
      */
     static addBgImage = (id, file) => {
@@ -155,8 +154,8 @@ class WtGui {
 
     /**
      * Add a menu item
-     * @param {*} menuId 
-     * @param {*} itemObj 
+     * @param {String} menuId 
+     * @param {WtGuiItem} itemObj 
      */
     static addItem = (menuId, itemObj) => {
         const menu = WtGui.getMenu(menuId)
@@ -167,7 +166,7 @@ class WtGui {
     /**
      * Build a menu from an object
      * @param {*} menuData 
-     * @returns 
+     * @returns {WtGuiMenu}
      */
     static buildMenu = (menuData) => {
         const tempMenu = new WtGuiMenu(menuData)
@@ -176,7 +175,7 @@ class WtGui {
 
     /**
      * Get a menu
-     * @param {*} id 
+     * @param {String} id 
      * @returns 
      */
     static getMenu = (id) => { return WtGui.#menus.find(elm => elm.id === id) }
@@ -197,7 +196,7 @@ class WtGui {
 
         /**
          * Draw fps
-         * @param {*} toggle 
+         * @param {boolean} toggle 
          */
         drawFps: (toggle) => {
             (toggle) ? WtGui.#renderer.drawFps = true : WtGui.#renderer.drawFps = false
@@ -205,7 +204,7 @@ class WtGui {
 
         /**
          * Open a menu
-         * @param {*} menuId 
+         * @param {String} menuId 
          * @returns 
          */
         openMenu: (menuId) => {
@@ -218,7 +217,7 @@ class WtGui {
 
         /**
          * 
-         * @param {*} closeAll 
+         * @param {boolean} closeAll 
          */
         closeMenu: (closeAll) => {
             if(closeAll) {
@@ -440,7 +439,7 @@ class WtGuiMenu {
 
     /**
      * 
-     * @param {*} itemObj 
+     * @param {WtGuiItem} itemObj 
      */
     addItem = (itemObj) => {
         if(!(itemObj instanceof WtGuiItem))  //  Verify proper item object
