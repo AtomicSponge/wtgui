@@ -24,7 +24,7 @@ class WtGuiError extends Error {
 }
 exports.WtGuiError = WtGuiError
 
-/**
+/*
  * Parse required arguments.
  * @param {*} scope The scope (this).
  * @param {*} data Data to parse.
@@ -32,7 +32,7 @@ exports.WtGuiError = WtGuiError
  */
 const argParser = (scope, data, args) => {
     args.forEach((arg) => {
-        if(data[arg] === undefined) throw new WtGuiError(`${arg} undefined.`)
+        if(data[arg] === undefined) throw new WtGuiError(`${scope}:\n${arg} undefined.`)
         scope[arg] = data[arg]
     })
 }
