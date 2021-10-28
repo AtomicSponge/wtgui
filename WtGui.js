@@ -37,9 +37,11 @@ const argParser = (scope, data, args) => {
     })
 }
 
-/**
+/** ***************************************
+ *
+ * WtGui main object
  * 
- */
+ *************************************** */
 class WtGui {
     /**
      * Don't allow direct construction
@@ -434,6 +436,12 @@ class WtGui {
     }
 }
 exports.WtGui = WtGui
+
+/* ****************************************
+ *
+ * Menu & menu item objects
+ * 
+ *************************************** */
 
 /**
  * 
