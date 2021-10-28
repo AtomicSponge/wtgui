@@ -199,19 +199,19 @@ class WtGui {
      */
     static actions = {
         /**
-         * Pause the renderer
+         * Pause the gui
          */
-        pauseRenderer: () => { WtGui.#renderer.paused = true },
+        pauseGui: () => { WtGui.#renderer.paused = true },
 
         /**
-         * Unpause the renderer
+         * Unpause the gui
          */
-        unpauseRenderer: () => { WtGui.#renderer.paused = false },
+        unpauseGui: () => { WtGui.#renderer.paused = false },
 
         /**
-         * Restart the renderer
+         * Restart the gui
          */
-        restartRenderer: () => {
+        restartGui: () => {
             WtGui.#renderer.stop()
             WtGui.#renderer.start()
         },
@@ -300,9 +300,12 @@ class WtGui {
         render: () => {
             WtGui.#renderer.step++
             WtGui.#renderer.frameDelta = Date.now() - WtGui.#renderer.frameDelta
-            if(WtGui.#openedMenus.length === 0 || WtGui.#currentMenu === {})
-                WtGui.actions.openMenu(WtGui.settings.defaultMenu)
-            if(WtGui.#currentMenu === undefined) throw new WtGuiError(`No menus available.`)
+            if(WtGui.#openedMenus.length === 0 ||
+               WtGui.#currentMenu === {} ||
+               WtGui.#currentMenu === undefined) WtGui.actions.openMenu(WtGui.settings.defaultMenu)
+            if(WtGui.#openedMenus.length === 0 ||
+               WtGui.#currentMenu === {} ||
+               WtGui.#currentMenu === undefined) throw new WtGuiError(`No menus available.`)
             const ctx = WtGui.#renderer.ctx
             const currentMenu = WtGui.#currentMenu
 

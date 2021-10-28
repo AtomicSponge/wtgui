@@ -2,6 +2,7 @@
 
 __WIP__
 
+This will be a HTML5 canvas based menu system at some point in the future.
 
 https://www.npmjs.com/package/@wtfsystems/wtgui
 
