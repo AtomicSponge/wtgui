@@ -4,6 +4,7 @@
  * @module wtfsystems/wtgui
  * @version 0.0.1
  * @see README.me
+ * @copyright LICENSE.md
  * 
  **************************************** */
 
@@ -13,7 +14,7 @@
 class WtGuiError extends Error {
     /**
      * Create a new WtGuiError
-     * @param {*} message 
+     * @param {String} message 
      */
     constructor(message) {
         super(message)
@@ -48,13 +49,15 @@ class WtGui {
 
     /**
      * Module settings
+     * @prop {Number} width
+     * 
      */
     static settings = {
         width: Number(0),
         height: Number(0),
         defaultFont: '12px Arial',
-        clearColor: 'rgb(255,255,255)',  //
-        defaultMenu: 'main_menu'         //  Default menu to use
+        clearColor: 'rgb(255,255,255)',
+        defaultMenu: 'main_menu'
     }
 
     /**
@@ -67,7 +70,7 @@ class WtGui {
         get mousePosY() { return WtGui.#data.mouseCords.posY }
     }
 
-    /**
+    /*
      * Gui Data
      */
     static #data = {
@@ -126,8 +129,10 @@ class WtGui {
         WtGui.#bgImages.push({ id: id, file: file })
     }
 
-    /*
+    /**
      * Get a background image
+     * @param {String} id 
+     * @returns 
      */
     static getBgImage = (id) => { return WtGui.#bgImages.find(elm => elm.id === id) }
 
@@ -231,7 +236,7 @@ class WtGui {
         }
     }
 
-    /**
+    /*
      * Renderer sub-object
      */
     static #renderer = {
@@ -244,7 +249,7 @@ class WtGui {
         step: Number(0),        //  Used to calculate fps
         frameDelta: Number(0),  //  Time in ms between frames
 
-        /**
+        /*
          * Start the renderer
          */
         start: () => {
@@ -262,7 +267,7 @@ class WtGui {
             WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
         },
 
-        /**
+        /*
          * Render draw method
          */
         render: () => {
@@ -307,94 +312,83 @@ class WtGui {
         }
     }
 
-    /**
+    /*
      * Events sub-object
      */
     static #events = {
-        /**
+        /*
          * 
-         * @param {*} event 
          */
         onMouseDown: (event) => {
             //alert(event)
         },
 
-        /**
+        /*
          * 
-         * @param {*} event 
          */
         onMouseUp: (event) => {
             //alert(event)
         },
 
-        /**
+        /*
          * 
-         * @param {*} event 
          */
         onMouseMove: (event) => {
             WtGui.#data.mouseCords.posX = event.offsetX
             WtGui.#data.mouseCords.posY = event.offsetY
         },
 
-        /**
+        /*
          * 
-         * @param {*} event 
          */
         onTouchStart: (event) => {
             //alert(event)
         },
 
-        /**
+        /*
          * 
-         * @param {*} event 
          */
         onTouchEnd: (event) => {
             //alert(event)
         },
 
-        /**
+        /*
          * 
-         * @param {*} event 
          */
         onTouchCancel: (event) => {
             //alert(event)
         },
 
-        /**
+        /*
          * 
-         * @param {*} event 
          */
         onTouchMove: (event) => {
             //alert(event)
         },
 
-        /**
+        /*
          * 
-         * @param {*} event 
          */
         onKeyDown: (event) => {
             //alert(event)
         },
 
-        /**
+        /*
          * 
-         * @param {*} event 
          */
         onKeyUp: (event) => {
             //alert(event)
         },
 
-        /**
+        /*
          * 
-         * @param {*} event 
          */
         onButtonDown: (event) => {
             //alert(event)
         },
 
-        /**
+        /*
          * 
-         * @param {*} event 
          */
         onButtonUp: (event) => {
             //alert(event)
@@ -454,6 +448,7 @@ exports.WtGuiMenu = WtGuiMenu
 
 /**
  * 
+ * @interface
  */
 class WtGuiItem {
     /**
@@ -475,6 +470,7 @@ exports.WtGuiItem = WtGuiItem
 
 /**
  * 
+ * @extends WtGuiItem
  */
 class WtGuiLabel extends WtGuiItem {
     /**
@@ -490,6 +486,7 @@ exports.WtGuiLabel = WtGuiLabel
 
 /**
  * 
+ * @extends WtGuiItem
  */
 class WtGuiButton extends WtGuiItem {
     /**
@@ -505,6 +502,7 @@ exports.WtGuiButton = WtGuiButton
 
 /**
  * 
+ * @extends WtGuiItem
  */
 class WtGuiInput extends WtGuiItem {
     /**
@@ -520,6 +518,7 @@ exports.WtGuiInput = WtGuiInput
 
 /**
  * 
+ * @extends WtGuiItem
  */
 class WtGuiSelection extends WtGuiItem {
     /**
@@ -535,6 +534,7 @@ exports.WtGuiSelection = WtGuiSelection
 
 /**
  * 
+ * @extends WtGuiItem
  */
 class WtGuiToggle extends WtGuiItem {
     /**
@@ -550,6 +550,7 @@ exports.WtGuiToggle = WtGuiToggle
 
 /**
  * 
+ * @extends WtGuiItem
  */
 class WtGuiAction extends WtGuiItem {
     /**
