@@ -91,7 +91,7 @@ class WtGui {
     static #configRan = false  //  Flag to verify config runs once
 
     /**
-     * Configure canvas
+     * Configure canvas and start the gui
      * @param {HTMLCanvasElement} canvas 
      */
     static startGui = (canvas) => {
@@ -197,17 +197,25 @@ class WtGui {
      */
     static actions = {
         /**
-         * Pause Gui
+         * Pause the renderer
          */
-        pause: () => { WtGui.#renderer.paused = true },
+        pauseRenderer: () => { WtGui.#renderer.paused = true },
 
         /**
-         * Unpause Gui
+         * Unpause the renderer
          */
-        unpause: () => { WtGui.#renderer.paused = false },
+        unpauseRenderer: () => { WtGui.#renderer.paused = false },
 
         /**
-         * Draw fps
+         * Restart the renderer
+         */
+        restartRenderer: () => {
+            WtGui.#renderer.stop()
+            WtGui.#renderer.start()
+        },
+
+        /**
+         * Turn fps drawing on or off
          * @param {boolean} toggle 
          */
         drawFps: (toggle) => {
@@ -228,7 +236,7 @@ class WtGui {
         },
 
         /**
-         * 
+         * Close one or all menus
          * @param {boolean} closeAll 
          */
         closeMenu: (closeAll) => {
@@ -272,6 +280,16 @@ class WtGui {
                 window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
             WtGui.#renderer.ctx = WtGui.#canvas.renderCanvas.getContext('2d')
             WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
+        },
+
+        /*
+         * Stop the renderer
+         */
+        stop: () => {
+            clearInterval(WtGui.#renderer.fpsCalc)
+            if(WtGui.#renderer.nextFrame > 0)
+                window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
+            WtGui.#renderer.fps = WtGui.#renderer.step = 0
         },
 
         /*
