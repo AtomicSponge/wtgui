@@ -50,7 +50,10 @@ class WtGui {
     /**
      * Module settings
      * @prop {Number} width
-     * 
+     * @prop {Number} height
+     * @prop {String} defaultFont
+     * @prop {String} clearColor
+     * @prop {String} defaultMenu
      */
     static settings = {
         width: Number(0),
@@ -62,6 +65,10 @@ class WtGui {
 
     /**
      * Module info
+     * @prop {Number} fps
+     * @prop {Number} frameDelta
+     * @prop {Number} mousePosX
+     * @prop {Number} mousePosY
      */
     static info = {
         get fps() { return WtGui.#renderer.fps },
