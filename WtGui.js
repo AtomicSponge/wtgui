@@ -271,7 +271,6 @@ class WtGui {
          * Start the renderer
          */
         start: () => {
-            WtGui.#renderer.frameDelta = WtGui.#renderer.lastRender = Date.now()
             WtGui.#canvas.renderCanvas.width = WtGui.settings.width
             WtGui.#canvas.renderCanvas.height = WtGui.settings.height
             clearInterval(WtGui.#renderer.fpsCalc)
@@ -281,6 +280,7 @@ class WtGui {
             }, 1000)
             window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
             WtGui.#renderer.ctx = WtGui.#canvas.renderCanvas.getContext('2d')
+            WtGui.#renderer.frameDelta = WtGui.#renderer.lastRender = Date.now()
             WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
         },
 
@@ -291,6 +291,7 @@ class WtGui {
             clearInterval(WtGui.#renderer.fpsCalc)
             window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
             WtGui.#renderer.fps = WtGui.#renderer.step = 0
+            WtGui.#renderer.frameDelta = WtGui.#renderer.lastRender = 0
         },
 
         /*
