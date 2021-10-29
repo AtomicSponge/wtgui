@@ -93,7 +93,7 @@ class WtGui {
         configRan: false,  //  Flag to verify config runs once
         bgImages: [],      //  Array of background images
         menus: [],         //  Array of available menus
-        openedMenus: [],   //  Array of opened menus
+        openedMenus: [],   //  Stack of opened menus
         currentMenu: {},   //  Current opened menu
         bgAnimation: {}    //  Background animation
     }
@@ -129,6 +129,14 @@ class WtGui {
 
         WtGui.#data.configRan = true
         WtGui.#renderer.start()
+    }
+
+    /**
+     * 
+     * @param {*} func 
+     */
+    static setBgAnimation = (func) => {
+        WtGui.#data.bgAnimation = func
     }
 
     /**
