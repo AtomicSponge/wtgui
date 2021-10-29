@@ -197,7 +197,7 @@ class WtGui {
     /**
      * Get a menu
      * @param {String} id 
-     * @returns 
+     * @returns {WtGuiMenu}
      */
     static getMenu = (id) => { return WtGui.#data.menus.find(elm => elm.id === id) }
 
@@ -234,7 +234,7 @@ class WtGui {
         /**
          * Open a menu
          * @param {String} menuId 
-         * @returns 
+         * @returns {WtGuiMenu}
          */
         openMenu: (menuId) => {
             const tempMenu = WtGui.getMenu(menuId)
