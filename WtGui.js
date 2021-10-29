@@ -88,46 +88,48 @@ class WtGui {
         mouseCords: {
             posX: Number(0),
             posY: Number(0)
-        }
+        },
+        canvas: {},        //  Reference to canvas
+        configRan: false,  //  Flag to verify config runs once
+        bgImages: [],  //  Array of background images
+        menus: [],        //  Array of available menus
+        openedMenus: [],  //  Array of opened menus
+        currentMenu: {},  //  Current opened menu
+        bgAnimation: {}
     }
-
-    static #canvas = {}        //  Reference to canvas
-    static #configRan = false  //  Flag to verify config runs once
 
     /**
      * Configure canvas and start the gui
      * @param {HTMLCanvasElement} canvas 
      */
     static startGui = (canvas) => {
-        if(WtGui.#configRan) throw new WtGuiError(`WtGui is already running.`)
+        if(WtGui.#data.configRan) throw new WtGuiError(`WtGui is already running.`)
         if(!(canvas instanceof HTMLCanvasElement))
             throw new WtGuiError(`${canvas} is not a HTMLCanvasElement`)
-        WtGui.#canvas = canvas
+        WtGui.#data.canvas = canvas
 
         if(WtGui.settings.width < 1 || WtGui.settings.height < 1)
             throw new WtGuiError(`Must define a width and height`)
-        WtGui.#canvas.width = WtGui.settings.width
-        WtGui.#canvas.height = WtGui.settings.height
+        WtGui.#data.canvas.width = WtGui.settings.width
+        WtGui.#data.canvas.height = WtGui.settings.height
 
-        WtGui.#canvas.addEventListener('mousedown', WtGui.#events.onMouseDown, false)
-        WtGui.#canvas.addEventListener('mouseup', WtGui.#events.onMouseUp, false)
-        WtGui.#canvas.addEventListener('mousemove', WtGui.#events.onMouseMove, false)
+        WtGui.#data.canvas.addEventListener('mousedown', WtGui.#events.onMouseDown, false)
+        WtGui.#data.canvas.addEventListener('mouseup', WtGui.#events.onMouseUp, false)
+        WtGui.#data.canvas.addEventListener('mousemove', WtGui.#events.onMouseMove, false)
 
-        WtGui.#canvas.addEventListener("touchstart", WtGui.#events.onTouchStart, false)
-        WtGui.#canvas.addEventListener("touchend", WtGui.#events.onTouchEnd, false)
-        WtGui.#canvas.addEventListener("touchcancel", WtGui.#events.onTouchCancel, false)
-        WtGui.#canvas.addEventListener("touchmove", WtGui.#events.onTouchMove, false)
+        WtGui.#data.canvas.addEventListener("touchstart", WtGui.#events.onTouchStart, false)
+        WtGui.#data.canvas.addEventListener("touchend", WtGui.#events.onTouchEnd, false)
+        WtGui.#data.canvas.addEventListener("touchcancel", WtGui.#events.onTouchCancel, false)
+        WtGui.#data.canvas.addEventListener("touchmove", WtGui.#events.onTouchMove, false)
 
         window.addEventListener('keydown', WtGui.#events.onKeyDown, false)
         window.addEventListener('keyup', WtGui.#events.onKeyUp, false)
 
-        WtGui.#canvas.renderCanvas = document.createElement('canvas')
+        WtGui.#data.canvas.renderCanvas = document.createElement('canvas')
 
-        WtGui.#configRan = true
+        WtGui.#data.configRan = true
         WtGui.#renderer.start()
     }
-
-    static #bgImages = []  //  Array of background images
 
     /**
      * Add a background image
@@ -137,7 +139,7 @@ class WtGui {
     static addBgImage = (id, file) => {
         if(WtGui.getBgImage(id) !== undefined) throw new WtGuiError('Image ID already exists')
         // load file
-        WtGui.#bgImages.push({ id: id, file: file })
+        WtGui.#data.bgImages.push({ id: id, file: file })
     }
 
     /**
@@ -145,13 +147,7 @@ class WtGui {
      * @param {String} id 
      * @returns 
      */
-    static getBgImage = (id) => { return WtGui.#bgImages.find(elm => elm.id === id) }
-
-    static #bgAnimation = {}
-
-    static #menus = []        //  Array of available menus
-    static #openedMenus = []  //  Array of opened menus
-    static #currentMenu = {}  //  Current opened menu
+    static getBgImage = (id) => { return WtGui.#data.bgImages.find(elm => elm.id === id) }
 
     /**
      * Add a menu
@@ -165,7 +161,7 @@ class WtGui {
         }
         if(WtGui.getMenu(menuObj.id) !== undefined)  //  Verify menu does not exist
             throw new WtGuiError('Menu ID already exists')
-        WtGui.#menus.push(menuObj)                    //  Add menu
+        WtGui.#data.menus.push(menuObj)                    //  Add menu
     }
 
     /**
@@ -194,7 +190,7 @@ class WtGui {
      * @param {String} id 
      * @returns 
      */
-    static getMenu = (id) => { return WtGui.#menus.find(elm => elm.id === id) }
+    static getMenu = (id) => { return WtGui.#data.menus.find(elm => elm.id === id) }
 
     /**
      * Gui actions
@@ -234,8 +230,8 @@ class WtGui {
         openMenu: (menuId) => {
             const tempMenu = WtGui.getMenu(menuId)
             if(tempMenu === undefined) return false
-            WtGui.#openedMenus.push(tempMenu)
-            WtGui.#currentMenu = WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
+            WtGui.#data.openedMenus.push(tempMenu)
+            WtGui.#data.currentMenu = WtGui.#data.openedMenus[(WtGui.#data.openedMenus.length - 1)]
             return true
         },
 
@@ -245,12 +241,12 @@ class WtGui {
          */
         closeMenu: (closeAll) => {
             if(closeAll) {
-                WtGui.#openedMenus = []
-                WtGui.#currentMenu = {}
+                WtGui.#data.openedMenus = []
+                WtGui.#data.currentMenu = {}
             } else {
-                WtGui.#openedMenus.pop()
-                if(WtGui.#openedMenus.length === 0) WtGui.actions.openMenu(WtGui.settings.defaultMenu)
-                WtGui.#currentMenu = WtGui.#openedMenus[(WtGui.#openedMenus.length - 1)]
+                WtGui.#data.openedMenus.pop()
+                if(WtGui.#data.openedMenus.length === 0) WtGui.actions.openMenu(WtGui.settings.defaultMenu)
+                WtGui.#data.currentMenu = WtGui.#data.openedMenus[(WtGui.#data.openedMenus.length - 1)]
             }
         }
     }
@@ -273,15 +269,15 @@ class WtGui {
          * Start the renderer
          */
         start: () => {
-            WtGui.#canvas.renderCanvas.width = WtGui.settings.width
-            WtGui.#canvas.renderCanvas.height = WtGui.settings.height
+            WtGui.#data.canvas.renderCanvas.width = WtGui.settings.width
+            WtGui.#data.canvas.renderCanvas.height = WtGui.settings.height
             clearInterval(WtGui.#renderer.fpsCalc)
             WtGui.#renderer.fpsCalc = setInterval(() => {
                 WtGui.#renderer.fps = WtGui.#renderer.step
                 WtGui.#renderer.step = 0
             }, 1000)
             window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
-            WtGui.#renderer.ctx = WtGui.#canvas.renderCanvas.getContext('2d')
+            WtGui.#renderer.ctx = WtGui.#data.canvas.renderCanvas.getContext('2d')
             WtGui.#renderer.frameDelta = WtGui.#renderer.lastRender = Date.now()
             WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
         },
@@ -300,14 +296,14 @@ class WtGui {
          * Render draw method
          */
         render: () => {
-            if(WtGui.#openedMenus.length === 0 ||
-               WtGui.#currentMenu === {} ||
-               WtGui.#currentMenu === undefined) WtGui.actions.openMenu(WtGui.settings.defaultMenu)
-            if(WtGui.#openedMenus.length === 0 ||
-               WtGui.#currentMenu === {} ||
-               WtGui.#currentMenu === undefined) throw new WtGuiError(`No menus available.`)
+            if(WtGui.#data.openedMenus.length === 0 ||
+               WtGui.#data.currentMenu === {} ||
+               WtGui.#data.currentMenu === undefined) WtGui.actions.openMenu(WtGui.settings.defaultMenu)
+            if(WtGui.#data.openedMenus.length === 0 ||
+               WtGui.#data.currentMenu === {} ||
+               WtGui.#data.currentMenu === undefined) throw new WtGuiError(`No menus available.`)
             const ctx = WtGui.#renderer.ctx
-            const currentMenu = WtGui.#currentMenu
+            const currentMenu = WtGui.#data.currentMenu
 
             //  Clear the renderer
             ctx.fillStyle = WtGui.settings.clearColor
@@ -336,7 +332,7 @@ class WtGui {
                 ctx.fillText(WtGui.#renderer.fps, WtGui.settings.width, 12)
             }
 
-            WtGui.#canvas.getContext('2d').drawImage(WtGui.#canvas.renderCanvas, 0, 0)
+            WtGui.#data.canvas.getContext('2d').drawImage(WtGui.#data.canvas.renderCanvas, 0, 0)
             WtGui.#renderer.step++
             WtGui.#renderer.frameDelta = Date.now() - WtGui.#renderer.lastRender
             WtGui.#renderer.lastRender = Date.now()
@@ -437,7 +433,7 @@ class WtGui {
          */
         printMenu: () => {
             console.log('menu:')
-            console.log(WtGui.#menus)
+            console.log(WtGui.#data.menus)
         }
     }
 }
