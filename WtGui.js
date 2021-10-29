@@ -91,7 +91,7 @@ class WtGui {
         },
         canvas: {},            //  Reference to canvas
         configRan: false,      //  Flag to verify config runs once
-        bgImages: [],          //  Array of background images
+        imageFiles: [],        //  Array of image files
         menus: [],             //  Array of available menus
         openedMenus: [],       //  Stack of opened menus
         currentMenu: {},       //  Current opened menu
@@ -141,22 +141,30 @@ class WtGui {
     }
 
     /**
-     * Add a background image
+     * Add an image
      * @param {String} id 
      * @param {*} file 
      */
-    static addBgImage = (id, file) => {
-        if(WtGui.getBgImage(id) !== undefined) throw new WtGuiError(`Image ID already exists.`)
+    static addImage = (id, file) => {
+        if(WtGui.getImage(id) !== undefined) throw new WtGuiError(`Image ID already exists.`)
         // load file
-        WtGui.#data.bgImages.push({ id: id, file: file })
+        WtGui.#data.imageFiles.push({ id: id, file: file })
     }
 
     /**
-     * Get a background image
+     * 
+     * @param {*} data 
+     */
+    static addImages = (data) => {
+        //
+    }
+
+    /**
+     * Get an image
      * @param {String} id 
      * @returns 
      */
-    static getBgImage = (id) => { return WtGui.#data.bgImages.find(elm => elm.id === id) }
+    static getImage = (id) => { return WtGui.#data.imageFiles.find(elm => elm.id === id) }
 
     /**
      * Add a menu
