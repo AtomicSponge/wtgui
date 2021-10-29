@@ -105,11 +105,11 @@ class WtGui {
     static startGui = (canvas) => {
         if(WtGui.#data.configRan) throw new WtGuiError(`WtGui is already running.`)
         if(!(canvas instanceof HTMLCanvasElement))
-            throw new WtGuiError(`${canvas} is not a HTMLCanvasElement`)
+            throw new WtGuiError(`${canvas} is not a HTMLCanvasElement.`)
         WtGui.#data.canvas = canvas
 
         if(WtGui.settings.width < 1 || WtGui.settings.height < 1)
-            throw new WtGuiError(`Must define a width and height`)
+            throw new WtGuiError(`Must define a width and height.`)
         WtGui.#data.canvas.width = WtGui.settings.width
         WtGui.#data.canvas.height = WtGui.settings.height
 
@@ -136,7 +136,7 @@ class WtGui {
      * @param {Function} func 
      */
     static setBgAnimation = (func) => {
-        if(!(func instanceof Function)) throw new WtGuiError('Background animation must be a function')
+        if(!(func instanceof Function)) throw new WtGuiError(`Background animation must be a function.`)
         WtGui.#data.bgAnimation = func
     }
 
@@ -146,7 +146,7 @@ class WtGui {
      * @param {*} file 
      */
     static addBgImage = (id, file) => {
-        if(WtGui.getBgImage(id) !== undefined) throw new WtGuiError('Image ID already exists')
+        if(WtGui.getBgImage(id) !== undefined) throw new WtGuiError(`Image ID already exists.`)
         // load file
         WtGui.#data.bgImages.push({ id: id, file: file })
     }
@@ -166,10 +166,10 @@ class WtGui {
         if(!(menuObj instanceof WtGuiMenu)) {         //  Verify proper menu object
             menuObj = WtGui.buildMenu(menuObj)        //  Try to build menu if not
             if(!(menuObj instanceof WtGuiMenu))       //  Fail if still not a menu
-                throw new WtGuiError('Object is not a valid menu')
+                throw new WtGuiError(`Object is not a valid menu.`)
         }
         if(WtGui.getMenu(menuObj.id) !== undefined)   //  Verify menu does not exist
-            throw new WtGuiError('Menu ID already exists')
+            throw new WtGuiError(`Menu ID already exists.`)
         WtGui.#data.menus.push(menuObj)               //  Add menu
     }
 
@@ -180,7 +180,7 @@ class WtGui {
      */
     static addItem = (menuId, itemObj) => {
         const menu = WtGui.getMenu(menuId)
-        if(menu === undefined) throw new WtGuiError('Menu does not exist')
+        if(menu === undefined) throw new WtGuiError(`Menu does not exist.`)
         menu.addItem(itemObj)
     }
 
@@ -482,10 +482,10 @@ class WtGuiMenu {
      */
     addItem = (itemObj) => {
         if(!(itemObj instanceof WtGuiItem))  //  Verify proper item object
-            throw new WtGuiError('Object is not a valid menu item')
+            throw new WtGuiError(`Object is not a valid menu item.`)
         //  Verify item does not already exist
         if(this.items.find(elm => elm.id === itemObj.id) !== undefined)
-            throw new WtGuiError('Item ID already exists')
+            throw new WtGuiError(`Item ID already exists.`)
         this.items.push(itemObj)  //  Add item
     }
 }
