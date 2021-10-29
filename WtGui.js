@@ -69,12 +69,14 @@ class WtGui {
      * Module info
      * @prop {Number} fps
      * @prop {Number} frameDelta
+     * @prop {Number} lastRender
      * @prop {Number} mousePosX
      * @prop {Number} mousePosY
      */
     static info = {
         get fps() { return WtGui.#renderer.fps },
         get frameDelta() { return WtGui.#renderer.frameDelta },
+        get lastRender() { return WtGui.#renderer.lastRender },
         get mousePosX() { return WtGui.#data.mouseCords.posX },
         get mousePosY() { return WtGui.#data.mouseCords.posY }
     }
