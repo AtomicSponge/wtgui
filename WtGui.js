@@ -91,11 +91,11 @@ class WtGui {
         },
         canvas: {},        //  Reference to canvas
         configRan: false,  //  Flag to verify config runs once
-        bgImages: [],  //  Array of background images
-        menus: [],        //  Array of available menus
-        openedMenus: [],  //  Array of opened menus
-        currentMenu: {},  //  Current opened menu
-        bgAnimation: {}
+        bgImages: [],      //  Array of background images
+        menus: [],         //  Array of available menus
+        openedMenus: [],   //  Array of opened menus
+        currentMenu: {},   //  Current opened menu
+        bgAnimation: {}    //  Background animation
     }
 
     /**
@@ -159,9 +159,9 @@ class WtGui {
             if(!(menuObj instanceof WtGuiMenu))       //  Fail if still not a menu
                 throw new WtGuiError('Object is not a valid menu')
         }
-        if(WtGui.getMenu(menuObj.id) !== undefined)  //  Verify menu does not exist
+        if(WtGui.getMenu(menuObj.id) !== undefined)   //  Verify menu does not exist
             throw new WtGuiError('Menu ID already exists')
-        WtGui.#data.menus.push(menuObj)                    //  Add menu
+        WtGui.#data.menus.push(menuObj)               //  Add menu
     }
 
     /**
