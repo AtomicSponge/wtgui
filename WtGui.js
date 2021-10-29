@@ -242,14 +242,12 @@ class WtGui {
         /**
          * Open a menu
          * @param {String} menuId 
-         * @returns {WtGuiMenu}
          */
         openMenu: (menuId) => {
             const tempMenu = WtGui.getMenu(menuId)
-            if(tempMenu === undefined) return false
+            if(tempMenu === undefined) throw new WtGuiError(`Menu does not exist.`)
             WtGui.#data.openedMenus.push(tempMenu)
             WtGui.#data.currentMenu = WtGui.#data.openedMenus[(WtGui.#data.openedMenus.length - 1)]
-            return true
         },
 
         /**
@@ -263,7 +261,7 @@ class WtGui {
             } else {
                 WtGui.#data.openedMenus.pop()
                 if(WtGui.#data.openedMenus.length === 0) WtGui.actions.openMenu(WtGui.settings.defaultMenu)
-                WtGui.#data.currentMenu = WtGui.#data.openedMenus[(WtGui.#data.openedMenus.length - 1)]
+                else WtGui.#data.currentMenu = WtGui.#data.openedMenus[(WtGui.#data.openedMenus.length - 1)]
             }
         }
     }
