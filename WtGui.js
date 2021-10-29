@@ -265,12 +265,13 @@ class WtGui {
         fps: Number(0),         //  Store frame rate
         step: Number(0),        //  Used to calculate fps
         frameDelta: Number(0),  //  Time in ms between frames
+        lastRender: Number(0),  //  Last render time
 
         /*
          * Start the renderer
          */
         start: () => {
-            WtGui.#renderer.frameDelta = Date.now()
+            WtGui.#renderer.frameDelta = WtGui.#renderer.lastRender = Date.now()
             WtGui.#canvas.renderCanvas.width = WtGui.settings.width
             WtGui.#canvas.renderCanvas.height = WtGui.settings.height
             clearInterval(WtGui.#renderer.fpsCalc)
@@ -289,8 +290,7 @@ class WtGui {
          */
         stop: () => {
             clearInterval(WtGui.#renderer.fpsCalc)
-            if(WtGui.#renderer.nextFrame > 0)
-                window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
+            window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
             WtGui.#renderer.fps = WtGui.#renderer.step = 0
         },
 
@@ -298,8 +298,6 @@ class WtGui {
          * Render draw method
          */
         render: () => {
-            WtGui.#renderer.step++
-            WtGui.#renderer.frameDelta = Date.now() - WtGui.#renderer.frameDelta
             if(WtGui.#openedMenus.length === 0 ||
                WtGui.#currentMenu === {} ||
                WtGui.#currentMenu === undefined) WtGui.actions.openMenu(WtGui.settings.defaultMenu)
@@ -337,6 +335,9 @@ class WtGui {
             }
 
             WtGui.#canvas.getContext('2d').drawImage(WtGui.#canvas.renderCanvas, 0, 0)
+            WtGui.#renderer.step++
+            WtGui.#renderer.frameDelta = Date.now() - WtGui.#renderer.lastRender
+            WtGui.#renderer.lastRender = Date.now()
             while(WtGui.#renderer.paused) {}  //  Infinite loop for pause
             WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
         }
