@@ -106,10 +106,10 @@ class WtGui {
         if(WtGui.#data.configRan) throw new WtGuiError(`WtGui is already running.`)
         if(!(canvas instanceof HTMLCanvasElement))
             throw new WtGuiError(`${canvas} is not a HTMLCanvasElement.`)
-        WtGui.#data.canvas = canvas
-
         if(WtGui.settings.width < 1 || WtGui.settings.height < 1)
             throw new WtGuiError(`Must define a width and height.`)
+
+        WtGui.#data.canvas = canvas
         WtGui.#data.canvas.width = WtGui.settings.width
         WtGui.#data.canvas.height = WtGui.settings.height
 
