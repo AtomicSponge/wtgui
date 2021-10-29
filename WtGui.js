@@ -279,8 +279,7 @@ class WtGui {
                 WtGui.#renderer.fps = WtGui.#renderer.step
                 WtGui.#renderer.step = 0
             }, 1000)
-            if(WtGui.#renderer.nextFrame > 0)
-                window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
+            window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
             WtGui.#renderer.ctx = WtGui.#canvas.renderCanvas.getContext('2d')
             WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
         },
