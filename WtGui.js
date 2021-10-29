@@ -89,13 +89,13 @@ class WtGui {
             posX: Number(0),
             posY: Number(0)
         },
-        canvas: {},        //  Reference to canvas
-        configRan: false,  //  Flag to verify config runs once
-        bgImages: [],      //  Array of background images
-        menus: [],         //  Array of available menus
-        openedMenus: [],   //  Stack of opened menus
-        currentMenu: {},   //  Current opened menu
-        bgAnimation: {}    //  Background animation
+        canvas: {},            //  Reference to canvas
+        configRan: false,      //  Flag to verify config runs once
+        bgImages: [],          //  Array of background images
+        menus: [],             //  Array of available menus
+        openedMenus: [],       //  Stack of opened menus
+        currentMenu: {},       //  Current opened menu
+        bgAnimation: () => {}  //  Background animation
     }
 
     /**
@@ -133,9 +133,10 @@ class WtGui {
 
     /**
      * 
-     * @param {*} func 
+     * @param {Function} func 
      */
     static setBgAnimation = (func) => {
+        if(!(func instanceof Function)) throw new WtGuiError('Background animation must be a function')
         WtGui.#data.bgAnimation = func
     }
 
@@ -317,7 +318,8 @@ class WtGui {
             ctx.fillStyle = WtGui.settings.clearColor
             ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
 
-            //  add background rendering
+            //  Run background animation function
+            WtGui.#data.bgAnimation()
 
             //  Render the menu
             ctx.fillStyle = currentMenu.bgcolor
@@ -332,7 +334,7 @@ class WtGui {
                     elm.width, elm.height)
             })
 
-            //  FPS
+            //  Render FPS counter if enabled
             if(WtGui.#renderer.drawFps) {
                 ctx.font = '12px Arial'
                 ctx.fillStyle = 'orange'
