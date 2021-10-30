@@ -175,9 +175,9 @@ class WtGui {
      * @returns {}
      */
     static getImage = (id) => {
-        const temp = WtGui.#data.imageFiles.find(elm => elm.id === id)
-        if(temp === undefined) return undefined
-        return temp.file
+        const tempImg = WtGui.#data.imageFiles.find(elm => elm.id === id)
+        if(tempImg === undefined) return undefined
+        return tempImg.file
     }
 
     /**
