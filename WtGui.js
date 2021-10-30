@@ -160,7 +160,7 @@ class WtGui {
      * @param {Array} data 
      */
     static addImages = (data) => {
-        data.forEach((item) => { WtGui.addImage(item.id, item.file) })
+        data.forEach(item => { WtGui.addImage(item.id, item.file) })
     }
 
     /**
