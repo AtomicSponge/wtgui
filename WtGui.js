@@ -187,7 +187,7 @@ class WtGui {
      * @param {*} file 
      */
     static addAudio = (id, file) => {
-        if(WtGui.getImage(id) !== undefined) throw new WtGuiError(`Audio ID already exists.`)
+        if(WtGui.getAudio(id) !== undefined) throw new WtGuiError(`Audio ID already exists.`)
         if(!fs.existsSync(file)) throw new WtGuiError(`${file} does not exist.`)
         fs.readFile(file, (error, data) => {
             if(error) throw new WtGuiError(error.message)
