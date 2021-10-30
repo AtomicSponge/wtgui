@@ -94,6 +94,7 @@ class WtGui {
         canvas: {},            //  Reference to canvas
         configRan: false,      //  Flag to verify config runs once
         imageFiles: [],        //  Array of image files
+        audioFiles: [],        //  Array of audio files
         menus: [],             //  Array of available menus
         openedMenus: [],       //  Stack of opened menus
         currentMenu: {},       //  Current opened menu
@@ -166,9 +167,37 @@ class WtGui {
     /**
      * Get an image
      * @param {String} id 
-     * @returns 
+     * @returns {}
      */
     static getImage = (id) => { return WtGui.#data.imageFiles.find(elm => elm.id === id) }
+
+    /**
+     * 
+     * @param {String} id 
+     * @param {*} file 
+     */
+    static addAudio = (id, file) => {
+        if(WtGui.getImage(id) !== undefined) throw new WtGuiError(`Audio ID already exists.`)
+        fs.readFile(file, (error, data) => {
+            if(error) throw new WtGuiError(error.message)
+            WtGui.#data.audioFiles.push({ id: id, file: data })
+        })
+    }
+
+    /**
+     * 
+     * @param {Array} data 
+     */
+    static addAudio = (data) => {
+        data.forEach(item => { WtGui.addAudio(item.id, item.file) })
+    }
+
+    /**
+     * 
+     * @param {String} id 
+     * @returns {}
+     */
+    static getAudio = (id) => { return WtGui.#data.audioFiles.find(elm => elm.id === id) }
 
     /**
      * Add a menu
@@ -183,17 +212,6 @@ class WtGui {
         if(WtGui.getMenu(menuObj.id) !== undefined)   //  Verify menu does not exist
             throw new WtGuiError(`Menu ID already exists.`)
         WtGui.#data.menus.push(menuObj)               //  Add menu
-    }
-
-    /**
-     * Add a menu item
-     * @param {String} menuId 
-     * @param {WtGuiItem} itemObj 
-     */
-    static addItem = (menuId, itemObj) => {
-        const menu = WtGui.getMenu(menuId)
-        if(menu === undefined) throw new WtGuiError(`Menu does not exist.`)
-        menu.addItem(itemObj)
     }
 
     /**
@@ -212,6 +230,17 @@ class WtGui {
      * @returns {WtGuiMenu}
      */
     static getMenu = (id) => { return WtGui.#data.menus.find(elm => elm.id === id) }
+
+    /**
+     * Add a menu item
+     * @param {String} menuId 
+     * @param {WtGuiItem} itemObj 
+     */
+    static addItem = (menuId, itemObj) => {
+        const menu = WtGui.getMenu(menuId)
+        if(menu === undefined) throw new WtGuiError(`Menu does not exist.`)
+        menu.addItem(itemObj)
+    }
 
     /**
      * Gui actions
