@@ -8,6 +8,8 @@
  * 
  **************************************** */
 
+const fs = require('fs')
+
 /**
  * Custom error object
  */
@@ -147,16 +149,18 @@ class WtGui {
      */
     static addImage = (id, file) => {
         if(WtGui.getImage(id) !== undefined) throw new WtGuiError(`Image ID already exists.`)
-        // load file
-        WtGui.#data.imageFiles.push({ id: id, file: file })
+        fs.readFile(file, (error, data) => {
+            if(error) throw new WtGuiError(error.message)
+            WtGui.#data.imageFiles.push({ id: id, file: data })
+        })
     }
 
     /**
      * 
-     * @param {*} data 
+     * @param {Array} data 
      */
     static addImages = (data) => {
-        //
+        data.forEach((item) => { WtGui.addImage(item.id, item.file) })
     }
 
     /**
