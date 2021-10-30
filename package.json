@@ -1,13 +1,14 @@
 {
   "name": "@wtfsystems/wtgui",
   "version": "0.0.1",
-  "description": "HTML5 Canvas Menu System",
-  "main": "WtGui.js",
+  "description": "WtGui - HTML5 Canvas Menu System",
+  "main": "wtgui.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wtfsystems/wtgui.git"
   },
   "keywords": [
+    "wtgui",
     "HTML5",
     "Canvas",
     "Menu"
