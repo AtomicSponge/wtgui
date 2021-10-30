@@ -156,6 +156,7 @@ class WtGui {
      */
     static addImage = (id, file) => {
         if(WtGui.getImage(id) !== undefined) throw new WtGuiError(`Image ID already exists.`)
+        if(!fs.existsSync(file)) throw new WtGuiError(`${file} does not exist.`)
         const tempImg = new Image()
         tempImg.src = file
         WtGui.#data.imageFiles.push({ id: id, file: tempImg })
@@ -187,6 +188,7 @@ class WtGui {
      */
     static addAudio = (id, file) => {
         if(WtGui.getImage(id) !== undefined) throw new WtGuiError(`Audio ID already exists.`)
+        if(!fs.existsSync(file)) throw new WtGuiError(`${file} does not exist.`)
         fs.readFile(file, (error, data) => {
             if(error) throw new WtGuiError(error.message)
             WtGui.#data.audioFiles.push({ id: id, file: data })
