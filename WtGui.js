@@ -144,16 +144,21 @@ class WtGui {
     }
 
     /**
+     * 
+     * @returns {}
+     */
+    static draw = () => { return WtGui.#renderer.ctx }
+
+    /**
      * Add an image
      * @param {String} id 
      * @param {*} file 
      */
     static addImage = (id, file) => {
         if(WtGui.getImage(id) !== undefined) throw new WtGuiError(`Image ID already exists.`)
-        fs.readFile(file, (error, data) => {
-            if(error) throw new WtGuiError(error.message)
-            WtGui.#data.imageFiles.push({ id: id, file: data })
-        })
+        const tempImg = new Image()
+        tempImg.src = file
+        WtGui.#data.imageFiles.push({ id: id, file: tempImg })
     }
 
     /**
@@ -169,7 +174,11 @@ class WtGui {
      * @param {String} id 
      * @returns {}
      */
-    static getImage = (id) => { return WtGui.#data.imageFiles.find(elm => elm.id === id) }
+    static getImage = (id) => {
+        const temp = WtGui.#data.imageFiles.find(elm => elm.id === id)
+        if(temp === undefined) return undefined
+        return temp.file
+    }
 
     /**
      * 

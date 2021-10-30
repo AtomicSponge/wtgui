@@ -12,6 +12,12 @@ WtGui.settings.width = 1024
 WtGui.settings.height = 768
 WtGui.actions.drawFps(true)
 
+WtGui.addImage('dash', 'dash.jpg')
+
+WtGui.setBgAnimation(() => {
+    WtGui.draw().drawImage(WtGui.getImage('dash'), 0, 0, 360, 480)
+})
+
 /*
  * Create main menu
  */
