@@ -91,10 +91,9 @@ class WtGui {
             posX: Number(0),
             posY: Number(0)
         },
-        canvas: {},            //  Reference to main canvas (HTML)
-        renderCanvas: {},
-        glctx: {},             //  WebGL context
-        ctx: {},               //  2d context to draw to
+        renderCanvas: {},      //  2d canvas for rendering menus
+        glctx: {},             //  WebGL context for main drawing
+        ctx: {},               //  2d context for menu drawing
         configRan: false,      //  Flag to verify config runs once
         imageFiles: [],        //  Array of image files
         audioFiles: [],        //  Array of audio files
@@ -115,7 +114,7 @@ class WtGui {
         if(WtGui.settings.width < 1 || WtGui.settings.height < 1)
             throw new WtGuiError(`Must define a width and height.`)
 
-        WtGui.#data.canvas = canvas
+        WtGui.#data.glctx = canvas.getContext('2d')
         canvas.width = WtGui.settings.width
         canvas.height = WtGui.settings.height
 
@@ -403,7 +402,8 @@ class WtGui {
                 ctx.fillText(WtGui.#renderer.fps, WtGui.settings.width, 12)
             }
 
-            WtGui.#data.canvas.getContext('2d').drawImage(WtGui.#data.renderCanvas, 0, 0)
+            WtGui.#data.glctx.drawImage(WtGui.#data.renderCanvas, 0, 0)
+
             WtGui.#renderer.step++
             WtGui.#renderer.frameDelta = Date.now() - WtGui.#renderer.lastRender
             WtGui.#renderer.lastRender = Date.now()
