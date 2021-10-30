@@ -206,7 +206,11 @@ class WtGui {
      * @param {String} id 
      * @returns {}
      */
-    static getAudio = (id) => { return WtGui.#data.audioFiles.find(elm => elm.id === id) }
+    static getAudio = (id) => {
+        const tempAudio = WtGui.#data.audioFiles.find(elm => elm.id === id)
+        if(tempAudio === undefined) return undefined
+        return tempAudio.file
+    }
 
     /**
      * Add a menu
