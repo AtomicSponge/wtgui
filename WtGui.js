@@ -326,7 +326,6 @@ class WtGui {
             }, 1000)
             window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
             WtGui.#renderer.ctx = WtGui.#data.canvas.renderCanvas.getContext('2d')
-            WtGui.#renderer.frameDelta = WtGui.#renderer.lastRender = Date.now()
             WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
         },
 
