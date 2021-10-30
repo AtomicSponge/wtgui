@@ -91,7 +91,10 @@ class WtGui {
             posX: Number(0),
             posY: Number(0)
         },
-        canvas: {},            //  Reference to canvas
+        canvas: {},            //  Reference to main canvas (HTML)
+        renderCanvas: {},
+        glctx: {},             //  WebGL context
+        ctx: {},               //  2d context to draw to
         configRan: false,      //  Flag to verify config runs once
         imageFiles: [],        //  Array of image files
         audioFiles: [],        //  Array of audio files
@@ -113,22 +116,23 @@ class WtGui {
             throw new WtGuiError(`Must define a width and height.`)
 
         WtGui.#data.canvas = canvas
-        WtGui.#data.canvas.width = WtGui.settings.width
-        WtGui.#data.canvas.height = WtGui.settings.height
+        canvas.width = WtGui.settings.width
+        canvas.height = WtGui.settings.height
 
-        WtGui.#data.canvas.addEventListener('mousedown', WtGui.#events.onMouseDown, false)
-        WtGui.#data.canvas.addEventListener('mouseup', WtGui.#events.onMouseUp, false)
-        WtGui.#data.canvas.addEventListener('mousemove', WtGui.#events.onMouseMove, false)
+        canvas.addEventListener('mousedown', WtGui.#events.onMouseDown, false)
+        canvas.addEventListener('mouseup', WtGui.#events.onMouseUp, false)
+        canvas.addEventListener('mousemove', WtGui.#events.onMouseMove, false)
 
-        WtGui.#data.canvas.addEventListener("touchstart", WtGui.#events.onTouchStart, false)
-        WtGui.#data.canvas.addEventListener("touchend", WtGui.#events.onTouchEnd, false)
-        WtGui.#data.canvas.addEventListener("touchcancel", WtGui.#events.onTouchCancel, false)
-        WtGui.#data.canvas.addEventListener("touchmove", WtGui.#events.onTouchMove, false)
+        canvas.addEventListener("touchstart", WtGui.#events.onTouchStart, false)
+        canvas.addEventListener("touchend", WtGui.#events.onTouchEnd, false)
+        canvas.addEventListener("touchcancel", WtGui.#events.onTouchCancel, false)
+        canvas.addEventListener("touchmove", WtGui.#events.onTouchMove, false)
 
         window.addEventListener('keydown', WtGui.#events.onKeyDown, false)
         window.addEventListener('keyup', WtGui.#events.onKeyUp, false)
 
-        WtGui.#data.canvas.renderCanvas = document.createElement('canvas')
+        WtGui.#data.renderCanvas = canvas.renderCanvas = document.createElement('canvas')
+        WtGui.#data.ctx = WtGui.#data.renderCanvas.getContext('2d')
 
         WtGui.#data.configRan = true
         WtGui.#renderer.start()
@@ -147,7 +151,13 @@ class WtGui {
      * 
      * @returns {}
      */
-    static draw = () => { return WtGui.#renderer.ctx }
+    static draw = () => { return WtGui.#data.ctx }
+
+    /**
+     * 
+     * @returns {}
+     */
+    //static draw3d = () => { return WtGui.#data.glctx }
 
     /**
      * Add an image
@@ -319,7 +329,6 @@ class WtGui {
      */
     static #renderer = {
         fpsCalc: {},            //  Store timed func to calculate fps
-        ctx: {},                //  Contex to draw to
         nextFrame: Number(0),   //  Store the call to the animation frame
         paused: false,          //  Flag to pause renderer
         drawFps: false,         //  Flag for drawing fps counter
@@ -332,15 +341,14 @@ class WtGui {
          * Start the renderer
          */
         start: () => {
-            WtGui.#data.canvas.renderCanvas.width = WtGui.settings.width
-            WtGui.#data.canvas.renderCanvas.height = WtGui.settings.height
+            WtGui.#data.renderCanvas.width = WtGui.settings.width
+            WtGui.#data.renderCanvas.height = WtGui.settings.height
             clearInterval(WtGui.#renderer.fpsCalc)
             WtGui.#renderer.fpsCalc = setInterval(() => {
                 WtGui.#renderer.fps = WtGui.#renderer.step
                 WtGui.#renderer.step = 0
             }, 1000)
             window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
-            WtGui.#renderer.ctx = WtGui.#data.canvas.renderCanvas.getContext('2d')
             WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
         },
 
@@ -364,7 +372,7 @@ class WtGui {
             if(WtGui.#data.openedMenus.length === 0 ||
                WtGui.#data.currentMenu === {} ||
                WtGui.#data.currentMenu === undefined) throw new WtGuiError(`No menus available.`)
-            const ctx = WtGui.#renderer.ctx
+            const ctx = WtGui.#data.ctx
             const currentMenu = WtGui.#data.currentMenu
 
             //  Clear the renderer
@@ -395,7 +403,7 @@ class WtGui {
                 ctx.fillText(WtGui.#renderer.fps, WtGui.settings.width, 12)
             }
 
-            WtGui.#data.canvas.getContext('2d').drawImage(WtGui.#data.canvas.renderCanvas, 0, 0)
+            WtGui.#data.canvas.getContext('2d').drawImage(WtGui.#data.renderCanvas, 0, 0)
             WtGui.#renderer.step++
             WtGui.#renderer.frameDelta = Date.now() - WtGui.#renderer.lastRender
             WtGui.#renderer.lastRender = Date.now()
