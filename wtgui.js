@@ -111,13 +111,12 @@ class WtGui {
         /**
          * AABB Alg
          * @param {*} test 
-         * @param {[WtGuiItem]} col 
-         * @returns {WtGuiItem}
+         * @param {[elm]} col 
+         * @returns {elm}
          */
         aabb: (test, col) => {
-            let res = {}
+            let res = undefined
             col.some((elm) => {
-                if(!(elm instanceof WtGuiItem)) return false
                 if(
                     test.posX < elm.posX + elm.width &&
                     test.posX + test.width > elm.posX &&
@@ -127,6 +126,7 @@ class WtGui {
                     res = elm
                     return true
                 }
+                return false
             })
             return res
         }
