@@ -76,6 +76,7 @@ class WtGui {
      * @prop {Number} mousePosY
      */
     static info = {
+        //get draw() { return WtGui.#data.ctx },
         get fps() { return WtGui.#renderer.fps },
         get frameDelta() { return WtGui.#renderer.frameDelta },
         get lastRender() { return WtGui.#renderer.lastRender },
@@ -179,13 +180,13 @@ class WtGui {
      * 
      * @returns {}
      */
-    static draw = () => { return WtGui.#data.ctx }
+    static get draw () { return WtGui.#data.ctx }
 
     /**
      * 
      * @returns {}
      */
-    //static draw3d = () => { return WtGui.#data.glctx }
+    //static get draw3d () { return WtGui.#data.glctx }
 
     /**
      * Add an image

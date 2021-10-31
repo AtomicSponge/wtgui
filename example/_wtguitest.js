@@ -15,8 +15,7 @@ WtGui.actions.drawFps(true)
 WtGui.addImage('dash', 'dash.jpg')
 
 WtGui.setBgAnimation(() => {
-    const ctx = WtGui.draw()
-    ctx.drawImage(WtGui.getImage('dash'), 0, 0, 360, 480)
+    WtGui.draw.drawImage(WtGui.getImage('dash'), 0, 0, 360, 480)
 })
 
 /*
