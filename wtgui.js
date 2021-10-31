@@ -125,8 +125,7 @@ class WtGui {
                 ) {
                     res = elm
                     return true
-                }
-                return false
+                } else return false
             })
             return res
         }
