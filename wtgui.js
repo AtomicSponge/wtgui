@@ -108,7 +108,7 @@ class WtGui {
     static #func = {
         bgAnimation: () => {},  //  Background animation
 
-        /**
+        /*
          * AABB Alg
          * @param {*} test 
          * @param {[elm]} col 
