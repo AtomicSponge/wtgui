@@ -31,8 +31,8 @@ WtGui.addMenu(new WtGuiMenu({
 WtGui.addItem('main_menu', new WtGuiButton({
     id: 'apply_btn',
     title: 'Apply',
-    posX: 10, posY: 10,
-    width: 40, height: 20
+    posX: 20, posY: 20,
+    width: 200, height: 40
 }))
 
 /*

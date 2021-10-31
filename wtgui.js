@@ -449,12 +449,13 @@ class WtGui {
          */
         onMouseDown: (event) => {
             const mousePos = {
-                posX: event.offsetX,
-                posY: event.offsetY,
+                posX: event.offsetX - WtGui.#data.currentMenu.posX,
+                posY: event.offsetY - WtGui.#data.currentMenu.posY,
                 width: 0,
                 height: 0,
             }
             const res = WtGui.#func.AABB(mousePos, WtGui.#data.currentMenu.items)
+            if(res !== undefined) console.log(event)
         },
 
         /*
