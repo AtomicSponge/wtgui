@@ -2,7 +2,7 @@
  * 
  * @author Matthew Evans
  * @module wtfsystems/wtgui
- * @version 0.0.1
+ * @version 0.0.2
  * @see README.me
  * @copyright LICENSE.md
  * 
