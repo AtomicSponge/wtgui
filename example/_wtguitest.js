@@ -25,14 +25,14 @@ WtGui.setBgAnimation(() => {
 WtGui.addMenu(new WtGuiMenu({
     id: 'main_menu',
     title: 'Test Main Menu',
-    pos_x: 500, pos_y: 300,
+    posX: 500, posY: 300,
     width: 500, height: 450
 }))
 
 WtGui.addItem('main_menu', new WtGuiButton({
     id: 'apply_btn',
     title: 'Apply',
-    pos_x: 10, pos_y: 10,
+    posX: 10, posY: 10,
     width: 40, height: 20
 }))
 
@@ -42,14 +42,14 @@ WtGui.addItem('main_menu', new WtGuiButton({
 WtGui.addMenu(new WtGuiMenu({
     id: 'game_menu',
     title: 'Test Game Menu',
-    pos_x: 10, pos_y: 10,
+    posX: 10, posY: 10,
     width: 50, height: 50
 }))
 
 WtGui.addItem('game_menu', new WtGuiButton({
     id: 'apply_btn',
     title: 'Apply',
-    pos_x: 10, pos_y: 10,
+    posX: 10, posY: 10,
     width: 40, height: 20
 }))
 

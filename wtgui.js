@@ -91,16 +91,45 @@ class WtGui {
             posX: Number(0),
             posY: Number(0)
         },
-        renderCanvas: {},      //  2d canvas for rendering menus
-        glctx: {},             //  WebGL context for main drawing
-        ctx: {},               //  2d context for menu drawing
-        configRan: false,      //  Flag to verify config runs once
-        imageFiles: [],        //  Array of image files
-        audioFiles: [],        //  Array of audio files
-        menus: [],             //  Array of available menus
-        openedMenus: [],       //  Stack of opened menus
-        currentMenu: {},       //  Current opened menu
-        bgAnimation: () => {}  //  Background animation
+        renderCanvas: {},   //  2d canvas for rendering menus
+        glctx: {},          //  WebGL context for main drawing
+        ctx: {},            //  2d context for menu drawing
+        configRan: false,   //  Flag to verify config runs once
+        imageFiles: [],     //  Array of image files
+        audioFiles: [],     //  Array of audio files
+        menus: [],          //  Array of available menus
+        openedMenus: [],    //  Stack of opened menus
+        currentMenu: {}     //  Current opened menu
+    }
+
+    /*
+     *
+     */
+    static #func = {
+        bgAnimation: () => {},  //  Background animation
+
+        /**
+         * AABB Alg
+         * @param {*} test 
+         * @param {[WtGuiItem]} col 
+         * @returns {WtGuiItem}
+         */
+        aabb: (test, col) => {
+            let res = {}
+            col.some((elm, idx, arr) => {
+                if(!(elm instanceof WtGuiItem)) return false
+                if(
+                    test.posX < elm.posX + elm.width &&
+                    test.posX + test.width > elm.posX &&
+                    test.posY < elm.posY + elm.height &&
+                    test.posY + test.height > elm.posY
+                ) {
+                    res = arr[idx]
+                    return true
+                }
+            })
+            return res
+        }
     }
 
     /**
@@ -143,7 +172,7 @@ class WtGui {
      */
     static setBgAnimation = (func) => {
         if(!(func instanceof Function)) throw new WtGuiError(`Background animation must be a function.`)
-        WtGui.#data.bgAnimation = func
+        WtGui.#func.bgAnimation = func
     }
 
     /**
@@ -379,18 +408,18 @@ class WtGui {
             ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
 
             //  Run background animation function
-            WtGui.#data.bgAnimation()
+            WtGui.#func.bgAnimation()
 
             //  Render the menu
             ctx.fillStyle = currentMenu.bgcolor
-            ctx.fillRect(currentMenu.pos_x, currentMenu.pos_y,
+            ctx.fillRect(currentMenu.posX, currentMenu.posY,
                 currentMenu.width, currentMenu.height)
 
             //  Render menu items
             currentMenu.items.forEach(elm => {
                 ctx.fillStyle = elm.bgcolor
-                ctx.fillRect(currentMenu.pos_x + elm.pos_x,
-                    currentMenu.pos_y + elm.pos_y,
+                ctx.fillRect(currentMenu.posX + elm.posX,
+                    currentMenu.posY + elm.posY,
                     elm.width, elm.height)
             })
 
@@ -528,7 +557,7 @@ class WtGuiMenu {
         var args = args || {}
         argParser(this, args,
             [ 'id', 'title',
-              'pos_x', 'pos_y',
+              'posX', 'posY',
               'width', 'height' ])
         this.items = []
         this.bgimage = args.bgimage || undefined
@@ -565,7 +594,7 @@ class WtGuiItem {
         var args = args || {}
         argParser(this, args,
             [ 'id', 'title',
-              'pos_x', 'pos_y',
+              'posX', 'posY',
               'width', 'height'])
         this.font = args.font || WtGui.settings.defaultFont
         this.bgcolor = args.bgcolor || 'rgb(255,0,0)'
@@ -586,6 +615,10 @@ class WtGuiLabel extends WtGuiItem {
     constructor(args) {
         var args = args || {}
         super(args)
+    }
+
+    event = () => {
+        //
     }
 }
 exports.WtGuiLabel = WtGuiLabel
