@@ -76,7 +76,6 @@ class WtGui {
      * @prop {Number} mousePosY
      */
     static info = {
-        //get draw() { return WtGui.#data.ctx },
         get fps() { return WtGui.#renderer.fps },
         get frameDelta() { return WtGui.#renderer.frameDelta },
         get lastRender() { return WtGui.#renderer.lastRender },
