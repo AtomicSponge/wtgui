@@ -114,7 +114,7 @@ class WtGui {
          * @param {[elm]} col 
          * @returns {elm}
          */
-        aabb: (test, col) => {
+        AABB: (test, col) => {
             let res = undefined
             col.some((elm) => {
                 if(
@@ -449,7 +449,13 @@ class WtGui {
          * 
          */
         onMouseDown: (event) => {
-            //alert(event)
+            const mousePos = {
+                posX: event.offsetX,
+                posY: event.offsetY,
+                width: 0,
+                height: 0,
+            }
+            const res = WtGui.#func.AABB(mousePos, WtGui.#data.currentMenu.items)
         },
 
         /*
@@ -615,10 +621,6 @@ class WtGuiLabel extends WtGuiItem {
     constructor(args) {
         var args = args || {}
         super(args)
-    }
-
-    event = () => {
-        //
     }
 }
 exports.WtGuiLabel = WtGuiLabel
