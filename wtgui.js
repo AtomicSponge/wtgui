@@ -116,7 +116,7 @@ class WtGui {
          */
         aabb: (test, col) => {
             let res = {}
-            col.some((elm, idx, arr) => {
+            col.some((elm) => {
                 if(!(elm instanceof WtGuiItem)) return false
                 if(
                     test.posX < elm.posX + elm.width &&
@@ -124,7 +124,7 @@ class WtGui {
                     test.posY < elm.posY + elm.height &&
                     test.posY + test.height > elm.posY
                 ) {
-                    res = arr[idx]
+                    res = elm
                     return true
                 }
             })
