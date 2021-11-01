@@ -1,4 +1,4 @@
-/** ****************************************
+/**
  * 
  * @author Matthew Evans
  * @module wtfsystems/wtgui
@@ -6,7 +6,7 @@
  * @see README.me
  * @copyright LICENSE.md
  * 
- **************************************** */
+ */
 
 const fs = require('fs')
 
@@ -26,11 +26,11 @@ class WtGuiError extends Error {
 }
 exports.WtGuiError = WtGuiError
 
-/** ***************************************
+/**
  *
  * WtGui main object
  * 
- *************************************** */
+ */
 class WtGui {
     /**
      * Don't allow direct construction
@@ -99,12 +99,12 @@ class WtGui {
         /*
          * AABB Alg
          * @param {*} test 
-         * @param {[elm]} col 
+         * @param {[elm]} collection 
          * @returns {elm}
          */
-        AABB: (test, col) => {
+        AABB: (test, collection) => {
             let res = undefined
-            col.some((elm) => {
+            collection.some((elm) => {
                 if(
                     test.posX < elm.posX + elm.width &&
                     test.posX + test.width > elm.posX &&
@@ -166,13 +166,13 @@ class WtGui {
      * 
      * @returns {}
      */
-    static get draw () { return WtGui.#data.ctx }
+    static get draw() { return WtGui.#data.ctx }
 
     /**
      * 
      * @returns {}
      */
-    //static get draw3d () { return WtGui.#data.glctx }
+    //static get draw3d() { return WtGui.#data.glctx }
 
     /**
      * Add an image
