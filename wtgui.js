@@ -447,7 +447,7 @@ class WtGui {
                 },
                 WtGui.#data.currentMenu.items
             )
-            if(res !== undefined) console.log(event)
+            if(res !== undefined) res.event()
         },
 
         /*
@@ -619,6 +619,10 @@ class WtGuiItem {
         this.font = args.font || WtGui.settings.defaultFont
         this.bgcolor = args.bgcolor || 'rgb(255,0,0)'
         this.fgcolor = args.fgcolor || 'rgb(255,255,255)'
+    }
+
+    event = () => {
+        //
     }
 }
 exports.WtGuiItem = WtGuiItem
