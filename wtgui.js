@@ -403,9 +403,12 @@ class WtGui {
             if(!WtGui.settings.debugMode && currentMenu.bgImage !== undefined) {
                 {(currentMenu.scaleImg) ?
                     ctx.drawImage(currentMenu.bgImage,
-                        currentMenu.posX, currentMenu.posY,
+                        currentMenu.posX + currentMenu.imgOffsetX,
+                        currentMenu.posY + currentMenu.imgOffsetY,
                         currentMenu.width, currentMenu.height) :
-                    ctx.drawImage(currentMenu.bgImage, currentMenu.posX, currentMenu.posY)}
+                    ctx.drawImage(currentMenu.bgImage,
+                        currentMenu.posX + currentMenu.imgOffsetX,
+                        currentMenu.posY + currentMenu.imgOffsetY)}
             } else {
                 ctx.fillStyle = currentMenu.bgColor
                 ctx.fillRect(currentMenu.posX, currentMenu.posY,
@@ -416,8 +419,13 @@ class WtGui {
             currentMenu.items.forEach(elm => {
                 if(!WtGui.settings.debugMode && elm.bgImage !== undefined) {
                     {(elm.scaleImg) ?
-                        ctx.drawImage(elm.bgImage, elm.posX, elm.posY, elm.width, elm.height) :
-                        ctx.drawImage(elm.bgImage, elm.posX, elm.posY)}
+                        ctx.drawImage(elm.bgImage,
+                            elm.posX + elm.imgOffsetX,
+                            elm.posY + elm.imgOffsetY,
+                            elm.width, elm.height) :
+                        ctx.drawImage(elm.bgImage,
+                            elm.posX + elm.imgOffsetX,
+                            elm.posY + elm.imgOffsetY)}
                 } else {
                     ctx.fillStyle = elm.bgColor
                     ctx.fillRect(currentMenu.posX + elm.posX,
@@ -667,6 +675,8 @@ class WtGuiItem {
         this.fgColor = args.fgColor || WtGui.settings.defaultFontColor
 
         if(args.bgImage !== undefined) this.bgImage = loadImg(args.bgImage)
+        this.imgOffsetX = args.imgOffsetX || 0
+        this.imgOffsetY = args.imgOffsetY || 0
         this.scaleImg = args.scaleImg || false
 
         this.allowSelection = false
