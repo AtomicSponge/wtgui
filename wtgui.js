@@ -43,10 +43,14 @@ class WtGui {
      * @prop {String} defaultMenu
      */
     static settings = {
+        debugMode: false,
         width: Number(0),
         height: Number(0),
+        clearColor: 'rgb(142,142,142)',
         defaultFont: '12px Arial',
-        clearColor: 'rgb(255,255,255)',
+        defaultFontColor: 'rgb(255,255,255)',
+        defaultMenuColor: 'rgb(0,0,0)',
+        defaultItemColor: 'rgb(255,165,0)',
         defaultMenu: 'main_menu'
     }
 
@@ -579,8 +583,8 @@ class WtGuiMenu {
         this.items = []
         this.bgimage = args.bgimage || undefined
         this.font = args.font || WtGui.settings.defaultFont
-        this.bgcolor = args.bgcolor || 'rgb(0,0,0)'
-        this.fgcolor = args.fgcolor || 'rgb(255,255,255)'
+        this.bgcolor = args.bgcolor || WtGui.settings.defaultMenuColor
+        this.fgcolor = args.fgcolor || WtGui.settings.defaultFontColor
     }
 
     /**
@@ -614,8 +618,8 @@ class WtGuiItem {
               'posX', 'posY',
               'width', 'height'])
         this.font = args.font || WtGui.settings.defaultFont
-        this.bgcolor = args.bgcolor || 'rgb(255,0,0)'
-        this.fgcolor = args.fgcolor || 'rgb(255,255,255)'
+        this.bgcolor = args.bgcolor || WtGui.settings.defaultItemColor
+        this.fgcolor = args.fgcolor || WtGui.settings.defaultFontColor
     }
 
     event = () => {
