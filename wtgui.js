@@ -37,11 +37,16 @@ class WtGui {
 
     /**
      * Module settings
-     * @prop {Number} width
-     * @prop {Number} height
-     * @prop {String} defaultFont
-     * @prop {String} clearColor
-     * @prop {String} defaultMenu
+     * @prop {boolean} debugMode Enable/disable debug mode
+     * @prop {Number} width Width of the gui
+     * @prop {Number} height Height of the gui
+     * @prop {Number} mouseSize Size of the mouse hitbox
+     * @prop {String} clearColor Background color for gui context
+     * @prop {String} defaultFont Default font size/face
+     * @prop {String} defaultFontColor Default font color
+     * @prop {String} defaultMenuColor Default menu background color
+     * @prop {String} defaultItemColor Default item background color
+     * @prop {String} defaultMenu Default menu to open when all are closed
      */
     static settings = {
         debugMode: false,
