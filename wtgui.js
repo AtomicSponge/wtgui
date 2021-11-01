@@ -435,6 +435,8 @@ class WtGui {
          * 
          */
         onMouseDown: (event) => {
+            WtGui.#data.mouseCords.posX = event.offsetX
+            WtGui.#data.mouseCords.posY = event.offsetY
             const mousePos = {
                 posX: event.offsetX - WtGui.#data.currentMenu.posX,
                 posY: event.offsetY - WtGui.#data.currentMenu.posY,
@@ -458,6 +460,14 @@ class WtGui {
         onMouseMove: (event) => {
             WtGui.#data.mouseCords.posX = event.offsetX
             WtGui.#data.mouseCords.posY = event.offsetY
+            const mousePos = {
+                posX: event.offsetX - WtGui.#data.currentMenu.posX,
+                posY: event.offsetY - WtGui.#data.currentMenu.posY,
+                width: 0,
+                height: 0,
+            }
+            const res = WtGui.#func.AABB(mousePos, WtGui.#data.currentMenu.items)
+            if(res !== undefined) console.log(event)
         },
 
         /*
