@@ -86,7 +86,8 @@ class WtGui {
         audioFiles: [],     //  Array of audio files
         menus: [],          //  Array of available menus
         openedMenus: [],    //  Stack of opened menus
-        currentMenu: {}     //  Current opened menu
+        currentMenu: {},    //  Current opened menu
+        activeItem: {}
     }
 
     /*
@@ -437,13 +438,15 @@ class WtGui {
         onMouseDown: (event) => {
             WtGui.#data.mouseCords.posX = event.offsetX
             WtGui.#data.mouseCords.posY = event.offsetY
-            const mousePos = {
-                posX: event.offsetX - WtGui.#data.currentMenu.posX,
-                posY: event.offsetY - WtGui.#data.currentMenu.posY,
-                width: 0,
-                height: 0,
-            }
-            const res = WtGui.#func.AABB(mousePos, WtGui.#data.currentMenu.items)
+            const res = WtGui.#func.AABB(
+                {
+                    posX: event.offsetX - WtGui.#data.currentMenu.posX,
+                    posY: event.offsetY - WtGui.#data.currentMenu.posY,
+                    width: 0,
+                    height: 0,
+                },
+                WtGui.#data.currentMenu.items
+            )
             if(res !== undefined) console.log(event)
         },
 
@@ -460,14 +463,15 @@ class WtGui {
         onMouseMove: (event) => {
             WtGui.#data.mouseCords.posX = event.offsetX
             WtGui.#data.mouseCords.posY = event.offsetY
-            const mousePos = {
-                posX: event.offsetX - WtGui.#data.currentMenu.posX,
-                posY: event.offsetY - WtGui.#data.currentMenu.posY,
-                width: 0,
-                height: 0,
-            }
-            const res = WtGui.#func.AABB(mousePos, WtGui.#data.currentMenu.items)
-            if(res !== undefined) console.log(event)
+            WtGui.#data.activeItem = WtGui.#func.AABB(
+                {
+                    posX: event.offsetX - WtGui.#data.currentMenu.posX,
+                    posY: event.offsetY - WtGui.#data.currentMenu.posY,
+                    width: 0,
+                    height: 0,
+                },
+                WtGui.#data.currentMenu.items
+            )
         },
 
         /*
