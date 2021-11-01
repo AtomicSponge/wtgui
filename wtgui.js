@@ -27,16 +27,12 @@ class WtGuiError extends Error {
 exports.WtGuiError = WtGuiError
 
 /**
- *
  * WtGui main object
+ * @hideconstructor
  * 
  */
 class WtGui {
-    /**
-     * Don't allow direct construction
-     * @returns false
-     */
-    constructor() { return false }
+    constructor() { return false }  //  Don't allow direct construction
 
     /**
      * Module settings
@@ -288,6 +284,7 @@ class WtGui {
     static actions = {
         /**
          * Pause the gui
+         * @inner
          */
         pauseGui: () => { WtGui.#renderer.paused = true },
 
