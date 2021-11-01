@@ -181,10 +181,7 @@ class WtGui {
      */
     static addImage = (id, file) => {
         if(WtGui.getImage(id) !== undefined) throw new WtGuiError(`Image ID already exists.`)
-        if(!fs.existsSync(file)) throw new WtGuiError(`${file} does not exist.`)
-        const tempImg = new Image()
-        tempImg.src = file
-        WtGui.#data.imageFiles.push({ id: id, file: tempImg })
+        WtGui.#data.imageFiles.push({ id: id, file: loadImg(file) })
     }
 
     /**
@@ -399,13 +396,13 @@ class WtGui {
             WtGui.#func.bgAnimation()
 
             //  Render the menu
-            ctx.fillStyle = currentMenu.bgcolor
+            ctx.fillStyle = currentMenu.bgColor
             ctx.fillRect(currentMenu.posX, currentMenu.posY,
                 currentMenu.width, currentMenu.height)
 
             //  Render menu items
             currentMenu.items.forEach(elm => {
-                ctx.fillStyle = elm.bgcolor
+                ctx.fillStyle = elm.bgColor
                 ctx.fillRect(currentMenu.posX + elm.posX,
                     currentMenu.posY + elm.posY,
                     elm.width, elm.height)
@@ -566,6 +563,18 @@ const argParser = (scope, data, args) => {
     })
 }
 
+/*
+ * 
+ * @param {*} file 
+ * @returns 
+ */
+const loadImg = (file) => {
+    if(!fs.existsSync(file)) throw new WtGuiError(`${file} does not exist.`)
+    const tempImg = new Image()
+    tempImg.src = file
+    return tempImg
+}
+
 /**
  * 
  */
@@ -580,11 +589,13 @@ class WtGuiMenu {
             [ 'id', 'title',
               'posX', 'posY',
               'width', 'height' ])
-        this.items = []
-        this.bgimage = args.bgimage || undefined
         this.font = args.font || WtGui.settings.defaultFont
-        this.bgcolor = args.bgcolor || WtGui.settings.defaultMenuColor
-        this.fgcolor = args.fgcolor || WtGui.settings.defaultFontColor
+        this.bgColor = args.bgColor || WtGui.settings.defaultMenuColor
+        this.fgColor = args.fgColor || WtGui.settings.defaultFontColor
+
+        if(args.bgImage !== undefined) this.bgImage = loadImg(args.bgImage)
+
+        this.items = []
     }
 
     /**
@@ -618,8 +629,10 @@ class WtGuiItem {
               'posX', 'posY',
               'width', 'height'])
         this.font = args.font || WtGui.settings.defaultFont
-        this.bgcolor = args.bgcolor || WtGui.settings.defaultItemColor
-        this.fgcolor = args.fgcolor || WtGui.settings.defaultFontColor
+        this.bgColor = args.bgColor || WtGui.settings.defaultItemColor
+        this.fgColor = args.fgColor || WtGui.settings.defaultFontColor
+
+        if(args.bgImage !== undefined) this.bgImage = loadImg(args.bgImage)
     }
 
     event = () => {
