@@ -565,8 +565,8 @@ const argParser = (scope, data, args) => {
 
 /*
  * 
- * @param {*} file 
- * @returns 
+ * @param {String} file 
+ * @returns {Image}
  */
 const loadImg = (file) => {
     if(!fs.existsSync(file)) throw new WtGuiError(`${file} does not exist.`)
