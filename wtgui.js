@@ -660,6 +660,9 @@ exports.WtGuiMenu = WtGuiMenu
  * @interface
  */
 class WtGuiItem {
+    #allowSelection = false
+    get allowSelection() { return this.#allowSelection }
+
     /**
      * 
      * @param {*} args 
@@ -678,15 +681,13 @@ class WtGuiItem {
         this.imgOffsetX = args.imgOffsetX || 0
         this.imgOffsetY = args.imgOffsetY || 0
         this.scaleImg = args.scaleImg || false
-
-        this.allowSelection = false
     }
 
     /**
      * 
      */
     selectEvent = () => {
-        if(this.allowSelection) throw new WtGuiError("Method 'selectEvent()' must be implemented.")
+        if(this.#allowSelection) throw new WtGuiError("Method 'selectEvent()' must be implemented.")
     }
 }
 exports.WtGuiItem = WtGuiItem
@@ -712,6 +713,8 @@ exports.WtGuiLabel = WtGuiLabel
  * @extends WtGuiItem
  */
 class WtGuiButton extends WtGuiItem {
+    #allowSelection = true
+
     /**
      * 
      * @param {*} args 
@@ -719,8 +722,6 @@ class WtGuiButton extends WtGuiItem {
     constructor(args) {
         var args = args || {}
         super(args)
-
-        this.allowSelection = true
     }
 
     /**
