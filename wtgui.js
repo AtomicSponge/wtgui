@@ -438,8 +438,10 @@ class WtGui {
                 ctx.fillText(WtGui.#renderer.fps, WtGui.settings.width, 12)
             }
 
+            //  Draw the rendered menu
             WtGui.#data.glctx.drawImage(WtGui.#data.renderCanvas, 0, 0)
 
+            //  Update renderer info and request next frame
             WtGui.#renderer.step++
             WtGui.#renderer.frameDelta = Date.now() - WtGui.#renderer.lastRender
             WtGui.#renderer.lastRender = Date.now()
