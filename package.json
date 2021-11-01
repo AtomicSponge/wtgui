@@ -1,6 +1,6 @@
 {
   "name": "@wtfsystems/wtgui",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "WtGui - HTML5 Canvas Menu System",
   "main": "wtgui.js",
   "repository": {

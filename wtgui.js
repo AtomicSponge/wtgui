@@ -2,7 +2,7 @@
  * 
  * @author Matthew Evans
  * @module wtfsystems/wtgui
- * @version 0.0.2
+ * @version 0.0.3
  * @see README.me
  * @copyright LICENSE.md
  * 
@@ -105,6 +105,7 @@ class WtGui {
          * @returns {elm}
          */
         AABB: (test, collection) => {
+            if(collection === undefined) return undefined
             let res = undefined
             collection.some((elm) => {
                 if(
@@ -462,7 +463,7 @@ class WtGui {
                 },
                 WtGui.#data.currentMenu.items
             )
-            if(res !== undefined) res.event()
+            if(res !== undefined && res.allowSelection) res.selectEvent()
         },
 
         /*
@@ -479,7 +480,7 @@ class WtGui {
             WtGui.#data.mouseCords.posX = event.offsetX
             WtGui.#data.mouseCords.posY = event.offsetY
             //  If the mouse is pointing at anything, make it the active item
-            WtGui.#data.activeItem = WtGui.#func.AABB(
+            const res = WtGui.#func.AABB(
                 {
                     posX: event.offsetX - WtGui.#data.currentMenu.posX,
                     posY: event.offsetY - WtGui.#data.currentMenu.posY,
@@ -488,6 +489,7 @@ class WtGui {
                 },
                 WtGui.#data.currentMenu.items
             )
+            if(res !== undefined && res.allowSelection) WtGui.#data.activeItem = res
         },
 
         /*
@@ -659,9 +661,11 @@ class WtGuiItem {
 
         if(args.bgImage !== undefined) this.bgImage = loadImg(args.bgImage)
         this.scaleImg = args.scaleImg || false
+
+        this.allowSelection = false
     }
 
-    event = () => {
+    selectEvent = () => {
         //
     }
 }
@@ -695,6 +699,8 @@ class WtGuiButton extends WtGuiItem {
     constructor(args) {
         var args = args || {}
         super(args)
+
+        this.allowSelection = true
     }
 }
 exports.WtGuiButton = WtGuiButton
