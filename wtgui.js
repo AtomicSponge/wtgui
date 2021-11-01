@@ -78,16 +78,16 @@ class WtGui {
             posX: Number(0),
             posY: Number(0)
         },
-        renderCanvas: {},   //  2d canvas for rendering menus
-        glctx: {},          //  WebGL context for main drawing
-        ctx: {},            //  2d context for menu drawing
-        configRan: false,   //  Flag to verify config runs once
-        imageFiles: [],     //  Array of image files
-        audioFiles: [],     //  Array of audio files
-        menus: [],          //  Array of available menus
-        openedMenus: [],    //  Stack of opened menus
-        currentMenu: {},    //  Current opened menu
-        activeItem: {}
+        renderCanvas: {},      //  2d canvas for rendering menus
+        glctx: {},             //  WebGL context for main drawing
+        ctx: {},               //  2d context for menu drawing
+        configRan: false,      //  Flag to verify config runs once
+        imageFiles: [],        //  Array of image files
+        audioFiles: [],        //  Array of audio files
+        menus: [],             //  Array of available menus
+        openedMenus: [],       //  Stack of opened menus
+        currentMenu: {},       //  Current opened menu
+        activeItem: undefined  //  Active menu item
     }
 
     /*
