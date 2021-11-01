@@ -10,7 +10,7 @@ This will be a HTML5 canvas based menu system at some point in the future.
 
 -----
 
-###  Install:
+###  Install
 
 ```
 npm i @wtfsystems/wtgui
@@ -24,7 +24,7 @@ const { WtGui } = require('@wtfsystems/wtgui')
 
 -----
 
-###  Configure:
+###  Configuration
 
 ```
 WtGui.settings.width = 1024
@@ -34,11 +34,11 @@ WtGui.actions.drawFps(true)
 
 -----
 
-###  Build menus:
+###  Building Menus
 
 -----
 
-###  Start renderer:
+###  Starting the Renderer
 
 -----
 
