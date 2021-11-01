@@ -682,8 +682,11 @@ class WtGuiItem {
         this.allowSelection = false
     }
 
+    /**
+     * 
+     */
     selectEvent = () => {
-        //
+        if(this.allowSelection) throw new WtGuiError("Method 'selectEvent()' must be implemented.")
     }
 }
 exports.WtGuiItem = WtGuiItem
@@ -718,6 +721,13 @@ class WtGuiButton extends WtGuiItem {
         super(args)
 
         this.allowSelection = true
+    }
+
+    /**
+     * 
+     */
+    selectEvent = () => {
+        //
     }
 }
 exports.WtGuiButton = WtGuiButton
