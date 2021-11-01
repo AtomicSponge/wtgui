@@ -36,7 +36,7 @@ class WtGui {
     constructor() { return false }  //  Don't allow direct construction
 
     /**
-     * Module settings
+     * WtGui Module settings
      * @prop {boolean} debugMode Enable/disable debug mode
      * @prop {Number} width Width of the gui
      * @prop {Number} height Height of the gui
@@ -62,12 +62,12 @@ class WtGui {
     }
 
     /**
-     * Module info
-     * @prop {Number} fps
-     * @prop {Number} frameDelta
-     * @prop {Number} lastRender
-     * @prop {Number} mousePosX
-     * @prop {Number} mousePosY
+     * WtGui Module info
+     * @prop {Number} fps Frames per second
+     * @prop {Number} frameDelta Time between frames
+     * @prop {Number} lastRender Time last frame render completed
+     * @prop {Number} mousePosX Mouse position X within canvas
+     * @prop {Number} mousePosY Mouse position Y within canvas
      */
     static info = {
         get fps() { return WtGui.#renderer.fps },
