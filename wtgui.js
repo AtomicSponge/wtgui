@@ -99,10 +99,10 @@ class WtGui {
         bgAnimation: () => {},  //  Background animation
 
         /*
-         * AABB Alg
-         * @param {*} test 
-         * @param {[elm]} collection 
-         * @returns {elm}
+         * AABB Algorithm
+         * @param {elmA} test 
+         * @param {[elmB]} collection 
+         * @returns {elmB}
          */
         AABB: (test, collection) => {
             if(!(test instanceof Object)) return undefined
@@ -424,6 +424,10 @@ class WtGui {
                         currentMenu.posY + elm.posY,
                         elm.width, elm.height)
                 }
+
+                if(WtGui.#data.activeItem === elm) {
+                    // selected item
+                }
             })
 
             //  Render FPS counter if enabled
@@ -585,7 +589,7 @@ const argParser = (scope, data, args) => {
 }
 
 /*
- * 
+ * Load an image from file.
  * @param {String} file 
  * @returns {Image}
  */
