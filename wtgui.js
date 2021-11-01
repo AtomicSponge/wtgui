@@ -27,6 +27,7 @@ class WtGuiError extends Error {
 exports.WtGuiError = WtGuiError
 
 /**
+ *
  * WtGui main object
  * @hideconstructor
  * 
@@ -396,16 +397,24 @@ class WtGui {
             WtGui.#func.bgAnimation()
 
             //  Render the menu
-            ctx.fillStyle = currentMenu.bgColor
-            ctx.fillRect(currentMenu.posX, currentMenu.posY,
-                currentMenu.width, currentMenu.height)
+            if(!WtGui.settings.debugMode && currentMenu.bgImage !== undefined) {
+                ctx.drawImage(currentMenu.bgImage, currentMenu.posX, currentMenu.posY)
+            } else {
+                ctx.fillStyle = currentMenu.bgColor
+                ctx.fillRect(currentMenu.posX, currentMenu.posY,
+                    currentMenu.width, currentMenu.height)
+            }
 
             //  Render menu items
             currentMenu.items.forEach(elm => {
-                ctx.fillStyle = elm.bgColor
-                ctx.fillRect(currentMenu.posX + elm.posX,
-                    currentMenu.posY + elm.posY,
-                    elm.width, elm.height)
+                if(!WtGui.settings.debugMode && elm.bgImage !== undefined) {
+                    ctx.drawImage(elm.bgImage, elm.posX, elm.posY)
+                } else {
+                    ctx.fillStyle = elm.bgColor
+                    ctx.fillRect(currentMenu.posX + elm.posX,
+                        currentMenu.posY + elm.posY,
+                        elm.width, elm.height)
+                }
             })
 
             //  Render FPS counter if enabled
@@ -546,7 +555,7 @@ exports.WtGui = WtGui
 
 /* ****************************************
  *
- * Menu & menu item objects
+ * Internal functions
  * 
  *************************************** */
 
@@ -574,6 +583,12 @@ const loadImg = (file) => {
     tempImg.src = file
     return tempImg
 }
+
+/* ****************************************
+ *
+ * Menu & menu item objects
+ * 
+ *************************************** */
 
 /**
  * 
