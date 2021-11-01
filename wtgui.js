@@ -105,7 +105,8 @@ class WtGui {
          * @returns {elm}
          */
         AABB: (test, collection) => {
-            if(collection === undefined) return undefined
+            if(!(test instanceof Object)) return undefined
+            if(!(collection instanceof Array)) return undefined
             let res = undefined
             collection.some((elm) => {
                 if(
