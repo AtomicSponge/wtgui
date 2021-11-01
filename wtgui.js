@@ -398,7 +398,11 @@ class WtGui {
 
             //  Render the menu
             if(!WtGui.settings.debugMode && currentMenu.bgImage !== undefined) {
-                ctx.drawImage(currentMenu.bgImage, currentMenu.posX, currentMenu.posY)
+                {(currentMenu.scaleImg) ?
+                    ctx.drawImage(currentMenu.bgImage,
+                        currentMenu.posX, currentMenu.posY,
+                        currentMenu.width, currentMenu.height) :
+                    ctx.drawImage(currentMenu.bgImage, currentMenu.posX, currentMenu.posY)}
             } else {
                 ctx.fillStyle = currentMenu.bgColor
                 ctx.fillRect(currentMenu.posX, currentMenu.posY,
@@ -408,7 +412,9 @@ class WtGui {
             //  Render menu items
             currentMenu.items.forEach(elm => {
                 if(!WtGui.settings.debugMode && elm.bgImage !== undefined) {
-                    ctx.drawImage(elm.bgImage, elm.posX, elm.posY)
+                    {(elm.scaleImg) ?
+                        ctx.drawImage(elm.bgImage, elm.posX, elm.posY, elm.width, elm.height) :
+                        ctx.drawImage(elm.bgImage, elm.posX, elm.posY)}
                 } else {
                     ctx.fillStyle = elm.bgColor
                     ctx.fillRect(currentMenu.posX + elm.posX,
@@ -609,6 +615,7 @@ class WtGuiMenu {
         this.fgColor = args.fgColor || WtGui.settings.defaultFontColor
 
         if(args.bgImage !== undefined) this.bgImage = loadImg(args.bgImage)
+        this.scaleImg = args.scaleImg || false
 
         this.items = []
     }
@@ -648,6 +655,7 @@ class WtGuiItem {
         this.fgColor = args.fgColor || WtGui.settings.defaultFontColor
 
         if(args.bgImage !== undefined) this.bgImage = loadImg(args.bgImage)
+        this.scaleImg = args.scaleImg || false
     }
 
     event = () => {
