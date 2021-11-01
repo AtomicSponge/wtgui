@@ -47,6 +47,7 @@ class WtGui {
         debugMode: false,
         width: Number(0),
         height: Number(0),
+        mouseSize: Number(0),
         clearColor: 'rgb(142,142,142)',
         defaultFont: '12px Arial',
         defaultFontColor: 'rgb(255,255,255)',
@@ -451,12 +452,13 @@ class WtGui {
         onMouseDown: (event) => {
             WtGui.#data.mouseCords.posX = event.offsetX
             WtGui.#data.mouseCords.posY = event.offsetY
+            //  See if the mouse clicked on anything
             const res = WtGui.#func.AABB(
                 {
                     posX: event.offsetX - WtGui.#data.currentMenu.posX,
                     posY: event.offsetY - WtGui.#data.currentMenu.posY,
-                    width: 0,
-                    height: 0,
+                    width: WtGui.settings.mouseSize,
+                    height: WtGui.settings.mouseSize,
                 },
                 WtGui.#data.currentMenu.items
             )
@@ -476,12 +478,13 @@ class WtGui {
         onMouseMove: (event) => {
             WtGui.#data.mouseCords.posX = event.offsetX
             WtGui.#data.mouseCords.posY = event.offsetY
+            //  If the mouse is pointing at anything, make it the active item
             WtGui.#data.activeItem = WtGui.#func.AABB(
                 {
                     posX: event.offsetX - WtGui.#data.currentMenu.posX,
                     posY: event.offsetY - WtGui.#data.currentMenu.posY,
-                    width: 0,
-                    height: 0,
+                    width: WtGui.settings.mouseSize,
+                    height: WtGui.settings.mouseSize,
                 },
                 WtGui.#data.currentMenu.items
             )
