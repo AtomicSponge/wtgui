@@ -2,8 +2,8 @@
  * Imports
  */
 const { contextBridge, ipcRenderer } = require('electron')
-const { WtGui, WtGuiMenu, WtGuiAction, WtGuiButton } = require('../wtgui')
-//const { WtGui, WtGuiMenu, WtGuiButton } = require('@wtfsystems/wtgui')
+const { WtGui, WtGuiMenu, WtGuiAction  } = require('../wtgui')
+//const { WtGui, WtGuiMenu } = require('@wtfsystems/wtgui')
 
 /*
  * Configure WtGui
@@ -28,17 +28,10 @@ WtGui.addMenu(new WtGuiMenu({
     width: 500, height: 450
 }))
 
-WtGui.addItem('main_menu', new WtGuiButton({
-    id: 'apply_btn',
-    title: 'Apply',
-    posX: 20, posY: 20,
-    width: 200, height: 40
-}))
-
 WtGui.addItem('main_menu', new WtGuiAction({
     id: 'test',
     title: 'testing',
-    posX: 20, posY: 100,
+    posX: 20, posY: 20,
     width: 200, height: 40
 }))
 
@@ -50,13 +43,6 @@ WtGui.addMenu(new WtGuiMenu({
     title: 'Test Game Menu',
     posX: 10, posY: 10,
     width: 50, height: 50
-}))
-
-WtGui.addItem('game_menu', new WtGuiButton({
-    id: 'apply_btn',
-    title: 'Apply',
-    posX: 10, posY: 10,
-    width: 40, height: 20
 }))
 
 //WtGui.tests.printMenu()

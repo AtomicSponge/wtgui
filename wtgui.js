@@ -739,30 +739,6 @@ exports.WtGuiAction = WtGuiAction
  * 
  * @extends WtGuiItem
  */
-class WtGuiButton extends WtGuiItem {
-    /**
-     * 
-     * @param {*} args 
-     */
-    constructor(args) {
-        var args = args || {}
-        super(args)
-        this.canSelect = true
-    }
-
-    /**
-     * 
-     */
-    selectEvent = () => {
-        console.log('button')
-    }
-}
-exports.WtGuiButton = WtGuiButton
-
-/**
- * 
- * @extends WtGuiItem
- */
 class WtGuiInput extends WtGuiItem {
     /**
      * 
