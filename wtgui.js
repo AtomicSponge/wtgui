@@ -622,7 +622,7 @@ const loadImg = (file) => {
  *************************************** */
 
 /**
- * 
+ * WtGui Menu Object
  */
 class WtGuiMenu {
     /**
@@ -661,7 +661,7 @@ class WtGuiMenu {
 exports.WtGuiMenu = WtGuiMenu
 
 /**
- * 
+ * WtGui Menu Item Interface
  * @interface
  */
 class WtGuiItem {
@@ -670,6 +670,7 @@ class WtGuiItem {
      * @param {*} args 
      */
     constructor(args) {
+        if(this.constructor === WtGuiItem) throw new WtGuiError(`WtGuiItem class is an interface class.`)
         var args = args || {}
         argParser(this, args,
             [ 'id', 'title',
@@ -690,13 +691,13 @@ class WtGuiItem {
      * 
      */
     selectEvent = () => {
-        if(this.canSelect) throw new WtGuiError("Method 'selectEvent()' must be implemented.")
+        if(this.canSelect) throw new WtGuiError(`Method 'selectEvent()' must be implemented.`)
     }
 }
 exports.WtGuiItem = WtGuiItem
 
 /**
- * 
+ * WtGui Item Label
  * @extends WtGuiItem
  */
 class WtGuiLabel extends WtGuiItem {
@@ -712,7 +713,7 @@ class WtGuiLabel extends WtGuiItem {
 exports.WtGuiLabel = WtGuiLabel
 
 /**
- * 
+ * WtGui Item Action
  * @extends WtGuiItem
  */
  class WtGuiAction extends WtGuiItem {
