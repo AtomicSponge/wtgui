@@ -483,7 +483,7 @@ class WtGui {
                 },
                 WtGui.#data.currentMenu.items
             )
-            if(res !== undefined && res.allowSelection) res.selectEvent()
+            if(res !== undefined && res.canSelect) res.selectEvent()
         },
 
         /*
@@ -509,7 +509,7 @@ class WtGui {
                 },
                 WtGui.#data.currentMenu.items
             )
-            if(res !== undefined && res.allowSelection) WtGui.#data.activeItem = res
+            if(res !== undefined && res.canSelect) WtGui.#data.activeItem = res
         },
 
         /*
@@ -665,9 +665,6 @@ exports.WtGuiMenu = WtGuiMenu
  * @interface
  */
 class WtGuiItem {
-    #allowSelection = false
-    get allowSelection() { return this.#allowSelection }
-
     /**
      * 
      * @param {*} args 
@@ -686,13 +683,14 @@ class WtGuiItem {
         this.imgOffsetX = args.imgOffsetX || 0
         this.imgOffsetY = args.imgOffsetY || 0
         this.scaleImg = args.scaleImg || false
+        this.canSelect = false
     }
 
     /**
      * 
      */
     selectEvent = () => {
-        if(this.#allowSelection) throw new WtGuiError("Method 'selectEvent()' must be implemented.")
+        if(this.canSelect) throw new WtGuiError("Method 'selectEvent()' must be implemented.")
     }
 }
 exports.WtGuiItem = WtGuiItem
@@ -717,9 +715,7 @@ exports.WtGuiLabel = WtGuiLabel
  * 
  * @extends WtGuiItem
  */
-class WtGuiButton extends WtGuiItem {
-    #allowSelection = true
-
+ class WtGuiAction extends WtGuiItem {
     /**
      * 
      * @param {*} args 
@@ -727,13 +723,38 @@ class WtGuiButton extends WtGuiItem {
     constructor(args) {
         var args = args || {}
         super(args)
+        this.canSelect = true
+    }
+
+    /**
+     * 
+     */
+     selectEvent = () => {
+        console.log('action')
+    }
+}
+exports.WtGuiAction = WtGuiAction
+
+/**
+ * 
+ * @extends WtGuiItem
+ */
+class WtGuiButton extends WtGuiItem {
+    /**
+     * 
+     * @param {*} args 
+     */
+    constructor(args) {
+        var args = args || {}
+        super(args)
+        this.canSelect = true
     }
 
     /**
      * 
      */
     selectEvent = () => {
-        //
+        console.log('button')
     }
 }
 exports.WtGuiButton = WtGuiButton
@@ -785,19 +806,3 @@ class WtGuiToggle extends WtGuiItem {
     }
 }
 exports.WtGuiToggle = WtGuiToggle
-
-/**
- * 
- * @extends WtGuiItem
- */
-class WtGuiAction extends WtGuiItem {
-    /**
-     * 
-     * @param {*} args 
-     */
-    constructor(args) {
-        var args = args || {}
-        super(args)
-    }
-}
-exports.WtGuiAction = WtGuiAction
