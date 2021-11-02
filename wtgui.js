@@ -65,30 +65,20 @@ class WtGui {
 
     /**
      * WtGui Module info
-     * @prop {} menuStorage Get the storage for menu settings
      * @prop {Number} fps Frames per second
      * @prop {Number} frameDelta Time between frames
      * @prop {Number} lastRender Time last frame render completed
-     * @prop {Number} mousePosX Mouse position X within canvas
-     * @prop {Number} mousePosY Mouse position Y within canvas
      */
     static info = {
-        get menuStorage() { return WtGui.#data.menuJSON },
         get fps() { return WtGui.#renderer.fps },
         get frameDelta() { return WtGui.#renderer.frameDelta },
-        get lastRender() { return WtGui.#renderer.lastRender },
-        get mousePosX() { return WtGui.#data.mouseCords.posX },
-        get mousePosY() { return WtGui.#data.mouseCords.posY }
+        get lastRender() { return WtGui.#renderer.lastRender }
     }
 
     /*
      * Gui Data
      */
     static #data = {
-        mouseCords: {
-            posX: Number(0),
-            posY: Number(0)
-        },
         menuJSON: undefined,   //  Storage for saving menu settings selection
         renderCanvas: {},      //  2d canvas for rendering menus
         glctx: {},             //  WebGL context for main drawing
@@ -177,6 +167,12 @@ class WtGui {
         //  add validation
         WtGui.#data.menuJSON = menuJSON
     }
+
+    /**
+     * 
+     * @returns {}
+     */
+    static get menuStorage() { return WtGui.#data.menuJSON }
 
     /**
      * Set the background animation function.
@@ -492,8 +488,6 @@ class WtGui {
          * 
          */
         onMouseDown: (event) => {
-            WtGui.#data.mouseCords.posX = event.offsetX
-            WtGui.#data.mouseCords.posY = event.offsetY
             //  See if the mouse clicked on anything
             const res = WtGui.#func.AABB(
                 {
@@ -523,8 +517,6 @@ class WtGui {
          * 
          */
         onMouseMove: (event) => {
-            WtGui.#data.mouseCords.posX = event.offsetX
-            WtGui.#data.mouseCords.posY = event.offsetY
             //  If the mouse is pointing at anything, make it the active item
             const res = WtGui.#func.AABB(
                 {
