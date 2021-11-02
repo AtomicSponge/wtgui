@@ -11,12 +11,14 @@
 const fs = require('fs')
 
 /**
+ * 
  * Custom error object
+ * 
  */
 class WtGuiError extends Error {
     /**
      * Create a new WtGuiError
-     * @param {String} message 
+     * @param {String} message Error message
      */
     constructor(message) {
         super(message)
@@ -129,8 +131,8 @@ class WtGui {
     }
 
     /**
-     * Configure canvas and start the gui
-     * @param {HTMLCanvasElement} canvas 
+     * Configure canvas and start the gui.
+     * @param {HTMLCanvasElement} canvas Canvas element to configure.
      */
     static startGui = (canvas) => {
         if(WtGui.#data.configRan) throw new WtGuiError(`WtGui is already running.`)
@@ -163,8 +165,8 @@ class WtGui {
     }
 
     /**
-     * 
-     * @param {Function} func 
+     * Set the background animation function.
+     * @param {Function} func New animation function.
      */
     static setBgAnimation = (func) => {
         if(!(func instanceof Function)) throw new WtGuiError(`Background animation must be a function.`)
@@ -172,19 +174,19 @@ class WtGui {
     }
 
     /**
-     * 
-     * @returns {}
+     * Get the menu drawing context.
+     * @returns {CanvasRenderingContext2D} 2D drawing context.
      */
     static get draw() { return WtGui.#data.ctx }
 
-    /**
+    /*
      * 
-     * @returns {}
+     * @returns {WebGL2RenderingContext}
      */
     //static get draw3d() { return WtGui.#data.glctx }
 
     /**
-     * Add an image
+     * Add an image.
      * @param {String} id 
      * @param {*} file 
      */
@@ -202,9 +204,9 @@ class WtGui {
     }
 
     /**
-     * Get an image
-     * @param {String} id 
-     * @returns {}
+     * Get an image.
+     * @param {String} id ID of image.
+     * @returns {Image} Image by ID reference.
      */
     static getImage = (id) => {
         const tempImg = WtGui.#data.imageFiles.find(elm => elm.id === id)
@@ -215,7 +217,7 @@ class WtGui {
     /**
      * 
      * @param {String} id 
-     * @param {*} file 
+     * @param {String} file 
      */
     static addAudio = (id, file) => {
         if(WtGui.getAudio(id) !== undefined) throw new WtGuiError(`Audio ID already exists.`)
@@ -246,8 +248,8 @@ class WtGui {
     }
 
     /**
-     * Add a menu
-     * @param {*} menuObj 
+     * Add a new menu.
+     * @param {*} menuObj Menu object to add.
      */
     static addMenu = (menuObj) => {
         if(!(menuObj instanceof WtGuiMenu)) {         //  Verify proper menu object
@@ -261,9 +263,9 @@ class WtGui {
     }
 
     /**
-     * Build a menu from an object
-     * @param {*} menuData 
-     * @returns {WtGuiMenu}
+     * Build a menu from an object.
+     * @param {*} menuData Data object to build from.
+     * @returns {WtGuiMenu} Generated menu object
      */
     static buildMenu = (menuData) => {
         const tempMenu = new WtGuiMenu(menuData)
@@ -271,16 +273,16 @@ class WtGui {
     }
 
     /**
-     * Get a menu
-     * @param {String} id 
-     * @returns {WtGuiMenu}
+     * Get a menu.
+     * @param {String} id ID of menu to get.
+     * @returns {WtGuiMenu} Menu object by ID.
      */
     static getMenu = (id) => { return WtGui.#data.menus.find(elm => elm.id === id) }
 
     /**
-     * Add a menu item
-     * @param {String} menuId 
-     * @param {WtGuiItem} itemObj 
+     * Add an item to a menu.
+     * @param {String} menuId ID of menu it add item to.
+     * @param {WtGuiItem} itemObj Item object to add.
      */
     static addItem = (menuId, itemObj) => {
         const menu = WtGui.getMenu(menuId)
@@ -490,7 +492,7 @@ class WtGui {
          * 
          */
         onMouseUp: (event) => {
-            //alert(event)
+            console.log(event)
         },
 
         /*
@@ -516,56 +518,56 @@ class WtGui {
          * 
          */
         onTouchStart: (event) => {
-            //alert(event)
+            console.log(event)
         },
 
         /*
          * 
          */
         onTouchEnd: (event) => {
-            //alert(event)
+            console.log(event)
         },
 
         /*
          * 
          */
         onTouchCancel: (event) => {
-            //alert(event)
+            console.log(event)
         },
 
         /*
          * 
          */
         onTouchMove: (event) => {
-            //alert(event)
+            console.log(event)
         },
 
         /*
          * 
          */
         onKeyDown: (event) => {
-            //alert(event)
+            console.log(event)
         },
 
         /*
          * 
          */
         onKeyUp: (event) => {
-            //alert(event)
+            console.log(event)
         },
 
         /*
          * 
          */
         onButtonDown: (event) => {
-            //alert(event)
+            console.log(event)
         },
 
         /*
          * 
          */
         onButtonUp: (event) => {
-            //alert(event)
+            console.log(event)
         }
     }
 
@@ -622,7 +624,9 @@ const loadImg = (file) => {
  *************************************** */
 
 /**
+ * 
  * WtGui Menu Object
+ * 
  */
 class WtGuiMenu {
     /**
@@ -646,7 +650,7 @@ class WtGuiMenu {
     }
 
     /**
-     * 
+     * Add an item to the menu
      * @param {WtGuiItem} itemObj 
      */
     addItem = (itemObj) => {
@@ -661,8 +665,10 @@ class WtGuiMenu {
 exports.WtGuiMenu = WtGuiMenu
 
 /**
+ * 
  * WtGui Menu Item Interface
  * @interface
+ * 
  */
 class WtGuiItem {
     /**
@@ -670,7 +676,7 @@ class WtGuiItem {
      * @param {*} args 
      */
     constructor(args) {
-        if(this.constructor === WtGuiItem) throw new WtGuiError(`WtGuiItem class is an interface class.`)
+        if(this.constructor === WtGuiItem) throw new WtGuiError(`'WtGuiItem' is an interface class.`)
         var args = args || {}
         argParser(this, args,
             [ 'id', 'title',
@@ -697,8 +703,10 @@ class WtGuiItem {
 exports.WtGuiItem = WtGuiItem
 
 /**
+ * 
  * WtGui Item Label
  * @extends WtGuiItem
+ * 
  */
 class WtGuiLabel extends WtGuiItem {
     /**
@@ -713,8 +721,10 @@ class WtGuiLabel extends WtGuiItem {
 exports.WtGuiLabel = WtGuiLabel
 
 /**
+ * 
  * WtGui Item Action
  * @extends WtGuiItem
+ * 
  */
  class WtGuiAction extends WtGuiItem {
     /**
@@ -738,7 +748,9 @@ exports.WtGuiAction = WtGuiAction
 
 /**
  * 
+ * 
  * @extends WtGuiItem
+ * 
  */
 class WtGuiInput extends WtGuiItem {
     /**
@@ -754,7 +766,9 @@ exports.WtGuiInput = WtGuiInput
 
 /**
  * 
+ * 
  * @extends WtGuiItem
+ * 
  */
 class WtGuiSelection extends WtGuiItem {
     /**
@@ -770,7 +784,9 @@ exports.WtGuiSelection = WtGuiSelection
 
 /**
  * 
+ * 
  * @extends WtGuiItem
+ * 
  */
 class WtGuiToggle extends WtGuiItem {
     /**
