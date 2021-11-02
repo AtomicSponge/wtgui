@@ -11,6 +11,7 @@ const { WtGui, WtGuiMenu, WtGuiAction  } = require('../wtgui')
 WtGui.settings.width = 1024
 WtGui.settings.height = 768
 WtGui.actions.drawFps(true)
+WtGui.setMenuStorage({})
 
 WtGui.addImage('dash', 'img/dash.jpg')
 

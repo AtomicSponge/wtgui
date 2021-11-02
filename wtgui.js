@@ -65,6 +65,7 @@ class WtGui {
 
     /**
      * WtGui Module info
+     * @prop {} menuStorage Get the storage for menu settings
      * @prop {Number} fps Frames per second
      * @prop {Number} frameDelta Time between frames
      * @prop {Number} lastRender Time last frame render completed
@@ -72,6 +73,7 @@ class WtGui {
      * @prop {Number} mousePosY Mouse position Y within canvas
      */
     static info = {
+        get menuStorage() { return WtGui.#data.menuJSON },
         get fps() { return WtGui.#renderer.fps },
         get frameDelta() { return WtGui.#renderer.frameDelta },
         get lastRender() { return WtGui.#renderer.lastRender },
@@ -87,6 +89,7 @@ class WtGui {
             posX: Number(0),
             posY: Number(0)
         },
+        menuJSON: undefined,   //  Storage for saving menu settings selection
         renderCanvas: {},      //  2d canvas for rendering menus
         glctx: {},             //  WebGL context for main drawing
         ctx: {},               //  2d context for menu drawing
@@ -135,6 +138,8 @@ class WtGui {
      * @param {HTMLCanvasElement} canvas Canvas element to configure.
      */
     static startGui = (canvas) => {
+        if(WtGui.#data.menuJSON === undefined)
+            throw new WtGuiError(`Please configure menu settings storage.`)
         if(WtGui.#data.configRan) throw new WtGuiError(`WtGui is already running.`)
         if(!(canvas instanceof HTMLCanvasElement))
             throw new WtGuiError(`${canvas} is not a HTMLCanvasElement.`)
@@ -162,6 +167,15 @@ class WtGui {
 
         WtGui.#data.configRan = true
         WtGui.#renderer.start()
+    }
+
+    /**
+     * 
+     * @param {*} menuJSON 
+     */
+    static setMenuStorage = (menuJSON) => {
+        //  add validation
+        WtGui.#data.menuJSON = menuJSON
     }
 
     /**
