@@ -467,6 +467,11 @@ class WtGui {
 
     /*
      * Events sub-object
+     *
+     * Event object passed to UI elements:
+     * > {object} uiEvent - Original UI event repacked
+     * > {number} elmX - Calculated X offset within the UI item
+     * > {number} elmY - Calculated Y offset within the UI item
      */
     static #events = {
         /*
@@ -485,7 +490,12 @@ class WtGui {
                 },
                 WtGui.#data.currentMenu.items
             )
-            if(res !== undefined && res.canSelect) res.selectEvent()
+            if(res !== undefined && res.canSelect)
+                res.selectEvent({
+                    uiEvent: event,
+                    elmX: event.offsetX - WtGui.#data.currentMenu.posX - res.posX,
+                    elmY: event.offsetY - WtGui.#data.currentMenu.posY - res.posY
+                })
         },
 
         /*
@@ -696,7 +706,7 @@ class WtGuiItem {
     /**
      * 
      */
-    selectEvent = () => {
+    selectEvent = (event) => {
         if(this.canSelect) throw new WtGuiError(`Method 'selectEvent()' must be implemented.`)
     }
 }
@@ -740,8 +750,8 @@ exports.WtGuiLabel = WtGuiLabel
     /**
      * 
      */
-     selectEvent = () => {
-        console.log('action')
+     selectEvent = (event) => {
+        console.log(event)
     }
 }
 exports.WtGuiAction = WtGuiAction
