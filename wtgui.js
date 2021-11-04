@@ -2,7 +2,7 @@
  * 
  * @author Matthew Evans
  * @module wtfsystems/wtgui
- * @version 0.0.3
+ * @version 0.0.4
  * @see README.me
  * @copyright LICENSE.md
  * 
@@ -80,7 +80,7 @@ class WtGui {
      */
     static #data = {
         menuJSON: undefined,   //  Storage for saving menu settings selection
-        renderCanvas: {},      //  2d canvas for rendering menus
+        menuCanvas: {},        //  2d canvas for rendering menus
         glctx: {},             //  WebGL context for main drawing
         ctx: {},               //  2d context for menu drawing
         configRan: false,      //  Flag to verify config runs once
@@ -136,7 +136,7 @@ class WtGui {
         if(WtGui.settings.width < 1 || WtGui.settings.height < 1)
             throw new WtGuiError(`Must define a width and height.`)
 
-        WtGui.#data.glctx = canvas.getContext('2d')
+        WtGui.#data.glctx = canvas.getContext('webgl2')
         canvas.width = WtGui.settings.width
         canvas.height = WtGui.settings.height
 
@@ -152,8 +152,8 @@ class WtGui {
         window.addEventListener('keydown', WtGui.#events.onKeyDown, false)
         window.addEventListener('keyup', WtGui.#events.onKeyUp, false)
 
-        WtGui.#data.renderCanvas = canvas.renderCanvas = document.createElement('canvas')
-        WtGui.#data.ctx = WtGui.#data.renderCanvas.getContext('2d')
+        WtGui.#data.menuCanvas = canvas.menuCanvas = document.createElement('canvas')
+        WtGui.#data.ctx = WtGui.#data.menuCanvas.getContext('2d')
 
         WtGui.#data.configRan = true
         WtGui.#renderer.start()
@@ -370,13 +370,15 @@ class WtGui {
         step: Number(0),        //  Used to calculate fps
         frameDelta: Number(0),  //  Time in ms between frames
         lastRender: Number(0),  //  Last render time
+        renderTexture: null,
 
         /*
          * Start the renderer
          */
         start: () => {
-            WtGui.#data.renderCanvas.width = WtGui.settings.width
-            WtGui.#data.renderCanvas.height = WtGui.settings.height
+            WtGui.#renderer.renderTexture = WtGui.#data.glctx.createTexture()
+            WtGui.#data.menuCanvas.width = WtGui.settings.width
+            WtGui.#data.menuCanvas.height = WtGui.settings.height
             clearInterval(WtGui.#renderer.fpsCalc)
             WtGui.#renderer.fpsCalc = setInterval(() => {
                 WtGui.#renderer.fps = WtGui.#renderer.step
@@ -394,6 +396,7 @@ class WtGui {
             window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
             WtGui.#renderer.fps = WtGui.#renderer.step = 0
             WtGui.#renderer.frameDelta = WtGui.#renderer.lastRender = 0
+            WtGui.#data.glctx.deleteTexture(WtGui.#renderer.renderTexture)
         },
 
         /*
@@ -464,7 +467,14 @@ class WtGui {
             }
 
             //  Draw the rendered menu
-            WtGui.#data.glctx.drawImage(WtGui.#data.renderCanvas, 0, 0)
+            const gl = WtGui.#data.glctx
+            gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true)
+            gl.bindTexture(gl.TEXTURE_2D, WtGui.#renderer.renderTexture)
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, WtGui.#data.menuCanvas)
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST)
+            gl.generateMipmap(gl.TEXTURE_2D)
+            gl.bindTexture(gl.TEXTURE_2D, null)
 
             //  Update renderer info and request next frame
             WtGui.#renderer.step++

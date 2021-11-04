@@ -9,10 +9,22 @@ const { WtGui, WtGuiMenu, WtGuiAction  } = require('../wtgui')
  * Configure WtGui
  */
 WtGui.settings.width = 1024
-WtGui.settings.height = 768
+WtGui.settings.height = 512
 WtGui.actions.drawFps(true)
 
-WtGui.setMenuStorage({})
+WtGui.setMenuStorage({
+    gfx: {
+        scale: 1
+    },
+
+    volume: {
+        main: Number(0),
+        music: Number(0),
+        sfx: Number(0),
+        voice: Number(0),
+        ambiance: Number(0)
+    }
+})
 
 WtGui.addImage('dash', 'img/dash.jpg')
 

@@ -17,6 +17,8 @@ const createMainWindow = () => {
 		fullscreenable: true,
 		autoHideMenuBar: true,
 		webPreferences: {
+			//sandbox: true,
+			nodeIntegration: false,
 			contextIsolation: true,
 			nativeWindowOpen: true,
 			preload: path.join(__dirname, '_wtguitest.js')
