@@ -298,7 +298,7 @@ class WtGui {
      */
     static addItem = (menuId, itemObj) => {
         const menu = WtGui.getMenu(menuId)
-        if(menu === undefined) throw new WtGuiError(`Menu does not exist.`)
+        if(menu === undefined) throw new WtGuiError(`${menuId} - Menu does not exist.`)
         menu.addItem(itemObj)
     }
 
@@ -339,7 +339,7 @@ class WtGui {
          */
         openMenu: (menuId) => {
             const tempMenu = WtGui.getMenu(menuId)
-            if(tempMenu === undefined) throw new WtGuiError(`Menu does not exist.`)
+            if(tempMenu === undefined) throw new WtGuiError(`${menuId} - Menu does not exist.`)
             WtGui.#data.openedMenus.push(tempMenu)
             WtGui.#data.currentMenu = WtGui.#data.openedMenus[(WtGui.#data.openedMenus.length - 1)]
         },
@@ -780,7 +780,19 @@ exports.WtGuiLabel = WtGuiLabel
         var args = args || {}
         super(args)
         this.canSelect = true
-        this.action = args.action || function(event){}
+        if(args.type === undefined) this.action = args.action || function(event){}
+        if(args.type === 'open_menu') {
+            if(args.menuName === undefined) throw new WtGuiError(`Must define a menu name.`)
+            this.action = () => {
+                WtGui.actions.openMenu(args.menuName)
+            }
+        }
+        if(args.type === 'close_menu') {
+            this.allMenus = args.allMenus || false
+            this.action = () => {
+                WtGui.actions.closeMenu(this.allMenus)
+            }
+        }
     }
 
     /**

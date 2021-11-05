@@ -47,9 +47,10 @@ WtGui.addItem('main_menu', new WtGuiAction({
     title: 'testing',
     posX: 20, posY: 20,
     width: 200, height: 40,
-    action: (event) => {
+    /*action: (event) => {
         console.log(`hit\n${event.elmX},${event.elmY}`)
-    }
+    }*/
+    type: 'open_menu', menuName: 'game_menu'
 }))
 
 /*
@@ -59,7 +60,15 @@ WtGui.addMenu(new WtGuiMenu({
     id: 'game_menu',
     title: 'Test Game Menu',
     posX: 10, posY: 10,
-    width: 50, height: 50
+    width: 400, height: 300
+}))
+
+WtGui.addItem('game_menu', new WtGuiAction({
+    id: 'test',
+    title: 'testing',
+    posX: 20, posY: 20,
+    width: 200, height: 40,
+    type: 'close_menu'
 }))
 
 //WtGui.tests.printMenu()
