@@ -14,7 +14,7 @@ WtGui.actions.drawFps(true)
 
 WtGui.setMenuStorage({
     gfx: {
-        scale: 1
+        scale: Number(1)
     },
 
     volume: {

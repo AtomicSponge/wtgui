@@ -9,6 +9,7 @@
  */
 
 const fs = require('fs')
+const { isDataView } = require('util/types')
 
 /**
  * 
@@ -137,6 +138,7 @@ class WtGui {
             throw new WtGuiError(`Must define a width and height.`)
 
         WtGui.#data.glctx = canvas.getContext('webgl2')
+        if(!WtGui.#data.glctx) throw new WtGuiError(`webgl2 error`)
         canvas.width = WtGui.settings.width
         canvas.height = WtGui.settings.height
 
@@ -673,6 +675,7 @@ class WtGuiMenu {
         this.scaleImg = args.scaleImg || false
 
         this.items = []
+        this.selectableItems = []
     }
 
     /**
@@ -686,6 +689,7 @@ class WtGuiMenu {
         if(this.items.find(elm => elm.id === itemObj.id) !== undefined)
             throw new WtGuiError(`Item ID already exists.`)
         this.items.push(itemObj)  //  Add item
+        if(itemObj.canSelect) this.selectableItems.push(itemObj)
     }
 }
 exports.WtGuiMenu = WtGuiMenu
@@ -761,13 +765,14 @@ exports.WtGuiLabel = WtGuiLabel
         var args = args || {}
         super(args)
         this.canSelect = true
+        this.action = args.action || function(event){}
     }
 
     /**
      * 
      */
      selectEvent = (event) => {
-        console.log(event)
+        this.action(event)
     }
 }
 exports.WtGuiAction = WtGuiAction
@@ -796,24 +801,6 @@ exports.WtGuiInput = WtGuiInput
  * @extends WtGuiItem
  * 
  */
-class WtGuiSelection extends WtGuiItem {
-    /**
-     * 
-     * @param {*} args 
-     */
-    constructor(args) {
-        var args = args || {}
-        super(args)
-    }
-}
-exports.WtGuiSelection = WtGuiSelection
-
-/**
- * 
- * 
- * @extends WtGuiItem
- * 
- */
 class WtGuiToggle extends WtGuiItem {
     /**
      * 
@@ -825,3 +812,21 @@ class WtGuiToggle extends WtGuiItem {
     }
 }
 exports.WtGuiToggle = WtGuiToggle
+
+/**
+ * 
+ * 
+ * @extends WtGuiItem
+ * 
+ */
+ class WtGuiSelection extends WtGuiItem {
+    /**
+     * 
+     * @param {*} args 
+     */
+    constructor(args) {
+        var args = args || {}
+        super(args)
+    }
+}
+exports.WtGuiSelection = WtGuiSelection
