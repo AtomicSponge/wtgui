@@ -647,6 +647,11 @@ const loadImg = (file) => {
     return tempImg
 }
 
+/*
+ * Test for valid rgb(a)/hsl(a)
+ * @param {String} str String to test
+ * @returns True if valid rgb(a)/hsl(a), else false
+ */
 const testRgb = (str) => { return /^(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\)$/i.test(str) }
 
 /* ****************************************
