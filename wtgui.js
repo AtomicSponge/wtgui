@@ -647,6 +647,8 @@ const loadImg = (file) => {
     return tempImg
 }
 
+const testRgb = (str) => { return /^(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\)$/i.test(str) }
+
 /* ****************************************
  *
  * Menu & menu item objects
@@ -678,6 +680,9 @@ class WtGuiMenu {
 
         this.items = []
         this.selectableItems = []
+
+        if(!testRgb(this.bgColor)) throw new WtGuiError(`${this.bgColor} - Bad color code`)
+        if(!testRgb(this.fgColor)) throw new WtGuiError(`${this.fgColor} - Bad color code`)
     }
 
     /**
@@ -723,6 +728,9 @@ class WtGuiItem {
         this.imgOffsetY = args.imgOffsetY || 0
         this.scaleImg = args.scaleImg || false
         this.canSelect = false
+
+        if(!testRgb(this.bgColor)) throw new WtGuiError(`${this.bgColor} - Bad color code`)
+        if(!testRgb(this.fgColor)) throw new WtGuiError(`${this.fgColor} - Bad color code`)
     }
 
     /**
