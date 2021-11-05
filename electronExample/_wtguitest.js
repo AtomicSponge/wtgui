@@ -9,7 +9,7 @@ const { WtGui, WtGuiMenu, WtGuiAction  } = require('../wtgui')
  * Configure WtGui
  */
 WtGui.settings.width = 1024
-WtGui.settings.height = 512
+WtGui.settings.height = 768
 WtGui.actions.drawFps(true)
 
 WtGui.setMenuStorage({
@@ -46,7 +46,10 @@ WtGui.addItem('main_menu', new WtGuiAction({
     id: 'test',
     title: 'testing',
     posX: 20, posY: 20,
-    width: 200, height: 40
+    width: 200, height: 40,
+    action: (event) => {
+        console.log(`hit\n${event.elmX},${event.elmY}`)
+    }
 }))
 
 /*

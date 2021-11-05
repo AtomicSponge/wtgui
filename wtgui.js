@@ -137,8 +137,9 @@ class WtGui {
         if(WtGui.settings.width < 1 || WtGui.settings.height < 1)
             throw new WtGuiError(`Must define a width and height.`)
 
-        WtGui.#data.glctx = canvas.getContext('webgl2')
-        if(!WtGui.#data.glctx) throw new WtGuiError(`webgl2 error`)
+        //WtGui.#data.glctx = canvas.getContext('webgl2')
+        //if(!WtGui.#data.glctx) throw new WtGuiError(`webgl2 error`)
+        WtGui.#data.glctx = canvas.getContext('2d')
         canvas.width = WtGui.settings.width
         canvas.height = WtGui.settings.height
 
@@ -378,7 +379,7 @@ class WtGui {
          * Start the renderer
          */
         start: () => {
-            WtGui.#renderer.renderTexture = WtGui.#data.glctx.createTexture()
+            //WtGui.#renderer.renderTexture = WtGui.#data.glctx.createTexture()
             WtGui.#data.menuCanvas.width = WtGui.settings.width
             WtGui.#data.menuCanvas.height = WtGui.settings.height
             clearInterval(WtGui.#renderer.fpsCalc)
@@ -398,7 +399,7 @@ class WtGui {
             window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
             WtGui.#renderer.fps = WtGui.#renderer.step = 0
             WtGui.#renderer.frameDelta = WtGui.#renderer.lastRender = 0
-            WtGui.#data.glctx.deleteTexture(WtGui.#renderer.renderTexture)
+            //WtGui.#data.glctx.deleteTexture(WtGui.#renderer.renderTexture)
         },
 
         /*
@@ -469,14 +470,16 @@ class WtGui {
             }
 
             //  Draw the rendered menu
-            const gl = WtGui.#data.glctx
+            /*const gl = WtGui.#data.glctx
             gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true)
             gl.bindTexture(gl.TEXTURE_2D, WtGui.#renderer.renderTexture)
             gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, WtGui.#data.menuCanvas)
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST)
             gl.generateMipmap(gl.TEXTURE_2D)
-            gl.bindTexture(gl.TEXTURE_2D, null)
+            gl.bindTexture(gl.TEXTURE_2D, null)*/
+
+            WtGui.#data.glctx.drawImage(WtGui.#data.menuCanvas, 0, 0)
 
             //  Update renderer info and request next frame
             WtGui.#renderer.step++
@@ -771,7 +774,7 @@ exports.WtGuiLabel = WtGuiLabel
     /**
      * 
      */
-     selectEvent = (event) => {
+    selectEvent = (event) => {
         this.action(event)
     }
 }
