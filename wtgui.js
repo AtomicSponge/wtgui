@@ -191,7 +191,7 @@ class WtGui {
      */
     static addImage = (id, file) => {
         if(WtGui.getImage(id) !== undefined) throw new WtGuiError(`Image ID '${id}' already exists.`)
-        WtGui.#data.imageFiles.push({ id: id, file: loadImg(file) })
+        WtGui.#data.imageFiles.push({ id: id, file: WtGuiExtras.loadImg(file) })
     }
 
     /**
@@ -359,8 +359,8 @@ class WtGui {
         step: Number(0),        //  Used to calculate fps
         frameDelta: Number(0),  //  Time in ms between frames
         lastRender: Number(0),  //  Last render time
-        renderTexture: null,
-        bgAnimation: () => {},  //  Background animation
+        renderTexture: null,    //  Texture to draw to
+        bgAnimation: () => {},  //  Background animation function
 
         /*
          * Start the renderer
@@ -491,7 +491,7 @@ class WtGui {
          */
         onMouseDown: (event) => {
             //  See if the mouse clicked on anything
-            const res = AABB(
+            const res = WtGuiExtras.AABB(
                 {
                     posX: event.offsetX - WtGui.#data.currentMenu.posX,
                     posY: event.offsetY - WtGui.#data.currentMenu.posY,
@@ -520,7 +520,7 @@ class WtGui {
          */
         onMouseMove: (event) => {
             //  If the mouse is pointing at anything, make it the active item
-            const res = AABB(
+            const res = WtGuiExtras.AABB(
                 {
                     posX: event.offsetX - WtGui.#data.currentMenu.posX,
                     posY: event.offsetY - WtGui.#data.currentMenu.posY,
@@ -542,7 +542,7 @@ class WtGui {
                 const hitX = 0
                 const hitY = 0
 
-                const res = AABB(
+                const res = WtGuiExtras.AABB(
                     {
                         posX: event.radiusX - WtGui.#data.currentMenu.posX,
                         posY: event.radiusY - WtGui.#data.currentMenu.posY,
@@ -554,8 +554,8 @@ class WtGui {
                 if(res !== undefined && res.canSelect)
                     res.selectEvent({
                         uiEvent: event,
-                        elmX: event.offsetX - WtGui.#data.currentMenu.posX - res.posX,
-                        elmY: event.offsetY - WtGui.#data.currentMenu.posY - res.posY
+                        elmX: event.radiusX - WtGui.#data.currentMenu.posX - res.posX,
+                        elmY: event.radiusY - WtGui.#data.currentMenu.posY - res.posY
                     })
             })
         },
@@ -625,67 +625,69 @@ class WtGui {
 }
 exports.WtGui = WtGui
 
-/* ****************************************
- *
- * Internal functions
+/**
  * 
- *************************************** */
-
-/*
- * Parse required arguments.
- * @param {*} scope The scope (this).
- * @param {*} data Data to parse.
- * @param {*} args Arguments to parse for.
+ * Extra functions / algorithms
+ * 
  */
-const argParser = (scope, data, args) => {
-    args.forEach((arg) => {
-        if(data[arg] === undefined) throw new WtGuiError(`'${scope}':\n${arg} undefined.`)
-        scope[arg] = data[arg]
-    })
+const WtGuiExtras = {
+    /**
+     * Parse required arguments.
+     * @param {*} scope The scope (this).
+     * @param {*} data Data to parse.
+     * @param {*} args Arguments to parse for.
+     */
+    argParser: (scope, data, args) => {
+        args.forEach((arg) => {
+            if(data[arg] === undefined) throw new WtGuiError(`'${scope}':\n${arg} undefined.`)
+            scope[arg] = data[arg]
+        })
+    },
+
+    /**
+     * Load an image from file.
+     * @param {String} file 
+     * @returns {Image}
+     */
+    loadImg: (file) => {
+        if(!fs.existsSync(file)) throw new WtGuiError(`'${file}' does not exist.`)
+        const tempImg = new Image()
+        tempImg.src = file
+        return tempImg
+    },
+
+    /**
+     * Test for valid rgb(a)/hsl(a)
+     * @param {String} str String to test
+     * @returns {boolean} True if valid rgb(a)/hsl(a), else false
+     */
+    testRgb: (str) => { return /^(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\)$/i.test(str) },
+
+    /**
+     * AABB Algorithm
+     * @param {elmA} test 
+     * @param {[elmB]} collection 
+     * @returns {elmB}
+     */
+    AABB: (test, collection) => {
+        if(!(test instanceof Object)) return undefined
+        if(!(collection instanceof Array)) return undefined
+        let res = undefined
+        collection.some((elm) => {
+            if(
+                test.posX < elm.posX + elm.width &&
+                test.posX + test.width > elm.posX &&
+                test.posY < elm.posY + elm.height &&
+                test.posY + test.height > elm.posY
+            ) {
+                res = elm
+                return true
+            } else return false
+        })
+        return res
+    }
 }
-
-/*
- * Load an image from file.
- * @param {String} file 
- * @returns {Image}
- */
-const loadImg = (file) => {
-    if(!fs.existsSync(file)) throw new WtGuiError(`'${file}' does not exist.`)
-    const tempImg = new Image()
-    tempImg.src = file
-    return tempImg
-}
-
-/*
- * Test for valid rgb(a)/hsl(a)
- * @param {String} str String to test
- * @returns {boolean} True if valid rgb(a)/hsl(a), else false
- */
-const testRgb = (str) => { return /^(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\)$/i.test(str) }
-
-/*
- * AABB Algorithm
- * @param {elmA} test 
- * @param {[elmB]} collection 
- * @returns {elmB}
- */
-const AABB = (test, collection) => {
-    if(!(test instanceof Object)) return undefined
-    if(!(collection instanceof Array)) return undefined
-    let res = undefined
-    collection.some((elm) => {
-        if(
-            test.posX < elm.posX + elm.width &&
-            test.posX + test.width > elm.posX &&
-            test.posY < elm.posY + elm.height &&
-            test.posY + test.height > elm.posY
-        ) {
-            res = elm
-            return true
-        } else return false
-    })
-    return res
-}
+exports.WtGuiExtras = WtGuiExtras
 
 /* ****************************************
  *
@@ -705,7 +707,7 @@ class WtGuiMenu {
      */
     constructor(args) {
         var args = args || {}
-        argParser(this, args,
+        WtGuiExtras.argParser(this, args,
             [ 'id', 'title',
               'posX', 'posY',
               'width', 'height' ])
@@ -713,14 +715,14 @@ class WtGuiMenu {
         this.bgColor = args.bgColor || WtGui.settings.defaultMenuColor
         this.fgColor = args.fgColor || WtGui.settings.defaultFontColor
 
-        if(args.bgImage !== undefined) this.bgImage = loadImg(args.bgImage)
+        if(args.bgImage !== undefined) this.bgImage = WtGuiExtras.loadImg(args.bgImage)
         this.scaleImg = args.scaleImg || false
 
         this.items = []
         this.selectableItems = []
 
-        if(!testRgb(this.bgColor)) throw new WtGuiError(`'${this.bgColor}' - Bad color code`)
-        if(!testRgb(this.fgColor)) throw new WtGuiError(`'${this.fgColor}' - Bad color code`)
+        if(!WtGuiExtras.testRgb(this.bgColor)) throw new WtGuiError(`'${this.bgColor}' - Bad color code`)
+        if(!WtGuiExtras.testRgb(this.fgColor)) throw new WtGuiError(`'${this.fgColor}' - Bad color code`)
     }
 
     /**
@@ -753,7 +755,7 @@ class WtGuiItem {
     constructor(args) {
         if(this.constructor === WtGuiItem) throw new WtGuiError(`'WtGuiItem' is an interface class.`)
         var args = args || {}
-        argParser(this, args,
+        WtGuiExtras.argParser(this, args,
             [ 'id', 'title',
               'posX', 'posY',
               'width', 'height'])
@@ -761,14 +763,14 @@ class WtGuiItem {
         this.bgColor = args.bgColor || WtGui.settings.defaultItemColor
         this.fgColor = args.fgColor || WtGui.settings.defaultFontColor
 
-        if(args.bgImage !== undefined) this.bgImage = loadImg(args.bgImage)
+        if(args.bgImage !== undefined) this.bgImage = WtGuiExtras.loadImg(args.bgImage)
         this.imgOffsetX = args.imgOffsetX || 0
         this.imgOffsetY = args.imgOffsetY || 0
         this.scaleImg = args.scaleImg || false
         this.canSelect = false
 
-        if(!testRgb(this.bgColor)) throw new WtGuiError(`${this.bgColor} - Bad color code`)
-        if(!testRgb(this.fgColor)) throw new WtGuiError(`${this.fgColor} - Bad color code`)
+        if(!WtGuiExtras.testRgb(this.bgColor)) throw new WtGuiError(`${this.bgColor} - Bad color code`)
+        if(!WtGuiExtras.testRgb(this.fgColor)) throw new WtGuiError(`${this.fgColor} - Bad color code`)
     }
 
     /**
