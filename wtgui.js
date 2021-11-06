@@ -87,12 +87,15 @@ class WtGui {
         /**
          * save
          */
-        save: () => {},
+        save: () => {
+            const settings = 0
+            return settings
+        },
 
         /**
          * load
          */
-        load: () => {}
+        load: (settings) => {}
     }
 
     /**
