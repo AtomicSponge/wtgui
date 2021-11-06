@@ -60,7 +60,25 @@ class WtGui {
         defaultFontColor: 'rgb(255,255,255)',
         defaultMenuColor: 'rgb(0,0,0)',
         defaultItemColor: 'rgb(255,165,0)',
-        defaultMenu: 'main_menu'
+        defaultMenu: 'main_menu',
+
+        keys: {
+            menuUp: [ 'up' ],
+            menuDown: [ 'down' ],
+            menuLeft: [ 'left' ],
+            menuRight: [ 'right' ],
+            menuSelect: [ 'select' ],
+            menuCancel: [ 'cancel' ]
+        },
+
+        buttons: {
+            menuUp: [ 'up' ],
+            menuDown: [ 'down' ],
+            menuLeft: [ 'left' ],
+            menuRight: [ 'right' ],
+            menuSelect: [ 'select' ],
+            menuCancel: [ 'cancel' ]
+        }
     }
 
     /**
@@ -545,10 +563,31 @@ class WtGui {
         },
 
         /*
-         * 
+         * wip
          */
         onTouchStart: (event) => {
             console.log(event)
+            event.targetTouches.forEach(touch => {
+                console.log(touch)
+                const hitX = 0
+                const hitY = 0
+
+                const res = WtGui.#func.AABB(
+                    {
+                        posX: event.radiusX - WtGui.#data.currentMenu.posX,
+                        posY: event.radiusY - WtGui.#data.currentMenu.posY,
+                        width: event.touchRadius,
+                        height: event.touchRadius,
+                    },
+                    WtGui.#data.currentMenu.items
+                )
+                if(res !== undefined && res.canSelect)
+                    res.selectEvent({
+                        uiEvent: event,
+                        elmX: event.offsetX - WtGui.#data.currentMenu.posX - res.posX,
+                        elmY: event.offsetY - WtGui.#data.currentMenu.posY - res.posY
+                    })
+            })
         },
 
         /*
