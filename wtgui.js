@@ -412,11 +412,11 @@ class WtGui {
             //  Render the menu
             if(!WtGui.settings.debugMode && currentMenu.bgImage !== undefined) {
                 {(currentMenu.scaleImg) ?
-                    ctx.drawImage(currentMenu.bgImage,
+                    ctx.drawImage(WtGui.getImage(currentMenu.bgImage),
                         currentMenu.posX + currentMenu.imgOffsetX,
                         currentMenu.posY + currentMenu.imgOffsetY,
                         currentMenu.width, currentMenu.height) :
-                    ctx.drawImage(currentMenu.bgImage,
+                    ctx.drawImage(WtGui.getImage(currentMenu.bgImage),
                         currentMenu.posX + currentMenu.imgOffsetX,
                         currentMenu.posY + currentMenu.imgOffsetY)}
             } else {
@@ -429,11 +429,11 @@ class WtGui {
             currentMenu.items.forEach(elm => {
                 if(!WtGui.settings.debugMode && elm.bgImage !== undefined) {
                     {(elm.scaleImg) ?
-                        ctx.drawImage(elm.bgImage,
+                        ctx.drawImage(WtGui.getImage(elm.bgImage),
                             elm.posX + elm.imgOffsetX,
                             elm.posY + elm.imgOffsetY,
                             elm.width, elm.height) :
-                        ctx.drawImage(elm.bgImage,
+                        ctx.drawImage(WtGui.getImage(elm.bgImage),
                             elm.posX + elm.imgOffsetX,
                             elm.posY + elm.imgOffsetY)}
                 } else {
@@ -715,7 +715,7 @@ class WtGuiMenu {
         this.bgColor = args.bgColor || WtGui.settings.defaultMenuColor
         this.fgColor = args.fgColor || WtGui.settings.defaultFontColor
 
-        if(args.bgImage !== undefined) this.bgImage = WtGuiExtras.loadImg(args.bgImage)
+        if(args.bgImage !== undefined) this.bgImage = args.bgImage
         this.scaleImg = args.scaleImg || false
 
         this.items = []
@@ -763,7 +763,7 @@ class WtGuiItem {
         this.bgColor = args.bgColor || WtGui.settings.defaultItemColor
         this.fgColor = args.fgColor || WtGui.settings.defaultFontColor
 
-        if(args.bgImage !== undefined) this.bgImage = WtGuiExtras.loadImg(args.bgImage)
+        if(args.bgImage !== undefined) this.bgImage = args.bgImage
         this.imgOffsetX = args.imgOffsetX || 0
         this.imgOffsetY = args.imgOffsetY || 0
         this.scaleImg = args.scaleImg || false
