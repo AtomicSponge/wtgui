@@ -132,7 +132,7 @@ class WtGui {
             throw new WtGuiError(`Please configure menu settings storage.`)
         if(WtGui.#data.configRan) throw new WtGuiError(`WtGui is already running.`)
         if(!(canvas instanceof HTMLCanvasElement))
-            throw new WtGuiError(`${canvas} is not a HTMLCanvasElement.`)
+            throw new WtGuiError(`'${canvas}' is not a HTMLCanvasElement.`)
         if(WtGui.settings.width < 1 || WtGui.settings.height < 1)
             throw new WtGuiError(`Must define a width and height.`)
 
@@ -203,7 +203,7 @@ class WtGui {
      * @param {*} file 
      */
     static addImage = (id, file) => {
-        if(WtGui.getImage(id) !== undefined) throw new WtGuiError(`Image ID already exists.`)
+        if(WtGui.getImage(id) !== undefined) throw new WtGuiError(`Image ID '${id}' already exists.`)
         WtGui.#data.imageFiles.push({ id: id, file: loadImg(file) })
     }
 
@@ -232,7 +232,7 @@ class WtGui {
      * @param {String} file 
      */
     static addAudio = (id, file) => {
-        if(WtGui.getAudio(id) !== undefined) throw new WtGuiError(`Audio ID already exists.`)
+        if(WtGui.getAudio(id) !== undefined) throw new WtGuiError(`Audio ID '${id}' already exists.`)
         if(!fs.existsSync(file)) throw new WtGuiError(`${file} does not exist.`)
         fs.readFile(file, (error, data) => {
             if(error) throw new WtGuiError(error.message)
@@ -270,7 +270,7 @@ class WtGui {
                 throw new WtGuiError(`Object is not a valid menu.`)
         }
         if(WtGui.getMenu(menuObj.id) !== undefined)   //  Verify menu does not exist
-            throw new WtGuiError(`Menu ID already exists.`)
+            throw new WtGuiError(`Menu ID '${menuObj.id}' already exists.`)
         WtGui.#data.menus.push(menuObj)               //  Add menu
     }
 
@@ -298,7 +298,7 @@ class WtGui {
      */
     static addItem = (menuId, itemObj) => {
         const menu = WtGui.getMenu(menuId)
-        if(menu === undefined) throw new WtGuiError(`${menuId} - Menu does not exist.`)
+        if(menu === undefined) throw new WtGuiError(`'${menuId}' - Menu does not exist.`)
         menu.addItem(itemObj)
     }
 
@@ -339,7 +339,7 @@ class WtGui {
          */
         openMenu: (menuId) => {
             const tempMenu = WtGui.getMenu(menuId)
-            if(tempMenu === undefined) throw new WtGuiError(`${menuId} - Menu does not exist.`)
+            if(tempMenu === undefined) throw new WtGuiError(`'${menuId}' - Menu does not exist.`)
             WtGui.#data.openedMenus.push(tempMenu)
             WtGui.#data.currentMenu = WtGui.#data.openedMenus[(WtGui.#data.openedMenus.length - 1)]
         },
@@ -630,7 +630,7 @@ exports.WtGui = WtGui
  */
 const argParser = (scope, data, args) => {
     args.forEach((arg) => {
-        if(data[arg] === undefined) throw new WtGuiError(`${scope}:\n${arg} undefined.`)
+        if(data[arg] === undefined) throw new WtGuiError(`'${scope}':\n${arg} undefined.`)
         scope[arg] = data[arg]
     })
 }
@@ -641,7 +641,7 @@ const argParser = (scope, data, args) => {
  * @returns {Image}
  */
 const loadImg = (file) => {
-    if(!fs.existsSync(file)) throw new WtGuiError(`${file} does not exist.`)
+    if(!fs.existsSync(file)) throw new WtGuiError(`'${file}' does not exist.`)
     const tempImg = new Image()
     tempImg.src = file
     return tempImg
@@ -650,7 +650,7 @@ const loadImg = (file) => {
 /*
  * Test for valid rgb(a)/hsl(a)
  * @param {String} str String to test
- * @returns True if valid rgb(a)/hsl(a), else false
+ * @returns {boolean} True if valid rgb(a)/hsl(a), else false
  */
 const testRgb = (str) => { return /^(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\)$/i.test(str) }
 
@@ -686,8 +686,8 @@ class WtGuiMenu {
         this.items = []
         this.selectableItems = []
 
-        if(!testRgb(this.bgColor)) throw new WtGuiError(`${this.bgColor} - Bad color code`)
-        if(!testRgb(this.fgColor)) throw new WtGuiError(`${this.fgColor} - Bad color code`)
+        if(!testRgb(this.bgColor)) throw new WtGuiError(`'${this.bgColor}' - Bad color code`)
+        if(!testRgb(this.fgColor)) throw new WtGuiError(`'${this.fgColor}' - Bad color code`)
     }
 
     /**
@@ -699,7 +699,7 @@ class WtGuiMenu {
             throw new WtGuiError(`Object is not a valid menu item.`)
         //  Verify item does not already exist
         if(this.items.find(elm => elm.id === itemObj.id) !== undefined)
-            throw new WtGuiError(`Item ID already exists.`)
+            throw new WtGuiError(`Item ID '${itemObj.id}' already exists.`)
         this.items.push(itemObj)  //  Add item
         if(itemObj.canSelect) this.selectableItems.push(itemObj)
     }
@@ -771,7 +771,7 @@ exports.WtGuiLabel = WtGuiLabel
  * @extends WtGuiItem
  * 
  */
- class WtGuiAction extends WtGuiItem {
+class WtGuiAction extends WtGuiItem {
     /**
      * 
      * @param {*} args 
@@ -780,18 +780,17 @@ exports.WtGuiLabel = WtGuiLabel
         var args = args || {}
         super(args)
         this.canSelect = true
-        if(args.type === undefined) this.action = args.action || function(event){}
+        if(args.type === undefined) {
+            if(args.action === undefined) throw new WtGuiError(`Must define an action.`)
+            this.action = args.action
+        }
         if(args.type === 'open_menu') {
             if(args.menuName === undefined) throw new WtGuiError(`Must define a menu name.`)
-            this.action = () => {
-                WtGui.actions.openMenu(args.menuName)
-            }
+            this.action = () => { WtGui.actions.openMenu(args.menuName) }
         }
         if(args.type === 'close_menu') {
             this.allMenus = args.allMenus || false
-            this.action = () => {
-                WtGui.actions.closeMenu(this.allMenus)
-            }
+            this.action = () => { WtGui.actions.closeMenu(this.allMenus) }
         }
     }
 
@@ -846,7 +845,7 @@ exports.WtGuiToggle = WtGuiToggle
  * @extends WtGuiItem
  * 
  */
- class WtGuiSelection extends WtGuiItem {
+class WtGuiSelection extends WtGuiItem {
     /**
      * 
      * @param {*} args 

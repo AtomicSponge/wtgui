@@ -13,16 +13,16 @@ WtGui.settings.height = 768
 WtGui.actions.drawFps(true)
 
 WtGui.setMenuStorage({
-    gfx: {
-        scale: Number(1)
+    'gfx': {
+        'scale': '0'
     },
 
-    volume: {
-        main: Number(0),
-        music: Number(0),
-        sfx: Number(0),
-        voice: Number(0),
-        ambiance: Number(0)
+    'volume': {
+        'main': '0',
+        'music': '0',
+        'sfx': '0',
+        'voice': '0',
+        'ambiance': '0'
     }
 })
 
