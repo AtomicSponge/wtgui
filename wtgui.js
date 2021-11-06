@@ -82,7 +82,17 @@ class WtGui {
             menuRight: [ 'right' ],
             menuSelect: [ 'select' ],
             menuCancel: [ 'cancel' ]
-        }
+        },
+
+        /**
+         * save
+         */
+        save: () => {},
+
+        /**
+         * load
+         */
+        load: () => {}
     }
 
     /**
