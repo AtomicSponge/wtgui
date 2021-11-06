@@ -49,6 +49,8 @@ class WtGui {
      * @prop {String} defaultMenuColor Default menu background color
      * @prop {String} defaultItemColor Default item background color
      * @prop {String} defaultMenu Default menu to open when all are closed
+     * @prop {String} fpsFont Font to use for rendering FPS.
+     * @prop {String} fpsColor Color to use for rendering FPS.
      */
     static settings = {
         debugMode: false,
@@ -56,11 +58,13 @@ class WtGui {
         height: Number(0),
         mouseSize: Number(0),
         clearColor: 'rgb(142,142,142)',
-        defaultFont: '12px Arial',
+        defaultFont: '14px Arial',
         defaultFontColor: 'rgb(255,255,255)',
         defaultMenuColor: 'rgb(0,0,0)',
         defaultItemColor: 'rgb(255,165,0)',
         defaultMenu: 'main_menu',
+        fpsFont: 'Bold 16px Arial',
+        fpsColor: 'rgb(255,165,0)',
 
         keys: {
             menuUp: [ 'up' ],
@@ -450,8 +454,8 @@ class WtGui {
 
             //  Render FPS counter if enabled
             if(WtGui.#renderer.drawFps) {
-                ctx.font = '12px Arial'
-                ctx.fillStyle = 'orange'
+                ctx.font = WtGui.settings.fpsFont
+                ctx.fillStyle = WtGui.settings.fpsColor
                 ctx.textAlign = 'right'
                 ctx.fillText(WtGui.#renderer.fps, WtGui.settings.width, 12)
             }
