@@ -97,48 +97,17 @@ class WtGui {
      * Gui Data
      */
     static #data = {
-        menuJSON: undefined,   //  Storage for saving menu settings selection
-        menuCanvas: {},        //  2d canvas for rendering menus
-        glctx: {},             //  WebGL context for main drawing
-        ctx: {},               //  2d context for menu drawing
-        configRan: false,      //  Flag to verify config runs once
-        imageFiles: [],        //  Array of image files
-        audioFiles: [],        //  Array of audio files
-        menus: [],             //  Array of available menus
-        openedMenus: [],       //  Stack of opened menus
-        currentMenu: {},       //  Current opened menu
-        activeItem: undefined  //  Active menu item
-    }
-
-    /*
-     *
-     */
-    static #func = {
-        bgAnimation: () => {},  //  Background animation
-
-        /*
-         * AABB Algorithm
-         * @param {elmA} test 
-         * @param {[elmB]} collection 
-         * @returns {elmB}
-         */
-        AABB: (test, collection) => {
-            if(!(test instanceof Object)) return undefined
-            if(!(collection instanceof Array)) return undefined
-            let res = undefined
-            collection.some((elm) => {
-                if(
-                    test.posX < elm.posX + elm.width &&
-                    test.posX + test.width > elm.posX &&
-                    test.posY < elm.posY + elm.height &&
-                    test.posY + test.height > elm.posY
-                ) {
-                    res = elm
-                    return true
-                } else return false
-            })
-            return res
-        }
+        menuStorage: undefined,  //  Storage for saving menu settings selection
+        menuCanvas: {},          //  2d canvas for rendering menus
+        glctx: {},               //  WebGL context for main drawing
+        ctx: {},                 //  2d context for menu drawing
+        configRan: false,        //  Flag to verify config runs once
+        imageFiles: [],          //  Array of image files
+        audioFiles: [],          //  Array of audio files
+        menus: [],               //  Array of available menus
+        openedMenus: [],         //  Stack of opened menus
+        currentMenu: {},         //  Current opened menu
+        activeItem: undefined    //  Active menu item
     }
 
     /**
@@ -146,7 +115,7 @@ class WtGui {
      * @param {HTMLCanvasElement} canvas Canvas element to configure.
      */
     static startGui = (canvas) => {
-        if(WtGui.#data.menuJSON === undefined)
+        if(WtGui.#data.menuStorage === undefined)
             throw new WtGuiError(`Please configure menu settings storage.`)
         if(WtGui.#data.configRan) throw new WtGuiError(`WtGui is already running.`)
         if(!(canvas instanceof HTMLCanvasElement))
@@ -181,18 +150,18 @@ class WtGui {
 
     /**
      * 
-     * @param {*} menuJSON 
+     * @param {Object} menuStorage
      */
-    static setMenuStorage = (menuJSON) => {
+    static setMenuStorage = (menuStorage) => {
         //  add validation
-        WtGui.#data.menuJSON = menuJSON
+        WtGui.#data.menuStorage = menuStorage
     }
 
     /**
      * 
-     * @returns {}
+     * @returns {Object}
      */
-    static get menuStorage() { return WtGui.#data.menuJSON }
+    static get menuStorage() { return WtGui.#data.menuStorage }
 
     /**
      * Set the background animation function.
@@ -200,7 +169,7 @@ class WtGui {
      */
     static setBgAnimation = (func) => {
         if(!(func instanceof Function)) throw new WtGuiError(`Background animation must be a function.`)
-        WtGui.#func.bgAnimation = func
+        WtGui.#renderer.bgAnimation = func
     }
 
     /**
@@ -217,8 +186,8 @@ class WtGui {
 
     /**
      * Add an image.
-     * @param {String} id 
-     * @param {*} file 
+     * @param {String} id Reference name for image.
+     * @param {String} file Filename and path of image.
      */
     static addImage = (id, file) => {
         if(WtGui.getImage(id) !== undefined) throw new WtGuiError(`Image ID '${id}' already exists.`)
@@ -226,8 +195,8 @@ class WtGui {
     }
 
     /**
-     * 
-     * @param {Array} data 
+     * Add multiple images at once.
+     * @param {Array} data An array of objects [ { id: , file: } ]
      */
     static addImages = (data) => {
         data.forEach(item => { WtGui.addImage(item.id, item.file) })
@@ -245,7 +214,7 @@ class WtGui {
     }
 
     /**
-     * 
+     * wip
      * @param {String} id 
      * @param {String} file 
      */
@@ -259,7 +228,7 @@ class WtGui {
     }
 
     /**
-     * 
+     * wip
      * @param {Array} data 
      */
     static addAudio = (data) => {
@@ -267,7 +236,7 @@ class WtGui {
     }
 
     /**
-     * 
+     * wip
      * @param {String} id 
      * @returns {}
      */
@@ -391,6 +360,7 @@ class WtGui {
         frameDelta: Number(0),  //  Time in ms between frames
         lastRender: Number(0),  //  Last render time
         renderTexture: null,
+        bgAnimation: () => {},  //  Background animation
 
         /*
          * Start the renderer
@@ -437,7 +407,7 @@ class WtGui {
             ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
 
             //  Run background animation function
-            WtGui.#func.bgAnimation()
+            WtGui.#renderer.bgAnimation()
 
             //  Render the menu
             if(!WtGui.settings.debugMode && currentMenu.bgImage !== undefined) {
@@ -521,7 +491,7 @@ class WtGui {
          */
         onMouseDown: (event) => {
             //  See if the mouse clicked on anything
-            const res = WtGui.#func.AABB(
+            const res = AABB(
                 {
                     posX: event.offsetX - WtGui.#data.currentMenu.posX,
                     posY: event.offsetY - WtGui.#data.currentMenu.posY,
@@ -550,7 +520,7 @@ class WtGui {
          */
         onMouseMove: (event) => {
             //  If the mouse is pointing at anything, make it the active item
-            const res = WtGui.#func.AABB(
+            const res = AABB(
                 {
                     posX: event.offsetX - WtGui.#data.currentMenu.posX,
                     posY: event.offsetY - WtGui.#data.currentMenu.posY,
@@ -572,7 +542,7 @@ class WtGui {
                 const hitX = 0
                 const hitY = 0
 
-                const res = WtGui.#func.AABB(
+                const res = AABB(
                     {
                         posX: event.radiusX - WtGui.#data.currentMenu.posX,
                         posY: event.radiusY - WtGui.#data.currentMenu.posY,
@@ -692,6 +662,30 @@ const loadImg = (file) => {
  * @returns {boolean} True if valid rgb(a)/hsl(a), else false
  */
 const testRgb = (str) => { return /^(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\)$/i.test(str) }
+
+/*
+ * AABB Algorithm
+ * @param {elmA} test 
+ * @param {[elmB]} collection 
+ * @returns {elmB}
+ */
+const AABB = (test, collection) => {
+    if(!(test instanceof Object)) return undefined
+    if(!(collection instanceof Array)) return undefined
+    let res = undefined
+    collection.some((elm) => {
+        if(
+            test.posX < elm.posX + elm.width &&
+            test.posX + test.width > elm.posX &&
+            test.posY < elm.posY + elm.height &&
+            test.posY + test.height > elm.posY
+        ) {
+            res = elm
+            return true
+        } else return false
+    })
+    return res
+}
 
 /* ****************************************
  *
