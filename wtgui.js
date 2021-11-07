@@ -94,17 +94,32 @@ class WtGui {
         },
 
         /**
-         * save
+         * Save settings.
+         * @returns {Object} Settings packed into an object.
          */
         save: () => {
-            const settings = 0
+            let settings = {}
+            Object.keys(WtGui.settings).forEach(item => {
+                settings[item] = WtGui.settings[item]
+            })
+            try {
+                delete settings.save
+                delete settings.load
+            } catch (e) { throw new WtGuiError(`Error saving settings.`) }
             return settings
         },
 
         /**
-         * load
+         * Load settings.
+         * @param {Object} settings Settings packed into an object.
          */
-        load: (settings) => {}
+        load: (settings) => {
+            if(!(settings instanceof Object)) throw new WtGuiError(`Error loading settings.`)
+            Object.keys(settings).forEach(item => {
+                if(WtGui.settings[item] === undefined) throw new WtGuiError(`Bad setting format.\n${settings[item]}`)
+                WtGui.settings[item] = settings[item]
+            })
+        }
     }
 
     /**
