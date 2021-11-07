@@ -136,9 +136,9 @@ class WtGui {
             throw new WtGuiError(`Please configure menu settings storage.`)
         if(WtGui.#data.configRan) throw new WtGuiError(`WtGui is already running.`)
         if(!(canvas instanceof HTMLCanvasElement))
-            throw new WtGuiError(`'${canvas}' is not a HTMLCanvasElement.`)
+            throw new WtGuiError(`'${canvas}' is not a 'HTMLCanvasElement'.`)
         if(WtGui.settings.width < 1 || WtGui.settings.height < 1)
-            throw new WtGuiError(`Must define a width and height.`)
+            throw new WtGuiError(`Must define a 'width' and 'height'.`)
 
         //WtGui.#data.glctx = canvas.getContext('webgl2')
         //if(!WtGui.#data.glctx) throw new WtGuiError(`webgl2 error`)
@@ -237,7 +237,7 @@ class WtGui {
      */
     static addAudio = (id, file) => {
         if(WtGui.getAudio(id) !== undefined) throw new WtGuiError(`Audio ID '${id}' already exists.`)
-        if(!fs.existsSync(file)) throw new WtGuiError(`${file} does not exist.`)
+        if(!fs.existsSync(file)) throw new WtGuiError(`'${file}' does not exist.`)
         fs.readFile(file, (error, data) => {
             if(error) throw new WtGuiError(error.message)
             WtGui.#data.audioFiles.push({ id: id, file: data })
@@ -271,7 +271,7 @@ class WtGui {
         if(!(menuObj instanceof WtGuiMenu)) {         //  Verify proper menu object
             menuObj = WtGui.buildMenu(menuObj)        //  Try to build menu if not
             if(!(menuObj instanceof WtGuiMenu))       //  Fail if still not a menu
-                throw new WtGuiError(`Object is not a valid menu.`)
+                throw new WtGuiError(`Menu is not a valid 'WtGuiMenu' object.`)
         }
         if(WtGui.getMenu(menuObj.id) !== undefined)   //  Verify menu does not exist
             throw new WtGuiError(`Menu ID '${menuObj.id}' already exists.`)
@@ -280,6 +280,7 @@ class WtGui {
 
     /**
      * Build a menu from an object.
+     * wip
      * @param {*} menuData Data object to build from.
      * @returns {WtGuiMenu} Generated menu object
      */
@@ -690,7 +691,7 @@ const Wt = {
      */
     argParser: (scope, data, args) => {
         args.forEach((arg) => {
-            if(data[arg] === undefined) throw new WtGuiError(`'${scope}':\n${arg} undefined.`)
+            if(data[arg] === undefined) throw new WtGuiError(`'${scope}':\n'${arg}' undefined.`)
             scope[arg] = data[arg]
         })
     },
@@ -782,7 +783,7 @@ class WtGuiMenu {
      */
     addItem = (itemObj) => {
         if(!(itemObj instanceof WtGuiItem))  //  Verify proper item object
-            throw new WtGuiError(`Object is not a valid menu item.`)
+            throw new WtGuiError(`Item is not a valid 'WtGuiItem' object.`)
         //  Verify item does not already exist
         if(this.items.find(elm => elm.id === itemObj.id) !== undefined)
             throw new WtGuiError(`Item ID '${itemObj.id}' already exists.`)
@@ -820,8 +821,8 @@ class WtGuiItem {
         this.scaleImg = args.scaleImg || false
         this.canSelect = false
 
-        if(!Wt.testRgb(this.bgColor)) throw new WtGuiError(`${this.bgColor} - Bad color code`)
-        if(!Wt.testRgb(this.fgColor)) throw new WtGuiError(`${this.fgColor} - Bad color code`)
+        if(!Wt.testRgb(this.bgColor)) throw new WtGuiError(`'${this.bgColor}' - Bad color code`)
+        if(!Wt.testRgb(this.fgColor)) throw new WtGuiError(`'${this.fgColor}' - Bad color code`)
     }
 
     /**
