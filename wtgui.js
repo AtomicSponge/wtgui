@@ -364,8 +364,8 @@ class WtGui {
         },
 
         /**
-         * 
-         * @returns {boolean}
+         * Move the active menu item up in the index.
+         * @returns {boolean} True if the current item changed, else false.
          */
         menuItemUp: () => {
             if(WtGui.#data.currentMenu.selectableItems !== undefined) {
@@ -374,7 +374,6 @@ class WtGui {
                 if(idx > 0) {
                     --idx
                     WtGui.#data.activeItem = WtGui.#data.currentMenu.selectableItems[idx]
-                    // todo:  play sound
                     return true
                 }
             }
@@ -382,8 +381,8 @@ class WtGui {
         },
 
         /**
-         * 
-         * @returns {boolean}
+         * Move the active menu item down in the index.
+         * @returns {boolean} True if the current item changed, else false.
          */
         menuItemDown: () => {
             if(WtGui.#data.currentMenu.selectableItems !== undefined) {
@@ -392,7 +391,6 @@ class WtGui {
                 if(idx < WtGui.#data.currentMenu.selectableItems.length && idx > 0) {
                     ++idx
                     WtGui.#data.activeItem = WtGui.#data.currentMenu.selectableItems[idx]
-                    // todo:  play sound
                     return true
                 }
             }
