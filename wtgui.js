@@ -311,18 +311,18 @@ class WtGui {
      */
     static actions = {
         /**
-         * Pause the gui
+         * Pause the gui.
          * @inner
          */
         pauseGui: () => { WtGui.#renderer.paused = true },
 
         /**
-         * Unpause the gui
+         * Unpause the gui.
          */
         unpauseGui: () => { WtGui.#renderer.paused = false },
 
         /**
-         * Restart the gui
+         * Restart the gui.
          */
         restartGui: () => {
             WtGui.#renderer.stop()
@@ -330,16 +330,16 @@ class WtGui {
         },
 
         /**
-         * Turn fps drawing on or off
-         * @param {boolean} toggle 
+         * Turn fps drawing on or off.
+         * @param {boolean} toggle True to turn on, false to turn off.
          */
         drawFps: (toggle) => {
             (toggle) ? WtGui.#renderer.drawFps = true : WtGui.#renderer.drawFps = false
         },
 
         /**
-         * Open a menu
-         * @param {String} menuId 
+         * Open a menu.
+         * @param {String} menuId Menu ID to open.
          */
         openMenu: (menuId) => {
             const tempMenu = WtGui.getMenu(menuId)
@@ -349,8 +349,8 @@ class WtGui {
         },
 
         /**
-         * Close one or all menus
-         * @param {boolean} closeAll 
+         * Close one or all menus.
+         * @param {boolean} closeAll True to close all menus, false to close the top menu.
          */
         closeMenu: (closeAll) => {
             if(closeAll) {
