@@ -113,7 +113,7 @@ class WtGui {
             if(!(settings instanceof Object)) throw new WtGuiError(`Error loading settings.`)
             Object.keys(settings).forEach(item => {
                 if(WtGui.settings.actionBindings[item] === undefined)
-                    throw new WtGuiError(`Bad setting format.\n${settings[item]}`)
+                    throw new WtGuiError(`Bad setting format:\n${settings[item]}`)
                 WtGui.settings.actionBindings[item] = settings[item]
             })
         }
@@ -153,9 +153,9 @@ class WtGui {
      * @param {HTMLCanvasElement} canvas Canvas element to configure.
      */
     static startGui = (canvas) => {
+        if(WtGui.#data.configRan) throw new WtGuiError(`WtGui is already running.`)
         if(WtGui.#data.menuStorage === undefined)
             throw new WtGuiError(`Please configure menu settings storage.`)
-        if(WtGui.#data.configRan) throw new WtGuiError(`WtGui is already running.`)
         if(!(canvas instanceof HTMLCanvasElement))
             throw new WtGuiError(`'${canvas}' is not a 'HTMLCanvasElement'.`)
         if(WtGui.settings.width < 1 || WtGui.settings.height < 1)
