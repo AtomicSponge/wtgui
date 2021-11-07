@@ -361,6 +361,42 @@ class WtGui {
                 if(WtGui.#data.openedMenus.length === 0) WtGui.actions.openMenu(WtGui.settings.defaultMenu)
                 else WtGui.#data.currentMenu = WtGui.#data.openedMenus[(WtGui.#data.openedMenus.length - 1)]
             }
+        },
+
+        /**
+         * 
+         * @returns {boolean}
+         */
+        menuItemUp: () => {
+            if(WtGui.#data.currentMenu.selectableItems !== undefined) {
+                const idx = WtGui.#data.currentMenu.selectableItems.findIndex(
+                    elm => elm === WtGui.#data.activeItem)
+                if(idx > 0) {
+                    --idx
+                    WtGui.#data.activeItem = WtGui.#data.currentMenu.selectableItems[idx]
+                    // todo:  play sound
+                    return true
+                }
+            }
+            return false
+        },
+
+        /**
+         * 
+         * @returns {boolean}
+         */
+        menuItemDown: () => {
+            if(WtGui.#data.currentMenu.selectableItems !== undefined) {
+                const idx = WtGui.#data.currentMenu.selectableItems.findIndex(
+                    elm => elm === WtGui.#data.activeItem)
+                if(idx < WtGui.#data.currentMenu.selectableItems.length && idx > 0) {
+                    ++idx
+                    WtGui.#data.activeItem = WtGui.#data.currentMenu.selectableItems[idx]
+                    // todo:  play sound
+                    return true
+                }
+            }
+            return false
         }
     }
 
@@ -663,8 +699,8 @@ const Wt = {
 
     /**
      * Load an image from file.
-     * @param {String} file 
-     * @returns {Image}
+     * @param {String} file Filename and path to load.
+     * @returns {Image} Image object loaded from file.
      */
     loadImg: (file) => {
         if(!fs.existsSync(file)) throw new WtGuiError(`'${file}' does not exist.`)
@@ -682,9 +718,9 @@ const Wt = {
 
     /**
      * AABB Algorithm
-     * @param {elmA} test 
-     * @param {[elmB]} collection 
-     * @returns {elmB}
+     * @param {elmA} test Object to test.
+     * @param {[elmB]} collection Collection of object to test against.
+     * @returns {elmB} Returns the first object collided, else undefined.
      */
     AABB: (test, collection) => {
         if(!(test instanceof Object)) return undefined
