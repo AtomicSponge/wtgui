@@ -102,7 +102,6 @@ class WtGui {
             Object.keys(WtGui.settings.actionBindings).forEach(item => {
                 settings[item] = WtGui.settings.actionBindings[item]
             })
-            console.log(settings)
             return settings
         },
 
