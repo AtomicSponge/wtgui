@@ -105,7 +105,7 @@ class WtGui {
             try {
                 delete settings.save
                 delete settings.load
-            } catch (e) { throw new WtGuiError(`Error saving settings.`) }
+            } catch (e) { throw new WtGuiError(`Error saving settings.\n${e}`) }
             return settings
         },
 
@@ -742,7 +742,7 @@ const Wt = {
     /**
      * AABB Algorithm
      * @param {elmA} test Object to test.
-     * @param {[elmB]} collection Collection of object to test against.
+     * @param {[elmB]} collection Collection of objects to test against.
      * @returns {elmB} Returns the first object collided, else undefined.
      */
     AABB: (test, collection) => {
