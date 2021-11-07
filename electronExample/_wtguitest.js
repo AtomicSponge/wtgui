@@ -26,7 +26,9 @@ WtGui.setMenuStorage({
     }
 })
 
-WtGui.addImage('dash', 'img/dash.jpg')
+WtGui.addImages([
+    { id: 'dash', file: 'img/dash.jpg' }
+])
 
 WtGui.setBgAnimation(() => {
     WtGui.draw.drawImage(WtGui.getImage('dash'), 640, 0, 360, 480)
