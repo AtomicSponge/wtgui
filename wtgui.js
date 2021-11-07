@@ -66,22 +66,31 @@ class WtGui {
         fpsFont: 'Bold 16px Arial',
         fpsColor: 'rgb(255,165,0)',
 
-        keys: {
-            menuUp: [ 'up' ],
-            menuDown: [ 'down' ],
-            menuLeft: [ 'left' ],
-            menuRight: [ 'right' ],
-            menuSelect: [ 'select' ],
-            menuCancel: [ 'cancel' ]
-        },
-
-        buttons: {
-            menuUp: [ 'up' ],
-            menuDown: [ 'down' ],
-            menuLeft: [ 'left' ],
-            menuRight: [ 'right' ],
-            menuSelect: [ 'select' ],
-            menuCancel: [ 'cancel' ]
+        actionBindings: {
+            up: {
+                keys: [ 'up' ],
+                buttons: [ 'up' ]
+            },
+            down: {
+                keys: [ 'down' ],
+                buttons: [ 'down' ]
+            },
+            left: {
+                keys: [ 'left' ],
+                buttons: [ 'left' ]
+            },
+            right: {
+                keys: [ 'right' ],
+                buttons: [ 'right' ]
+            },
+            select: {
+                keys: [ 'select' ],
+                buttons: [ 'select' ]
+            },
+            cancel: {
+                keys: [ 'cancel' ],
+                buttons: [ 'cancel' ]
+            },
         },
 
         /**
