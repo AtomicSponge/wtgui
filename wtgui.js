@@ -416,7 +416,8 @@ class WtGui {
          * @param {boolean} direction True for left, false for right.
          */
         menuItemScrollStart: (direction) => {
-            if(WtGui.#data.currentMenu.selectableItems !== undefined) {
+            if(WtGui.#data.currentMenu.selectableItems !== undefined &&
+               WtGui.#data.activeItem !== undefined) {
                 (direction) ? true : false
             }
         },
@@ -425,7 +426,8 @@ class WtGui {
          * Stop scrolling through the menu item options.
          */
         menuItemScrollStop: () => {
-            if(WtGui.#data.currentMenu.selectableItems !== undefined) {
+            if(WtGui.#data.currentMenu.selectableItems !== undefined &&
+                WtGui.#data.activeItem !== undefined) {
                 //
             }
         }
