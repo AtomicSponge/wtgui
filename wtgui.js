@@ -655,10 +655,10 @@ class WtGui {
                     if(event.key === binding) {
                         switch(action) {
                             case 'up':
-                                alert('up')
+                                WtGui.actions.menuItemUp()
                                 break
                             case 'down':
-                                alert('down')
+                                WtGui.actions.menuItemDown()
                                 break
                             case 'left':
                                 alert('left')
@@ -686,23 +686,11 @@ class WtGui {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.key === binding) {
                         switch(action) {
-                            case 'up':
-                                console.log('up')
-                                break
-                            case 'down':
-                                console.log('down')
-                                break
                             case 'left':
                                 console.log('left')
                                 break
                             case 'right':
                                 console.log('right')
-                                break
-                            case 'select':
-                                console.log('select')
-                                break
-                            case 'cancel':
-                                console.log('cancel')
                                 break
                         }
                     }
