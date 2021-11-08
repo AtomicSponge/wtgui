@@ -76,12 +76,12 @@ class WtGui {
                 cancel: [ 'Escape' ]
             },
             buttons: {
-                up: [ 'ArrowUp' ],
-                down: [ 'ArrowDown' ],
-                left: [ 'ArrowLeft' ],
-                right: [ 'ArrowRight' ],
-                select: [ ' ' ],
-                cancel: [ 'Escape' ]
+                up: [ 'idk' ],
+                down: [ 'idk' ],
+                left: [ 'idk' ],
+                right: [ 'idk' ],
+                select: [ 'idk' ],
+                cancel: [ 'idk' ]
             }
         },
 
@@ -409,7 +409,13 @@ class WtGui {
                 }
             }
             return false
-        }
+        },
+
+        menuItemScrollStart: (direction) => {
+            (direction) ? true : false
+        },
+
+        menuItemScrollStop: () => {}
     }
 
     /*
@@ -576,9 +582,7 @@ class WtGui {
         /*
          * Mouse Up Event
          */
-        onMouseUp: (event) => {
-            console.log(event)
-        },
+        onMouseUp: (event) => {},
 
         /*
          * Mouse Move Event
@@ -661,16 +665,16 @@ class WtGui {
                                 WtGui.actions.menuItemDown()
                                 break
                             case 'left':
-                                alert('left')
+                                WtGui.actions.menuItemScrollStart(true)
                                 break
                             case 'right':
-                                alert('right')
+                                WtGui.actions.menuItemScrollStart(false)
                                 break
                             case 'select':
-                                alert('select')
+                                //alert('select')
                                 break
                             case 'cancel':
-                                alert('cancel')
+                                //alert('cancel')
                                 break
                         }
                     }
@@ -687,10 +691,10 @@ class WtGui {
                     if(event.key === binding) {
                         switch(action) {
                             case 'left':
-                                console.log('left')
+                                WtGui.actions.menuItemScrollStop()
                                 break
                             case 'right':
-                                console.log('right')
+                                WtGui.actions.menuItemScrollStop()
                                 break
                         }
                     }
@@ -713,10 +717,10 @@ class WtGui {
                                 WtGui.actions.menuItemDown()
                                 break
                             case 'left':
-                                alert('left')
+                                WtGui.actions.menuItemScrollStart(true)
                                 break
                             case 'right':
-                                alert('right')
+                                WtGui.actions.menuItemScrollStart(false)
                                 break
                             case 'select':
                                 alert('select')
@@ -739,10 +743,10 @@ class WtGui {
                     if(event.gamepad === binding) {
                         switch(action) {
                             case 'left':
-                                console.log('left')
+                                WtGui.actions.menuItemScrollStop()
                                 break
                             case 'right':
-                                console.log('right')
+                                WtGui.actions.menuItemScrollStop()
                                 break
                         }
                     }
