@@ -67,30 +67,22 @@ class WtGui {
         fpsColor: 'rgb(255,165,0)',
 
         actionBindings: {
-            up: {
-                keys: [ 'up' ],
-                buttons: [ 'up' ]
+            keys: {
+                up: [ 'ArrowUp' ],
+                down: [ 'ArrowDown' ],
+                left: [ 'ArrowLeft' ],
+                right: [ 'ArrowRight' ],
+                select: [ ' ' ],
+                cancel: [ 'Escape' ]
             },
-            down: {
-                keys: [ 'down' ],
-                buttons: [ 'down' ]
-            },
-            left: {
-                keys: [ 'left' ],
-                buttons: [ 'left' ]
-            },
-            right: {
-                keys: [ 'right' ],
-                buttons: [ 'right' ]
-            },
-            select: {
-                keys: [ 'select' ],
-                buttons: [ 'select' ]
-            },
-            cancel: {
-                keys: [ 'cancel' ],
-                buttons: [ 'cancel' ]
-            },
+            buttons: {
+                up: [ 'ArrowUp' ],
+                down: [ 'ArrowDown' ],
+                left: [ 'ArrowLeft' ],
+                right: [ 'ArrowRight' ],
+                select: [ ' ' ],
+                cancel: [ 'Escape' ]
+            }
         },
 
         /**
@@ -658,14 +650,39 @@ class WtGui {
          * 
          */
         onKeyDown: (event) => {
-            console.log(event)
+            Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
+                WtGui.settings.actionBindings.keys[action].forEach(binding => {
+                    if(event.key === binding) {
+                        switch(action) {
+                            case 'up':
+                                alert('up')
+                                break
+                            case 'down':
+                                alert('down')
+                                break
+                            case 'left':
+                                alert('left')
+                                break
+                            case 'right':
+                                alert('right')
+                                break
+                            case 'select':
+                                alert('select')
+                                break
+                            case 'cancel':
+                                alert('cancel')
+                                break
+                        }
+                    }
+                })
+            })
         },
 
         /*
          * 
          */
         onKeyUp: (event) => {
-            console.log(event)
+            //console.log(event.key)
         },
 
         /*
