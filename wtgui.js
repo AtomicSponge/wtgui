@@ -320,6 +320,16 @@ class WtGui {
         menu.addItem(itemObj)
     }
 
+    /*
+     * Private data for actions.
+     */
+    static #actions = {
+        scrollTimer: {},
+        scroller: () => {
+            console.log('test')
+        }
+    }
+
     /**
      * Gui actions
      */
@@ -416,6 +426,8 @@ class WtGui {
          * @param {boolean} direction True for left, false for right.
          */
         menuItemScrollStart: (direction) => {
+            clearInterval(WtGui.#actions.scrollTimer)
+            WtGui.#actions.scrollTimer = setInterval(WtGui.#actions.scroller(), 100)
             if(WtGui.#data.currentMenu.selectableItems !== undefined &&
                WtGui.#data.activeItem !== undefined) {
                 (direction) ? true : false
@@ -426,6 +438,7 @@ class WtGui {
          * Stop scrolling through the menu item options.
          */
         menuItemScrollStop: () => {
+            clearInterval(WtGui.#actions.scrollTimer)
             if(WtGui.#data.currentMenu.selectableItems !== undefined &&
                 WtGui.#data.activeItem !== undefined) {
                 //
