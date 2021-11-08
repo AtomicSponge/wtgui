@@ -411,10 +411,17 @@ class WtGui {
             return false
         },
 
+        /**
+         * Start scrolling through the menu item options.
+         * @param {boolean} direction True for left, false for right.
+         */
         menuItemScrollStart: (direction) => {
             (direction) ? true : false
         },
 
+        /**
+         * Stop scrolling through the menu item options.
+         */
         menuItemScrollStop: () => {}
     }
 
