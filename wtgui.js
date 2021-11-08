@@ -552,7 +552,7 @@ class WtGui {
      */
     static #events = {
         /*
-         * 
+         * Mouse Down Event
          */
         onMouseDown: (event) => {
             //  See if the mouse clicked on anything
@@ -574,14 +574,14 @@ class WtGui {
         },
 
         /*
-         * 
+         * Mouse Up Event
          */
         onMouseUp: (event) => {
             console.log(event)
         },
 
         /*
-         * 
+         * Mouse Move Event
          */
         onMouseMove: (event) => {
             //  If the mouse is pointing at anything, make it the active item
@@ -626,28 +626,28 @@ class WtGui {
         },
 
         /*
-         * 
+         * wip
          */
         onTouchEnd: (event) => {
             console.log(event)
         },
 
         /*
-         * 
+         * wip
          */
         onTouchCancel: (event) => {
             console.log(event)
         },
 
         /*
-         * 
+         * wip
          */
         onTouchMove: (event) => {
             console.log(event)
         },
 
         /*
-         * 
+         * Key Down Events
          */
         onKeyDown: (event) => {
             Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
@@ -679,7 +679,7 @@ class WtGui {
         },
 
         /*
-         * 
+         * Key Up Events
          */
         onKeyUp: (event) => {
             Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
@@ -699,17 +699,55 @@ class WtGui {
         },
 
         /*
-         * 
+         * wip
          */
         onButtonDown: (event) => {
-            console.log(event)
+            Object.keys(WtGui.settings.actionBindings.buttons).forEach(action => {
+                WtGui.settings.actionBindings.keys[action].forEach(binding => {
+                    if(event.gamepad === binding) {
+                        switch(action) {
+                            case 'up':
+                                WtGui.actions.menuItemUp()
+                                break
+                            case 'down':
+                                WtGui.actions.menuItemDown()
+                                break
+                            case 'left':
+                                alert('left')
+                                break
+                            case 'right':
+                                alert('right')
+                                break
+                            case 'select':
+                                alert('select')
+                                break
+                            case 'cancel':
+                                alert('cancel')
+                                break
+                        }
+                    }
+                })
+            })
         },
 
         /*
-         * 
+         * wip
          */
         onButtonUp: (event) => {
-            console.log(event)
+            Object.keys(WtGui.settings.actionBindings.buttons).forEach(action => {
+                WtGui.settings.actionBindings.keys[action].forEach(binding => {
+                    if(event.gamepad === binding) {
+                        switch(action) {
+                            case 'left':
+                                console.log('left')
+                                break
+                            case 'right':
+                                console.log('right')
+                                break
+                        }
+                    }
+                })
+            })
         }
     }
 
