@@ -454,7 +454,7 @@ class WtGui {
         /**
          * 
          */
-        menuSelect: () => {
+        menuItemSelect: () => {
             //
         },
 
@@ -719,7 +719,7 @@ class WtGui {
                                 WtGui.#actions.menuItemScrollStart(false)
                                 break
                             case 'select':
-                                WtGui.#actions.menuSelect()
+                                WtGui.#actions.menuItemSelect()
                                 break
                             case 'cancel':
                                 WtGui.#actions.menuCancel()
@@ -771,7 +771,7 @@ class WtGui {
                                 WtGui.#actions.menuItemScrollStart(false)
                                 break
                             case 'select':
-                                WtGui.#actions.menuSelect()
+                                WtGui.#actions.menuItemSelect()
                                 break
                             case 'cancel':
                                 WtGui.#actions.menuCancel()
