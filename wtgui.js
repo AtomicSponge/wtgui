@@ -324,7 +324,11 @@ class WtGui {
      * Private data for actions.
      */
     static #actions = {
-        scrollTimer: {},
+        scrollTimer: {},  //  Store running timer function.
+        
+        /*
+         * Timed function for scrolling menu items.
+         */
         scroller: () => {
             console.log('test')
         }
@@ -445,6 +449,20 @@ class WtGui {
                 WtGui.#data.activeItem !== undefined) {
                 //
             }
+        },
+
+        /**
+         * 
+         */
+        menuSelect: () => {
+            //
+        },
+
+        /**
+         * 
+         */
+        menuCancel: () => {
+            //
         }
     }
 
@@ -701,10 +719,10 @@ class WtGui {
                                 WtGui.actions.menuItemScrollStart(false)
                                 break
                             case 'select':
-                                //alert('select')
+                                WtGui.actions.menuSelect()
                                 break
                             case 'cancel':
-                                //alert('cancel')
+                                WtGui.actions.menuCancel()
                                 break
                         }
                     }
@@ -753,10 +771,10 @@ class WtGui {
                                 WtGui.actions.menuItemScrollStart(false)
                                 break
                             case 'select':
-                                alert('select')
+                                WtGui.actions.menuSelect()
                                 break
                             case 'cancel':
-                                alert('cancel')
+                                WtGui.actions.menuCancel()
                                 break
                         }
                     }
