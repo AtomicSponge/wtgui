@@ -12,8 +12,6 @@ WtGui.settings.width = 1024
 WtGui.settings.height = 768
 WtGui.actions.drawFps(true)
 
-console.log(WtGui.settings.save())
-
 WtGui.setMenuStorage({
     'gfx': {
         'scale': '0'
@@ -75,7 +73,9 @@ WtGui.addItem('game_menu', new WtGuiAction({
     type: 'close_menu'
 }))
 
-//WtGui.tests.printMenu()
+console.log(WtGui.settings.save())
+WtGui.debug.logMenus()
+WtGui.debug.logImageFiles()
 
 /*
  *
