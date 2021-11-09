@@ -37,6 +37,8 @@ exports.WtGuiError = WtGuiError
 class WtGui {
     constructor() { return false }  //  Don't allow direct construction
 
+    static menuStorage = undefined  //  Storage for saving menu settings selection
+
     /**
      * WtGui Module settings
      * @prop {boolean} debugMode Enable/disable debug mode.
@@ -121,7 +123,6 @@ class WtGui {
      * Gui Data
      */
     static #data = {
-        menuStorage: undefined,  //  Storage for saving menu settings selection
         menuCanvas: {},          //  2d canvas for rendering menus
         glctx: {},               //  WebGL context for main drawing
         ctx: {},                 //  2d context for menu drawing
@@ -140,7 +141,7 @@ class WtGui {
      */
     static startGui = (canvas) => {
         if(WtGui.#data.configRan) throw new WtGuiError(`WtGui is already running.`)
-        if(WtGui.#data.menuStorage === undefined)
+        if(WtGui.menuStorage === undefined)
             throw new WtGuiError(`Please configure menu settings storage.`)
         if(!(canvas instanceof HTMLCanvasElement))
             throw new WtGuiError(`'${canvas}' is not a 'HTMLCanvasElement'.`)
@@ -171,21 +172,6 @@ class WtGui {
         WtGui.#data.configRan = true
         WtGui.#renderer.start()
     }
-
-    /**
-     * 
-     * @param {Object} menuStorage
-     */
-    static setMenuStorage = (menuStorage) => {
-        //  add validation
-        WtGui.#data.menuStorage = menuStorage
-    }
-
-    /**
-     * 
-     * @returns {Object}
-     */
-    static get menuStorage() { return WtGui.#data.menuStorage }
 
     /**
      * Set the background animation function.

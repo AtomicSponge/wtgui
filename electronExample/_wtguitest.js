@@ -12,7 +12,7 @@ WtGui.settings.width = 1024
 WtGui.settings.height = 768
 WtGui.actions.drawFps(true)
 
-WtGui.setMenuStorage({
+WtGui.menuStorage = {
     'gfx': {
         'scale': '0'
     },
@@ -24,7 +24,7 @@ WtGui.setMenuStorage({
         'voice': '0',
         'ambiance': '0'
     }
-})
+}
 
 WtGui.addImages([
     { id: 'dash', file: 'img/dash.jpg' }
