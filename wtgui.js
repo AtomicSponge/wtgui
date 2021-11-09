@@ -39,16 +39,16 @@ class WtGui {
 
     /**
      * WtGui Module settings
-     * @prop {boolean} debugMode Enable/disable debug mode
-     * @prop {Number} width Width of the gui
-     * @prop {Number} height Height of the gui
-     * @prop {Number} mouseSize Size of the mouse hitbox
-     * @prop {String} clearColor Background color for gui context
-     * @prop {String} defaultFont Default font size/face
-     * @prop {String} defaultFontColor Default font color
-     * @prop {String} defaultMenuColor Default menu background color
-     * @prop {String} defaultItemColor Default item background color
-     * @prop {String} defaultMenu Default menu to open when all are closed
+     * @prop {boolean} debugMode Enable/disable debug mode.
+     * @prop {Number} width Width of the gui.
+     * @prop {Number} height Height of the gui.
+     * @prop {Number} mouseSize Size of the mouse hitbox.
+     * @prop {String} clearColor Background color for gui context.
+     * @prop {String} defaultFont Default font size/face.
+     * @prop {String} defaultFontColor Default font color.
+     * @prop {String} defaultMenuColor Default menu background color.
+     * @prop {String} defaultItemColor Default item background color.
+     * @prop {String} defaultMenu Default menu to open when all are closed.
      * @prop {String} fpsFont Font to use for rendering FPS.
      * @prop {String} fpsColor Color to use for rendering FPS.
      */
@@ -107,9 +107,9 @@ class WtGui {
 
     /**
      * WtGui Module info
-     * @prop {Number} fps Frames per second
-     * @prop {Number} frameDelta Time between frames
-     * @prop {Number} lastRender Time last frame render completed
+     * @prop {Number} fps Frames per second.
+     * @prop {Number} frameDelta Time between frames.
+     * @prop {Number} lastRender Time last frame render completed.
      */
     static info = {
         get fps() { return WtGui.#renderer.fps },
