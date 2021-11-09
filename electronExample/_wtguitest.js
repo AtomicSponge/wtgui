@@ -45,14 +45,31 @@ WtGui.addMenu(new WtGuiMenu({
 }))
 
 WtGui.addItem('main_menu', new WtGuiAction({
-    id: 'test',
-    title: 'testing',
+    id: 'test1',
+    title: 'testing 1',
     posX: 20, posY: 20,
     width: 200, height: 40,
-    /*action: (event) => {
-        console.log(`hit\n${event.elmX},${event.elmY}`)
-    }*/
     type: 'open_menu', menuName: 'game_menu'
+}))
+
+WtGui.addItem('main_menu', new WtGuiAction({
+    id: 'test2',
+    title: 'testing 2',
+    posX: 20, posY: 80,
+    width: 200, height: 40,
+    action: (event) => {
+        console.log('action 1')
+    }
+}))
+
+WtGui.addItem('main_menu', new WtGuiAction({
+    id: 'test3',
+    title: 'testing 3',
+    posX: 20, posY: 140,
+    width: 200, height: 40,
+    action: (event) => {
+        console.log('action 2')
+    }
 }))
 
 /*
