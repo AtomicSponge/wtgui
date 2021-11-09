@@ -68,10 +68,10 @@ class WtGui {
 
         actionBindings: {
             keys: {
-                up: [ 'ArrowUp' ],
-                down: [ 'ArrowDown' ],
-                left: [ 'ArrowLeft' ],
-                right: [ 'ArrowRight' ],
+                up: [ 'ArrowUp', 'W' ],
+                down: [ 'ArrowDown', 'S' ],
+                left: [ 'ArrowLeft', 'A' ],
+                right: [ 'ArrowRight', 'D' ],
                 select: [ ' ' ],
                 cancel: [ 'Escape' ]
             },
@@ -391,7 +391,7 @@ class WtGui {
          */
         menuItemUp: () => {
             if(WtGui.#data.currentMenu.selectableItems !== undefined) {
-                const idx = WtGui.#data.currentMenu.selectableItems.findIndex(
+                let idx = WtGui.#data.currentMenu.selectableItems.findIndex(
                     elm => elm === WtGui.#data.activeItem)
                 if(idx > 0) {
                     --idx
@@ -408,7 +408,7 @@ class WtGui {
          */
         menuItemDown: () => {
             if(WtGui.#data.currentMenu.selectableItems !== undefined) {
-                const idx = WtGui.#data.currentMenu.selectableItems.findIndex(
+                let idx = WtGui.#data.currentMenu.selectableItems.findIndex(
                     elm => elm === WtGui.#data.activeItem)
                 if(idx < WtGui.#data.currentMenu.selectableItems.length && idx > 0) {
                     ++idx
@@ -698,7 +698,8 @@ class WtGui {
         onKeyDown: (event) => {
             Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
-                    if(event.key === binding) WtGui.#events.trigger.down(action)
+                    if(event.key.toUpperCase() === binding.toUpperCase())
+                        WtGui.#events.trigger.down(action)
                 })
             })
         },
@@ -709,7 +710,8 @@ class WtGui {
         onKeyUp: (event) => {
             Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
-                    if(event.key === binding) WtGui.#events.trigger.up(action)
+                    if(event.key.toUpperCase() === binding.toUpperCase())
+                        WtGui.#events.trigger.up(action)
                 })
             })
         },
