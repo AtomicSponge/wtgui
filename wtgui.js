@@ -737,11 +737,11 @@ class WtGui {
         },
 
         /*
-         *
+         * Input triggers
          */
         trigger: {
             /*
-             *
+             * Input on down triggers
              */
             down: (action) => {
                 switch(action) {
@@ -767,7 +767,7 @@ class WtGui {
             },
 
             /*
-             *
+             * Input on up triggers
              */
             up: (action) => {
                 switch(action) {
