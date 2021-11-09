@@ -426,11 +426,13 @@ class WtGui {
          * @param {boolean} direction True for left, false for right.
          */
         menuItemScrollStart: (direction) => {
-            clearInterval(WtGui.#actions.scrollTimer)
-            WtGui.#actions.scrollTimer = setInterval(WtGui.#actions.scroller(), 100)
             if(WtGui.#data.currentMenu.selectableItems !== undefined &&
                WtGui.#data.activeItem !== undefined) {
-                (direction) ? true : false
+                if(!WtGui.#data.activeItem.selectOnce) {
+                    clearInterval(WtGui.#actions.scrollTimer)
+                    WtGui.#actions.scrollTimer = setInterval(WtGui.#actions.scroller(), 50)
+                }
+                { (direction) ? true : false }
             }
         },
 
