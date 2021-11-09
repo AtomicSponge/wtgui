@@ -320,20 +320,6 @@ class WtGui {
         menu.addItem(itemObj)
     }
 
-    /*
-     * Private data for actions.
-     */
-    static #actions = {
-        scrollTimer: {},  //  Store running timer function.
-        
-        /*
-         * Timed function for scrolling menu items.
-         */
-        scroller: () => {
-            console.log('test')
-        }
-    }
-
     /**
      * Gui actions
      */
@@ -389,6 +375,20 @@ class WtGui {
                 if(WtGui.#data.openedMenus.length === 0) WtGui.actions.openMenu(WtGui.settings.defaultMenu)
                 else WtGui.#data.currentMenu = WtGui.#data.openedMenus[(WtGui.#data.openedMenus.length - 1)]
             }
+        }
+    }
+
+    /*
+     * Private gui actions.
+     */
+    static #actions = {
+        scrollTimer: {},  //  Store running timer function.
+        
+        /*
+         * Timed function for scrolling menu items.
+         */
+        scroller: () => {
+            console.log('test')
         },
 
         /**
@@ -707,22 +707,22 @@ class WtGui {
                     if(event.key === binding) {
                         switch(action) {
                             case 'up':
-                                WtGui.actions.menuItemUp()
+                                WtGui.#actions.menuItemUp()
                                 break
                             case 'down':
-                                WtGui.actions.menuItemDown()
+                                WtGui.#actions.menuItemDown()
                                 break
                             case 'left':
-                                WtGui.actions.menuItemScrollStart(true)
+                                WtGui.#actions.menuItemScrollStart(true)
                                 break
                             case 'right':
-                                WtGui.actions.menuItemScrollStart(false)
+                                WtGui.#actions.menuItemScrollStart(false)
                                 break
                             case 'select':
-                                WtGui.actions.menuSelect()
+                                WtGui.#actions.menuSelect()
                                 break
                             case 'cancel':
-                                WtGui.actions.menuCancel()
+                                WtGui.#actions.menuCancel()
                                 break
                         }
                     }
@@ -739,10 +739,10 @@ class WtGui {
                     if(event.key === binding) {
                         switch(action) {
                             case 'left':
-                                WtGui.actions.menuItemScrollStop()
+                                WtGui.#actions.menuItemScrollStop()
                                 break
                             case 'right':
-                                WtGui.actions.menuItemScrollStop()
+                                WtGui.#actions.menuItemScrollStop()
                                 break
                         }
                     }
@@ -759,22 +759,22 @@ class WtGui {
                     if(event.gamepad === binding) {
                         switch(action) {
                             case 'up':
-                                WtGui.actions.menuItemUp()
+                                WtGui.#actions.menuItemUp()
                                 break
                             case 'down':
-                                WtGui.actions.menuItemDown()
+                                WtGui.#actions.menuItemDown()
                                 break
                             case 'left':
-                                WtGui.actions.menuItemScrollStart(true)
+                                WtGui.#actions.menuItemScrollStart(true)
                                 break
                             case 'right':
-                                WtGui.actions.menuItemScrollStart(false)
+                                WtGui.#actions.menuItemScrollStart(false)
                                 break
                             case 'select':
-                                WtGui.actions.menuSelect()
+                                WtGui.#actions.menuSelect()
                                 break
                             case 'cancel':
-                                WtGui.actions.menuCancel()
+                                WtGui.#actions.menuCancel()
                                 break
                         }
                     }
@@ -791,10 +791,10 @@ class WtGui {
                     if(event.gamepad === binding) {
                         switch(action) {
                             case 'left':
-                                WtGui.actions.menuItemScrollStop()
+                                WtGui.#actions.menuItemScrollStop()
                                 break
                             case 'right':
-                                WtGui.actions.menuItemScrollStop()
+                                WtGui.#actions.menuItemScrollStop()
                                 break
                         }
                     }
