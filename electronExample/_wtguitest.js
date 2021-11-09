@@ -12,7 +12,7 @@ WtGui.settings.width = 1024
 WtGui.settings.height = 768
 WtGui.actions.drawFps(true)
 
-WtGui.settings.save()
+console.log(WtGui.settings.save())
 
 WtGui.setMenuStorage({
     'gfx': {

@@ -86,20 +86,14 @@ class WtGui {
         },
 
         /**
-         * Save input settings.
-         * @returns {Object} Settings packed into an object.
+         * Save input binding settings.
+         * @returns {Object} Binding settings packed into an object.
          */
-        save: () => {
-            let settings = {}
-            Object.keys(WtGui.settings.actionBindings).forEach(item => {
-                settings[item] = WtGui.settings.actionBindings[item]
-            })
-            return settings
-        },
+        save: () => { return { ...WtGui.settings.actionBindings } },
 
         /**
-         * Load input settings.
-         * @param {Object} settings Settings packed into an object.
+         * Load input binding settings.
+         * @param {Object} settings Binding settings packed into an object.
          */
         load: (settings) => {
             if(!(settings instanceof Object)) throw new WtGuiError(`Error loading settings.`)
@@ -804,15 +798,35 @@ class WtGui {
     }
 
     /**
-     * Gui tests
+     * Debug helper fuctions.
      */
-    static tests = {
+    static debug = {
         /**
-         * Print the menu
+         * Log menu objects to console.
          */
-        printMenu: () => {
-            console.log('menu:')
-            console.log(WtGui.#data.menus)
+        logMenus: () => {
+            WtGui.#data.menus.forEach(menu => { console.log(menu) })
+        },
+
+        /**
+         * Log opened menu stack to console.
+         */
+        logMenuStack: () => {
+            WtGui.#data.openedMenus.forEach(menu => { console.log(menu) })
+        },
+
+        /**
+         * Log image file list to console.
+         */
+        logImageFiles: () => {
+            WtGui.#data.imageFiles.forEach(img => { console.log(img) })
+        },
+
+        /**
+         * Log audio file list to console.
+         */
+        logAudioFiles: () => {
+            WtGui.#data.audioFiles.forEach(audio => { console.log(audio) })
         }
     }
 }
