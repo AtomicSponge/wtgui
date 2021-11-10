@@ -706,7 +706,7 @@ class WtGui {
             Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.key.toUpperCase() === binding.toUpperCase())
-                        WtGui.#events.trigger.down(action)
+                        WtGui.#events.trigger.down(action, event)
                 })
             })
         },
@@ -718,7 +718,7 @@ class WtGui {
             Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.key.toUpperCase() === binding.toUpperCase())
-                        WtGui.#events.trigger.up(action)
+                        WtGui.#events.trigger.up(action, event)
                 })
             })
         },
