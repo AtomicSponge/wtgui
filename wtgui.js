@@ -435,8 +435,8 @@ class WtGui {
         /**
          * 
          */
-        menuItemSelect: () => {
-            if(WtGui.#data.activeItem !== undefined) WtGui.#data.activeItem.selectEvent()
+        menuItemSelect: (event) => {
+            if(WtGui.#data.activeItem !== undefined) WtGui.#data.activeItem.selectEvent(event)
         },
 
         /**
@@ -715,7 +715,7 @@ class WtGui {
         onButtonDown: (event) => {
             Object.keys(WtGui.settings.actionBindings.buttons).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
-                    if(event.gamepad === binding) WtGui.#events.trigger.down(action)
+                    if(event.gamepad === binding) WtGui.#events.trigger.down(action, event)
                 })
             })
         },
@@ -726,7 +726,7 @@ class WtGui {
         onButtonUp: (event) => {
             Object.keys(WtGui.settings.actionBindings.buttons).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
-                    if(event.gamepad === binding) WtGui.#events.trigger.up(action)
+                    if(event.gamepad === binding) WtGui.#events.trigger.up(action, event)
                 })
             })
         },
@@ -738,7 +738,7 @@ class WtGui {
             /*
              * Input on down triggers
              */
-            down: (action) => {
+            down: (action, event) => {
                 switch(action) {
                     case 'up':
                         WtGui.#actions.menuItemUp()
@@ -753,7 +753,7 @@ class WtGui {
                         WtGui.#actions.menuItemScrollStart(false)
                         break
                     case 'select':
-                        WtGui.#actions.menuItemSelect()
+                        WtGui.#actions.menuItemSelect(event)
                         break
                     case 'cancel':
                         WtGui.#actions.menuCancel()
@@ -764,7 +764,7 @@ class WtGui {
             /*
              * Input on up triggers
              */
-            up: (action) => {
+            up: (action, event) => {
                 switch(action) {
                     case 'left':
                         WtGui.#actions.menuItemScrollStop()
