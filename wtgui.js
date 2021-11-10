@@ -639,6 +639,11 @@ class WtGui {
         },
 
         /*
+         * Mouse Wheel
+         */
+        onMouseWheel: (event) => {},
+
+        /*
          * wip
          */
         onTouchStart: (event) => {
@@ -665,11 +670,6 @@ class WtGui {
                     })
             })
         },
-
-        /*
-         * Mouse Wheel
-         */
-        onMouseWheel: (event) => {},
 
         /*
          * wip
