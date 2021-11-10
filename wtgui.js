@@ -767,7 +767,11 @@ class WtGui {
                         WtGui.#actions.menuItemScrollStart(false)
                         break
                     case 'select':
-                        WtGui.#actions.menuItemSelect(event)
+                        WtGui.#actions.menuItemSelect({
+                            uiEvent: event,
+                            elmX: -1,
+                            elmY: -1
+                        })
                         break
                     case 'cancel':
                         WtGui.#actions.menuCancel()
