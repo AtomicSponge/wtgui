@@ -436,7 +436,7 @@ class WtGui {
          * 
          */
         menuItemSelect: () => {
-            //
+            if(WtGui.#data.activeItem !== undefined) WtGui.#data.activeItem.selectEvent()
         },
 
         /**
