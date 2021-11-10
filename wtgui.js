@@ -157,11 +157,13 @@ class WtGui {
         canvas.addEventListener('mousedown', WtGui.#events.onMouseDown, false)
         canvas.addEventListener('mouseup', WtGui.#events.onMouseUp, false)
         canvas.addEventListener('mousemove', WtGui.#events.onMouseMove, false)
+        canvas.addEventListener('wheel', WtGui.#events.onMouseWheel, false)
 
-        canvas.addEventListener("touchstart", WtGui.#events.onTouchStart, false)
-        canvas.addEventListener("touchend", WtGui.#events.onTouchEnd, false)
-        canvas.addEventListener("touchcancel", WtGui.#events.onTouchCancel, false)
-        canvas.addEventListener("touchmove", WtGui.#events.onTouchMove, false)
+        canvas.addEventListener('touchstart', WtGui.#events.onTouchStart, false)
+        canvas.addEventListener('touchend', WtGui.#events.onTouchEnd, false)
+        canvas.addEventListener('touchcancel', WtGui.#events.onTouchCancel, false)
+        canvas.addEventListener('touchmove', WtGui.#events.onTouchMove, false)
+        canvas.addEventListener('scroll', WtGui.#events.onScroll, false)
 
         window.addEventListener('keydown', WtGui.#events.onKeyDown, false)
         window.addEventListener('keyup', WtGui.#events.onKeyUp, false)
@@ -665,6 +667,11 @@ class WtGui {
         },
 
         /*
+         * Mouse Wheel
+         */
+        onMouseWheel: (event) => {},
+
+        /*
          * wip
          */
         onTouchEnd: (event) => {
@@ -682,6 +689,13 @@ class WtGui {
          * wip
          */
         onTouchMove: (event) => {
+            console.log(event)
+        },
+
+        /*
+         * wip
+         */
+        onScroll: (event) => {
             console.log(event)
         },
 
