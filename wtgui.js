@@ -340,6 +340,7 @@ class WtGui {
             if(tempMenu === undefined) throw new WtGuiError(`'${menuId}' - Menu does not exist.`)
             WtGui.#data.openedMenus.push(tempMenu)
             WtGui.#data.currentMenu = WtGui.#data.openedMenus[(WtGui.#data.openedMenus.length - 1)]
+            WtGui.#data.activeItem = WtGui.#data.currentMenu.selectableItems[0]
         },
 
         /**
@@ -396,7 +397,7 @@ class WtGui {
             if(WtGui.#data.currentMenu.selectableItems !== undefined) {
                 let idx = WtGui.#data.currentMenu.selectableItems.findIndex(
                     elm => elm === WtGui.#data.activeItem)
-                if(idx < WtGui.#data.currentMenu.selectableItems.length && idx > 0) {
+                if(idx < WtGui.#data.currentMenu.selectableItems.length - 1) {
                     ++idx
                     WtGui.#data.activeItem = WtGui.#data.currentMenu.selectableItems[idx]
                     return true
@@ -524,6 +525,15 @@ class WtGui {
                     currentMenu.width, currentMenu.height)
             }
 
+            if(WtGui.#data.activeItem !== undefined) {
+                const tempItem = WtGui.#data.activeItem
+                ctx.fillStyle = 'rgb(255,255,0)'
+                ctx.fillRect(
+                    currentMenu.posX + (tempItem.posX - 10),
+                    currentMenu.posY + (tempItem.posY - 10),
+                    tempItem.width + 20, tempItem.height + 20)
+            }
+
             //  Render menu items
             currentMenu.items.forEach(elm => {
                 if(!WtGui.settings.debugMode && elm.bgImage !== undefined) {
@@ -540,10 +550,6 @@ class WtGui {
                     ctx.fillRect(currentMenu.posX + elm.posX,
                         currentMenu.posY + elm.posY,
                         elm.width, elm.height)
-                }
-
-                if(WtGui.#data.activeItem === elm) {
-                    // selected item
                 }
             })
 
