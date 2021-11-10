@@ -642,7 +642,9 @@ class WtGui {
         /*
          * Mouse Wheel
          */
-        onMouseWheel: (event) => {},
+        onMouseWheel: (event) => {
+            event.preventDefault()
+        },
 
         /*
          * wip
@@ -698,6 +700,7 @@ class WtGui {
          */
         onScroll: (event) => {
             console.log(event)
+            //event.preventDefault()
         },
 
         /*
