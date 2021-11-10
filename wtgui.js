@@ -525,6 +525,7 @@ class WtGui {
                     currentMenu.width, currentMenu.height)
             }
 
+            //  Render active item highlighting
             if(WtGui.#data.activeItem !== undefined) {
                 const tempItem = WtGui.#data.activeItem
                 ctx.fillStyle = 'rgb(255,255,0)'
