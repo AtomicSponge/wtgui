@@ -172,6 +172,7 @@ class WtGui {
         WtGui.#data.ctx = WtGui.#data.menuCanvas.getContext('2d')
 
         WtGui.#data.configRan = true
+        canvas.focus()
         WtGui.#renderer.start()
     }
 
