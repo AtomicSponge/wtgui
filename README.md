@@ -36,6 +36,11 @@ WtGui.actions.drawFps(true)
 
 ###  Building Menus
 
+```
+WtGui.addMenu()
+WtGui.addItem()
+```
+
 -----
 
 ###  Starting the Renderer
