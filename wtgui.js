@@ -123,6 +123,7 @@ class WtGui {
      * Gui Data
      */
     static #data = {
+        mainCanvas: {},
         menuCanvas: {},          //  2d canvas for rendering menus
         glctx: {},               //  WebGL context for main drawing
         ctx: {},                 //  2d context for menu drawing
@@ -148,6 +149,7 @@ class WtGui {
         if(WtGui.settings.width < 1 || WtGui.settings.height < 1)
             throw new WtGuiError(`Must define a 'width' and 'height'.`)
 
+        WtGui.#data.mainCanvas = canvas
         //WtGui.#data.glctx = canvas.getContext('webgl2')
         //if(!WtGui.#data.glctx) throw new WtGuiError(`webgl2 error`)
         WtGui.#data.glctx = canvas.getContext('2d')
@@ -172,7 +174,6 @@ class WtGui {
         WtGui.#data.ctx = WtGui.#data.menuCanvas.getContext('2d')
 
         WtGui.#data.configRan = true
-        canvas.focus()
         WtGui.#renderer.start()
     }
 
@@ -344,6 +345,7 @@ class WtGui {
             WtGui.#data.openedMenus.push(tempMenu)
             WtGui.#data.currentMenu = WtGui.#data.openedMenus[(WtGui.#data.openedMenus.length - 1)]
             WtGui.#data.activeItem = WtGui.#data.currentMenu.selectableItems[0]
+            WtGui.#data.mainCanvas.focus()
         },
 
         /**
@@ -465,11 +467,21 @@ class WtGui {
         renderTexture: null,    //  Texture to draw to
         bgAnimation: () => {},  //  Background animation function
 
+        highligher: (tempItem, currentMenu) => {
+            const ctx = WtGui.#data.ctx
+            ctx.fillStyle = 'rgb(255,255,0)'
+            ctx.fillRect(
+                currentMenu.posX + (tempItem.posX - 10),
+                currentMenu.posY + (tempItem.posY - 10),
+                tempItem.width + 20, tempItem.height + 20)
+        },
+
         /*
          * Start the renderer
          */
         start: () => {
             //WtGui.#renderer.renderTexture = WtGui.#data.glctx.createTexture()
+            WtGui.#data.mainCanvas.focus()
             WtGui.#data.menuCanvas.width = WtGui.settings.width
             WtGui.#data.menuCanvas.height = WtGui.settings.height
             clearInterval(WtGui.#renderer.fpsCalc)
@@ -529,14 +541,8 @@ class WtGui {
             }
 
             //  Render active item highlighting
-            if(WtGui.#data.activeItem !== undefined) {
-                const tempItem = WtGui.#data.activeItem
-                ctx.fillStyle = 'rgb(255,255,0)'
-                ctx.fillRect(
-                    currentMenu.posX + (tempItem.posX - 10),
-                    currentMenu.posY + (tempItem.posY - 10),
-                    tempItem.width + 20, tempItem.height + 20)
-            }
+            if(WtGui.#data.activeItem !== undefined)
+                WtGui.#renderer.highligher(WtGui.#data.activeItem, currentMenu)
 
             //  Render menu items
             currentMenu.items.forEach(elm => {
