@@ -2,7 +2,7 @@
 
 ###  WIP
 
-This will be a HTML5 canvas based menu system at some point in the future.
+Experimental HTML5 Canvas Menu System
 
 - *GitHub Repository*:  https://github.com/wtfsystems/wtgui
 - *NPM Package*:  https://www.npmjs.com/package/@wtfsystems/wtgui
@@ -39,3 +39,7 @@ WtGui.actions.drawFps(true)
 -----
 
 ###  Starting the Renderer
+
+```
+WtGui.startGui(HTMLCanvasElement)
+```
