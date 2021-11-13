@@ -384,8 +384,8 @@ class WtGui {
         /*
          * Timed function for scrolling menu items.
          */
-        scroller: () => {
-            console.log('test')
+        scroller: (direction) => {
+            (direction) ? WtGui.#data.activeItem.onLeft() : WtGui.#data.activeItem.onRight()
         },
 
         /**
@@ -431,9 +431,8 @@ class WtGui {
                WtGui.#data.activeItem !== undefined) {
                 if(!WtGui.#data.activeItem.selectOnce) {
                     clearInterval(WtGui.#actions.scrollTimer)
-                    WtGui.#actions.scrollTimer = setInterval(WtGui.#actions.scroller(), 50)
+                    WtGui.#actions.scrollTimer = setInterval(WtGui.#actions.scroller(direction), 50)
                 }
-                { (direction) ? true : false }
             }
         },
 
@@ -452,7 +451,7 @@ class WtGui {
          * 
          */
         menuItemSelect: (event) => {
-            if(WtGui.#data.activeItem !== undefined) WtGui.#data.activeItem.selectEvent(event)
+            if(WtGui.#data.activeItem !== undefined) WtGui.#data.activeItem.onSelect(event)
         },
 
         /**
@@ -997,13 +996,6 @@ class WtGuiItem {
         if(!Wt.testRgb(this.bgColor)) throw new WtGuiError(`'${this.bgColor}' - Bad color code`)
         if(!Wt.testRgb(this.fgColor)) throw new WtGuiError(`'${this.fgColor}' - Bad color code`)
     }
-
-    /**
-     * 
-     */
-    selectEvent = (event) => {
-        if(this.canSelect) throw new WtGuiError(`Method 'selectEvent()' must be implemented.`)
-    }
 }
 exports.WtGuiItem = WtGuiItem
 
@@ -1042,23 +1034,22 @@ class WtGuiAction extends WtGuiItem {
         this.canSelect = true
         if(args.type === undefined) {
             if(args.action === undefined) throw new WtGuiError(`Must define an action.`)
-            this.action = args.action
+            this.onSelect = args.action
+            this.onLeft = args.onLeft || function(){}
+            this.onRight = args.onLeft || function(){}
         }
         if(args.type === 'open_menu') {
             if(args.menuName === undefined) throw new WtGuiError(`Must define a menu name.`)
             this.action = () => { WtGui.actions.openMenu(args.menuName) }
+            this.onLeft = () => {}
+            this.onRight = () => {}
         }
         if(args.type === 'close_menu') {
             this.allMenus = args.allMenus || false
             this.action = () => { WtGui.actions.closeMenu(this.allMenus) }
+            this.onLeft = () => {}
+            this.onRight = () => {}
         }
-    }
-
-    /**
-     * 
-     */
-    selectEvent = (event) => {
-        this.action(event)
     }
 }
 exports.WtGuiAction = WtGuiAction
