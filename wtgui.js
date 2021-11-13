@@ -1067,7 +1067,7 @@ exports.WtGuiAction = WtGuiAction
         this.selectOnce = false
         this.onSelect = (event) => {
             if(event.elmX < 0) return
-            (event.elmX < this.width / 2) ? this.onLeft() : this.onRight()
+            (event.elmX < this.width / 2) ? this.onLeft(event) : this.onRight(event)
         }
         if(args.toggleLeft === undefined) throw new WtGuiError(`Must define left toggle.`)
         this.onLeft = args.toggleLeft
