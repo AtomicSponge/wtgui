@@ -2,7 +2,7 @@
  * 
  * @author Matthew Evans
  * @module wtfsystems/wtgui
- * @version 0.0.5
+ * @version 0.0.6
  * @see README.me
  * @copyright LICENSE.md
  * 
@@ -1066,8 +1066,8 @@ exports.WtGuiAction = WtGuiAction
         this.canSelect = true
         this.selectOnce = false
         this.onSelect = (event) => {
-            console.log(event)
-            //todo:  process left/right depending on area clicked
+            if(event.elmX < 0) return
+            (event.elmX < this.width / 2) ? this.onLeft() : this.onRight()
         }
         if(args.toggleLeft === undefined) throw new WtGuiError(`Must define left toggle.`)
         this.onLeft = args.toggleLeft
