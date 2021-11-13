@@ -1055,6 +1055,31 @@ exports.WtGuiAction = WtGuiAction
  * @extends WtGuiItem
  * 
  */
+ class WtGuiToggle extends WtGuiItem {
+    /**
+     * 
+     * @param {*} args 
+     */
+    constructor(args) {
+        var args = args || {}
+        super(args)
+        this.canSelect = true
+        this.selectOnce = false
+        this.onSelect = () => {}
+        if(args.toggleLeft === undefined) throw new WtGuiError(`Must define left toggle.`)
+        this.onLeft = args.toggleLeft
+        if(args.toggleRight === undefined) throw new WtGuiError(`Must define right toggle.`)
+        this.onRight = args.toggleRight
+    }
+}
+exports.WtGuiToggle = WtGuiToggle
+
+/**
+ * 
+ * 
+ * @extends WtGuiItem
+ * 
+ */
  class WtGuiSetting extends WtGuiItem {
     /**
      * 
@@ -1084,24 +1109,6 @@ class WtGuiInput extends WtGuiItem {
     }
 }
 exports.WtGuiInput = WtGuiInput
-
-/**
- * 
- * 
- * @extends WtGuiItem
- * 
- */
-class WtGuiToggle extends WtGuiItem {
-    /**
-     * 
-     * @param {*} args 
-     */
-    constructor(args) {
-        var args = args || {}
-        super(args)
-    }
-}
-exports.WtGuiToggle = WtGuiToggle
 
 /**
  * 
