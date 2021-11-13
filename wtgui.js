@@ -182,6 +182,7 @@ class WtGui {
      * @param {Function} func New animation function.
      */
     static setBgAnimation = (func) => {
+        if(WtGui.#data.configRan) throw new WtGuiError(`WtGui is already running.`)
         if(!(func instanceof Function)) throw new WtGuiError(`Background animation must be a function.`)
         WtGui.#renderer.bgAnimation = func
     }
@@ -191,6 +192,7 @@ class WtGui {
      * @param {Function} func New highlighting function.
      */
     static setItemHighlighting = (func) => {
+        if(WtGui.#data.configRan) throw new WtGuiError(`WtGui is already running.`)
         if(!(func instanceof Function)) throw new WtGuiError(`Item highlighting must be a function.`)
         WtGui.#renderer.highlighter = func
     }
