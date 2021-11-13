@@ -2,7 +2,7 @@
  * Imports
  */
 const { contextBridge, ipcRenderer } = require('electron')
-const { WtGui, WtGuiMenu, WtGuiAction  } = require('../wtgui')
+const { WtGui, WtGuiMenu, WtGuiAction, WtGuiToggle  } = require('../wtgui')
 //const { WtGui, WtGuiMenu } = require('@wtfsystems/wtgui')
 
 /*
@@ -53,13 +53,16 @@ WtGui.addItem('main_menu', new WtGuiAction({
     type: 'open_menu', menuName: 'game_menu'
 }))
 
-WtGui.addItem('main_menu', new WtGuiAction({
+WtGui.addItem('main_menu', new WtGuiToggle({
     id: 'test2',
     title: 'testing 2',
     posX: 20, posY: 80,
     width: 200, height: 40,
-    action: (event) => {
-        console.log('action 1')
+    toggleLeft: () => {
+        console.log('left')
+    },
+    toggleRight: () => {
+        console.log('right')
     }
 }))
 

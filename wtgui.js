@@ -625,7 +625,7 @@ class WtGui {
                 WtGui.#data.currentMenu.items
             )
             if(res !== undefined && res.canSelect)
-                res.selectEvent({
+                res.onSelect({
                     uiEvent: event,
                     elmX: event.offsetX - WtGui.#data.currentMenu.posX - res.posX,
                     elmY: event.offsetY - WtGui.#data.currentMenu.posY - res.posY
@@ -681,7 +681,7 @@ class WtGui {
                     WtGui.#data.currentMenu.items
                 )
                 if(res !== undefined && res.canSelect)
-                    res.selectEvent({
+                    res.onSelect({
                         uiEvent: event,
                         elmX: event.radiusX - WtGui.#data.currentMenu.posX - res.posX,
                         elmY: event.radiusY - WtGui.#data.currentMenu.posY - res.posY
@@ -1065,7 +1065,10 @@ exports.WtGuiAction = WtGuiAction
         super(args)
         this.canSelect = true
         this.selectOnce = false
-        this.onSelect = () => {}
+        this.onSelect = (event) => {
+            console.log(event)
+            //todo:  process left/right depending on area clicked
+        }
         if(args.toggleLeft === undefined) throw new WtGuiError(`Must define left toggle.`)
         this.onLeft = args.toggleLeft
         if(args.toggleRight === undefined) throw new WtGuiError(`Must define right toggle.`)
