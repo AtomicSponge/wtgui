@@ -992,6 +992,7 @@ class WtGuiItem {
         this.imgOffsetY = args.imgOffsetY || 0
         this.scaleImg = args.scaleImg || false
         this.canSelect = false
+        this.selectOnce = false
 
         if(!Wt.testRgb(this.bgColor)) throw new WtGuiError(`'${this.bgColor}' - Bad color code`)
         if(!Wt.testRgb(this.fgColor)) throw new WtGuiError(`'${this.fgColor}' - Bad color code`)
@@ -1013,6 +1014,7 @@ class WtGuiLabel extends WtGuiItem {
     constructor(args) {
         var args = args || {}
         super(args)
+        this.canSelect = false
     }
 }
 exports.WtGuiLabel = WtGuiLabel
