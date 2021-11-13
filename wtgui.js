@@ -187,6 +187,15 @@ class WtGui {
     }
 
     /**
+     * Set the item highlighting function.
+     * @param {Function} func New highlighting function.
+     */
+    static setItemHighlighting = (func) => {
+        if(!(func instanceof Function)) throw new WtGuiError(`Item highlighting must be a function.`)
+        WtGui.#renderer.highlighter = func
+    }
+
+    /**
      * Get the menu drawing context.
      * @returns {CanvasRenderingContext2D} 2D drawing context.
      */
@@ -467,13 +476,12 @@ class WtGui {
         renderTexture: null,    //  Texture to draw to
         bgAnimation: () => {},  //  Background animation function
 
-        highligher: (tempItem, currentMenu) => {
-            const ctx = WtGui.#data.ctx
+        highlighter: (ctx, menuItem, currentMenu) => {
             ctx.fillStyle = 'rgb(255,255,0)'
             ctx.fillRect(
-                currentMenu.posX + (tempItem.posX - 10),
-                currentMenu.posY + (tempItem.posY - 10),
-                tempItem.width + 20, tempItem.height + 20)
+                currentMenu.posX + (menuItem.posX - 10),
+                currentMenu.posY + (menuItem.posY - 10),
+                menuItem.width + 20, menuItem.height + 20)
         },
 
         /*
@@ -542,7 +550,7 @@ class WtGui {
 
             //  Render active item highlighting
             if(WtGui.#data.activeItem !== undefined)
-                WtGui.#renderer.highligher(WtGui.#data.activeItem, currentMenu)
+                WtGui.#renderer.highlighter(WtGui.#data.ctx, WtGui.#data.activeItem, currentMenu)
 
             //  Render menu items
             currentMenu.items.forEach(elm => {
@@ -1052,6 +1060,24 @@ class WtGuiAction extends WtGuiItem {
     }
 }
 exports.WtGuiAction = WtGuiAction
+
+/**
+ * 
+ * 
+ * @extends WtGuiItem
+ * 
+ */
+ class WtGuiSetting extends WtGuiItem {
+    /**
+     * 
+     * @param {*} args 
+     */
+    constructor(args) {
+        var args = args || {}
+        super(args)
+    }
+}
+exports.WtGuiSetting = WtGuiSetting
 
 /**
  * 

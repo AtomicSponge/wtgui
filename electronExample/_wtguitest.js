@@ -8,21 +8,22 @@ const { WtGui, WtGuiMenu, WtGuiAction  } = require('../wtgui')
 /*
  * Configure WtGui
  */
+//WtGui.settings.debugMode = true
 WtGui.settings.width = 1024
 WtGui.settings.height = 768
 WtGui.actions.drawFps(true)
 
 WtGui.menuStorage = {
-    'gfx': {
-        'scale': '0'
+    gfx: {
+        scale: Number(0)
     },
 
-    'volume': {
-        'main': '0',
-        'music': '0',
-        'sfx': '0',
-        'voice': '0',
-        'ambiance': '0'
+    volume: {
+        main: Number(0),
+        music: Number(0),
+        sfx: Number(0),
+        voice: Number(0),
+        ambiance: Number(0)
     }
 }
 
