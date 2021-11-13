@@ -1032,23 +1032,18 @@ class WtGuiAction extends WtGuiItem {
         var args = args || {}
         super(args)
         this.canSelect = true
+        this.selectOnce = true
         if(args.type === undefined) {
             if(args.action === undefined) throw new WtGuiError(`Must define an action.`)
             this.onSelect = args.action
-            this.onLeft = args.onLeft || function(){}
-            this.onRight = args.onLeft || function(){}
         }
         if(args.type === 'open_menu') {
             if(args.menuName === undefined) throw new WtGuiError(`Must define a menu name.`)
-            this.action = () => { WtGui.actions.openMenu(args.menuName) }
-            this.onLeft = () => {}
-            this.onRight = () => {}
+            this.onSelect = () => { WtGui.actions.openMenu(args.menuName) }
         }
         if(args.type === 'close_menu') {
             this.allMenus = args.allMenus || false
-            this.action = () => { WtGui.actions.closeMenu(this.allMenus) }
-            this.onLeft = () => {}
-            this.onRight = () => {}
+            this.onSelect = () => { WtGui.actions.closeMenu(this.allMenus) }
         }
     }
 }
