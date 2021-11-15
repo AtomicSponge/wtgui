@@ -429,7 +429,7 @@ class WtGui {
         menuItemScrollStart: (direction) => {
             if(WtGui.#data.currentMenu.selectableItems !== undefined &&
                WtGui.#data.activeItem !== undefined) {
-                if(!WtGui.#data.activeItem.selectOnce) {
+                if(WtGui.#data.activeItem.scrollable) {
                     clearInterval(WtGui.#actions.scrollTimer)
                     WtGui.#actions.scrollTimer = setInterval(WtGui.#actions.scroller(direction), 50)
                 }
@@ -968,6 +968,14 @@ exports.WtGuiMenu = WtGuiMenu
 /**
  * 
  * WtGui Menu Item Interface
+ * 
+ * @prop {String} id
+ * @prop {String} title
+ * @prop {Number} posX
+ * @prop {Number} posY
+ * @prop {Number} width
+ * @prop {Number} height
+ * 
  * @interface
  * 
  */
@@ -992,7 +1000,7 @@ class WtGuiItem {
         this.imgOffsetY = args.imgOffsetY || 0
         this.scaleImg = args.scaleImg || false
         this.canSelect = false
-        this.selectOnce = false
+        this.scrollable = false
 
         if(!Wt.testRgb(this.bgColor)) throw new WtGuiError(`'${this.bgColor}' - Bad color code`)
         if(!Wt.testRgb(this.fgColor)) throw new WtGuiError(`'${this.fgColor}' - Bad color code`)
@@ -1034,7 +1042,7 @@ class WtGuiAction extends WtGuiItem {
         var args = args || {}
         super(args)
         this.canSelect = true
-        this.selectOnce = true
+        this.scrollable = false
         if(args.type === undefined) {
             if(args.action === undefined) throw new WtGuiError(`Must define an action.`)
             this.onSelect = args.action
@@ -1057,7 +1065,7 @@ exports.WtGuiAction = WtGuiAction
  * @extends WtGuiItem
  * 
  */
- class WtGuiToggle extends WtGuiItem {
+class WtGuiToggle extends WtGuiItem {
     /**
      * 
      * @param {*} args 
@@ -1066,9 +1074,9 @@ exports.WtGuiAction = WtGuiAction
         var args = args || {}
         super(args)
         this.canSelect = true
-        this.selectOnce = false
+        this.scrollable = true
         this.onSelect = (event) => {
-            if(event.elmX < 0) return
+            if(event.elmX < 0) return  //  reject [keys/buttons] select events
             (event.elmX < this.width / 2) ? this.onLeft(event) : this.onRight(event)
         }
         if(args.toggleLeft === undefined) throw new WtGuiError(`Must define left toggle.`)
@@ -1085,7 +1093,7 @@ exports.WtGuiToggle = WtGuiToggle
  * @extends WtGuiItem
  * 
  */
- class WtGuiSetting extends WtGuiItem {
+class WtGuiSetting extends WtGuiItem {
     /**
      * 
      * @param {*} args 
