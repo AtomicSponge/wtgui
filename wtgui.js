@@ -3,8 +3,8 @@
  * @author Matthew Evans
  * @module wtfsystems/wtgui
  * @version 0.0.6
- * @see README.me
- * @copyright LICENSE.md
+ * @see README.md
+ * @copyright MIT see LICENSE.md
  * 
  */
 
