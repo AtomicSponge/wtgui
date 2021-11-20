@@ -380,70 +380,68 @@ class WtGui {
      */
     static #actions = {
         scrollTimer: {},  //  Store running timer function.
-        
-        /*
-         * Timed function for scrolling menu items.
-         */
-        scroller: (direction) => {
-            (direction) ? WtGui.#data.activeItem.onLeft() : WtGui.#data.activeItem.onRight()
-        },
 
-        /**
+        /*
+         *
+         */
+        scrollLeft: () => { WtGui.#data.activeItem.onLeft() },
+
+        /*
+         *
+         */
+        scrollRight: () => { WtGui.#data.activeItem.onRight() },
+
+        /*
          * Move the active menu item up in the index.
-         * @returns {boolean} True if the current item changed, else false.
          */
         menuItemUp: () => {
-            if(WtGui.#data.currentMenu.selectableItems !== undefined) {
-                let idx = WtGui.#data.currentMenu.selectableItems.findIndex(
-                    elm => elm === WtGui.#data.activeItem)
-                if(idx > 0) {
-                    --idx
-                    WtGui.#data.activeItem = WtGui.#data.currentMenu.selectableItems[idx]
-                    return true
-                }
+            let idx = WtGui.#data.currentMenu.selectableItems.findIndex(
+                elm => elm === WtGui.#data.activeItem)
+            if(idx > 0) {
+                --idx
+                WtGui.#data.activeItem = WtGui.#data.currentMenu.selectableItems[idx]
+                return true
             }
             return false
         },
 
-        /**
+        /*
          * Move the active menu item down in the index.
-         * @returns {boolean} True if the current item changed, else false.
          */
         menuItemDown: () => {
-            if(WtGui.#data.currentMenu.selectableItems !== undefined) {
-                let idx = WtGui.#data.currentMenu.selectableItems.findIndex(
-                    elm => elm === WtGui.#data.activeItem)
-                if(idx < WtGui.#data.currentMenu.selectableItems.length - 1) {
-                    ++idx
-                    WtGui.#data.activeItem = WtGui.#data.currentMenu.selectableItems[idx]
-                    return true
-                }
+            let idx = WtGui.#data.currentMenu.selectableItems.findIndex(
+                elm => elm === WtGui.#data.activeItem)
+            if(idx < WtGui.#data.currentMenu.selectableItems.length - 1 && idx >= 0) {
+                ++idx
+                WtGui.#data.activeItem = WtGui.#data.currentMenu.selectableItems[idx]
+                return true
             }
             return false
         },
 
-        /**
+        /*
          * Start scrolling through the menu item options.
-         * @param {boolean} direction True for left, false for right.
          */
         menuItemScrollStart: (direction) => {
             clearInterval(WtGui.#actions.scrollTimer)
-            WtGui.#actions.scrollTimer = setInterval(WtGui.#actions.scroller(direction), 50)
+            {(direction) ?
+                WtGui.#actions.scrollTimer = setInterval(WtGui.#actions.scrollLeft, 100) :
+                WtGui.#actions.scrollTimer = setInterval(WtGui.#actions.scrollRight, 100)}
         },
 
-        /**
+        /*
          * Stop scrolling through the menu item options.
          */
         menuItemScrollStop: () => { clearInterval(WtGui.#actions.scrollTimer) },
 
-        /**
+        /*
          * 
          */
         menuItemSelect: (event) => {
             if(WtGui.#data.activeItem !== undefined) WtGui.#data.activeItem.onSelect(event)
         },
 
-        /**
+        /*
          * 
          */
         menuCancel: () => {
@@ -510,7 +508,10 @@ class WtGui {
                 },
                 WtGui.#data.currentMenu.items
             )
-            if(res !== undefined && res.canSelect) WtGui.#data.activeItem = res
+            if(res !== undefined && res.canSelect) {
+                if(WtGui.#data.activeItem !== res) WtGui.#actions.menuItemScrollStop()
+                WtGui.#data.activeItem = res
+            }
         },
 
         /*
