@@ -427,25 +427,14 @@ class WtGui {
          * @param {boolean} direction True for left, false for right.
          */
         menuItemScrollStart: (direction) => {
-            if(WtGui.#data.currentMenu.selectableItems !== undefined &&
-               WtGui.#data.activeItem !== undefined) {
-                if(WtGui.#data.activeItem.scrollable) {
-                    clearInterval(WtGui.#actions.scrollTimer)
-                    WtGui.#actions.scrollTimer = setInterval(WtGui.#actions.scroller(direction), 50)
-                }
-            }
+            clearInterval(WtGui.#actions.scrollTimer)
+            WtGui.#actions.scrollTimer = setInterval(WtGui.#actions.scroller(direction), 50)
         },
 
         /**
          * Stop scrolling through the menu item options.
          */
-        menuItemScrollStop: () => {
-            clearInterval(WtGui.#actions.scrollTimer)
-            if(WtGui.#data.currentMenu.selectableItems !== undefined &&
-                WtGui.#data.activeItem !== undefined) {
-                //
-            }
-        },
+        menuItemScrollStop: () => { clearInterval(WtGui.#actions.scrollTimer) },
 
         /**
          * 
@@ -463,145 +452,6 @@ class WtGui {
     }
 
     /*
-     * Renderer sub-object
-     */
-    static #renderer = {
-        fpsCalc: {},            //  Store timed func to calculate fps
-        nextFrame: Number(0),   //  Store the call to the animation frame
-        paused: false,          //  Flag to pause renderer
-        drawFps: false,         //  Flag for drawing fps counter
-        fps: Number(0),         //  Store frame rate
-        step: Number(0),        //  Used to calculate fps
-        frameDelta: Number(0),  //  Time in ms between frames
-        lastRender: Number(0),  //  Last render time
-        renderTexture: null,    //  Texture to draw to
-        bgAnimation: () => {},  //  Background animation function
-
-        highlighter: (ctx, menuItem, currentMenu) => {
-            ctx.fillStyle = 'rgb(255,255,0)'
-            ctx.fillRect(
-                currentMenu.posX + (menuItem.posX - 10),
-                currentMenu.posY + (menuItem.posY - 10),
-                menuItem.width + 20, menuItem.height + 20)
-        },
-
-        /*
-         * Start the renderer
-         */
-        start: () => {
-            //WtGui.#renderer.renderTexture = WtGui.#data.glctx.createTexture()
-            WtGui.#data.mainCanvas.focus()
-            WtGui.#data.menuCanvas.width = WtGui.settings.width
-            WtGui.#data.menuCanvas.height = WtGui.settings.height
-            clearInterval(WtGui.#renderer.fpsCalc)
-            WtGui.#renderer.fpsCalc = setInterval(() => {
-                WtGui.#renderer.fps = WtGui.#renderer.step
-                WtGui.#renderer.step = 0
-            }, 1000)
-            window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
-            WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
-        },
-
-        /*
-         * Stop the renderer
-         */
-        stop: () => {
-            clearInterval(WtGui.#renderer.fpsCalc)
-            window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
-            WtGui.#renderer.fps = WtGui.#renderer.step = 0
-            WtGui.#renderer.frameDelta = WtGui.#renderer.lastRender = 0
-            //WtGui.#data.glctx.deleteTexture(WtGui.#renderer.renderTexture)
-        },
-
-        /*
-         * Render draw method
-         */
-        render: () => {
-            if(WtGui.#data.openedMenus.length === 0 ||
-               WtGui.#data.currentMenu === {} ||
-               WtGui.#data.currentMenu === undefined) WtGui.actions.openMenu(WtGui.settings.defaultMenu)
-            if(WtGui.#data.openedMenus.length === 0 ||
-               WtGui.#data.currentMenu === {} ||
-               WtGui.#data.currentMenu === undefined) throw new WtGuiError(`No menus available.`)
-            const ctx = WtGui.#data.ctx
-            const currentMenu = WtGui.#data.currentMenu
-
-            //  Clear the renderer
-            ctx.fillStyle = WtGui.settings.clearColor
-            ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
-
-            //  Run background animation function
-            WtGui.#renderer.bgAnimation()
-
-            //  Render the menu
-            if(!WtGui.settings.debugMode && currentMenu.bgImage !== undefined) {
-                {(currentMenu.scaleImg) ?
-                    ctx.drawImage(WtGui.getImage(currentMenu.bgImage),
-                        currentMenu.posX + currentMenu.imgOffsetX,
-                        currentMenu.posY + currentMenu.imgOffsetY,
-                        currentMenu.width, currentMenu.height) :
-                    ctx.drawImage(WtGui.getImage(currentMenu.bgImage),
-                        currentMenu.posX + currentMenu.imgOffsetX,
-                        currentMenu.posY + currentMenu.imgOffsetY)}
-            } else {
-                ctx.fillStyle = currentMenu.bgColor
-                ctx.fillRect(currentMenu.posX, currentMenu.posY,
-                    currentMenu.width, currentMenu.height)
-            }
-
-            //  Render active item highlighting
-            if(WtGui.#data.activeItem !== undefined)
-                WtGui.#renderer.highlighter(WtGui.#data.ctx, WtGui.#data.activeItem, currentMenu)
-
-            //  Render menu items
-            currentMenu.items.forEach(elm => {
-                if(!WtGui.settings.debugMode && elm.bgImage !== undefined) {
-                    {(elm.scaleImg) ?
-                        ctx.drawImage(WtGui.getImage(elm.bgImage),
-                            elm.posX + elm.imgOffsetX,
-                            elm.posY + elm.imgOffsetY,
-                            elm.width, elm.height) :
-                        ctx.drawImage(WtGui.getImage(elm.bgImage),
-                            elm.posX + elm.imgOffsetX,
-                            elm.posY + elm.imgOffsetY)}
-                } else {
-                    ctx.fillStyle = elm.bgColor
-                    ctx.fillRect(currentMenu.posX + elm.posX,
-                        currentMenu.posY + elm.posY,
-                        elm.width, elm.height)
-                }
-            })
-
-            //  Render FPS counter if enabled
-            if(WtGui.#renderer.drawFps) {
-                ctx.font = WtGui.settings.fpsFont
-                ctx.fillStyle = WtGui.settings.fpsColor
-                ctx.textAlign = 'right'
-                ctx.fillText(WtGui.#renderer.fps, WtGui.settings.width, 12)
-            }
-
-            //  Draw the rendered menu
-            /*const gl = WtGui.#data.glctx
-            gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true)
-            gl.bindTexture(gl.TEXTURE_2D, WtGui.#renderer.renderTexture)
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, WtGui.#data.menuCanvas)
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST)
-            gl.generateMipmap(gl.TEXTURE_2D)
-            gl.bindTexture(gl.TEXTURE_2D, null)*/
-
-            WtGui.#data.glctx.drawImage(WtGui.#data.menuCanvas, 0, 0)
-
-            //  Update renderer info and request next frame
-            WtGui.#renderer.step++
-            WtGui.#renderer.frameDelta = Date.now() - WtGui.#renderer.lastRender
-            WtGui.#renderer.lastRender = Date.now()
-            while(WtGui.#renderer.paused) {}  //  Infinite loop for pause
-            WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
-        }
-    }
-
-    /*
      * Events sub-object
      *
      * Event object passed to UI elements:
@@ -614,28 +464,37 @@ class WtGui {
          * Mouse Down Event
          */
         onMouseDown: (event) => {
+            const hitX = event.offsetX - WtGui.#data.currentMenu.posX
+            const hitY = event.offsetY - WtGui.#data.currentMenu.posY
             //  See if the mouse clicked on anything
             const res = Wt.AABB(
                 {
-                    posX: event.offsetX - WtGui.#data.currentMenu.posX,
-                    posY: event.offsetY - WtGui.#data.currentMenu.posY,
+                    posX: hitX,
+                    posY: hitY,
                     width: WtGui.settings.mouseSize,
                     height: WtGui.settings.mouseSize,
                 },
                 WtGui.#data.currentMenu.items
             )
-            if(res !== undefined && res.canSelect)
-                res.onSelect({
+            if(res !== undefined && res.canSelect) {
+                WtGui.#data.activeItem = res
+                if(res.scrollable) {
+                    (hitX - res.posX < res.width / 2) ?
+                        WtGui.#actions.menuItemScrollStart(true) :
+                        WtGui.#actions.menuItemScrollStart(false)
+                }
+                else res.onSelect({
                     uiEvent: event,
-                    elmX: event.offsetX - WtGui.#data.currentMenu.posX - res.posX,
-                    elmY: event.offsetY - WtGui.#data.currentMenu.posY - res.posY
+                    elmX: hitX - res.posX,
+                    elmY: hitY - res.posY
                 })
+            }
         },
 
         /*
          * Mouse Up Event
          */
-        onMouseUp: (event) => {},
+        onMouseUp: (event) => { WtGui.#actions.menuItemScrollStop() },
 
         /*
          * Mouse Move Event
@@ -780,10 +639,12 @@ class WtGui {
                         WtGui.#actions.menuItemDown()
                         break
                     case 'left':
-                        WtGui.#actions.menuItemScrollStart(true)
+                        if(WtGui.#data.activeItem.scrollable)
+                            WtGui.#actions.menuItemScrollStart(true)
                         break
                     case 'right':
-                        WtGui.#actions.menuItemScrollStart(false)
+                        if(WtGui.#data.activeItem.scrollable)
+                            WtGui.#actions.menuItemScrollStart(false)
                         break
                     case 'select':
                         WtGui.#actions.menuItemSelect({
@@ -811,6 +672,145 @@ class WtGui {
                         break
                 }
             }
+        }
+    }
+
+    /*
+     * Renderer sub-object
+     */
+    static #renderer = {
+        fpsCalc: {},            //  Store timed func to calculate fps
+        nextFrame: Number(0),   //  Store the call to the animation frame
+        paused: false,          //  Flag to pause renderer
+        drawFps: false,         //  Flag for drawing fps counter
+        fps: Number(0),         //  Store frame rate
+        step: Number(0),        //  Used to calculate fps
+        frameDelta: Number(0),  //  Time in ms between frames
+        lastRender: Number(0),  //  Last render time
+        renderTexture: null,    //  Texture to draw to
+        bgAnimation: () => {},  //  Background animation function
+
+        highlighter: (ctx, menuItem, currentMenu) => {
+            ctx.fillStyle = 'rgb(255,255,0)'
+            ctx.fillRect(
+                currentMenu.posX + (menuItem.posX - 10),
+                currentMenu.posY + (menuItem.posY - 10),
+                menuItem.width + 20, menuItem.height + 20)
+        },
+
+        /*
+         * Start the renderer
+         */
+        start: () => {
+            //WtGui.#renderer.renderTexture = WtGui.#data.glctx.createTexture()
+            WtGui.#data.mainCanvas.focus()
+            WtGui.#data.menuCanvas.width = WtGui.settings.width
+            WtGui.#data.menuCanvas.height = WtGui.settings.height
+            clearInterval(WtGui.#renderer.fpsCalc)
+            WtGui.#renderer.fpsCalc = setInterval(() => {
+                WtGui.#renderer.fps = WtGui.#renderer.step
+                WtGui.#renderer.step = 0
+            }, 1000)
+            window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
+            WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
+        },
+
+        /*
+         * Stop the renderer
+         */
+        stop: () => {
+            clearInterval(WtGui.#renderer.fpsCalc)
+            window.cancelAnimationFrame(WtGui.#renderer.nextFrame)
+            WtGui.#renderer.fps = WtGui.#renderer.step = 0
+            WtGui.#renderer.frameDelta = WtGui.#renderer.lastRender = 0
+            //WtGui.#data.glctx.deleteTexture(WtGui.#renderer.renderTexture)
+        },
+
+        /*
+         * Render draw method
+         */
+        render: () => {
+            if(WtGui.#data.openedMenus.length === 0 ||
+               WtGui.#data.currentMenu === {} ||
+               WtGui.#data.currentMenu === undefined) WtGui.actions.openMenu(WtGui.settings.defaultMenu)
+            if(WtGui.#data.openedMenus.length === 0 ||
+               WtGui.#data.currentMenu === {} ||
+               WtGui.#data.currentMenu === undefined) throw new WtGuiError(`No menus available.`)
+            const ctx = WtGui.#data.ctx
+            const currentMenu = WtGui.#data.currentMenu
+
+            //  Clear the renderer
+            ctx.fillStyle = WtGui.settings.clearColor
+            ctx.fillRect(0, 0, WtGui.settings.width, WtGui.settings.height)
+
+            //  Run background animation function
+            WtGui.#renderer.bgAnimation()
+
+            //  Render the menu
+            if(!WtGui.settings.debugMode && currentMenu.bgImage !== undefined) {
+                {(currentMenu.scaleImg) ?
+                    ctx.drawImage(WtGui.getImage(currentMenu.bgImage),
+                        currentMenu.posX + currentMenu.imgOffsetX,
+                        currentMenu.posY + currentMenu.imgOffsetY,
+                        currentMenu.width, currentMenu.height) :
+                    ctx.drawImage(WtGui.getImage(currentMenu.bgImage),
+                        currentMenu.posX + currentMenu.imgOffsetX,
+                        currentMenu.posY + currentMenu.imgOffsetY)}
+            } else {
+                ctx.fillStyle = currentMenu.bgColor
+                ctx.fillRect(currentMenu.posX, currentMenu.posY,
+                    currentMenu.width, currentMenu.height)
+            }
+
+            //  Render active item highlighting
+            if(WtGui.#data.activeItem !== undefined)
+                WtGui.#renderer.highlighter(WtGui.#data.ctx, WtGui.#data.activeItem, currentMenu)
+
+            //  Render menu items
+            currentMenu.items.forEach(elm => {
+                if(!WtGui.settings.debugMode && elm.bgImage !== undefined) {
+                    {(elm.scaleImg) ?
+                        ctx.drawImage(WtGui.getImage(elm.bgImage),
+                            elm.posX + elm.imgOffsetX,
+                            elm.posY + elm.imgOffsetY,
+                            elm.width, elm.height) :
+                        ctx.drawImage(WtGui.getImage(elm.bgImage),
+                            elm.posX + elm.imgOffsetX,
+                            elm.posY + elm.imgOffsetY)}
+                } else {
+                    ctx.fillStyle = elm.bgColor
+                    ctx.fillRect(currentMenu.posX + elm.posX,
+                        currentMenu.posY + elm.posY,
+                        elm.width, elm.height)
+                }
+            })
+
+            //  Render FPS counter if enabled
+            if(WtGui.#renderer.drawFps) {
+                ctx.font = WtGui.settings.fpsFont
+                ctx.fillStyle = WtGui.settings.fpsColor
+                ctx.textAlign = 'right'
+                ctx.fillText(WtGui.#renderer.fps, WtGui.settings.width, 12)
+            }
+
+            //  Draw the rendered menu
+            /*const gl = WtGui.#data.glctx
+            gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true)
+            gl.bindTexture(gl.TEXTURE_2D, WtGui.#renderer.renderTexture)
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, WtGui.#data.menuCanvas)
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST)
+            gl.generateMipmap(gl.TEXTURE_2D)
+            gl.bindTexture(gl.TEXTURE_2D, null)*/
+
+            WtGui.#data.glctx.drawImage(WtGui.#data.menuCanvas, 0, 0)
+
+            //  Update renderer info and request next frame
+            WtGui.#renderer.step++
+            WtGui.#renderer.frameDelta = Date.now() - WtGui.#renderer.lastRender
+            WtGui.#renderer.lastRender = Date.now()
+            while(WtGui.#renderer.paused) {}  //  Infinite loop for pause
+            WtGui.#renderer.nextFrame = window.requestAnimationFrame(WtGui.#renderer.render)
         }
     }
 
@@ -1075,10 +1075,7 @@ class WtGuiToggle extends WtGuiItem {
         super(args)
         this.canSelect = true
         this.scrollable = true
-        this.onSelect = (event) => {
-            if(event.elmX < 0) return  //  reject [keys/buttons] select events
-            (event.elmX < this.width / 2) ? this.onLeft(event) : this.onRight(event)
-        }
+        this.onSelect = (event) => {}
         if(args.toggleLeft === undefined) throw new WtGuiError(`Must define left toggle.`)
         this.onLeft = args.toggleLeft
         if(args.toggleRight === undefined) throw new WtGuiError(`Must define right toggle.`)
