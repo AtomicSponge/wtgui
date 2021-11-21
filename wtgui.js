@@ -45,6 +45,7 @@ class WtGui {
      * @prop {Number} width Width of the gui.
      * @prop {Number} height Height of the gui.
      * @prop {Number} mouseSize Size of the mouse hitbox.
+     * @prop {Number} scrollSpeed Speed to scroll menu items.
      * @prop {String} clearColor Background color for gui context.
      * @prop {String} defaultFont Default font size/face.
      * @prop {String} defaultFontColor Default font color.
@@ -59,6 +60,7 @@ class WtGui {
         width: Number(0),
         height: Number(0),
         mouseSize: Number(0),
+        scrollSpeed: Number(100),
         clearColor: 'rgb(142,142,142)',
         defaultFont: '14px Arial',
         defaultFontColor: 'rgb(255,255,255)',
@@ -425,8 +427,10 @@ class WtGui {
         menuItemScrollStart: (direction) => {
             clearInterval(WtGui.#actions.scrollTimer)
             {(direction) ?
-                WtGui.#actions.scrollTimer = setInterval(WtGui.#actions.scrollLeft, 100) :
-                WtGui.#actions.scrollTimer = setInterval(WtGui.#actions.scrollRight, 100)}
+                WtGui.#actions.scrollTimer = setInterval(
+                    WtGui.#actions.scrollLeft, WtGui.settings.scrollSpeed) :
+                WtGui.#actions.scrollTimer = setInterval(
+                    WtGui.#actions.scrollRight, WtGui.settings.scrollSpeed)}
         },
 
         /*
