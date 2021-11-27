@@ -384,12 +384,12 @@ class WtGui {
         scrollTimer: Number(0),  //  Store running timer function.
 
         /*
-         *
+         * Timer function to scroll left.
          */
         scrollLeft: () => { WtGui.#data.activeItem.onLeft() },
 
         /*
-         *
+         * Timer function to scroll right.
          */
         scrollRight: () => { WtGui.#data.activeItem.onRight() },
 
