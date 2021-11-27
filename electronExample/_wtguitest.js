@@ -59,10 +59,10 @@ WtGui.addItem('main_menu', new WtGuiToggle({
     posX: 20, posY: 80,
     width: 200, height: 40,
     toggleLeft: () => {
-        console.log('left')
+        console.log('toggle <')
     },
     toggleRight: () => {
-        console.log('right')
+        console.log('toggle >')
     }
 }))
 

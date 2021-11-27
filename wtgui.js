@@ -381,7 +381,7 @@ class WtGui {
      * Private gui actions.
      */
     static #actions = {
-        scrollTimer: {},  //  Store running timer function.
+        scrollTimer: Number(0),  //  Store running timer function.
 
         /*
          *
@@ -582,10 +582,14 @@ class WtGui {
             //event.preventDefault()
         },
 
+        fired: false,  //  Track if a key/button was pressed
+
         /*
          * Key Down Events
          */
         onKeyDown: (event) => {
+            if(WtGui.#events.fired) return
+            WtGui.#events.fired = true
             Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.key.toUpperCase() === binding.toUpperCase())
@@ -598,6 +602,7 @@ class WtGui {
          * Key Up Events
          */
         onKeyUp: (event) => {
+            WtGui.#events.fired = false
             Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.key.toUpperCase() === binding.toUpperCase())
@@ -610,6 +615,8 @@ class WtGui {
          * wip
          */
         onButtonDown: (event) => {
+            if(WtGui.#events.fired) return
+            WtGui.#events.fired = true
             Object.keys(WtGui.settings.actionBindings.buttons).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.gamepad === binding) WtGui.#events.trigger.down(action, event)
@@ -621,6 +628,7 @@ class WtGui {
          * wip
          */
         onButtonUp: (event) => {
+            WtGui.#events.fired = false
             Object.keys(WtGui.settings.actionBindings.buttons).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.gamepad === binding) WtGui.#events.trigger.up(action, event)
@@ -684,7 +692,7 @@ class WtGui {
      * Renderer sub-object
      */
     static #renderer = {
-        fpsCalc: {},            //  Store timed func to calculate fps
+        fpsCalc: Number(0),     //  Store timed func to calculate fps
         nextFrame: Number(0),   //  Store the call to the animation frame
         paused: false,          //  Flag to pause renderer
         drawFps: false,         //  Flag for drawing fps counter
