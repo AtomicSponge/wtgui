@@ -582,14 +582,11 @@ class WtGui {
             //event.preventDefault()
         },
 
-        fired: false,  //  Track if a key/button was pressed
-
         /*
          * Key Down Events
          */
         onKeyDown: (event) => {
-            if(WtGui.#events.fired) return
-            WtGui.#events.fired = true
+            if(event.repeat) return
             Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.key.toUpperCase() === binding.toUpperCase())
@@ -602,7 +599,6 @@ class WtGui {
          * Key Up Events
          */
         onKeyUp: (event) => {
-            WtGui.#events.fired = false
             Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.key.toUpperCase() === binding.toUpperCase())
@@ -615,8 +611,7 @@ class WtGui {
          * wip
          */
         onButtonDown: (event) => {
-            if(WtGui.#events.fired) return
-            WtGui.#events.fired = true
+            if(event.repeat) return
             Object.keys(WtGui.settings.actionBindings.buttons).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.gamepad === binding) WtGui.#events.trigger.down(action, event)
@@ -628,7 +623,6 @@ class WtGui {
          * wip
          */
         onButtonUp: (event) => {
-            WtGui.#events.fired = false
             Object.keys(WtGui.settings.actionBindings.buttons).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.gamepad === binding) WtGui.#events.trigger.up(action, event)
@@ -1015,8 +1009,8 @@ class WtGuiItem {
         this.canSelect = false
         this.scrollable = false
 
-        if(!Wt.testRgb(this.bgColor)) throw new WtGuiError(`'${this.bgColor}' - Bad color code`)
-        if(!Wt.testRgb(this.fgColor)) throw new WtGuiError(`'${this.fgColor}' - Bad color code`)
+        if(!Wt.testRgb(this.bgColor)) throw new WtGuiError(`'${this.bgColor}' - Bad color code.`)
+        if(!Wt.testRgb(this.fgColor)) throw new WtGuiError(`'${this.fgColor}' - Bad color code.`)
     }
 }
 exports.WtGuiItem = WtGuiItem
@@ -1089,31 +1083,15 @@ class WtGuiToggle extends WtGuiItem {
         this.canSelect = true
         this.scrollable = true
         this.onSelect = (event) => {}
-        if(args.toggleLeft === undefined) throw new WtGuiError(`Must define left toggle.`)
+        if(args.toggleLeft === undefined || !(args.toggleLeft instanceof Function))
+            throw new WtGuiError(`Must define left toggle.`)
         this.onLeft = args.toggleLeft
-        if(args.toggleRight === undefined) throw new WtGuiError(`Must define right toggle.`)
+        if(args.toggleRight === undefined || !(args.toggleRight instanceof Function))
+            throw new WtGuiError(`Must define right toggle.`)
         this.onRight = args.toggleRight
     }
 }
 exports.WtGuiToggle = WtGuiToggle
-
-/**
- * 
- * 
- * @extends WtGuiItem
- * 
- */
-class WtGuiSetting extends WtGuiItem {
-    /**
-     * 
-     * @param {*} args 
-     */
-    constructor(args) {
-        var args = args || {}
-        super(args)
-    }
-}
-exports.WtGuiSetting = WtGuiSetting
 
 /**
  * 
@@ -1129,6 +1107,16 @@ class WtGuiInput extends WtGuiItem {
     constructor(args) {
         var args = args || {}
         super(args)
+        this.canSelect = true
+        this.scrollable = false
+
+        if(args.size === undefined || typeof(args.size) !== 'number')
+            throw new WtGuiError(`Must define input size as a number.`)
+        this.size = args.size
+
+        this.onSelect = (event) => {
+            //
+        }
     }
 }
 exports.WtGuiInput = WtGuiInput
