@@ -137,6 +137,7 @@ class WtGui {
         currentMenu: {},         //  Current opened menu
         activeItem: undefined,   //  Active menu item
         recordInput: false,
+        recordText: false,
         recordSize: Number(0),
         keyRecorder: [],
         buttonRecorder: []
@@ -1121,7 +1122,7 @@ exports.WtGuiToggle = WtGuiToggle
  * @extends WtGuiItem
  * 
  */
-class WtGuiInput extends WtGuiItem {
+class WtGuiTextInput extends WtGuiItem {
     /**
      * 
      * @param {*} args 
@@ -1141,7 +1142,33 @@ class WtGuiInput extends WtGuiItem {
         }
     }
 }
-exports.WtGuiInput = WtGuiInput
+exports.WtGuiTextInput = WtGuiTextInput
+
+/**
+ * 
+ * 
+ * @extends WtGuiItem
+ * 
+ */
+ class WtGuiInputSetting extends WtGuiItem {
+    /**
+     * 
+     * @param {*} args 
+     */
+    constructor(args) {
+        var args = args || {}
+        super(args)
+        this.canSelect = true
+        this.scrollable = false
+
+        this.size = 0
+
+        this.onSelect = (event) => {
+            //
+        }
+    }
+}
+exports.WtGuiInputSetting = WtGuiInputSetting
 
 /**
  * 
