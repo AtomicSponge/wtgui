@@ -1167,6 +1167,13 @@ exports.WtGuiTextInput = WtGuiTextInput
 
         this.size = 0
 
+        if(args.type === undefined) throw new WtGuiError(`Must define input setting type.`)
+        if(args.type === 'key') {
+            //
+        } else if(args.type === 'button') {
+            //
+        } else throw new WtGuiError(`Input setting must be 'key' or 'button'.`)
+
         this.onSelect = (event) => {
             if(!WtGui.#data.recordInput) {
                 WtGui.#data.keyRecorder = []
