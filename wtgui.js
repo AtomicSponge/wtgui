@@ -592,6 +592,9 @@ class WtGui {
         onKeyDown: (event) => {
             if(event.repeat) return
             if(WtGui.#data.recordInput) {
+                //
+                if(recordSize == 0) WtGui.#data.recordInput = false
+                else recordSize--
                 return
             }
             Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
@@ -623,6 +626,9 @@ class WtGui {
         onButtonDown: (event) => {
             if(event.repeat) return
             if(WtGui.#data.recordInput) {
+                //
+                if(recordSize == 0) WtGui.#data.recordInput = false
+                else recordSize--
                 return
             }
             Object.keys(WtGui.settings.actionBindings.buttons).forEach(action => {
