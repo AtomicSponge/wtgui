@@ -135,7 +135,11 @@ class WtGui {
         menus: [],               //  Array of available menus
         openedMenus: [],         //  Stack of opened menus
         currentMenu: {},         //  Current opened menu
-        activeItem: undefined    //  Active menu item
+        activeItem: undefined,   //  Active menu item
+        recordInput: false,
+        recordSize: Number(0),
+        keyRecorder: [],
+        buttonRecorder: []
     }
 
     /**
@@ -587,6 +591,9 @@ class WtGui {
          */
         onKeyDown: (event) => {
             if(event.repeat) return
+            if(WtGui.#data.recordInput) {
+                return
+            }
             Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.key.toUpperCase() === binding.toUpperCase())
@@ -599,6 +606,9 @@ class WtGui {
          * Key Up Events
          */
         onKeyUp: (event) => {
+            if(WtGui.#data.recordInput) {
+                return
+            }
             Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.key.toUpperCase() === binding.toUpperCase())
@@ -612,6 +622,9 @@ class WtGui {
          */
         onButtonDown: (event) => {
             if(event.repeat) return
+            if(WtGui.#data.recordInput) {
+                return
+            }
             Object.keys(WtGui.settings.actionBindings.buttons).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.gamepad === binding) WtGui.#events.trigger.down(action, event)
@@ -623,6 +636,9 @@ class WtGui {
          * wip
          */
         onButtonUp: (event) => {
+            if(WtGui.#data.recordInput) {
+                return
+            }
             Object.keys(WtGui.settings.actionBindings.buttons).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.gamepad === binding) WtGui.#events.trigger.up(action, event)
