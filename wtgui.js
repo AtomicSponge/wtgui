@@ -31,6 +31,9 @@ exports.WtGuiError = WtGuiError
 /**
  * 
  * Promise resolver wrapper to access functions
+ * @prop {Promise} promise Access to the promise class.
+ * @prop {Function} reject Access to the reject function.
+ * @prop {Function} resolve Access to the resolve function.
  * 
  */
 class WtResolver {
