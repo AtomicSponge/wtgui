@@ -411,16 +411,40 @@ class WtGui {
              * ...
              */
             keys: {
-                start: () => {},
-                stop: () => {}
+                /**
+                 * 
+                 */
+                start: () => {
+                    WtGui.#data.keyRecorder = []
+                    WtGui.#data.recordInput = true
+                },
+                
+                /**
+                 * 
+                 */
+                stop: () => {
+                    //
+                }
             },
 
             /**
              * ...
              */
             buttons: {
-                start: () => {},
-                stop: () => {}
+                /**
+                 * 
+                 */
+                start: () => {
+                    WtGui.#data.buttonRecorder = []
+                    WtGui.#data.recordInput = true
+                },
+                
+                /**
+                 * 
+                 */
+                stop: () => {
+                    //
+                }
             }
         }
     }
@@ -1181,10 +1205,7 @@ class WtGuiTextInput extends WtGuiItem {
         this.size = args.size
 
         this.onSelect = (event) => {
-            /*if(!WtGui.#data.recordInput) {
-                WtGui.#data.keyRecorder = []
-                WtGui.#data.recordInput = true
-            }*/
+            //
         }
     }
 }
@@ -1216,10 +1237,7 @@ exports.WtGuiTextInput = WtGuiTextInput
         } else throw new WtGuiError(`Input setting type must be 'key' or 'button'.`)
 
         this.onSelect = (event) => {
-            /*if(!WtGui.#data.recordInput) {
-                WtGui.#data.buttonRecorder = []
-                WtGui.#data.recordInput = true
-            }*/
+            //
         }
     }
 }
