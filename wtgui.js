@@ -29,6 +29,21 @@ class WtGuiError extends Error {
 exports.WtGuiError = WtGuiError
 
 /**
+ * 
+ * Promise resolver wrapper to access functions
+ * 
+ */
+class WtResolver {
+	constructor() {
+		this.promise = new Promise((resolve, reject) => {
+			this.reject = reject
+			this.resolve = resolve
+		})
+	}
+}
+exports.WtResolver = WtResolver
+
+/**
  *
  * WtGui main object
  * @hideconstructor
@@ -136,11 +151,10 @@ class WtGui {
         openedMenus: [],         //  Stack of opened menus
         currentMenu: {},         //  Current opened menu
         activeItem: undefined,   //  Active menu item
-        recordInput: false,
-        recordText: false,
-        recordSize: Number(0),
-        keyRecorder: [],
-        buttonRecorder: []
+        recordInput: false,      //  ...
+        recordSize: Number(0),   //  ...
+        keyRecorder: [],         //  ...
+        buttonRecorder: []       //  ...
     }
 
     /**
@@ -593,7 +607,7 @@ class WtGui {
         onKeyDown: (event) => {
             if(event.repeat) return
             if(WtGui.#data.recordInput) {
-                //
+                WtGui.#data.keyRecorder.push(event.key)
                 if(recordSize == 0) WtGui.#data.recordInput = false
                 else recordSize--
                 return
@@ -627,7 +641,7 @@ class WtGui {
         onButtonDown: (event) => {
             if(event.repeat) return
             if(WtGui.#data.recordInput) {
-                //
+                //WtGui.#data.buttonRecorder.push(event.key)
                 if(recordSize == 0) WtGui.#data.recordInput = false
                 else recordSize--
                 return
@@ -1140,7 +1154,6 @@ class WtGuiTextInput extends WtGuiItem {
         this.onSelect = (event) => {
             if(!WtGui.#data.recordInput) {
                 WtGui.#data.keyRecorder = []
-                WtGui.#data.buttonRecorder = []
                 WtGui.#data.recordInput = true
             }
         }
@@ -1164,7 +1177,6 @@ exports.WtGuiTextInput = WtGuiTextInput
         super(args)
         this.canSelect = true
         this.scrollable = false
-
         this.size = 0
 
         if(args.type === undefined) throw new WtGuiError(`Must define input setting type.`)
@@ -1176,7 +1188,6 @@ exports.WtGuiTextInput = WtGuiTextInput
 
         this.onSelect = (event) => {
             if(!WtGui.#data.recordInput) {
-                WtGui.#data.keyRecorder = []
                 WtGui.#data.buttonRecorder = []
                 WtGui.#data.recordInput = true
             }
