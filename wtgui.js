@@ -407,7 +407,21 @@ class WtGui {
          * ...
          */
         recorder: {
-            //
+            /**
+             * ...
+             */
+            keys: {
+                start: () => {},
+                stop: () => {}
+            },
+
+            /**
+             * ...
+             */
+            buttons: {
+                start: () => {},
+                stop: () => {}
+            }
         }
     }
 
