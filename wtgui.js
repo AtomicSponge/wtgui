@@ -371,31 +371,43 @@ class WtGui {
         },
 
         /**
-         * Open a menu.
-         * @param {String} menuId Menu ID to open.
+         * ...
          */
-        openMenu: (menuId) => {
-            const tempMenu = WtGui.getMenu(menuId)
-            if(tempMenu === undefined) throw new WtGuiError(`'${menuId}' - Menu does not exist.`)
-            WtGui.#data.openedMenus.push(tempMenu)
-            WtGui.#data.currentMenu = WtGui.#data.openedMenus[(WtGui.#data.openedMenus.length - 1)]
-            WtGui.#data.activeItem = WtGui.#data.currentMenu.selectableItems[0]
-            WtGui.#data.mainCanvas.focus()
+        menu: {
+            /**
+             * Open a menu.
+             * @param {String} menuId Menu ID to open.
+             */
+            open: (menuId) => {
+                const tempMenu = WtGui.getMenu(menuId)
+                if(tempMenu === undefined) throw new WtGuiError(`'${menuId}' - Menu does not exist.`)
+                WtGui.#data.openedMenus.push(tempMenu)
+                WtGui.#data.currentMenu = WtGui.#data.openedMenus[(WtGui.#data.openedMenus.length - 1)]
+                WtGui.#data.activeItem = WtGui.#data.currentMenu.selectableItems[0]
+                WtGui.#data.mainCanvas.focus()
+            },
+
+            /**
+             * Close one or all menus.
+             * @param {boolean} closeAll True to close all menus, false to close the top menu.
+             */
+            close: (closeAll) => {
+                if(closeAll) {
+                    WtGui.#data.openedMenus = []
+                    WtGui.#data.currentMenu = {}
+                } else {
+                    WtGui.#data.openedMenus.pop()
+                    if(WtGui.#data.openedMenus.length === 0) WtGui.actions.menu.open(WtGui.settings.defaultMenu)
+                    else WtGui.#data.currentMenu = WtGui.#data.openedMenus[(WtGui.#data.openedMenus.length - 1)]
+                }
+            }
         },
 
         /**
-         * Close one or all menus.
-         * @param {boolean} closeAll True to close all menus, false to close the top menu.
+         * ...
          */
-        closeMenu: (closeAll) => {
-            if(closeAll) {
-                WtGui.#data.openedMenus = []
-                WtGui.#data.currentMenu = {}
-            } else {
-                WtGui.#data.openedMenus.pop()
-                if(WtGui.#data.openedMenus.length === 0) WtGui.actions.openMenu(WtGui.settings.defaultMenu)
-                else WtGui.#data.currentMenu = WtGui.#data.openedMenus[(WtGui.#data.openedMenus.length - 1)]
-            }
+        recorder: {
+            //
         }
     }
 
@@ -779,7 +791,7 @@ class WtGui {
         render: () => {
             if(WtGui.#data.openedMenus.length === 0 ||
                WtGui.#data.currentMenu === {} ||
-               WtGui.#data.currentMenu === undefined) WtGui.actions.openMenu(WtGui.settings.defaultMenu)
+               WtGui.#data.currentMenu === undefined) WtGui.actions.menu.open(WtGui.settings.defaultMenu)
             if(WtGui.#data.openedMenus.length === 0 ||
                WtGui.#data.currentMenu === {} ||
                WtGui.#data.currentMenu === undefined) throw new WtGuiError(`No menus available.`)
@@ -1096,11 +1108,11 @@ class WtGuiAction extends WtGuiItem {
         }
         if(args.type === 'open_menu') {
             if(args.menuName === undefined) throw new WtGuiError(`Must define a menu name.`)
-            this.onSelect = () => { WtGui.actions.openMenu(args.menuName) }
+            this.onSelect = () => { WtGui.actions.menu.open(args.menuName) }
         }
         if(args.type === 'close_menu') {
             this.allMenus = args.allMenus || false
-            this.onSelect = () => { WtGui.actions.closeMenu(this.allMenus) }
+            this.onSelect = () => { WtGui.actions.menu.close(this.allMenus) }
         }
     }
 }
