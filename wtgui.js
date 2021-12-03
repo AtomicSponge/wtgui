@@ -153,8 +153,14 @@ class WtGui {
         menus: [],               //  Array of available menus
         openedMenus: [],         //  Stack of opened menus
         currentMenu: {},         //  Current opened menu
-        activeItem: undefined,   //  Active menu item
-        recordInput: false,      //  ...
+        activeItem: undefined    //  Active menu item
+    }
+
+    /*
+     * Input recorder data
+     */
+    static #recorder = {
+        active: false,           //  Recorder is active
         recordSize: Number(0),   //  ...
         keyRecorder: [],         //  ...
         buttonRecorder: []       //  ...
@@ -415,15 +421,15 @@ class WtGui {
                  * 
                  */
                 start: () => {
-                    WtGui.#data.keyRecorder = []
-                    WtGui.#data.recordInput = true
+                    WtGui.#recorder.keyRecorder = []
+                    WtGui.#recorder.active = true
                 },
-                
+
                 /**
                  * 
                  */
                 stop: () => {
-                    //
+                    WtGui.#recorder.active = false
                 }
             },
 
@@ -435,15 +441,15 @@ class WtGui {
                  * 
                  */
                 start: () => {
-                    WtGui.#data.buttonRecorder = []
-                    WtGui.#data.recordInput = true
+                    WtGui.#recorder.buttonRecorder = []
+                    WtGui.#recorder.active = true
                 },
-                
+
                 /**
                  * 
                  */
                 stop: () => {
-                    //
+                    WtGui.#recorder.active = false
                 }
             }
         }
