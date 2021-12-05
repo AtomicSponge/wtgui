@@ -655,7 +655,7 @@ class WtGui {
          */
         onKeyDown: (event) => {
             if(event.repeat) return
-            if(WtGui.#data.recordInput) {
+            if(WtGui.#recorder.active) {
                 WtGui.#recorder.recordKey(event)
                 return
             }
@@ -671,7 +671,7 @@ class WtGui {
          * Key Up Events
          */
         onKeyUp: (event) => {
-            if(WtGui.#data.recordInput) return
+            if(WtGui.#recorder.active) return
             Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.key.toUpperCase() === binding.toUpperCase())
@@ -685,7 +685,7 @@ class WtGui {
          */
         onButtonDown: (event) => {
             if(event.repeat) return
-            if(WtGui.#data.recordInput) {
+            if(WtGui.#recorder.active) {
                 WtGui.#recorder.recordButton(event)
                 return
             }
@@ -700,7 +700,7 @@ class WtGui {
          * wip
          */
         onButtonUp: (event) => {
-            if(WtGui.#data.recordInput) return
+            if(WtGui.#recorder.active) return
             Object.keys(WtGui.settings.actionBindings.buttons).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.gamepad === binding) WtGui.#events.trigger.up(action, event)
