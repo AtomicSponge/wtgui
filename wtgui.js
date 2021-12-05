@@ -156,16 +156,6 @@ class WtGui {
         activeItem: undefined    //  Active menu item
     }
 
-    /*
-     * Input recorder data
-     */
-    static #recorder = {
-        active: false,           //  Recorder is active
-        recordSize: Number(0),   //  ...
-        keyRecorder: [],         //  ...
-        buttonRecorder: []       //  ...
-    }
-
     /**
      * Configure canvas and start the gui.
      * @param {HTMLCanvasElement} canvas Canvas element to configure.
@@ -666,9 +656,7 @@ class WtGui {
         onKeyDown: (event) => {
             if(event.repeat) return
             if(WtGui.#data.recordInput) {
-                WtGui.#data.keyRecorder.push(event.key)
-                if(recordSize == 0) WtGui.#data.recordInput = false
-                else recordSize--
+                WtGui.#recorder.recordKey(event)
                 return
             }
             Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
@@ -683,9 +671,7 @@ class WtGui {
          * Key Up Events
          */
         onKeyUp: (event) => {
-            if(WtGui.#data.recordInput) {
-                return
-            }
+            if(WtGui.#data.recordInput) return
             Object.keys(WtGui.settings.actionBindings.keys).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.key.toUpperCase() === binding.toUpperCase())
@@ -700,9 +686,7 @@ class WtGui {
         onButtonDown: (event) => {
             if(event.repeat) return
             if(WtGui.#data.recordInput) {
-                //WtGui.#data.buttonRecorder.push(event.key)
-                if(recordSize == 0) WtGui.#data.recordInput = false
-                else recordSize--
+                WtGui.#recorder.recordButton(event)
                 return
             }
             Object.keys(WtGui.settings.actionBindings.buttons).forEach(action => {
@@ -716,9 +700,7 @@ class WtGui {
          * wip
          */
         onButtonUp: (event) => {
-            if(WtGui.#data.recordInput) {
-                return
-            }
+            if(WtGui.#data.recordInput) return
             Object.keys(WtGui.settings.actionBindings.buttons).forEach(action => {
                 WtGui.settings.actionBindings.keys[action].forEach(binding => {
                     if(event.gamepad === binding) WtGui.#events.trigger.up(action, event)
@@ -776,6 +758,26 @@ class WtGui {
                 }
             }
         }
+    }
+
+    /*
+     * Input recorder sub-object
+     */
+    static #recorder = {
+        active: false,           //  Recorder is active
+        recordSize: Number(0),   //  ...
+        keyRecorder: [],         //  ...
+        buttonRecorder: [],      //  ...
+
+        /*
+         *
+         */
+        recordKey: (event) => {},
+
+        /*
+         *
+         */
+        recordButton: (event) => {}
     }
 
     /*
@@ -1007,7 +1009,7 @@ const Wt = {
     /**
      * Test for alphabetic and numeric charecters.
      * @param {String} str String to test.
-     * @returns {boolean}
+     * @returns {boolean} True if the string is only alpha and numeric, else false.
      */
     testAlphaNumeric: (str) => { return /^[a-zA-Z0-9]+$/g.test(str) },
 
