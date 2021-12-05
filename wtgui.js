@@ -404,44 +404,14 @@ class WtGui {
          */
         recorder: {
             /**
-             * ...
+             * 
              */
-            keys: {
-                /**
-                 * 
-                 */
-                start: () => {
-                    WtGui.#recorder.keyRecorder = []
-                    WtGui.#recorder.active = true
-                },
-
-                /**
-                 * 
-                 */
-                stop: () => {
-                    WtGui.#recorder.active = false
-                }
-            },
+            start: () => { WtGui.#recorder.start() },
 
             /**
-             * ...
+             * 
              */
-            buttons: {
-                /**
-                 * 
-                 */
-                start: () => {
-                    WtGui.#recorder.buttonRecorder = []
-                    WtGui.#recorder.active = true
-                },
-
-                /**
-                 * 
-                 */
-                stop: () => {
-                    WtGui.#recorder.active = false
-                }
-            }
+            stop: () => { WtGui.#recorder.stop() }
         }
     }
 
@@ -768,6 +738,22 @@ class WtGui {
         recordSize: Number(0),   //  ...
         keyRecorder: [],         //  ...
         buttonRecorder: [],      //  ...
+
+        /*
+         *
+         */
+        start: () => {
+            WtGui.#recorder.active = true
+            keyRecorder = []
+            buttonRecorder = []
+        },
+
+        /*
+         *
+         */
+        stop: () => {
+            WtGui.#recorder.active = false
+        },
 
         /*
          *
