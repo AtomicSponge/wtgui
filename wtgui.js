@@ -925,28 +925,28 @@ class WtGui {
          * Log menu objects to console.
          */
         logMenus: () => {
-            WtGui.#data.menus.forEach(menu => { console.log(menu) })
+            WtGui.#data.menus.forEach(menu => { console.log(JSON.parse(JSON.stringify(menu))) })
         },
 
         /**
          * Log opened menu stack to console.
          */
         logMenuStack: () => {
-            WtGui.#data.openedMenus.forEach(menu => { console.log(menu) })
+            WtGui.#data.openedMenus.forEach(menu => { console.log(JSON.parse(JSON.stringify(menu))) })
         },
 
         /**
          * Log image file list to console.
          */
         logImageFiles: () => {
-            WtGui.#data.imageFiles.forEach(img => { console.log(img) })
+            WtGui.#data.imageFiles.forEach(img => { console.log(JSON.parse(JSON.stringify(menu))) })
         },
 
         /**
          * Log audio file list to console.
          */
         logAudioFiles: () => {
-            WtGui.#data.audioFiles.forEach(audio => { console.log(audio) })
+            WtGui.#data.audioFiles.forEach(audio => { console.log(JSON.parse(JSON.stringify(menu))) })
         }
     }
 }
