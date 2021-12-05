@@ -939,14 +939,14 @@ class WtGui {
          * Log image file list to console.
          */
         logImageFiles: () => {
-            WtGui.#data.imageFiles.forEach(img => { console.log(JSON.parse(JSON.stringify(menu))) })
+            WtGui.#data.imageFiles.forEach(img => { console.log(JSON.parse(JSON.stringify(img))) })
         },
 
         /**
          * Log audio file list to console.
          */
         logAudioFiles: () => {
-            WtGui.#data.audioFiles.forEach(audio => { console.log(JSON.parse(JSON.stringify(menu))) })
+            WtGui.#data.audioFiles.forEach(audio => { console.log(JSON.parse(JSON.stringify(audio))) })
         }
     }
 }
