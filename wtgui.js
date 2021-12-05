@@ -991,6 +991,27 @@ const Wt = {
     testRgb: (str) => { return /^(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\)$/i.test(str) },
 
     /**
+     * Test for alphabetic charecters.
+     * @param {String} str String to test.
+     * @returns {boolean} True if the string is only alpha, else false.
+     */
+    testAlpha: (str) => { return /^[A-Za-z]+$/g.test(str) },
+
+    /**
+     * Test for numeric charecters.
+     * @param {String} str String to test.
+     * @returns {boolean} True if the string is only numeric, else false.
+     */
+    testNumeric: (str) => { return /^\d+$/g.test(str) },
+
+    /**
+     * Test for alphabetic and numeric charecters.
+     * @param {String} str String to test.
+     * @returns {boolean}
+     */
+    testAlphaNumeric: (str) => { return /^[a-zA-Z0-9]+$/g.test(str) },
+
+    /**
      * AABB Algorithm
      * @param {elmA} test Object to test.
      * @param {[elmB]} collection Collection of objects to test against.
