@@ -1,8 +1,11 @@
 {
   "name": "@wtfsystems/wtgui",
-  "version": "0.0.6",
-  "description": "WtGui - HTML5 Canvas Menu System",
-  "main": "wtgui.js",
+  "version": "0.1.0",
+  "description": "WTGui - HTML5 Canvas Menu System",
+  "author": "Matthew Evans",
+  "license": "MIT",
+  "url": "https://www.npmjs.com/package/@wtfsystems/wtgui",
+  "homepage": "https://github.com/wtfsystems/wtgui#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wtfsystems/wtgui.git"
@@ -13,10 +16,30 @@
     "Canvas",
     "Menu"
   ],
-  "author": "Matthew Evans",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/wtfsystems/wtgui/issues"
   },
-  "homepage": "https://github.com/wtfsystems/wtgui#readme"
+  "scripts": {
+    "build": "unbuild",
+    "prepublishOnly": "unbuild"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "./dist",
+    "LICENSE.md",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "typedoc": "^0.25.13",
+    "typescript": "^5.4.5",
+    "unbuild": "^2.0.0"
+  }
 }

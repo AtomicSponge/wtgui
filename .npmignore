@@ -1,0 +1,9 @@
+.gitignore
+
+node_modules
+docs
+src
+
+index.ts
+tsconfig.json
+typedoc.json
