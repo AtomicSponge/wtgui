@@ -93,7 +93,7 @@ export class WTGuiRenderer {
    * @param func New animation function
    */
   static setBgAnimation(func:Function) {
-    if(WTGui.data.configRan)
+    if(WTGui.data.initialized)
       throw new WTGuiError(`WTGui is already running.`, WTGuiRenderer.setBgAnimation)
     if(!(func instanceof Function))
       throw new WTGuiError(`Background animation must be a function.`, WTGuiRenderer.setBgAnimation)
