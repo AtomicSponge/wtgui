@@ -12,7 +12,7 @@ import path from 'node:path'
 
 import { WTGuiError } from "./WTGuiError.js"
 
-interface actionBindings {
+export interface actionBindings {
   actionBindings: {
     keys: {
       [index: string]: Array<string>
@@ -64,7 +64,7 @@ export interface settings extends actionBindings {
   fpsColor:string
 }
 
-class WTGuiSettings {
+export class WTGuiSettings {
   constructor() { return false }
 
   static #settings:settings = {
@@ -132,13 +132,6 @@ class WTGuiSettings {
  * WTGui settings
  */
 export const settings = WTGuiSettings.settings
-
-/**
- * Load WTGui Settings
- */
-export const WTGuiLoadSettings = () => {
-  try { WTGuiSettings.loadSettings() } catch (error) { throw error }
-}
 
 /**
  * Save the input bindings

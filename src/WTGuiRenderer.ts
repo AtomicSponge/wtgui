@@ -132,7 +132,7 @@ export class WTGuiRenderer {
       menuItem.width + 20, menuItem.height + 20)
   }
 
-  /**
+  /*
    * Render draw method
    */
   static #render() {
@@ -212,20 +212,20 @@ export class WTGuiRenderer {
   static get draw() { return WTGuiRenderer.#ctx }
 
   /**
-   * 
-   * @returns 
+   * Get the frames per second
+   * @returns Frames per second
    */
   static get fps() { return WTGuiRenderer.#fps }
 
   /**
-   * 
-   * @returns 
+   * Get the frame delta time
+   * @returns Time between drawn frames
    */
   static get frameDelta() { return WTGuiRenderer.#frameDelta }
 
   /**
-   * 
-   * @returns 
+   * Get the last rendering time
+   * @returns Time last frame was drawn
    */
   static get lastRender() { return WTGuiRenderer.#lastRender }
 }

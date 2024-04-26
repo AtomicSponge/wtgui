@@ -10,7 +10,7 @@
 import fs from 'fs'
 import path from 'node:path'
 
-import { settings } from './WTGuiSettings.js'
+import { WTGuiSettings, settings } from './WTGuiSettings.js'
 import { WTGuiRenderer } from './WTGuiRenderer.js'
 import { WTGuiMenu } from './WTGuiMenu.js'
 import { WTGuiItem } from './items/WTGuiItem.js'
@@ -47,16 +47,23 @@ export class WTGui {
    * Call this to set up the gui and begin rendering
    * Menus must be configured before this is called
    * @throws Throws an error if WTGui is already running
+   * @throws Throws any configuration errors
    */
   static start() {
     if(WTGui.#data.initialized)
       throw new WTGuiError(`WTGui is already running.`, WTGui.start)
 
     try {
+      WTGuiSettings.loadSettings()
+    } catch (error) { throw error }
+
+    try {
       WTGuiRenderer.initialize()
     } catch (error) { throw error }
 
     const canvas = <HTMLElement>document.getElementById('!@___wtgui_renderer_canvas_id___@!')
+    if(canvas === null)
+      throw new WTGuiError(`Error configuring WTGui!  Can't find the main canvas!`, WTGui.start)
     window.addEventListener('keydown', WTGui.#events.onKeyDown, false)
     window.addEventListener('keyup', WTGui.#events.onKeyUp, false)
 
