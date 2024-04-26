@@ -20,7 +20,7 @@ export class WTGuiError extends Error {
    * Constructs the WTGuiError class
    * @param message Error message
    * @param code Error code
-   * @param {number} [exitCode=1] Exit code
+   * @param exitCode Exit code
    */
   constructor(message:string, code:Object, exitCode?:number) {
 		super()
@@ -47,7 +47,7 @@ export class WTGuiMenuItemError extends Error {
    * Constructs the WTGuiMenuItemError class
    * @param message Error message
    * @param code Error code
-   * @param {number} [exitCode=1] Exit code
+   * @param exitCode Exit code
    */
   constructor(message:string, code:Object, exitCode?:number) {
 		super()
@@ -74,7 +74,7 @@ export class WTGuiMenuError extends Error {
    * Constructs the WTGuiMenuError class
    * @param message Error message
    * @param code Error code
-   * @param {number} [exitCode=1] Exit code
+   * @param exitCode Exit code
    */
   constructor(message:string, code:Object, exitCode?:number) {
 		super()
@@ -101,7 +101,7 @@ export class WTGuiTypeError extends Error {
    * Constructs the WTGuiMenuError class
    * @param message Error message
    * @param code Error code
-   * @param {number} [exitCode=1] Exit code
+   * @param exitCode Exit code
    */
   constructor(message:string, code:Object, exitCode?:number) {
 		super()
