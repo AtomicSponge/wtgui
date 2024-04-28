@@ -42,10 +42,9 @@ export class WTGuiRenderer {
       #${WTGuiRenderer.#canvas_name} {
         pointer-events: none;
         position: fixed;
-        display: none;
         margin: 0;
         padding: 0;
-        background-color: rgba(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0);
       }`
     document.body.appendChild(cssElem)
 
@@ -57,11 +56,14 @@ export class WTGuiRenderer {
     document.body.prepend(canvas)
 
     WTGuiRenderer.#mainCanvas = <HTMLCanvasElement>document.getElementById(WTGuiRenderer.#canvas_name)
+    WTGuiRenderer.#mainCanvas.style.display = 'none'
     WTGuiRenderer.#ctx = <CanvasRenderingContext2D>WTGuiRenderer.#mainCanvas.getContext('2d')
 
     const observer = new ResizeObserver(() => {
+      const temp = WTGuiRenderer.#ctx.getImageData(0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
       WTGuiRenderer.#mainCanvas.width = document.documentElement.clientWidth
       WTGuiRenderer.#mainCanvas.height = document.documentElement.clientHeight
+      WTGuiRenderer.#ctx.putImageData(temp, 0, 0, 0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
     })
     observer.observe(document.documentElement)
 
@@ -72,6 +74,7 @@ export class WTGuiRenderer {
    * Start the renderer
    */
   static start() {
+    WTGuiRenderer.#mainCanvas.style.display = 'block'
     WTGuiRenderer.#mainCanvas.focus()
     WTGuiRenderer.#menuCanvas.width = settings.width
     WTGuiRenderer.#menuCanvas.height = settings.height
@@ -83,6 +86,7 @@ export class WTGuiRenderer {
    * Stop the renderer
    */
   static stop() {
+    WTGuiRenderer.#mainCanvas.style.display = 'none'
     window.cancelAnimationFrame(WTGuiRenderer.#nextFrame)
     WTGuiRenderer.#fps = WTGuiRenderer.#step = 0
     WTGuiRenderer.#frameDelta = WTGuiRenderer.#lastRender = 0

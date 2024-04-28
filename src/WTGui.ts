@@ -473,31 +473,51 @@ export class WTGui {
     }
   }
 
+  //  Expose renderer functions
+  static renderer = {
+    /**  */
+    start: () => { WTGuiRenderer.start() },
+
+    /**  */
+    stop: () => { WTGuiRenderer.stop() },
+
+    /**  */
+    setBgAnimation: (func:Function) => { WTGuiRenderer.setBgAnimation(func) },
+
+    /**  */
+    drawFps: (toggle:boolean) => { WTGuiRenderer.drawFps(toggle) },
+
+    /**  */
+    get draw() { return WTGuiRenderer.draw },
+
+    /**  */
+    get fps() { return WTGuiRenderer.fps },
+
+    /**  */
+    get frameDelta() { return WTGuiRenderer.frameDelta },
+
+    /**  */
+    get lastRender() { return WTGuiRenderer.lastRender }
+  }
+
+  //  Debug functions
   static debug = {
-    /**
-     * Log menu objects to console.
-     */
+    /** Log menu objects to console */
     logMenus: () => {
       WTGui.#data.menus.forEach(menu => { console.log(JSON.parse(JSON.stringify(menu))) })
     },
 
-    /**
-     * Log opened menu stack to console.
-     */
+    /** Log opened menu stack to console */
     logMenuStack: () => {
       WTGui.#data.openedMenus.forEach(menu => { console.log(JSON.parse(JSON.stringify(menu))) })
     },
 
-    /**
-     * Log image file list to console.
-     */
+    /** Log image file list to console */
     logImageFiles: () => {
       WTGui.#data.imageFiles.forEach(img => { console.log(JSON.parse(JSON.stringify(img))) })
     },
 
-    /**
-     * Log audio file list to console.
-     */
+    /** Log audio file list to console */
     logAudioFiles: () => {
       WTGui.#data.audioFiles.forEach(audio => { console.log(JSON.parse(JSON.stringify(audio))) })
     }

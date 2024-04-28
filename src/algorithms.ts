@@ -44,7 +44,7 @@ export const testAlphaNumeric = (str:string) => {
 }
 
 /**
- * AABB Algorithm
+ * Axis Aligned Bounding Box Algorithm
  * @param test Object to test
  * @param collection Collection of objects to test against
  * @returns Returns the first object collided, else undefined
