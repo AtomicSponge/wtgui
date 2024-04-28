@@ -47,11 +47,14 @@ export class WTGui {
    * Call this to set up the gui and begin rendering
    * Menus must be configured before this is called
    * @throws Throws an error if WTGui is already running
+   * @throws Throws an error if no menus were defined
    * @throws Throws any configuration errors
    */
   static start() {
     if(WTGui.#data.initialized)
       throw new WTGuiError(`WTGui is already running.`, WTGui.start)
+    if(WTGui.#data.menus.length === 0)
+      throw new WTGuiError(`Must define some menus!`, WTGui.start)
 
     try {
       WTGuiSettings.loadSettings()
