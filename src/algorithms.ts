@@ -12,7 +12,7 @@
  * @param str String to test
  * @returns True if valid rgb(a)/hsl(a), else false
  */
-export function testRgb(str:string) {
+export const testRgb = (str:string) => {
   return /^(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\)$/i.test(str)
 }
 
@@ -21,7 +21,7 @@ export function testRgb(str:string) {
  * @param str String to test
  * @returns True if the string is only alpha, else false
  */
-export function testAlpha(str:string) {
+export const testAlpha = (str:string) => {
   return /^[A-Za-z]+$/g.test(str)
 }
 
@@ -30,7 +30,7 @@ export function testAlpha(str:string) {
  * @param str String to test
  * @returns True if the string is only numeric, else false
  */
-export function testNumeric(str:string) {
+export const testNumeric = (str:string) => {
   return /^\d+$/g.test(str)
 }
 
@@ -39,7 +39,7 @@ export function testNumeric(str:string) {
  * @param str String to test
  * @returns True if the string is only alpha and numeric, else false
  */
-export function testAlphaNumeric(str:string) {
+export const testAlphaNumeric = (str:string) => {
   return /^[a-zA-Z0-9]+$/g.test(str)
 }
 
@@ -49,10 +49,12 @@ export function testAlphaNumeric(str:string) {
  * @param collection Collection of objects to test against
  * @returns Returns the first object collided, else undefined
  */
-export function AABB(test:any, collection:Array<any>) {
+export const AABB = (
+    test:{ posX:number, posY:number, width:number, height:number },
+    collection:Array<{ posX:number, posY:number, width:number, height:number }>) => {
   if(!(test instanceof Object)) return undefined
   if(!(collection instanceof Array)) return undefined
-  let res = undefined
+  var res = undefined
   collection.some((elm) => {
     if(
       test.posX < elm.posX + elm.width &&
