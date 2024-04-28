@@ -39,8 +39,6 @@ export interface WTGuiMenuArgs {
   imgOffsetX?:number
   /** */
   imgOffsetY?:number
-  /** */
-  selectableItems:Array<WTGuiItem>
 }
 
 /**

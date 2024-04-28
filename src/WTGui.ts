@@ -40,6 +40,7 @@ export class WTGui {
 
   constructor() { return false }  //  Don't allow direct construction
 
+  /** Get WTGui's internal data, read only */
   static get data() { return WTGui.#data }
 
   /**
