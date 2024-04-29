@@ -7,8 +7,8 @@
  * 
  */
 
-import fs from 'fs'
-import path from 'node:path'
+//import fs from 'fs'
+//import path from 'node:path'
 
 import { WTGuiError } from "./WTGuiError.js"
 
@@ -104,21 +104,21 @@ export class WTGuiSettings {
 
   static #settingsLoaded = false
 
-  static #settingsLocation = path.normalize(`${process.env.npm_config_local_prefix}/`)
+  //static #settingsLocation = path.normalize(`${process.env.npm_config_local_prefix}/`)
 
   static get settings() { return WTGuiSettings.#settings }
 
   /*
    * Save settings
    */
-  static loadSettings = () => {
+  /*static loadSettings = () => {
     if (WTGuiSettings.#settingsLoaded)
       throw new WTGuiError(`Settings already loaded!`, WTGuiSettings.loadSettings)
     const settings = JSON.parse(
       fs.readFileSync(`${WTGuiSettings.#settingsLocation}settings.json`, 'utf8'))
     WTGuiSettings.#settings = settings
     WTGuiSettings.#settingsLoaded = true
-  }
+  }*/
 
   /*
    * Save input binding settings

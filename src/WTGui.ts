@@ -7,8 +7,8 @@
  * 
  */
 
-import fs from 'fs'
-import path from 'node:path'
+//import fs from 'fs'
+//import path from 'node:path'
 
 import { WTGuiSettings, settings } from './WTGuiSettings.js'
 import { WTGuiRenderer } from './WTGuiRenderer.js'
@@ -57,9 +57,9 @@ export class WTGui {
     if(WTGui.#data.menus.length === 0)
       throw new WTGuiError(`Must define some menus!`, WTGui.start)
 
-    try {
+    /*try {
       WTGuiSettings.loadSettings()
-    } catch (error:any) { throw error }
+    } catch (error:any) { throw error }*/
 
     try {
       WTGuiRenderer.initialize(canvas, maindoc)
@@ -95,8 +95,8 @@ export class WTGui {
   static addImage = (id:string, file:string) => {
     if(WTGui.getImage(id) !== undefined)
       throw new WTGuiError(`Image ID '${id}' already exists.`, WTGui.addImage)
-    if(!fs.existsSync(path.normalize(file)))
-      throw new WTGuiError(`'${file}' does not exist.`, WTGui.addImage)
+    //if(!fs.existsSync(path.normalize(file)))
+      //throw new WTGuiError(`'${file}' does not exist.`, WTGui.addImage)
     const tempImg = new Image()
     tempImg.src = file
     WTGui.#data.imageFiles.push({ id: id, file: tempImg })
@@ -134,8 +134,8 @@ export class WTGui {
   static addAudio = (id:string, file:string) => {
     if(WTGui.getAudio(id) !== undefined)
       throw new WTGuiError(`Audio ID '${id}' already exists.`, WTGui.addAudio)
-    if(!fs.existsSync(path.normalize(file)))
-      throw new WTGuiError(`'${file}' does not exist.`, WTGui.addAudio)
+    //if(!fs.existsSync(path.normalize(file)))
+      //throw new WTGuiError(`'${file}' does not exist.`, WTGui.addAudio)
     const tempAudio = new Audio()
     tempAudio.src = file
     WTGui.#data.audioFiles.push({ id: id, file: tempAudio })
