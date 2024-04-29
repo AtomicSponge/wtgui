@@ -51,7 +51,7 @@ export class WTGui {
    * @throws Throws an error if no menus were defined
    * @throws Throws any configuration errors
    */
-  static start() {
+  static start(canvas:HTMLCanvasElement, maindoc:HTMLElement, wind:Window) {
     if(WTGui.#data.initialized)
       throw new WTGuiError(`WTGui is already running.`, WTGui.start)
     if(WTGui.#data.menus.length === 0)
@@ -59,17 +59,16 @@ export class WTGui {
 
     try {
       WTGuiSettings.loadSettings()
-    } catch (error) { throw error }
+    } catch (error:any) { throw error }
 
     try {
-      WTGuiRenderer.initialize()
-    } catch (error) { throw error }
+      WTGuiRenderer.initialize(canvas, maindoc)
+    } catch (error:any) { throw error }
 
-    const canvas = <HTMLElement>document.getElementById('!@___wtgui_renderer_canvas_id___@!')
     if(canvas === null)
-      throw new WTGuiError(`Error configuring WTGui!  Can't find the main canvas!`, WTGui.start)
-    window.addEventListener('keydown', WTGui.#events.onKeyDown, false)
-    window.addEventListener('keyup', WTGui.#events.onKeyUp, false)
+      throw new WTGuiError(`Error configuring WTGui!  Can't find canvas ${canvas}!`, WTGui.start)
+    wind.addEventListener('keydown', WTGui.#events.onKeyDown, false)
+    wind.addEventListener('keyup', WTGui.#events.onKeyUp, false)
 
     canvas.addEventListener('mousedown', WTGui.#events.onMouseDown, false)
     canvas.addEventListener('mouseup', WTGui.#events.onMouseUp, false)

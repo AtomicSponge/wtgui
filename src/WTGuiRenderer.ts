@@ -15,10 +15,10 @@ import { WTGuiError } from './WTGuiError.js'
 
 export class WTGuiRenderer {
   static #initialized:boolean = false  //  Flag if the renderer was initialized
-  static #canvas_name:string = '!@___wtgui_renderer_canvas_id___@!'  //  Reference to the canvas ID
+  //static #canvas_name:string = '___wtgui_renderer_canvas_id___'  //  Reference to the canvas ID
 
   static #mainCanvas:HTMLCanvasElement  //  Main 2d canvas
-  static #menuCanvas:HTMLCanvasElement  //  2d canvas for rendering menus
+  //static #menuCanvas:HTMLCanvasElement  //  2d canvas for rendering menus
   static #ctx:CanvasRenderingContext2D  //  2d context for menu drawing
 
   static #fpsCalc:NodeJS.Timeout = new NodeJS.Timeout()  //  Store timed func to calculate fps
@@ -32,40 +32,24 @@ export class WTGuiRenderer {
 
   constructor() { return false }  //  Don't allow direct construction
 
-  static initialize() {
+  static initialize(canvas:HTMLCanvasElement, maindoc:HTMLElement) {
     if(WTGuiRenderer.#initialized)
       throw new WTGuiError(`WTGuiRenderer already initialized!`, WTGuiRenderer.initialize)
 
-    //  Append canvas css styling
-    const cssElem = document.createElement('style')
-    cssElem.innerHTML = `
-      #${WTGuiRenderer.#canvas_name} {
-        pointer-events: none;
-        position: fixed;
-        margin: 0;
-        padding: 0;
-        background-color: rgba(0, 0, 0, 0);
-      }`
-    document.body.appendChild(cssElem)
+    canvas.setAttribute('width', `${maindoc.clientWidth}`)
+    canvas.setAttribute('height', `${maindoc.clientHeight}`)
 
-    //  Prepend canvas html
-    const canvas = document.createElement('canvas')
-    canvas.setAttribute('id', WTGuiRenderer.#canvas_name)
-    canvas.setAttribute('width', `${document.documentElement.clientWidth}`)
-    canvas.setAttribute('height', `${document.documentElement.clientHeight}`)
-    document.body.prepend(canvas)
-
-    WTGuiRenderer.#mainCanvas = <HTMLCanvasElement>document.getElementById(WTGuiRenderer.#canvas_name)
+    WTGuiRenderer.#mainCanvas = canvas
     WTGuiRenderer.#mainCanvas.style.display = 'none'
     WTGuiRenderer.#ctx = <CanvasRenderingContext2D>WTGuiRenderer.#mainCanvas.getContext('2d')
 
     const observer = new ResizeObserver(() => {
       const temp = WTGuiRenderer.#ctx.getImageData(0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
-      WTGuiRenderer.#mainCanvas.width = document.documentElement.clientWidth
-      WTGuiRenderer.#mainCanvas.height = document.documentElement.clientHeight
+      WTGuiRenderer.#mainCanvas.width = maindoc.clientWidth
+      WTGuiRenderer.#mainCanvas.height = maindoc.clientHeight
       WTGuiRenderer.#ctx.putImageData(temp, 0, 0, 0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
     })
-    observer.observe(document.documentElement)
+    observer.observe(maindoc)
 
     WTGuiRenderer.#initialized = true
   }
@@ -76,8 +60,8 @@ export class WTGuiRenderer {
   static start() {
     WTGuiRenderer.#mainCanvas.style.display = 'block'
     WTGuiRenderer.#mainCanvas.focus()
-    WTGuiRenderer.#menuCanvas.width = settings.width
-    WTGuiRenderer.#menuCanvas.height = settings.height
+    //WTGuiRenderer.#menuCanvas.width = settings.width
+    //WTGuiRenderer.#menuCanvas.height = settings.height
     window.cancelAnimationFrame(WTGuiRenderer.#nextFrame)
     WTGuiRenderer.#nextFrame = window.requestAnimationFrame(WTGuiRenderer.#render)
   }
