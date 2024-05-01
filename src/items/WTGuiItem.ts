@@ -9,7 +9,7 @@
 
 import { settings } from '../WTGuiSettings.js'
 import { WTGuiMenuItemError } from "../WTGuiError.js"
-import { testRgb } from '../algorithms.js'
+import { testHex, testRgb } from '../algorithms.js'
 
 export interface WTGuiItemArgs {
   /** */
@@ -82,10 +82,10 @@ export class WTGuiItem {
     this.#canSelect = false
     this.#scrollable = false
 
-    if(!testRgb(this.#bgColor))
-      throw new WTGuiMenuItemError(`'${this.#bgColor}' - Bad color code.`, this.constructor)
-    if(!testRgb(this.#fgColor))
-      throw new WTGuiMenuItemError(`'${this.#fgColor}' - Bad color code.`, this.constructor)
+    if(!testRgb(this.#bgColor) && !testHex(this.#bgColor))
+      throw new WTGuiMenuItemError(`'${this.#bgColor}' - Bad background color code.`, this.constructor)
+    if(!testRgb(this.#fgColor) && !testHex(this.#fgColor))
+      throw new WTGuiMenuItemError(`'${this.#fgColor}' - Bad foreground color code.`, this.constructor)
   }
 
   onLeft() {}

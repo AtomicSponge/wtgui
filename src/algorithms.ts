@@ -8,6 +8,15 @@
  */
 
 /**
+   * Regex that tests for hex
+   * @param str String to test
+   * @returns True if valid, else false
+   */
+export const testHex = (str:string) => {
+  return /^#[0-9a-f]{3,4}([0-9a-f]{3,4})?$/i.test(str)
+}
+
+/**
  * Test for valid rgb(a)/hsl(a)
  * @param str String to test
  * @returns True if valid rgb(a)/hsl(a), else false

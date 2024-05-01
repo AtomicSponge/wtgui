@@ -10,7 +10,7 @@
 import { settings } from './WTGuiSettings.js'
 import { WTGuiItem } from './items/WTGuiItem.js'
 import { WTGuiMenuError } from './WTGuiError.js'
-import { testRgb } from './algorithms.js'
+import { testHex, testRgb } from './algorithms.js'
 
 export interface WTGuiMenuArgs {
   /** */
@@ -82,10 +82,10 @@ export class WTGuiMenu {
     this.#items = []
     this.#selectableItems = []
 
-    if(!testRgb(this.#bgColor))
-      throw new WTGuiMenuError(`'${this.#bgColor}' - Bad color code`, this.constructor)
-    if(!testRgb(this.#fgColor))
-      throw new WTGuiMenuError(`'${this.#fgColor}' - Bad color code`, this.constructor)
+    if(!testRgb(this.#bgColor) && !testHex(this.#bgColor))
+      throw new WTGuiMenuError(`'${this.#bgColor}' - Bad background color code`, this.constructor)
+    if(!testRgb(this.#fgColor) && !testHex(this.#fgColor))
+      throw new WTGuiMenuError(`'${this.#fgColor}' - Bad foreground color code`, this.constructor)
   }
 
   /**
