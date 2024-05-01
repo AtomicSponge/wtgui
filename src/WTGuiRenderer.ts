@@ -141,14 +141,14 @@ export class WTGuiRenderer {
 
     //  Render the menu
     if(!settings.debugMode && currentMenu.bgImage !== undefined) {
-      {(currentMenu.scaleImg) ?
+      /*{(currentMenu.scaleImg) ?
         ctx.drawImage(<HTMLImageElement>WTGui.getImage(currentMenu.bgImage),
           currentMenu.posX + currentMenu.imgOffsetX,
           currentMenu.posY + currentMenu.imgOffsetY,
           currentMenu.width, currentMenu.height) :
         ctx.drawImage(<HTMLImageElement>WTGui.getImage(currentMenu.bgImage),
           currentMenu.posX + currentMenu.imgOffsetX,
-          currentMenu.posY + currentMenu.imgOffsetY)}
+          currentMenu.posY + currentMenu.imgOffsetY)}*/
     } else {
       ctx.fillStyle = currentMenu.bgColor
       ctx.fillRect(currentMenu.posX, currentMenu.posY,
@@ -162,14 +162,14 @@ export class WTGuiRenderer {
     //  Render menu items
     currentMenu.items.forEach(elm => {
       if(!settings.debugMode && elm.bgImage !== undefined) {
-        {(elm.scaleImg) ?
+        /*{(elm.scaleImg) ?
           ctx.drawImage(<HTMLImageElement>WTGui.getImage(elm.bgImage),
             elm.posX + elm.imgOffsetX,
             elm.posY + elm.imgOffsetY,
             elm.width, elm.height) :
           ctx.drawImage(<HTMLImageElement>WTGui.getImage(elm.bgImage),
             elm.posX + elm.imgOffsetX,
-            elm.posY + elm.imgOffsetY)}
+            elm.posY + elm.imgOffsetY)}*/
       } else {
         ctx.fillStyle = elm.bgColor
         ctx.fillRect(currentMenu.posX + elm.posX,

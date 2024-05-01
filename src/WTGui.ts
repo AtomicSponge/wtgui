@@ -7,9 +7,6 @@
  * 
  */
 
-//import fs from 'fs'
-//import path from 'node:path'
-
 import { WTGuiSettings, settings } from './WTGuiSettings.js'
 import { WTGuiRenderer } from './WTGuiRenderer.js'
 import { WTGuiMenu } from './WTGuiMenu.js'
@@ -67,8 +64,8 @@ export class WTGui {
 
     if(canvas === null)
       throw new WTGuiError(`Error configuring WTGui!  Can't find canvas ${canvas}!`, WTGui.start)
-    wind.addEventListener('keydown', WTGui.#events.onKeyDown, false)
-    wind.addEventListener('keyup', WTGui.#events.onKeyUp, false)
+    window.addEventListener('keydown', WTGui.#events.onKeyDown, false)
+    window.addEventListener('keyup', WTGui.#events.onKeyUp, false)
 
     canvas.addEventListener('mousedown', WTGui.#events.onMouseDown, false)
     canvas.addEventListener('mouseup', WTGui.#events.onMouseUp, false)
