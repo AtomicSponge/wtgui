@@ -83,9 +83,9 @@ export class WTGuiItem {
     this.#scrollable = false
 
     if(!testRgb(this.#bgColor) && !testHex(this.#bgColor))
-      throw new WTGuiMenuItemError(`'${this.#bgColor}' - Bad background color code.`, this.constructor)
+      throw new WTGuiMenuItemError(`'${this.#bgColor}' - Bad background color code in item '${this.#id}'.`, this.constructor)
     if(!testRgb(this.#fgColor) && !testHex(this.#fgColor))
-      throw new WTGuiMenuItemError(`'${this.#fgColor}' - Bad foreground color code.`, this.constructor)
+      throw new WTGuiMenuItemError(`'${this.#fgColor}' - Bad foreground color code in item '${this.#id}'.`, this.constructor)
   }
 
   onLeft() {}

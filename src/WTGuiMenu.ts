@@ -83,9 +83,9 @@ export class WTGuiMenu {
     this.#selectableItems = []
 
     if(!testRgb(this.#bgColor) && !testHex(this.#bgColor))
-      throw new WTGuiMenuError(`'${this.#bgColor}' - Bad background color code`, this.constructor)
+      throw new WTGuiMenuError(`'${this.#bgColor}' - Bad background color code in menu '${this.#id}'`, this.constructor)
     if(!testRgb(this.#fgColor) && !testHex(this.#fgColor))
-      throw new WTGuiMenuError(`'${this.#fgColor}' - Bad foreground color code`, this.constructor)
+      throw new WTGuiMenuError(`'${this.#fgColor}' - Bad foreground color code in menu '${this.#id}'`, this.constructor)
   }
 
   /**
