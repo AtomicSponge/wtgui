@@ -15,7 +15,6 @@ import { WTGuiError } from './WTGuiError.js'
 
 export class WTGuiRenderer {
   static #initialized:boolean = false  //  Flag if the renderer was initialized
-  //static #canvas_name:string = '___wtgui_renderer_canvas_id___'  //  Reference to the canvas ID
 
   static #mainCanvas:HTMLCanvasElement  //  Main 2d canvas
   //static #menuCanvas:HTMLCanvasElement  //  2d canvas for rendering menus

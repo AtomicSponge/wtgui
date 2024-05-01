@@ -504,22 +504,22 @@ export class WTGui {
   static debug = {
     /** Log menu objects to console */
     logMenus: () => {
-      WTGui.#data.menus.forEach(menu => { console.log(JSON.parse(JSON.stringify(menu))) })
+      WTGui.#data.menus.forEach(menu => { console.log(menu) })
     },
 
     /** Log opened menu stack to console */
     logMenuStack: () => {
-      WTGui.#data.openedMenus.forEach(menu => { console.log(JSON.parse(JSON.stringify(menu))) })
+      WTGui.#data.openedMenus.forEach(menu => { console.log(menu) })
     },
 
     /** Log image file list to console */
     logImageFiles: () => {
-      WTGui.#data.imageFiles.forEach(img => { console.log(JSON.parse(JSON.stringify(img))) })
+      WTGui.#data.imageFiles.forEach(img => { console.log(img) })
     },
 
     /** Log audio file list to console */
     logAudioFiles: () => {
-      WTGui.#data.audioFiles.forEach(audio => { console.log(JSON.parse(JSON.stringify(audio))) })
+      WTGui.#data.audioFiles.forEach(audio => { console.log(audio) })
     }
   }
 }
