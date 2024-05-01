@@ -21,7 +21,7 @@ export class WTGuiRenderer {
   //static #menuCanvas:HTMLCanvasElement  //  2d canvas for rendering menus
   static #ctx:CanvasRenderingContext2D  //  2d context for menu drawing
 
-  static #fpsCalc:NodeJS.Timeout = new NodeJS.Timeout()  //  Store timed func to calculate fps
+  static #fpsCalc:number = 0               //  Store timed func to calculate fps
   static #nextFrame:number = 0             //  Store the call to the animation frame
   static #drawFps:boolean = false          //  Flag for drawing fps counter
   static #fps:number = 0                   //  Store frame rate

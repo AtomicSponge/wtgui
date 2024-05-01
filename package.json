@@ -37,7 +37,6 @@
     "README.md"
   ],
   "devDependencies": {
-    "@types/node": "^20.12.7",
     "typedoc": "^0.25.13",
     "typescript": "^5.4.5",
     "unbuild": "^2.0.0"

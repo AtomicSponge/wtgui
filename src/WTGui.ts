@@ -229,7 +229,7 @@ export class WTGui {
   }
 
   static #actions = {
-    scrollTimer: new NodeJS.Timeout(),  //  Store running timer function
+    scrollTimer: 0,  //  Store running timer function
 
     //  Timer function to scroll left
     scrollLeft: () => { WTGui.#data.activeItem.onLeft() },
