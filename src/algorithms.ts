@@ -53,6 +53,16 @@ export const testAlphaNumeric = (str:string) => {
 }
 
 /**
+ * Test if an object is empty
+ * @param obj Object to test
+ * @returns True if empty, else false
+ */
+export const isEmptyObject = (obj:Object) => {
+  for(let _i in obj) return false
+  return true
+}
+
+/**
  * Axis Aligned Bounding Box Algorithm
  * @param test Object to test
  * @param collection Collection of objects to test against

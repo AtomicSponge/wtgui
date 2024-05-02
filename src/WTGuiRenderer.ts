@@ -12,6 +12,7 @@ import { settings } from './WTGuiSettings.js'
 import { WTGuiMenu } from './WTGuiMenu.js'
 import { WTGuiItem } from './items/WTGuiItem.js'
 import { WTGuiError } from './WTGuiError.js'
+import { isEmptyObject } from './algorithms.js'
 
 export class WTGuiRenderer {
   static #initialized:boolean = false  //  Flag if the renderer was initialized
@@ -40,7 +41,7 @@ export class WTGuiRenderer {
 
     WTGuiRenderer.#mainCanvas = canvas
     WTGuiRenderer.#mainCanvas.style.display = 'none'
-    WTGuiRenderer.#ctx = <CanvasRenderingContext2D>WTGuiRenderer.#mainCanvas.getContext('2d')
+    WTGuiRenderer.#ctx = <CanvasRenderingContext2D>WTGuiRenderer.#mainCanvas.getContext('2d', { willReadFrequently: true })
 
     const observer = new ResizeObserver(() => {
       const temp = WTGuiRenderer.#ctx.getImageData(0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
@@ -123,17 +124,16 @@ export class WTGuiRenderer {
    * Render draw method
    */
   static #render() {
-    if(WTGui.data.openedMenus.length === 0 || WTGui.data.currentMenu === undefined)
+    if(WTGui.data.openedMenus.length === 0 || isEmptyObject(WTGui.data.currentMenu))
       WTGui.openMenu(settings.defaultMenu)
-    if(WTGui.data.openedMenus.length === 0 || WTGui.data.currentMenu === undefined)
+    if(WTGui.data.openedMenus.length === 0 || isEmptyObject(WTGui.data.currentMenu))
       throw new WTGuiError(`No menus available.`, WTGuiRenderer.#render)
 
     const currentMenu = WTGui.data.currentMenu
     const ctx = WTGuiRenderer.#ctx
 
     //  Clear the renderer
-    ctx.fillStyle = settings.clearColor
-    ctx.fillRect(0, 0, settings.width, settings.height)
+    ctx.clearRect(0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
 
     //  Run background animation function
     WTGuiRenderer.#bgAnimation()

@@ -46,8 +46,6 @@ export interface settings extends actionBindings {
   mouseSize:number
   /** Speed to scroll menu items */
   scrollSpeed:number
-  /** Background color for gui context */
-  clearColor:string
   /** Default font size/face */
   defaultFont:string
   /** Default font color */
@@ -73,7 +71,6 @@ export class WTGuiSettings {
     height: Number(0),
     mouseSize: Number(0),
     scrollSpeed: Number(100),
-    clearColor: 'rgb(142,142,142)',
     defaultFont: '14px Arial',
     defaultFontColor: 'rgb(255,255,255)',
     defaultMenuColor: 'rgb(0,0,0)',
