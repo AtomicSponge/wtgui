@@ -49,6 +49,7 @@ export class WTGui {
    * @throws Throws any configuration errors
    */
   static start(canvas:HTMLCanvasElement, maindoc:HTMLElement, wind:Window) {
+    if(settings.debugMode) console.log(`WTGui is in debug mode!`)
     if(WTGui.#data.initialized)
       throw new WTGuiError(`WTGui is already running.`, WTGui.start)
     if(WTGui.#data.menus.length === 0)

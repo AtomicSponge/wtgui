@@ -149,7 +149,7 @@ export class WTGuiRenderer {
           currentMenu.posX + currentMenu.imgOffsetX,
           currentMenu.posY + currentMenu.imgOffsetY)}
     } else {
-      ctx.fillStyle = currentMenu.bgColor
+      ctx.fillStyle = (settings.debugMode) ? '#0000FF' : currentMenu.bgColor
       ctx.fillRect(currentMenu.posX, currentMenu.posY,
         currentMenu.width, currentMenu.height)
     }
@@ -170,7 +170,7 @@ export class WTGuiRenderer {
             elm.posX + elm.imgOffsetX,
             elm.posY + elm.imgOffsetY)}
       } else {
-        ctx.fillStyle = elm.bgColor
+        ctx.fillStyle = (settings.debugMode) ? '#FFFF00' : elm.bgColor
         ctx.fillRect(currentMenu.posX + elm.posX,
           currentMenu.posY + elm.posY,
           elm.width, elm.height)

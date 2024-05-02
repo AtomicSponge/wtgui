@@ -7,9 +7,7 @@
  * 
  */
 
-//import fs from 'fs'
-//import path from 'node:path'
-
+import { WTGui } from "./WTGui.js"
 import { WTGuiError } from "./WTGuiError.js"
 
 export interface actionBindings {
@@ -103,6 +101,8 @@ export class WTGuiSettings {
 
   static get settings() { return WTGuiSettings.#settings }
 
+  static set setDebug(value:boolean) { WTGuiSettings.#settings.debugMode = value }
+
   /*
    * Save settings
    */
@@ -133,4 +133,12 @@ export const settings = WTGuiSettings.settings
  */
 export const WTGuiSaveInputBindings = () => {
   try { WTGuiSettings.saveInputBindings() } catch (error) { throw error }
+}
+
+export const WTGuiEnableDebugging = () => {
+  if(WTGui.data.initialized) {
+    console.log(`Unable to start debugging while WTGui is running`)
+    return
+  }
+  WTGuiSettings.setDebug = true
 }
