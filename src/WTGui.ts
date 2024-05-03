@@ -338,7 +338,6 @@ export class WTGui {
 
     //  Mouse Move Event
     onMouseMove: (event:MouseEvent) => {
-      console.log('hi')
       //  If the mouse is pointing at anything, make it the active item
       const res:any = AABB(
         {
