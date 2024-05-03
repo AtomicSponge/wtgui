@@ -60,8 +60,6 @@ export class WTGuiRenderer {
   static start() {
     WTGuiRenderer.#mainCanvas.style.display = 'block'
     WTGuiRenderer.#mainCanvas.focus()
-    //WTGuiRenderer.#menuCanvas.width = settings.width
-    //WTGuiRenderer.#menuCanvas.height = settings.height
     window.cancelAnimationFrame(WTGuiRenderer.#nextFrame)
     WTGuiRenderer.#nextFrame = window.requestAnimationFrame(WTGuiRenderer.#render)
   }
@@ -108,13 +106,12 @@ export class WTGuiRenderer {
 
   /**
    * 
-   * @param ctx 
    * @param menuItem 
    * @param currentMenu 
    */
-  static #highlighter(ctx:CanvasRenderingContext2D, menuItem:WTGuiItem, currentMenu:WTGuiMenu) {
-    ctx.fillStyle = 'rgb(255,255,0)'
-    ctx.fillRect(
+  static #highlighter(menuItem:WTGuiItem, currentMenu:WTGuiMenu) {
+    WTGuiRenderer.#ctx.fillStyle = 'rgb(255,255,0)'
+    WTGuiRenderer.#ctx.fillRect(
       currentMenu.posX + (menuItem.posX - 10),
       currentMenu.posY + (menuItem.posY - 10),
       menuItem.width + 20, menuItem.height + 20)
@@ -156,7 +153,7 @@ export class WTGuiRenderer {
 
     //  Render active item highlighting
     if(!isEmptyObject(WTGui.data.activeItem))
-      WTGuiRenderer.#highlighter(WTGuiRenderer.#ctx, WTGui.data.activeItem, currentMenu)
+      WTGuiRenderer.#highlighter(WTGui.data.activeItem, currentMenu)
 
     //  Render menu items
     currentMenu.items.forEach(elm => {

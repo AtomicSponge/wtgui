@@ -65,7 +65,7 @@ export class WTGui {
     } catch (error:any) { throw error }
 
     if(canvas === null)
-      throw new WTGuiError(`Error configuring WTGui!  Can't find canvas ${canvas}!`, WTGui.start)
+      throw new WTGuiError(`Error configuring WTGui!  Can't find canvas!`, WTGui.start)
     window.addEventListener('keydown', WTGui.#events.onKeyDown, false)
     window.addEventListener('keyup', WTGui.#events.onKeyUp, false)
 
