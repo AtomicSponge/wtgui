@@ -32,12 +32,12 @@ export class WTGuiRenderer {
 
   constructor() { return false }  //  Don't allow direct construction
 
-  static initialize(canvas:HTMLCanvasElement, maindoc:HTMLElement) {
+  static initialize(canvas:HTMLCanvasElement) {
     if(WTGuiRenderer.#initialized)
       throw new WTGuiError(`WTGuiRenderer already initialized!`, WTGuiRenderer.initialize)
 
-    canvas.setAttribute('width', `${maindoc.clientWidth}`)
-    canvas.setAttribute('height', `${maindoc.clientHeight}`)
+    canvas.setAttribute('width', `${document.documentElement.clientWidth}`)
+    canvas.setAttribute('height', `${document.documentElement.clientHeight}`)
 
     WTGuiRenderer.#mainCanvas = canvas
     WTGuiRenderer.#mainCanvas.style.display = 'none'
@@ -45,11 +45,11 @@ export class WTGuiRenderer {
 
     const observer = new ResizeObserver(() => {
       const temp = WTGuiRenderer.#ctx.getImageData(0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
-      WTGuiRenderer.#mainCanvas.width = maindoc.clientWidth
-      WTGuiRenderer.#mainCanvas.height = maindoc.clientHeight
+      WTGuiRenderer.#mainCanvas.width = document.documentElement.clientWidth
+      WTGuiRenderer.#mainCanvas.height = document.documentElement.clientHeight
       WTGuiRenderer.#ctx.putImageData(temp, 0, 0, 0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
     })
-    observer.observe(maindoc)
+    observer.observe(document.documentElement)
 
     WTGuiRenderer.#initialized = true
   }

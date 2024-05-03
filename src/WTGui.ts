@@ -49,7 +49,7 @@ export class WTGui {
    * @throws Throws an error if no menus were defined
    * @throws Throws any configuration errors
    */
-  static start(canvas:HTMLCanvasElement, maindoc:HTMLElement, wind:Window) {
+  static start(canvas:HTMLCanvasElement) {
     if(settings.debugMode) console.log(`WTGui is in debug mode!`)
     if(WTGui.#data.initialized)
       throw new WTGuiError(`WTGui is already running.`, WTGui.start)
@@ -61,7 +61,7 @@ export class WTGui {
     } catch (error:any) { throw error }*/
 
     try {
-      WTGuiRenderer.initialize(canvas, maindoc)
+      WTGuiRenderer.initialize(canvas)
     } catch (error:any) { throw error }
 
     if(canvas === null)
@@ -69,16 +69,16 @@ export class WTGui {
     window.addEventListener('keydown', WTGui.#events.onKeyDown, false)
     window.addEventListener('keyup', WTGui.#events.onKeyUp, false)
 
-    canvas.addEventListener('mousedown', WTGui.#events.onMouseDown, false)
-    canvas.addEventListener('mouseup', WTGui.#events.onMouseUp, false)
-    canvas.addEventListener('mousemove', WTGui.#events.onMouseMove, false)
-    canvas.addEventListener('wheel', WTGui.#events.onMouseWheel, false)
+    document.addEventListener('mousedown', WTGui.#events.onMouseDown, false)
+    document.addEventListener('mouseup', WTGui.#events.onMouseUp, false)
+    document.addEventListener('mousemove', WTGui.#events.onMouseMove, false)
+    document.addEventListener('wheel', WTGui.#events.onMouseWheel, false)
 
-    /*canvas.addEventListener('touchstart', WTGui.#events.onTouchStart, false)
-    canvas.addEventListener('touchend', WTGui.#events.onTouchEnd, false)
-    canvas.addEventListener('touchcancel', WTGui.#events.onTouchCancel, false)
-    canvas.addEventListener('touchmove', WTGui.#events.onTouchMove, false)
-    canvas.addEventListener('scroll', WTGui.#events.onScroll, false)*/
+    /*document.addEventListener('touchstart', WTGui.#events.onTouchStart, false)
+    document.addEventListener('touchend', WTGui.#events.onTouchEnd, false)
+    document.addEventListener('touchcancel', WTGui.#events.onTouchCancel, false)
+    document.addEventListener('touchmove', WTGui.#events.onTouchMove, false)
+    document.addEventListener('scroll', WTGui.#events.onScroll, false)*/
 
     WTGuiRenderer.start()
     WTGui.#data.initialized = true
@@ -338,6 +338,7 @@ export class WTGui {
 
     //  Mouse Move Event
     onMouseMove: (event:MouseEvent) => {
+      console.log('hi')
       //  If the mouse is pointing at anything, make it the active item
       const res:any = AABB(
         {
