@@ -192,6 +192,8 @@ export class WTGui {
    * @throws Throws an error if the menu does not exist
    */
   static addItem = (menuId:string, itemObj:WTGuiItem) => {
+    if(!(itemObj instanceof WTGuiItem))
+      throw new WTGuiError(`Menu item is not a valid 'WTGuiItem' object.`, WTGui.addMenu)
     const menu = WTGui.getMenu(menuId)
     if(menu === undefined)
       throw new WTGuiError(`'${menuId}' - Menu does not exist.`, WTGui.addItem)
