@@ -31,6 +31,8 @@ export interface WTGuiItemArgs {
   /** */
   height:number
   /** */
+  radius?:number | Array<number>
+  /** */
   bgImage?:string
   /** */
   imgOffsetX?:number
@@ -54,6 +56,7 @@ export class WTGuiItem {
   #posY:number
   #width:number
   #height:number
+  #radius:number | Array<number>
   #bgImage:string
   #imgOffsetX:number
   #imgOffsetY:number
@@ -71,6 +74,7 @@ export class WTGuiItem {
     this.#posY = args.posY
     this.#width = args.width
     this.#height = args.height
+    this.#radius = args.radius || 0
     this.#font = args.font || settings.defaultFont
     this.#bgColor = args.bgColor || settings.defaultItemColor
     this.#fgColor = args.fgColor || settings.defaultFontColor
@@ -102,6 +106,7 @@ export class WTGuiItem {
   get posY() { return this.#posY }
   get width() { return this.#width }
   get height() { return this.#height }
+  get radius() { return this.#radius }
   get imgOffsetX() { return this.#imgOffsetX }
   get imgOffsetY() { return this.#imgOffsetY }
   get scaleImg() { return this.#scaleImg }

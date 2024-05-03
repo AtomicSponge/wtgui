@@ -14,6 +14,7 @@
     "WtGui",
     "HTML5",
     "Canvas",
+    "DOM",
     "Menu"
   ],
   "bugs": {

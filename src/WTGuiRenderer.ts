@@ -146,9 +146,13 @@ export class WTGuiRenderer {
           currentMenu.posX + currentMenu.imgOffsetX,
           currentMenu.posY + currentMenu.imgOffsetY)}
     } else {
+      ctx.strokeStyle = (settings.debugMode) ? '#A020F0' : currentMenu.bgColor
       ctx.fillStyle = (settings.debugMode) ? '#A020F0' : currentMenu.bgColor
-      ctx.fillRect(currentMenu.posX, currentMenu.posY,
-        currentMenu.width, currentMenu.height)
+      ctx.beginPath()
+      ctx.roundRect(currentMenu.posX, currentMenu.posY,
+        currentMenu.width, currentMenu.height, currentMenu.radius)
+      ctx.stroke()
+      ctx.fill()
     }
 
     //  Render active item highlighting
@@ -167,10 +171,14 @@ export class WTGuiRenderer {
             elm.posX + elm.imgOffsetX,
             elm.posY + elm.imgOffsetY)}
       } else {
+        ctx.strokeStyle = (settings.debugMode) ? '#6FF01F' : elm.bgColor
         ctx.fillStyle = (settings.debugMode) ? '#6FF01F' : elm.bgColor
-        ctx.fillRect(currentMenu.posX + elm.posX,
+        ctx.beginPath()
+        ctx.roundRect(currentMenu.posX + elm.posX,
           currentMenu.posY + elm.posY,
-          elm.width, elm.height)
+          elm.width, elm.height, elm.radius)
+        ctx.stroke()
+        ctx.fill()
       }
     })
 

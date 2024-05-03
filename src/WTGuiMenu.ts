@@ -32,6 +32,8 @@ export interface WTGuiMenuArgs {
   /** */
   height:number
   /** */
+  radius?:number | Array<number>
+  /** */
   bgImage?:string
   /** */
   scaleImg?:number
@@ -54,6 +56,7 @@ export class WTGuiMenu {
   #posY:number
   #width:number
   #height:number
+  #radius:number | Array<number>
   #bgImage:string
   #scaleImg:number
   #imgOffsetX:number
@@ -72,6 +75,7 @@ export class WTGuiMenu {
     this.#posY = args.posY
     this.#width = args.width
     this.#height = args.height
+    this.#radius = args.radius || 0
     this.#font = args.font || settings.defaultFont
     this.#bgColor = args.bgColor || settings.defaultMenuColor
     this.#fgColor = args.fgColor || settings.defaultFontColor
@@ -111,6 +115,7 @@ export class WTGuiMenu {
   get posY() { return this.#posY }
   get width() { return this.#width }
   get height() { return this.#height }
+  get radius() { return this.#radius }
   get bgImage() { return this.#bgImage }
   get scaleImg() { return this.#scaleImg }
   get imgOffsetX() { return this.#imgOffsetX }
