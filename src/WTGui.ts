@@ -12,7 +12,7 @@ import { WTGuiSaveInputBindings, WTGuiEnableDebugging } from './WTGuiSettings.js
 import { WTGuiRenderer } from './WTGuiRenderer.js'
 import { WTGuiMenu } from './WTGuiMenu.js'
 import { WTGuiItem } from './items/WTGuiItem.js'
-import { WTGuiError } from './WTGuiError.js'
+import { WTGuiError, WTGuiTypeError } from './WTGuiError.js'
 import { AABB } from './algorithms.js'
 
 interface data {
@@ -170,7 +170,7 @@ export class WTGui {
    */
   static addMenu = (menuObj:WTGuiMenu) => {
     if(!(menuObj instanceof WTGuiMenu))
-      throw new WTGuiError(`Menu is not a valid 'WTGuiMenu' object.`, WTGui.addMenu)
+      throw new WTGuiTypeError(`Menu is not a valid 'WTGuiMenu' object.`, WTGui.addMenu)
     if(WTGui.getMenu(menuObj.id) !== undefined)
       throw new WTGuiError(`Menu ID '${menuObj.id}' already exists.`, WTGui.addMenu)
     WTGui.#data.menus.push(menuObj)
@@ -189,11 +189,12 @@ export class WTGui {
    * Add an item to a menu
    * @param menuId ID of menu it add item to
    * @param itemObj Item object to add
+   * @throws Throws an error if itemObj is not derived from {@link WTGuiItem}
    * @throws Throws an error if the menu does not exist
    */
   static addItem = (menuId:string, itemObj:WTGuiItem) => {
     if(!(itemObj instanceof WTGuiItem))
-      throw new WTGuiError(`Menu item is not a valid 'WTGuiItem' object.`, WTGui.addMenu)
+      throw new WTGuiTypeError(`Menu item is not a valid 'WTGuiItem' object.`, WTGui.addItem)
     const menu = WTGui.getMenu(menuId)
     if(menu === undefined)
       throw new WTGuiError(`'${menuId}' - Menu does not exist.`, WTGui.addItem)
