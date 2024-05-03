@@ -7,7 +7,8 @@
  * 
  */
 
-import { WTGuiSettings, settings } from './WTGuiSettings.js'
+import { settings } from './WTGuiSettings.js'
+import { WTGuiSaveInputBindings, WTGuiEnableDebugging } from './WTGuiSettings.js'
 import { WTGuiRenderer } from './WTGuiRenderer.js'
 import { WTGuiMenu } from './WTGuiMenu.js'
 import { WTGuiItem } from './items/WTGuiItem.js'
@@ -476,28 +477,28 @@ export class WTGui {
 
   //  Expose renderer functions
   static renderer = {
-    /**  */
+    /** Start the renderer */
     start: () => { WTGuiRenderer.start() },
 
-    /**  */
+    /** Stop the renderer */
     stop: () => { WTGuiRenderer.stop() },
 
-    /**  */
+    /** Set background animation function */
     setBgAnimation: (func:Function) => { WTGuiRenderer.setBgAnimation(func) },
 
-    /**  */
+    /** Toggle drawing of frames per second */
     drawFps: (toggle:boolean) => { WTGuiRenderer.drawFps(toggle) },
 
-    /**  */
+    /** Drawing context for the renderer */
     get draw() { return WTGuiRenderer.draw },
 
-    /**  */
+    /** Get the frames per second */
     get fps() { return WTGuiRenderer.fps },
 
-    /**  */
+    /** Get the frame delta time */
     get frameDelta() { return WTGuiRenderer.frameDelta },
 
-    /**  */
+    /** Get the last render time */
     get lastRender() { return WTGuiRenderer.lastRender }
   }
 
@@ -522,5 +523,15 @@ export class WTGui {
     logAudioFiles: () => {
       WTGui.#data.audioFiles.forEach(audio => { console.log(audio) })
     }
+  }
+
+  /** Enable WTGui debugging */
+  static enableDebugging = () => { WTGuiEnableDebugging() }
+
+  /** Save input bindings */
+  static saveInputBindings = () => {
+    try {
+      WTGuiSaveInputBindings()
+    } catch (error:any) { throw error }
   }
 }

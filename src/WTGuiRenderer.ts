@@ -155,7 +155,7 @@ export class WTGuiRenderer {
     }
 
     //  Render active item highlighting
-    if(WTGui.data.activeItem !== undefined)
+    if(!isEmptyObject(WTGui.data.activeItem))
       WTGuiRenderer.#highlighter(WTGuiRenderer.#ctx, WTGui.data.activeItem, currentMenu)
 
     //  Render menu items
@@ -182,7 +182,7 @@ export class WTGuiRenderer {
       ctx.font = settings.fpsFont
       ctx.fillStyle = settings.fpsColor
       ctx.textAlign = 'right'
-      ctx.fillText(`${WTGuiRenderer.#fps}`, settings.width, 12)
+      ctx.fillText(`${WTGuiRenderer.#fps}`, WTGuiRenderer.#mainCanvas.width, 12)
     }
 
     //  Update renderer info and request next frame

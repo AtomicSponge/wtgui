@@ -7,8 +7,7 @@
  * 
  */
 
-import { WTGui } from "./WTGui.js"
-import { WTGuiError } from "./WTGuiError.js"
+import { WTGui } from './WTGui.js'
 
 export interface actionBindings {
   actionBindings: {
@@ -60,7 +59,7 @@ export interface settings extends actionBindings {
   fpsColor:string
 }
 
-export class WTGuiSettings {
+class WTGuiSettings {
   constructor() { return false }
 
   static #settings:settings = {

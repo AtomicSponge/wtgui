@@ -8,7 +8,7 @@
  */
 
 import { settings } from '../WTGuiSettings.js'
-import { WTGuiMenuItemError } from "../WTGuiError.js"
+import { WTGuiMenuItemError } from '../WTGuiError.js'
 import { testHex, testRgb } from '../algorithms.js'
 
 export interface WTGuiItemArgs {

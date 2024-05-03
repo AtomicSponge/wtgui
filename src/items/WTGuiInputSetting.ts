@@ -7,9 +7,9 @@
  * 
  */
 
-import { WTGuiItem } from "./WTGuiItem.js"
-import type { WTGuiItemArgs } from "./WTGuiItem.js"
-import { WTGuiMenuItemError } from "../WTGuiError.js"
+import { WTGuiItem } from './WTGuiItem.js'
+import type { WTGuiItemArgs } from './WTGuiItem.js'
+import { WTGuiMenuItemError } from '../WTGuiError.js'
 
 export interface WTGuiInputSettingArgs extends WTGuiItemArgs {
   /** */

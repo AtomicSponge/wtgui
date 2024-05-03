@@ -7,8 +7,8 @@
  * 
  */
 
-import { WTGuiItem } from "./WTGuiItem.js"
-import type { WTGuiItemArgs } from "./WTGuiItem.js"
+import { WTGuiItem } from './WTGuiItem.js'
+import type { WTGuiItemArgs } from './WTGuiItem.js'
 
 export interface WTGuiLabelArgs extends WTGuiItemArgs {
   //
