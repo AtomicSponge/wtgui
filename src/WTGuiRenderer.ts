@@ -142,7 +142,7 @@ export class WTGuiRenderer {
     ctx.clearRect(0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
 
     //  Run background animation function
-    WTGuiRenderer.#bgAnimation(WTGuiRenderer.#frameDelta, WTGuiRenderer.#lastRender)
+    WTGuiRenderer.#bgAnimation(ctx, WTGuiRenderer.#frameDelta, WTGuiRenderer.#lastRender)
 
     //  Render the menu
     if(currentMenu.bgImage !== '') {
@@ -208,12 +208,6 @@ export class WTGuiRenderer {
     WTGuiRenderer.#lastRender = <number>document.timeline.currentTime
     WTGuiRenderer.#nextFrame = window.requestAnimationFrame(WTGuiRenderer.#render)
   }
-
-  /**
-   * Get the menu drawing context
-   * @returns 2D drawing context
-   */
-  static get draw() { return WTGuiRenderer.#ctx }
 
   /**
    * Get the frames per second

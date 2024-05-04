@@ -7,7 +7,8 @@
  * 
  */
 
-import { WTGui } from './WTGui.js'
+import { WTGuiError } from "./WTGuiError.js"
+import { testHex, testRgb } from './algorithms.js'
 
 export interface actionBindings {
   actionBindings: {
@@ -47,7 +48,7 @@ interface settings extends actionBindings {
   fpsColor:string
 }
 
-class WTGuiSettings {
+export class WTGuiSettings {
   constructor() { return false }  //  Prevent direct construction
 
   static #settings:settings = {
@@ -64,7 +65,7 @@ class WTGuiSettings {
         down: [ 'ArrowDown', 'S' ],
         left: [ 'ArrowLeft', 'A' ],
         right: [ 'ArrowRight', 'D' ],
-        select: [ ' ' ],
+        select: [ ' ', 'Enter' ],
         cancel: [ 'Escape' ]
       },
       buttons: {
@@ -78,26 +79,35 @@ class WTGuiSettings {
     }
   }
 
-  static #settingsLoaded = false
-
+  /** Get the GUI settings */
   static get settings() { return WTGuiSettings.#settings }
 
-  /*
-   * Load settings
-   */
-  /*static loadSettings = () => {
-    if (WTGuiSettings.#settingsLoaded)
-      throw new WTGuiError(`Settings already loaded!`, WTGuiSettings.loadSettings)
-    //const settings = JSON.parse(
-      //fs.readFileSync(`${WTGuiSettings.#settingsLocation}settings.json`, 'utf8'))
-    WTGuiSettings.#settings = settings
-    WTGuiSettings.#settingsLoaded = true
-  }*/
+  /** Set the mouse size */
+  static set mouseSize(size:number) { WTGuiSettings.#settings.mouseSize = size }
+  /** Set the scroll speed */
+  static set scrollSpeed(speed:number) { WTGuiSettings.#settings.scrollSpeed = speed }
+  /** Set the default font */
+  static set defaultFont(font:string) { WTGuiSettings.#settings.defaultFont = font }
+  /** Set the FPS font */
+  static set fpsFont(font:string) { WTGuiSettings.#settings.fpsFont = font }
+  /** Set the FPS color */
+  static set fpsColor(color:string) {
+    if(!testRgb(color) && !testHex(color))
+      throw new WTGuiError(`'${color}' - Bad color code while setting fps font color!`, WTGuiSettings.fpsColor)
+    WTGuiSettings.#settings.fpsColor = color
+  }
 
-  /*
+  /**
    * Save input binding settings
    */
   static saveInputBindings = () => {
+    //
+  }
+
+  /**
+   * Load input binding settings
+   */
+  static loadInputBindings = () => {
     //
   }
 }
@@ -106,10 +116,3 @@ class WTGuiSettings {
  * WTGui settings
  */
 export const settings = WTGuiSettings.settings
-
-/**
- * Save the input bindings
- */
-export const WTGuiSaveInputBindings = () => {
-  try { WTGuiSettings.saveInputBindings() } catch (error) { throw error }
-}

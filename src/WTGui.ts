@@ -8,7 +8,6 @@
  */
 
 import { settings } from './WTGuiSettings.js'
-import { WTGuiSaveInputBindings } from './WTGuiSettings.js'
 import { WTGuiRenderer } from './WTGuiRenderer.js'
 import { WTGuiMenu } from './WTGuiMenu.js'
 import { WTGuiItem } from './items/WTGuiItem.js'
@@ -224,7 +223,7 @@ export class WTGui {
       else WTGui.#data.currentMenu = WTGui.#data.openedMenus[(WTGui.#data.openedMenus.length - 1)]
     }
   }
-
+  
   static #actions = {
     scrollTimer: 0,  //  Store running timer function
 
@@ -487,9 +486,6 @@ export class WTGui {
     /** Toggle drawing of frames per second */
     drawFps: (toggle:boolean) => { WTGuiRenderer.drawFps(toggle) },
 
-    /** Drawing context for the renderer */
-    get draw() { return WTGuiRenderer.draw },
-
     /** Get the frames per second */
     get fps() { return WTGuiRenderer.fps }
   }
@@ -515,12 +511,5 @@ export class WTGui {
     logAudioFiles: () => {
       WTGui.#data.audioFiles.forEach(audio => { console.log(audio) })
     }
-  }
-
-  /** Save input bindings */
-  static saveInputBindings = () => {
-    try {
-      WTGuiSaveInputBindings()
-    } catch (error:any) { throw error }
   }
 }

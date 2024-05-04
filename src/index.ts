@@ -8,6 +8,7 @@
  */
 
 export { WTGui } from './WTGui.js'
+export { WTGuiSettings } from './WTGuiSettings.js'
 export { WTGuiMenu } from './WTGuiMenu.js'
 
 //  Menu items
