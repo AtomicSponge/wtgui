@@ -98,7 +98,7 @@ export class WTGui {
   static addImages = (data:Array<{ id:string, file:string }>) => {
     try {
       data.forEach(item => WTGui.addImage(item.id, item.file))
-    } catch (error) { throw error }
+    } catch (error:any) { throw error }
   }
 
   /**
@@ -134,7 +134,7 @@ export class WTGui {
   static addAudioFiles = (data:Array<{ id:string, file:string }>) => {
     try {
       data.forEach(item => { WTGui.addAudio(item.id, item.file) })
-    } catch (error) { throw error }
+    } catch (error:any) { throw error }
   }
 
   /**
