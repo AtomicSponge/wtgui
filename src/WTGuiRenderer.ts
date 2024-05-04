@@ -143,8 +143,6 @@ export class WTGuiRenderer {
 
     //  Run background animation function
     WTGuiRenderer.#bgAnimation(WTGuiRenderer.#frameDelta, WTGuiRenderer.#lastRender)
-    console.log(WTGuiRenderer.#frameDelta)
-    console.log(WTGuiRenderer.#lastRender)
 
     //  Render the menu
     if(currentMenu.bgImage !== '') {
