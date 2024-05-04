@@ -32,25 +32,15 @@ export interface actionBindings {
   }
 }
 
-export interface settings extends actionBindings {
+interface settings extends actionBindings {
   /** Enable/disable debug mode */
   debugMode:boolean
-  /** Width of the gui */
-  width:number
-  /** Height of the gui */
-  height:number
   /** Size of the mouse hitbox */
   mouseSize:number
   /** Speed to scroll menu items */
   scrollSpeed:number
   /** Default font size/face */
   defaultFont:string
-  /** Default font color */
-  defaultFontColor:string
-  /** Default menu background color */
-  defaultMenuColor:string
-  /** Default item background color */
-  defaultItemColor:string
   /** Default menu to open when all are closed */
   defaultMenu:string
   /** Font to use for rendering FPS */
@@ -60,18 +50,13 @@ export interface settings extends actionBindings {
 }
 
 class WTGuiSettings {
-  constructor() { return false }
+  constructor() { return false }  //  Prevent direct construction
 
   static #settings:settings = {
     debugMode: false,
-    width: Number(0),
-    height: Number(0),
     mouseSize: Number(0),
     scrollSpeed: Number(100),
     defaultFont: '14px Arial',
-    defaultFontColor: 'rgb(255,255,255)',
-    defaultMenuColor: 'rgb(0,0,0)',
-    defaultItemColor: 'rgb(255,165,0)',
     defaultMenu: 'main_menu',
     fpsFont: 'Bold 16px Arial',
     fpsColor: 'rgb(255,165,0)',
@@ -103,7 +88,7 @@ class WTGuiSettings {
   static set setDebug(value:boolean) { WTGuiSettings.#settings.debugMode = value }
 
   /*
-   * Save settings
+   * Load settings
    */
   /*static loadSettings = () => {
     if (WTGuiSettings.#settingsLoaded)

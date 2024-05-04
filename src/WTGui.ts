@@ -17,7 +17,7 @@ import { AABB } from './algorithms.js'
 
 interface data {
   initialized:boolean
-  imageFiles:Array<{ id:string, file:HTMLImageElement }>
+  imageFiles:Array<{ id:string, file:ImageBitmap }>
   audioFiles:Array<{ id:string, file:HTMLAudioElement }>
   menus:Array<WTGuiMenu>
   openedMenus:Array<WTGuiMenu>
@@ -61,11 +61,9 @@ export class WTGui {
     } catch (error:any) { throw error }*/
 
     try {
-      WTGuiRenderer.initialize(canvas)
+      WTGuiRenderer.initialize()
     } catch (error:any) { throw error }
 
-    if(canvas === null)
-      throw new WTGuiError(`Error configuring WTGui!  Can't find canvas!`, WTGui.start)
     window.addEventListener('keydown', WTGui.#events.onKeyDown, false)
     window.addEventListener('keyup', WTGui.#events.onKeyUp, false)
 
@@ -87,18 +85,19 @@ export class WTGui {
   /**
    * Add an image file
    * @param id Reference name for image
-   * @param file Filename and path of image
+   * @param file Filename of the image to add
    * @throws Throws an error if the ID already exists
-   * @throws Throws an error if the file does not exist
    */
   static addImage = (id:string, file:string) => {
     if(WTGui.getImage(id) !== undefined)
       throw new WTGuiError(`Image ID '${id}' already exists.`, WTGui.addImage)
-    //if(!fs.existsSync(path.normalize(file)))
-      //throw new WTGuiError(`'${file}' does not exist.`, WTGui.addImage)
     const tempImg = new Image()
+    tempImg.onload = () => {
+      Promise.resolve(createImageBitmap(tempImg)).then(tempBmp =>{
+        WTGui.#data.imageFiles.push({ id: id, file: tempBmp })
+      })
+    }
     tempImg.src = file
-    WTGui.#data.imageFiles.push({ id: id, file: tempImg })
   }
 
   /**
@@ -108,7 +107,7 @@ export class WTGui {
    */
   static addImages = (data:Array<{ id:string, file:string }>) => {
     try {
-      data.forEach(item => { WTGui.addImage(item.id, item.file) })
+      data.forEach(item => WTGui.addImage(item.id, item.file))
     } catch (error) { throw error }
   }
 
@@ -118,9 +117,9 @@ export class WTGui {
    * @returns Image by ID reference
    */
   static getImage = (id:string) => {
-    const tempImg = WTGui.#data.imageFiles.find(elm => elm.id === id)
-    if(tempImg === undefined) return undefined
-    return tempImg.file
+    const tempBmp = WTGui.#data.imageFiles.find(elm => elm.id === id)
+    if(tempBmp === undefined) return undefined
+    return tempBmp.file
   }
 
   /**
@@ -128,13 +127,10 @@ export class WTGui {
    * @param id Reference name for audio
    * @param file Filename and path of audio file
    * @throws Throws an error if the ID already exists
-   * @throws Throws an error if the file does not exist
    */
   static addAudio = (id:string, file:string) => {
     if(WTGui.getAudio(id) !== undefined)
       throw new WTGuiError(`Audio ID '${id}' already exists.`, WTGui.addAudio)
-    //if(!fs.existsSync(path.normalize(file)))
-      //throw new WTGuiError(`'${file}' does not exist.`, WTGui.addAudio)
     const tempAudio = new Audio()
     tempAudio.src = file
     WTGui.#data.audioFiles.push({ id: id, file: tempAudio })

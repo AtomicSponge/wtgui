@@ -20,9 +20,9 @@ export interface WTGuiMenuArgs {
   /** */
   font?:string
   /** */
-  bgColor?:string
+  bgColor:string
   /** */
-  fgColor?:string
+  fgColor:string
   /** */
   posX:number
   /** */
@@ -77,8 +77,8 @@ export class WTGuiMenu {
     this.#height = args.height
     this.#radius = args.radius || 0
     this.#font = args.font || settings.defaultFont
-    this.#bgColor = args.bgColor || settings.defaultMenuColor
-    this.#fgColor = args.fgColor || settings.defaultFontColor
+    this.#bgColor = args.bgColor
+    this.#fgColor = args.fgColor
     this.#bgImage = args.bgImage || ''
     this.#scaleImg = args.scaleImg || 0
     this.#imgOffsetX = args.imgOffsetX || 0

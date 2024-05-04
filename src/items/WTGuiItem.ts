@@ -19,9 +19,9 @@ export interface WTGuiItemArgs {
   /** */
   font?:string
   /** */
-  bgColor?:string
+  bgColor:string
   /** */
-  fgColor?:string
+  fgColor:string
   /** */
   posX:number
   /** */
@@ -76,8 +76,8 @@ export class WTGuiItem {
     this.#height = args.height
     this.#radius = args.radius || 0
     this.#font = args.font || settings.defaultFont
-    this.#bgColor = args.bgColor || settings.defaultItemColor
-    this.#fgColor = args.fgColor || settings.defaultFontColor
+    this.#bgColor = args.bgColor
+    this.#fgColor = args.fgColor
 
     this.#bgImage = args.bgImage || ''
     this.#imgOffsetX = args.imgOffsetX || 0

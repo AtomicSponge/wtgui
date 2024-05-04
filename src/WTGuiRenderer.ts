@@ -32,14 +32,18 @@ export class WTGuiRenderer {
 
   constructor() { return false }  //  Don't allow direct construction
 
-  static initialize(canvas:HTMLCanvasElement) {
+  static initialize() {
     if(WTGuiRenderer.#initialized)
       throw new WTGuiError(`WTGuiRenderer already initialized!`, WTGuiRenderer.initialize)
 
-    canvas.setAttribute('width', `${document.documentElement.clientWidth}`)
-    canvas.setAttribute('height', `${document.documentElement.clientHeight}`)
+    const tempCanvas = <HTMLCanvasElement>document.getElementById('___wtgui_renderer_canvas_id___')
+    if(tempCanvas === null)
+      throw new WTGuiError(`Can't find canvas element!`, WTGuiRenderer.initialize)
 
-    WTGuiRenderer.#mainCanvas = canvas
+    tempCanvas.setAttribute('width', `${document.documentElement.clientWidth}`)
+    tempCanvas.setAttribute('height', `${document.documentElement.clientHeight}`)
+
+    WTGuiRenderer.#mainCanvas = tempCanvas
     WTGuiRenderer.#mainCanvas.style.display = 'none'
     WTGuiRenderer.#ctx = <CanvasRenderingContext2D>WTGuiRenderer.#mainCanvas.getContext('2d', { willReadFrequently: true })
 
@@ -138,11 +142,11 @@ export class WTGuiRenderer {
     //  Render the menu
     if(!settings.debugMode && currentMenu.bgImage !== '') {
       {(currentMenu.scaleImg) ?
-        ctx.drawImage(<HTMLImageElement>WTGui.getImage(currentMenu.bgImage),
+        ctx.drawImage(<ImageBitmap>WTGui.getImage(currentMenu.bgImage),
           currentMenu.posX + currentMenu.imgOffsetX,
           currentMenu.posY + currentMenu.imgOffsetY,
           currentMenu.width, currentMenu.height) :
-        ctx.drawImage(<HTMLImageElement>WTGui.getImage(currentMenu.bgImage),
+        ctx.drawImage(<ImageBitmap>WTGui.getImage(currentMenu.bgImage),
           currentMenu.posX + currentMenu.imgOffsetX,
           currentMenu.posY + currentMenu.imgOffsetY)}
     } else {
@@ -163,11 +167,11 @@ export class WTGuiRenderer {
     currentMenu.items.forEach(elm => {
       if(!settings.debugMode && elm.bgImage !== '') {
         {(elm.scaleImg) ?
-          ctx.drawImage(<HTMLImageElement>WTGui.getImage(elm.bgImage),
+          ctx.drawImage(<ImageBitmap>WTGui.getImage(elm.bgImage),
             elm.posX + elm.imgOffsetX,
             elm.posY + elm.imgOffsetY,
             elm.width, elm.height) :
-          ctx.drawImage(<HTMLImageElement>WTGui.getImage(elm.bgImage),
+          ctx.drawImage(<ImageBitmap>WTGui.getImage(elm.bgImage),
             elm.posX + elm.imgOffsetX,
             elm.posY + elm.imgOffsetY)}
       } else {
