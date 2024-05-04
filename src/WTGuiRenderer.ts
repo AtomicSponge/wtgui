@@ -14,6 +14,10 @@ import { WTGuiItem } from './items/WTGuiItem.js'
 import { WTGuiError } from './WTGuiError.js'
 import { isEmptyObject } from './algorithms.js'
 
+export interface bgAnimation {
+  (ctx:CanvasRenderingContext2D, frameDelta:number, lastRender:number):void
+}
+
 export class WTGuiRenderer {
   static #initialized:boolean = false  //  Flag if the renderer was initialized
 
@@ -28,7 +32,7 @@ export class WTGuiRenderer {
   static #step:number = 0                  //  Used to calculate fps
   static #lastRender:number = 0            //  Last render time
   static #frameDelta:number = 0            //  Time in ms between frames
-  static #bgAnimation:Function = () => {}  //  Background animation function
+  static #bgAnimation:bgAnimation = () => {}  //  Background animation function
 
   constructor() { return false }  //  Don't allow direct construction
 
@@ -87,7 +91,7 @@ export class WTGuiRenderer {
    * Set the background animation function
    * @param func New animation function
    */
-  static setBgAnimation(func:Function) {
+  static setBgAnimation(func:bgAnimation) {
     if(WTGui.data.initialized)
       throw new WTGuiError(`WTGui is already running!`, WTGuiRenderer.setBgAnimation)
     if(!(func instanceof Function))
