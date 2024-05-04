@@ -74,7 +74,7 @@ export const AABB = (
     collection:Array<{ posX:number, posY:number, width:number, height:number }>) => {
   if(!(test instanceof Object)) return undefined
   if(!(collection instanceof Array)) return undefined
-  var res = undefined
+  let res = undefined
   collection.some((elm) => {
     if(
       test.posX < elm.posX + elm.width &&
