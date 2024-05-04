@@ -51,7 +51,7 @@ export class WTGui {
    */
   static start() {
     if(WTGui.#data.initialized)
-      throw new WTGuiError(`WTGui is already running.`, WTGui.start)
+      throw new WTGuiError(`WTGui is already running!`, WTGui.start)
     if(WTGui.#data.menus.length === 0)
       throw new WTGuiError(`Must define some menus!`, WTGui.start)
 
@@ -89,7 +89,7 @@ export class WTGui {
    */
   static addImage = (id:string, file:string) => {
     if(WTGui.getImage(id) !== undefined)
-      throw new WTGuiError(`Image ID '${id}' already exists.`, WTGui.addImage)
+      throw new WTGuiError(`Image ID '${id}' already exists!`, WTGui.addImage)
     const tempImg = new Image()
     tempImg.onload = () => {
       Promise.resolve(createImageBitmap(tempImg)).then(tempBmp =>{
@@ -129,7 +129,7 @@ export class WTGui {
    */
   static addAudio = (id:string, file:string) => {
     if(WTGui.getAudio(id) !== undefined)
-      throw new WTGuiError(`Audio ID '${id}' already exists.`, WTGui.addAudio)
+      throw new WTGuiError(`Audio ID '${id}' already exists!`, WTGui.addAudio)
     const tempAudio = new Audio()
     tempAudio.src = file
     WTGui.#data.audioFiles.push({ id: id, file: tempAudio })
@@ -165,9 +165,9 @@ export class WTGui {
    */
   static addMenu = (menuObj:WTGuiMenu) => {
     if(!(menuObj instanceof WTGuiMenu))
-      throw new WTGuiTypeError(`Menu is not a valid 'WTGuiMenu' object.`, WTGui.addMenu)
+      throw new WTGuiTypeError(`Menu is not a valid 'WTGuiMenu' object!`, WTGui.addMenu)
     if(WTGui.getMenu(menuObj.id) !== undefined)
-      throw new WTGuiError(`Menu ID '${menuObj.id}' already exists.`, WTGui.addMenu)
+      throw new WTGuiError(`Menu ID '${menuObj.id}' already exists!`, WTGui.addMenu)
     WTGui.#data.menus.push(menuObj)
   }
 
@@ -189,10 +189,10 @@ export class WTGui {
    */
   static addItem = (menuId:string, itemObj:WTGuiItem) => {
     if(!(itemObj instanceof WTGuiItem))
-      throw new WTGuiTypeError(`Menu item is not a valid 'WTGuiItem' object.`, WTGui.addItem)
+      throw new WTGuiTypeError(`Menu item is not a valid 'WTGuiItem' object!`, WTGui.addItem)
     const menu = WTGui.getMenu(menuId)
     if(menu === undefined)
-      throw new WTGuiError(`'${menuId}' - Menu does not exist.`, WTGui.addItem)
+      throw new WTGuiError(`'${menuId}' - Menu does not exist!`, WTGui.addItem)
     menu.addItem(itemObj)
   }
 
@@ -204,7 +204,7 @@ export class WTGui {
   static openMenu = (menuId:string) => {
     const tempMenu = WTGui.getMenu(menuId)
     if(tempMenu === undefined)
-      throw new WTGuiError(`'${menuId}' - Menu does not exist.`, WTGui.openMenu)
+      throw new WTGuiError(`'${menuId}' - Menu does not exist!`, WTGui.openMenu)
     WTGui.#data.openedMenus.push(tempMenu)
     WTGui.#data.currentMenu = WTGui.#data.openedMenus[(WTGui.#data.openedMenus.length - 1)]
     WTGui.#data.activeItem = WTGui.#data.currentMenu.selectableItems[0]
@@ -491,13 +491,7 @@ export class WTGui {
     get draw() { return WTGuiRenderer.draw },
 
     /** Get the frames per second */
-    get fps() { return WTGuiRenderer.fps },
-
-    /** Get the frame delta time */
-    get frameDelta() { return WTGuiRenderer.frameDelta },
-
-    /** Get the last render time */
-    get lastRender() { return WTGuiRenderer.lastRender }
+    get fps() { return WTGuiRenderer.fps }
   }
 
   //  Debug functions

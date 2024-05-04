@@ -26,8 +26,8 @@ export class WTGuiRenderer {
   static #drawFps:boolean = false          //  Flag for drawing fps counter
   static #fps:number = 0                   //  Store frame rate
   static #step:number = 0                  //  Used to calculate fps
-  static #frameDelta:number = 0            //  Time in ms between frames
   static #lastRender:number = 0            //  Last render time
+  static #frameDelta:number = 0            //  Time in ms between frames
   static #bgAnimation:Function = () => {}  //  Background animation function
 
   constructor() { return false }  //  Don't allow direct construction
@@ -60,11 +60,18 @@ export class WTGuiRenderer {
 
   /**
    * Start the renderer
+   * @throws Throws error if no menus were created
    */
   static start() {
+    if(WTGui.data.openedMenus.length === 0 || isEmptyObject(WTGui.data.currentMenu))
+      WTGui.openMenu(settings.defaultMenu)
+    if(WTGui.data.openedMenus.length === 0 || isEmptyObject(WTGui.data.currentMenu))
+      throw new WTGuiError(`No menus available!`, WTGuiRenderer.#render)
+    
     WTGuiRenderer.#mainCanvas.style.display = 'block'
     WTGuiRenderer.#mainCanvas.focus()
     window.cancelAnimationFrame(WTGuiRenderer.#nextFrame)
+    WTGuiRenderer.#lastRender = <number>document.timeline.currentTime
     WTGuiRenderer.#nextFrame = window.requestAnimationFrame(WTGuiRenderer.#render)
   }
 
@@ -84,9 +91,9 @@ export class WTGuiRenderer {
    */
   static setBgAnimation(func:Function) {
     if(WTGui.data.initialized)
-      throw new WTGuiError(`WTGui is already running.`, WTGuiRenderer.setBgAnimation)
+      throw new WTGuiError(`WTGui is already running!`, WTGuiRenderer.setBgAnimation)
     if(!(func instanceof Function))
-      throw new WTGuiError(`Background animation must be a function.`, WTGuiRenderer.setBgAnimation)
+      throw new WTGuiError(`Background animation must be a function!`, WTGuiRenderer.setBgAnimation)
     WTGuiRenderer.#bgAnimation = func
   }
 
@@ -127,8 +134,6 @@ export class WTGuiRenderer {
   static #render() {
     if(WTGui.data.openedMenus.length === 0 || isEmptyObject(WTGui.data.currentMenu))
       WTGui.openMenu(settings.defaultMenu)
-    if(WTGui.data.openedMenus.length === 0 || isEmptyObject(WTGui.data.currentMenu))
-      throw new WTGuiError(`No menus available.`, WTGuiRenderer.#render)
 
     const currentMenu = WTGui.data.currentMenu
     const ctx = WTGuiRenderer.#ctx
@@ -137,7 +142,9 @@ export class WTGuiRenderer {
     ctx.clearRect(0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
 
     //  Run background animation function
-    WTGuiRenderer.#bgAnimation()
+    WTGuiRenderer.#bgAnimation(WTGuiRenderer.#frameDelta, WTGuiRenderer.#lastRender)
+    console.log(WTGuiRenderer.#frameDelta)
+    console.log(WTGuiRenderer.#lastRender)
 
     //  Render the menu
     if(currentMenu.bgImage !== '') {
@@ -197,9 +204,10 @@ export class WTGuiRenderer {
     }
 
     //  Update renderer info and request next frame
+    if(WTGuiRenderer.#step === Number.MAX_VALUE) WTGuiRenderer.#step = 0
     WTGuiRenderer.#step++
-    WTGuiRenderer.#frameDelta = Date.now() - WTGuiRenderer.#lastRender
-    WTGuiRenderer.#lastRender = Date.now()
+    WTGuiRenderer.#frameDelta = <number>document.timeline.currentTime - WTGuiRenderer.#lastRender
+    WTGuiRenderer.#lastRender = <number>document.timeline.currentTime
     WTGuiRenderer.#nextFrame = window.requestAnimationFrame(WTGuiRenderer.#render)
   }
 
@@ -214,16 +222,4 @@ export class WTGuiRenderer {
    * @returns Frames per second
    */
   static get fps() { return WTGuiRenderer.#fps }
-
-  /**
-   * Get the frame delta time
-   * @returns Time between drawn frames
-   */
-  static get frameDelta() { return WTGuiRenderer.#frameDelta }
-
-  /**
-   * Get the last rendering time
-   * @returns Time last frame was drawn
-   */
-  static get lastRender() { return WTGuiRenderer.#lastRender }
 }
