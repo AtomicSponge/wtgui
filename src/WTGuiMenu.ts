@@ -12,7 +12,7 @@ import { WTGuiItem } from './items/WTGuiItem.js'
 import { WTGuiMenuError } from './WTGuiError.js'
 import { testHex, testRgb } from './algorithms.js'
 
-export interface WTGuiMenuArgs {
+interface WTGuiMenuArgs {
   /** Menu reference ID */
   id:string
   /** Menu title */

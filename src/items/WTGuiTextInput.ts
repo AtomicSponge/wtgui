@@ -11,7 +11,7 @@ import { WTGuiItem } from './WTGuiItem.js'
 import type { WTGuiItemArgs } from './WTGuiItem.js'
 import { WTGuiMenuItemError } from '../WTGuiError.js'
 
-export interface WTGuiTextInputArgs extends WTGuiItemArgs {
+interface WTGuiTextInputArgs extends WTGuiItemArgs {
   /** */
   size:number
 }

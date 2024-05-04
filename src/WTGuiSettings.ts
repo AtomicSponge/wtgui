@@ -11,7 +11,7 @@ import { WTGui } from "./WTGui.js"
 import { WTGuiError } from "./WTGuiError.js"
 import { testHex, testRgb } from './algorithms.js'
 
-export interface actionBindings {
+interface actionBindings {
   actionBindings: {
     keys: {
       [index: string]: Array<string>

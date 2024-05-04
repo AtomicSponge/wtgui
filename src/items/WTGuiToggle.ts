@@ -11,7 +11,7 @@ import { WTGuiItem } from './WTGuiItem.js'
 import type { WTGuiItemArgs } from './WTGuiItem.js'
 import { WTGuiMenuItemError } from '../WTGuiError.js'
 
-export interface WTGuiToggleArgs extends WTGuiItemArgs {
+interface WTGuiToggleArgs extends WTGuiItemArgs {
   /** */
   onLeft:Function
   /** */

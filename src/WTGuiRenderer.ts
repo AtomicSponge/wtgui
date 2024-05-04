@@ -14,7 +14,7 @@ import { WTGuiItem } from './items/WTGuiItem.js'
 import { WTGuiError } from './WTGuiError.js'
 import { isEmptyObject } from './algorithms.js'
 
-export interface bgAnimation {
+interface bgAnimation {
   (ctx:CanvasRenderingContext2D, frameDelta:number, lastRender:number):void
 }
 

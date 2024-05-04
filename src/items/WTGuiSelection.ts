@@ -10,7 +10,7 @@
 import { WTGuiItem } from './WTGuiItem.js'
 import type { WTGuiItemArgs } from './WTGuiItem.js'
 
-export interface WTGuiSelectionArgs extends WTGuiItemArgs {
+interface WTGuiSelectionArgs extends WTGuiItemArgs {
   //
 }
 

@@ -12,7 +12,7 @@ import { WTGuiItem } from './WTGuiItem.js'
 import type { WTGuiItemArgs } from './WTGuiItem.js'
 import { WTGuiError } from '../WTGuiError.js'
 
-export interface WTGuiActionArgs extends WTGuiItemArgs {
+interface WTGuiActionArgs extends WTGuiItemArgs {
   /** */
   actionType?:string
   /** */
