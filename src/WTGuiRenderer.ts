@@ -32,37 +32,35 @@ export class WTGuiRenderer {
 
   constructor() { return false }  //  Don't allow direct construction
 
-  static initialize() {
-    if(WTGuiRenderer.#initialized)
-      throw new WTGuiError(`WTGuiRenderer already initialized!`, WTGuiRenderer.initialize)
-
-    const tempCanvas = <HTMLCanvasElement>document.getElementById('___wtgui_renderer_canvas_id___')
-    if(tempCanvas === null)
-      throw new WTGuiError(`Can't find canvas element!`, WTGuiRenderer.initialize)
-
-    tempCanvas.setAttribute('width', `${document.documentElement.clientWidth}`)
-    tempCanvas.setAttribute('height', `${document.documentElement.clientHeight}`)
-
-    WTGuiRenderer.#mainCanvas = tempCanvas
-    WTGuiRenderer.#mainCanvas.style.display = 'none'
-    WTGuiRenderer.#ctx = <CanvasRenderingContext2D>WTGuiRenderer.#mainCanvas.getContext('2d', { willReadFrequently: true })
-
-    const observer = new ResizeObserver(() => {
-      const temp = WTGuiRenderer.#ctx.getImageData(0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
-      WTGuiRenderer.#mainCanvas.width = document.documentElement.clientWidth
-      WTGuiRenderer.#mainCanvas.height = document.documentElement.clientHeight
-      WTGuiRenderer.#ctx.putImageData(temp, 0, 0, 0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
-    })
-    observer.observe(document.documentElement)
-
-    WTGuiRenderer.#initialized = true
-  }
-
   /**
    * Start the renderer
+   * @throws Throws error if the canvas is not found
    * @throws Throws error if no menus were created
    */
   static start() {
+    if(!WTGuiRenderer.#initialized) {
+      const tempCanvas = <HTMLCanvasElement>document.getElementById('___wtgui_renderer_canvas_id___')
+      if(tempCanvas === null)
+        throw new WTGuiError(`Can't find canvas element!`, WTGuiRenderer.start)
+
+      tempCanvas.setAttribute('width', `${document.documentElement.clientWidth}`)
+      tempCanvas.setAttribute('height', `${document.documentElement.clientHeight}`)
+
+      WTGuiRenderer.#mainCanvas = tempCanvas
+      WTGuiRenderer.#mainCanvas.style.display = 'none'
+      WTGuiRenderer.#ctx = <CanvasRenderingContext2D>WTGuiRenderer.#mainCanvas.getContext('2d', { willReadFrequently: true })
+
+      const observer = new ResizeObserver(() => {
+        const temp = WTGuiRenderer.#ctx.getImageData(0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
+        WTGuiRenderer.#mainCanvas.width = document.documentElement.clientWidth
+        WTGuiRenderer.#mainCanvas.height = document.documentElement.clientHeight
+        WTGuiRenderer.#ctx.putImageData(temp, 0, 0, 0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
+      })
+      observer.observe(document.documentElement)
+
+      WTGuiRenderer.#initialized = true
+    }
+
     if(WTGui.data.openedMenus.length === 0 || isEmptyObject(WTGui.data.currentMenu))
       WTGui.openMenu(settings.defaultMenu)
     if(WTGui.data.openedMenus.length === 0 || isEmptyObject(WTGui.data.currentMenu))

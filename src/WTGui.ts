@@ -54,14 +54,6 @@ export class WTGui {
     if(WTGui.#data.menus.length === 0)
       throw new WTGuiError(`Must define some menus!`, WTGui.start)
 
-    /*try {
-      WTGuiSettings.loadSettings()
-    } catch (error:any) { throw error }*/
-
-    try {
-      WTGuiRenderer.initialize()
-    } catch (error:any) { throw error }
-
     window.addEventListener('keydown', WTGui.#events.onKeyDown, false)
     window.addEventListener('keyup', WTGui.#events.onKeyUp, false)
 
@@ -470,24 +462,6 @@ export class WTGui {
         }
       }
     }
-  }
-
-  //  Expose renderer functions
-  static renderer = {
-    /** Start the renderer */
-    start: () => { WTGuiRenderer.start() },
-
-    /** Stop the renderer */
-    stop: () => { WTGuiRenderer.stop() },
-
-    /** Set background animation function */
-    setBgAnimation: (func:Function) => { WTGuiRenderer.setBgAnimation(func) },
-
-    /** Toggle drawing of frames per second */
-    drawFps: (toggle:boolean) => { WTGuiRenderer.drawFps(toggle) },
-
-    /** Get the frames per second */
-    get fps() { return WTGuiRenderer.fps }
   }
 
   //  Debug functions
