@@ -7,6 +7,7 @@
  * 
  */
 
+import { WTGui } from "./WTGui.js"
 import { WTGuiError } from "./WTGuiError.js"
 import { testHex, testRgb } from './algorithms.js'
 
@@ -83,15 +84,28 @@ export class WTGuiSettings {
   static get settings() { return WTGuiSettings.#settings }
 
   /** Set the mouse size */
-  static set mouseSize(size:number) { WTGuiSettings.#settings.mouseSize = size }
+  static set mouseSize(size:number) {
+    if(WTGui.data.initialized) return
+    WTGuiSettings.#settings.mouseSize = size
+  }
   /** Set the scroll speed */
-  static set scrollSpeed(speed:number) { WTGuiSettings.#settings.scrollSpeed = speed }
+  static set scrollSpeed(speed:number) {
+    if(WTGui.data.initialized) return
+    WTGuiSettings.#settings.scrollSpeed = speed
+  }
   /** Set the default font */
-  static set defaultFont(font:string) { WTGuiSettings.#settings.defaultFont = font }
+  static set defaultFont(font:string) {
+    if(WTGui.data.initialized) return
+    WTGuiSettings.#settings.defaultFont = font
+  }
   /** Set the FPS font */
-  static set fpsFont(font:string) { WTGuiSettings.#settings.fpsFont = font }
+  static set fpsFont(font:string) {
+    if(WTGui.data.initialized) return
+    WTGuiSettings.#settings.fpsFont = font
+  }
   /** Set the FPS color */
   static set fpsColor(color:string) {
+    if(WTGui.data.initialized) return
     if(!testRgb(color) && !testHex(color))
       throw new WTGuiError(`'${color}' - Bad color code while setting fps font color!`, WTGuiSettings.fpsColor)
     WTGuiSettings.#settings.fpsColor = color
@@ -108,7 +122,7 @@ export class WTGuiSettings {
    * Load input binding settings
    */
   static loadInputBindings = () => {
-    //
+    if(WTGui.data.initialized) return
   }
 }
 

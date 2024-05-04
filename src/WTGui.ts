@@ -68,8 +68,8 @@ export class WTGui {
     document.addEventListener('touchmove', WTGui.#events.onTouchMove, false)
     document.addEventListener('scroll', WTGui.#events.onScroll, false)*/
 
-    WTGuiRenderer.start()
     WTGui.#data.initialized = true
+    WTGuiRenderer.start()
   }
 
   /**
