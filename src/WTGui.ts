@@ -8,7 +8,7 @@
  */
 
 import { settings } from './WTGuiSettings.js'
-import { WTGuiSaveInputBindings, WTGuiEnableDebugging } from './WTGuiSettings.js'
+import { WTGuiSaveInputBindings } from './WTGuiSettings.js'
 import { WTGuiRenderer } from './WTGuiRenderer.js'
 import { WTGuiMenu } from './WTGuiMenu.js'
 import { WTGuiItem } from './items/WTGuiItem.js'
@@ -49,8 +49,7 @@ export class WTGui {
    * @throws Throws an error if no menus were defined
    * @throws Throws any configuration errors
    */
-  static start(canvas:HTMLCanvasElement) {
-    if(settings.debugMode) console.log(`WTGui is in debug mode!`)
+  static start() {
     if(WTGui.#data.initialized)
       throw new WTGuiError(`WTGui is already running.`, WTGui.start)
     if(WTGui.#data.menus.length === 0)
@@ -523,9 +522,6 @@ export class WTGui {
       WTGui.#data.audioFiles.forEach(audio => { console.log(audio) })
     }
   }
-
-  /** Enable WTGui debugging */
-  static enableDebugging = () => { WTGuiEnableDebugging() }
 
   /** Save input bindings */
   static saveInputBindings = () => {

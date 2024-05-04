@@ -12,33 +12,37 @@ import { WTGuiMenuItemError } from '../WTGuiError.js'
 import { testHex, testRgb } from '../algorithms.js'
 
 export interface WTGuiItemArgs {
-  /** */
+  /** Item reference ID */
   id:string
-  /** */
+  /** Item title */
   title:string
-  /** */
+  /** Item font */
   font?:string
-  /** */
+  /** Item background color */
   bgColor:string
-  /** */
+  /** Item border color */
+  brColor?:string
+  /** Item foreground color */
   fgColor:string
-  /** */
+  /** Item position X */
   posX:number
-  /** */
+  /** Item position Y */
   posY:number
-  /** */
+  /** Item width */
   width:number
-  /** */
+  /** Item height */
   height:number
-  /** */
+  /** Item border width */
+  brWidth?:number
+  /** Item border radius */
   radius?:number | Array<number>
-  /** */
+  /** Item background image */
   bgImage?:string
-  /** */
+  /** Background image offset X */
   imgOffsetX?:number
-  /** */
+  /** Background image offset Y */
   imgOffsetY?:number
-  /** */
+  /** Background image scaling */
   scaleImg?:boolean
 }
 
@@ -51,11 +55,13 @@ export class WTGuiItem {
   #title:string
   #font:string
   #bgColor:string
+  #brColor:string
   #fgColor:string
   #posX:number
   #posY:number
   #width:number
   #height:number
+  #brWidth:number
   #radius:number | Array<number>
   #bgImage:string
   #imgOffsetX:number
@@ -74,9 +80,11 @@ export class WTGuiItem {
     this.#posY = args.posY
     this.#width = args.width
     this.#height = args.height
+    this.#brWidth = args.brWidth || 1
     this.#radius = args.radius || 0
     this.#font = args.font || settings.defaultFont
     this.#bgColor = args.bgColor
+    this.#brColor = args.brColor || this.#bgColor
     this.#fgColor = args.fgColor
 
     this.#bgImage = args.bgImage || ''
@@ -100,12 +108,14 @@ export class WTGuiItem {
   get title() { return this.#title }
   get font() { return this.#font }
   get bgColor() { return this.#bgColor }
+  get brColor() { return this.#brColor }
   get fgColor() { return this.#fgColor }
   get bgImage() { return this.#bgImage }
   get posX() { return this.#posX }
   get posY() { return this.#posY }
   get width() { return this.#width }
   get height() { return this.#height }
+  get brWidth() { return this.#brWidth }
   get radius() { return this.#radius }
   get imgOffsetX() { return this.#imgOffsetX }
   get imgOffsetY() { return this.#imgOffsetY }

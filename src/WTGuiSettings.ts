@@ -33,8 +33,6 @@ export interface actionBindings {
 }
 
 interface settings extends actionBindings {
-  /** Enable/disable debug mode */
-  debugMode:boolean
   /** Size of the mouse hitbox */
   mouseSize:number
   /** Speed to scroll menu items */
@@ -53,7 +51,6 @@ class WTGuiSettings {
   constructor() { return false }  //  Prevent direct construction
 
   static #settings:settings = {
-    debugMode: false,
     mouseSize: Number(0),
     scrollSpeed: Number(100),
     defaultFont: '14px Arial',
@@ -85,8 +82,6 @@ class WTGuiSettings {
 
   static get settings() { return WTGuiSettings.#settings }
 
-  static set setDebug(value:boolean) { WTGuiSettings.#settings.debugMode = value }
-
   /*
    * Load settings
    */
@@ -117,12 +112,4 @@ export const settings = WTGuiSettings.settings
  */
 export const WTGuiSaveInputBindings = () => {
   try { WTGuiSettings.saveInputBindings() } catch (error) { throw error }
-}
-
-export const WTGuiEnableDebugging = () => {
-  if(WTGui.data.initialized) {
-    console.log(`Unable to start debugging while WTGui is running`)
-    return
-  }
-  WTGuiSettings.setDebug = true
 }

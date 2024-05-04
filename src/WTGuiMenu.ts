@@ -13,33 +13,37 @@ import { WTGuiMenuError } from './WTGuiError.js'
 import { testHex, testRgb } from './algorithms.js'
 
 export interface WTGuiMenuArgs {
-  /** */
+  /** Menu reference ID */
   id:string
-  /** */
+  /** Menu title */
   title:string
-  /** */
+  /** Menu font */
   font?:string
-  /** */
+  /** Menu background color */
   bgColor:string
-  /** */
+  /** Menu border color */
+  brColor?:string
+  /** Menu foreground color */
   fgColor:string
-  /** */
+  /** Menu position X */
   posX:number
-  /** */
+  /** Menu position Y */
   posY:number
-  /** */
+  /** Menu width */
   width:number
-  /** */
+  /** Menu height */
   height:number
-  /** */
+  /** Menu border width */
+  brWidth?:number
+  /** Menu border radius */
   radius?:number | Array<number>
-  /** */
+  /** Menu background image */
   bgImage?:string
-  /** */
+  /** Backround image scaling */
   scaleImg?:number
-  /** */
+  /** Backround image X offset */
   imgOffsetX?:number
-  /** */
+  /** Backround image Y offset */
   imgOffsetY?:number
 }
 
@@ -51,11 +55,13 @@ export class WTGuiMenu {
   #title:string
   #font:string
   #bgColor:string
+  #brColor:string
   #fgColor:string
   #posX:number
   #posY:number
   #width:number
   #height:number
+  #brWidth:number
   #radius:number | Array<number>
   #bgImage:string
   #scaleImg:number
@@ -75,9 +81,11 @@ export class WTGuiMenu {
     this.#posY = args.posY
     this.#width = args.width
     this.#height = args.height
+    this.#brWidth = args.brWidth || 1
     this.#radius = args.radius || 0
     this.#font = args.font || settings.defaultFont
     this.#bgColor = args.bgColor
+    this.#brColor = args.brColor || this.#bgColor
     this.#fgColor = args.fgColor
     this.#bgImage = args.bgImage || ''
     this.#scaleImg = args.scaleImg || 0
@@ -110,11 +118,13 @@ export class WTGuiMenu {
   get title() { return this.#title }
   get font() { return this.#font }
   get bgColor() { return this.#bgColor }
+  get brColor() { return this.#brColor }
   get fgColor() { return this.#fgColor }
   get posX() { return this.#posX }
   get posY() { return this.#posY }
   get width() { return this.#width }
   get height() { return this.#height }
+  get brWidth() { return this.#brWidth }
   get radius() { return this.#radius }
   get bgImage() { return this.#bgImage }
   get scaleImg() { return this.#scaleImg }

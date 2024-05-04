@@ -140,7 +140,7 @@ export class WTGuiRenderer {
     WTGuiRenderer.#bgAnimation()
 
     //  Render the menu
-    if(!settings.debugMode && currentMenu.bgImage !== '') {
+    if(currentMenu.bgImage !== '') {
       {(currentMenu.scaleImg) ?
         ctx.drawImage(<ImageBitmap>WTGui.getImage(currentMenu.bgImage),
           currentMenu.posX + currentMenu.imgOffsetX,
@@ -150,8 +150,9 @@ export class WTGuiRenderer {
           currentMenu.posX + currentMenu.imgOffsetX,
           currentMenu.posY + currentMenu.imgOffsetY)}
     } else {
-      ctx.strokeStyle = (settings.debugMode) ? '#A020F0' : currentMenu.bgColor
-      ctx.fillStyle = (settings.debugMode) ? '#A020F0' : currentMenu.bgColor
+      ctx.lineWidth = currentMenu.brWidth
+      ctx.strokeStyle = currentMenu.brColor
+      ctx.fillStyle = currentMenu.bgColor
       ctx.beginPath()
       ctx.roundRect(currentMenu.posX, currentMenu.posY,
         currentMenu.width, currentMenu.height, currentMenu.radius)
@@ -165,7 +166,7 @@ export class WTGuiRenderer {
 
     //  Render menu items
     currentMenu.items.forEach(elm => {
-      if(!settings.debugMode && elm.bgImage !== '') {
+      if(elm.bgImage !== '') {
         {(elm.scaleImg) ?
           ctx.drawImage(<ImageBitmap>WTGui.getImage(elm.bgImage),
             elm.posX + elm.imgOffsetX,
@@ -175,8 +176,9 @@ export class WTGuiRenderer {
             elm.posX + elm.imgOffsetX,
             elm.posY + elm.imgOffsetY)}
       } else {
-        ctx.strokeStyle = (settings.debugMode) ? '#6FF01F' : elm.bgColor
-        ctx.fillStyle = (settings.debugMode) ? '#6FF01F' : elm.bgColor
+        ctx.lineWidth = elm.brWidth
+        ctx.strokeStyle = elm.brColor
+        ctx.fillStyle = elm.bgColor
         ctx.beginPath()
         ctx.roundRect(currentMenu.posX + elm.posX,
           currentMenu.posY + elm.posY,
