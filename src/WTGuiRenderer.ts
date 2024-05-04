@@ -65,7 +65,7 @@ export class WTGuiRenderer {
       WTGui.openMenu(settings.defaultMenu)
     if(WTGui.data.openedMenus.length === 0 || isEmptyObject(WTGui.data.currentMenu))
       throw new WTGuiError(`No menus available!`, WTGuiRenderer.#render)
-    
+
     WTGuiRenderer.#mainCanvas.style.display = 'block'
     WTGuiRenderer.#mainCanvas.focus()
     window.cancelAnimationFrame(WTGuiRenderer.#nextFrame)
