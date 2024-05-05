@@ -299,8 +299,8 @@ export class WTGui {
 
     //  Mouse Down Event
     onMouseDown: (event:MouseEvent) => {
-      const hitX = event.offsetX - WTGui.#data.currentMenu.posX
-      const hitY = event.offsetY - WTGui.#data.currentMenu.posY
+      const hitX = event.offsetX - WTGui.#data.currentMenu.posX - WTGuiRenderer.menuPosX
+      const hitY = event.offsetY - WTGui.#data.currentMenu.posY - WTGuiRenderer.menuPosY
       //  See if the mouse clicked on anything
       const res:any = AABB(
         {
@@ -330,8 +330,8 @@ export class WTGui {
       //  If the mouse is pointing at anything, make it the active item
       const res:any = AABB(
         {
-          posX: event.offsetX - WTGui.#data.currentMenu.posX,
-          posY: event.offsetY - WTGui.#data.currentMenu.posY,
+          posX: event.offsetX - WTGui.#data.currentMenu.posX - WTGuiRenderer.menuPosX,
+          posY: event.offsetY - WTGui.#data.currentMenu.posY - WTGuiRenderer.menuPosY,
           width: settings.mouseSize,
           height: settings.mouseSize,
         },

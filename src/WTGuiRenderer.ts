@@ -28,6 +28,9 @@ export class WTGuiRenderer {
   static #menuCanvas:HTMLCanvasElement      //  Menu canvas
   static #menuCtx:CanvasRenderingContext2D  //  Menu rendering context
 
+  static #menuPosX:number = 0
+  static #menuPosY:number = 0
+
   static #fpsCalc:number = 0                //  Store timed func to calculate fps
   static #nextFrame:number = 0              //  Store the call to the animation frame
   static #drawFps:boolean = false           //  Flag for drawing fps counter
@@ -73,11 +76,17 @@ export class WTGuiRenderer {
       WTGuiRenderer.#menuCanvas.height = settings.viewHeight
       WTGuiRenderer.#menuCtx = <CanvasRenderingContext2D>WTGuiRenderer.#menuCanvas.getContext('2d')
 
+      //  Calculate the menu X/Y position offsets
+      WTGuiRenderer.#menuPosX = (WTGuiRenderer.#mainCanvas.width - WTGuiRenderer.#menuCanvas.width) / 2
+      WTGuiRenderer.#menuPosY = (WTGuiRenderer.#mainCanvas.height - WTGuiRenderer.#menuCanvas.height) / 2
+
       const observer = new ResizeObserver(() => {
         WTGuiRenderer.#mainCanvas.width = document.documentElement.clientWidth
         WTGuiRenderer.#mainCanvas.height = document.documentElement.clientHeight
         WTGuiRenderer.#bgCanvas.width = document.documentElement.clientWidth
         WTGuiRenderer.#bgCanvas.height = document.documentElement.clientHeight
+        WTGuiRenderer.#menuPosX = (WTGuiRenderer.#mainCanvas.width - WTGuiRenderer.#menuCanvas.width) / 2
+        WTGuiRenderer.#menuPosY = (WTGuiRenderer.#mainCanvas.height - WTGuiRenderer.#menuCanvas.height) / 2
       })
       observer.observe(document.documentElement)
 
@@ -217,16 +226,14 @@ export class WTGuiRenderer {
     })
 
     //  Draw the rendered menu to the main context
-    const menuPosX = 0
-    const menuPosY = 0
-    WTGuiRenderer.#mainCtx.drawImage(WTGuiRenderer.#menuCanvas, menuPosX, menuPosY)
+    WTGuiRenderer.#mainCtx.drawImage(WTGuiRenderer.#menuCanvas, WTGuiRenderer.#menuPosX, WTGuiRenderer.#menuPosY)
 
     //  Render FPS counter if enabled
     if(WTGuiRenderer.#drawFps) {
-      ctx.font = settings.fpsFont
-      ctx.fillStyle = settings.fpsColor
-      ctx.textAlign = 'right'
-      ctx.fillText(`${WTGuiRenderer.#fps}`, WTGuiRenderer.#mainCanvas.width, 12)
+      WTGuiRenderer.#mainCtx.font = settings.fpsFont
+      WTGuiRenderer.#mainCtx.fillStyle = settings.fpsColor
+      WTGuiRenderer.#mainCtx.textAlign = 'right'
+      WTGuiRenderer.#mainCtx.fillText(`${WTGuiRenderer.#fps}`, WTGuiRenderer.#mainCanvas.width, 12)
     }
 
     //  Update renderer info and request next frame
@@ -237,9 +244,10 @@ export class WTGuiRenderer {
     WTGuiRenderer.#nextFrame = window.requestAnimationFrame(WTGuiRenderer.#render)
   }
 
-  /**
-   * Get the frames per second
-   * @returns Frames per second
-   */
+  /** Get the frames per second */
   static get fps() { return WTGuiRenderer.#fps }
+  /** Get the menu X offset position  */
+  static get menuPosX() { return WTGuiRenderer.#menuPosX }
+  /** Get the menu Y offset position  */
+  static get menuPosY() { return WTGuiRenderer.#menuPosY }
 }
