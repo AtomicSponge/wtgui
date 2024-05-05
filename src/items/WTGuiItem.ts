@@ -9,7 +9,7 @@
 
 import { settings } from '../WTGuiSettings.js'
 import { WTGuiMenuItemError } from '../WTGuiError.js'
-import { testHex, testRgb } from '../algorithms.js'
+import { testHex, testRgb, testPixel } from '../algorithms.js'
 
 export interface WTGuiItemArgs {
   /** Item reference ID */
@@ -98,6 +98,8 @@ export class WTGuiItem {
     this.#canSelect = false
     this.#scrollable = false
 
+    if(!testPixel(this.#fontSize))
+      throw new WTGuiMenuItemError(`'${this.#fontSize}' - Bad pixel format when setting item font size!`, this.constructor)
     if(!testRgb(this.#fgColor) && !testHex(this.#fgColor))
       throw new WTGuiMenuItemError(`'${this.#fgColor}' - Bad foreground color code in item '${this.#id}'.`, this.constructor)
     if(!testRgb(this.#brColor) && !testHex(this.#brColor))

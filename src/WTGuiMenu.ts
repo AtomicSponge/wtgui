@@ -10,7 +10,7 @@
 import { settings } from './WTGuiSettings.js'
 import { WTGuiItem } from './items/WTGuiItem.js'
 import { WTGuiMenuError } from './WTGuiError.js'
-import { testHex, testRgb } from './algorithms.js'
+import { testHex, testRgb, testPixel } from './algorithms.js'
 
 interface WTGuiMenuArgs {
   /** Menu reference ID */
@@ -98,6 +98,8 @@ export class WTGuiMenu {
     this.#items = []
     this.#selectableItems = []
 
+    if(!testPixel(this.#fontSize))
+      throw new WTGuiMenuError(`'${this.#fontSize}' - Bad pixel format when setting menu font size!`, this.constructor)
     if(!testRgb(this.#fgColor) && !testHex(this.#fgColor))
       throw new WTGuiMenuError(`'${this.#fgColor}' - Bad foreground color code in menu '${this.#id}'`, this.constructor)
     if(!testRgb(this.#brColor) && !testHex(this.#brColor))
