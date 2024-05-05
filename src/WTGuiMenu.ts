@@ -16,7 +16,13 @@ interface WTGuiMenuArgs {
   /** Menu reference ID */
   id:string
   /** Menu title */
-  title:string
+  title?:string
+  /** Menu title X position */
+  titleX?:number
+  /** Menu title Y position */
+  titleY?:number
+  /** Menu title text alignment */
+  textAlign?:CanvasTextAlign
   /** Menu font size */
   fontSize?:string
   /** Menu font face */
@@ -55,6 +61,9 @@ interface WTGuiMenuArgs {
 export class WTGuiMenu {
   #id:string
   #title:string
+  #titleX:number
+  #titleY:number
+  #textAlign:CanvasTextAlign
   #fontSize:string
   #fontFace:string
   #bgColor:string
@@ -79,7 +88,10 @@ export class WTGuiMenu {
    */
   constructor(args:WTGuiMenuArgs) {
     this.#id = args.id
-    this.#title = args.title
+    this.#title = args.title || ''
+    this.#titleX = args.titleX || 0
+    this.#titleY = args.titleY || 0
+    this.#textAlign = args.textAlign || 'start'
     this.#posX = args.posX
     this.#posY = args.posY
     this.#width = args.width
@@ -124,6 +136,9 @@ export class WTGuiMenu {
 
   get id() { return this.#id }
   get title() { return this.#title }
+  get titleX() { return this.#titleX }
+  get titleY() { return this.#titleY }
+  get textAlign() { return this.#textAlign }
   get font() { return this.#fontSize + ' ' + this.#fontFace }
   get bgColor() { return this.#bgColor }
   get brColor() { return this.#brColor }

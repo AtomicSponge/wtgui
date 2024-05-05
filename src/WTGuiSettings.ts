@@ -113,10 +113,12 @@ export class WTGuiSettings {
   /** Get the GUI settings */
   static get settings() { return WTGuiSettings.#settings }
 
+  /** Set the menu drawing view width */
   static set viewWidth(size:number) {
     if(WTGui.data.initialized) return
     WTGuiSettings.#settings.viewWidth = size
   }
+  /** Set the menu drawing view height */
   static set viewHeight(size:number) {
     if(WTGui.data.initialized) return
     WTGuiSettings.#settings.viewHeight = size

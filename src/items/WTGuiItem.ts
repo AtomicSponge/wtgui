@@ -16,6 +16,12 @@ export interface WTGuiItemArgs {
   id:string
   /** Item title */
   title:string
+  /** Item title X position */
+  titleX?:number
+  /** Item title Y position */
+  titleY?:number
+  /** Item title text alignment */
+  textAlign?:CanvasTextAlign
   /** Item font size */
   fontSize?:string
   /** Item font face */
@@ -55,6 +61,9 @@ export interface WTGuiItemArgs {
 export class WTGuiItem {
   #id:string
   #title:string
+  #titleX:number
+  #titleY:number
+  #textAlign:CanvasTextAlign
   #fontSize:string
   #fontFace:string
   #bgColor:string
@@ -91,6 +100,10 @@ export class WTGuiItem {
     this.#brColor = args.brColor || settings.itemBrColor
     this.#bgColor = args.bgColor || settings.itemBgColor
 
+    this.#titleX = args.titleX || (this.#width / 2)
+    this.#titleY = args.titleY || (this.#height / 2)
+    this.#textAlign = args.textAlign || 'center'
+
     this.#bgImage = args.bgImage || ''
     this.#imgOffsetX = args.imgOffsetX || 0
     this.#imgOffsetY = args.imgOffsetY || 0
@@ -114,6 +127,9 @@ export class WTGuiItem {
 
   get id() { return this.#id }
   get title() { return this.#title }
+  get titleX() { return this.#titleX }
+  get titleY() { return this.#titleY }
+  get textAlign() { return this.#textAlign }
   get font() { return this.#fontSize + ' ' + this.#fontFace }
   get bgColor() { return this.#bgColor }
   get brColor() { return this.#brColor }

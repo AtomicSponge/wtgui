@@ -168,7 +168,8 @@ export class WTGuiRenderer {
 
     //  Run background animation function
     WTGuiRenderer.#bgCtx.clearRect(0, 0, WTGuiRenderer.#bgCanvas.width, WTGuiRenderer.#bgCanvas.height)
-    WTGuiRenderer.#bgAnimation.animate(WTGuiRenderer.#bgCtx, WTGuiRenderer.#frameDelta, WTGuiRenderer.#lastRender)
+    WTGuiRenderer.#bgAnimation.animate(WTGuiRenderer.#bgCtx,
+      WTGuiRenderer.#frameDelta, WTGuiRenderer.#lastRender)
     WTGuiRenderer.#mainCtx.drawImage(WTGuiRenderer.#bgCanvas, 0, 0)
 
     const currentMenu = WTGui.data.currentMenu
@@ -194,6 +195,13 @@ export class WTGuiRenderer {
         currentMenu.width, currentMenu.height, currentMenu.radius)
       ctx.stroke()
       ctx.fill()
+    }
+    if(currentMenu.title !== '') {
+      ctx.font = currentMenu.font
+      ctx.fillStyle = currentMenu.fgColor
+      ctx.textAlign = currentMenu.textAlign
+      ctx.fillText(currentMenu.title, currentMenu.posX + currentMenu.titleX,
+        currentMenu.posY + currentMenu.titleY)
     }
 
     //  Render active item highlighting
@@ -222,10 +230,16 @@ export class WTGuiRenderer {
         ctx.stroke()
         ctx.fill()
       }
+      ctx.font = elm.font
+      ctx.fillStyle = elm.fgColor
+      ctx.textAlign = elm.textAlign
+      ctx.fillText(elm.title, currentMenu.posX + elm.posX + elm.titleX,
+        currentMenu.posY + elm.posY + elm.titleY)
     })
 
     //  Draw the rendered menu to the main context
-    WTGuiRenderer.#mainCtx.drawImage(WTGuiRenderer.#menuCanvas, WTGuiRenderer.#menuPosX, WTGuiRenderer.#menuPosY)
+    WTGuiRenderer.#mainCtx.drawImage(WTGuiRenderer.#menuCanvas,
+      WTGuiRenderer.#menuPosX, WTGuiRenderer.#menuPosY)
 
     //  Render FPS counter if enabled
     if(WTGuiRenderer.#drawFps) {
