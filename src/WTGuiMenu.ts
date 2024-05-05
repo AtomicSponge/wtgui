@@ -35,14 +35,14 @@ interface WTGuiMenuArgs {
   brColor?:string
   /** Menu background color */
   bgColor?:string
-  /** Menu position X */
-  posX:number
-  /** Menu position Y */
-  posY:number
   /** Menu width */
   width:number
   /** Menu height */
   height:number
+  /** Menu position X (relative to the view area coordinates) */
+  posX:number
+  /** Menu position Y (relative to the view area coordinates) */
+  posY:number
   /** Menu border width */
   brWidth?:number
   /** Menu border radius */
@@ -72,10 +72,10 @@ export class WTGuiMenu {
   #bgColor:string
   #brColor:string
   #fgColor:string
-  #posX:number
-  #posY:number
   #width:number
   #height:number
+  #posX:number
+  #posY:number
   #brWidth:number
   #radius:number | Array<number>
   #bgImage:string
@@ -94,10 +94,10 @@ export class WTGuiMenu {
     this.#title = args.title || ''
     this.#textAlign = args.textAlign || 'center'
     this.#textBaseline = args.textBaseline || 'top'
-    this.#posX = args.posX
-    this.#posY = args.posY
     this.#width = args.width
     this.#height = args.height
+    this.#posX = args.posX || (settings.viewWidth - args.width) / 2
+    this.#posY = args.posY || (settings.viewHeight - args.height) / 2
     this.#brWidth = args.brWidth || 1
     this.#radius = args.radius || 0
     this.#fontSize = args.fontSize || settings.menuFontSize
@@ -149,10 +149,10 @@ export class WTGuiMenu {
   get bgColor() { return this.#bgColor }
   get brColor() { return this.#brColor }
   get fgColor() { return this.#fgColor }
-  get posX() { return this.#posX }
-  get posY() { return this.#posY }
   get width() { return this.#width }
   get height() { return this.#height }
+  get posX() { return this.#posX }
+  get posY() { return this.#posY }
   get brWidth() { return this.#brWidth }
   get radius() { return this.#radius }
   get bgImage() { return this.#bgImage }

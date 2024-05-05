@@ -34,14 +34,14 @@ export interface WTGuiItemArgs {
   brColor?:string
   /** Item background color */
   bgColor?:string
-  /** Item position X */
-  posX:number
-  /** Item position Y */
-  posY:number
   /** Item width */
   width:number
   /** Item height */
   height:number
+  /** Item position X (relative to the menu coordinates) */
+  posX:number
+  /** Item position Y (relative to the menu coordinates) */
+  posY:number
   /** Item border width */
   brWidth?:number
   /** Item border radius */
@@ -72,10 +72,10 @@ export class WTGuiItem {
   #bgColor:string
   #brColor:string
   #fgColor:string
-  #posX:number
-  #posY:number
   #width:number
   #height:number
+  #posX:number
+  #posY:number
   #brWidth:number
   #radius:number | Array<number>
   #bgImage:string
@@ -91,10 +91,10 @@ export class WTGuiItem {
       throw new WTGuiMenuItemError(`'WTGuiItem' is an interface class.`, this.constructor)
     this.#id = args.id
     this.#title = args.title
-    this.#posX = args.posX
-    this.#posY = args.posY
     this.#width = args.width
     this.#height = args.height
+    this.#posX = args.posX
+    this.#posY = args.posY
     this.#brWidth = args.brWidth || 1
     this.#radius = args.radius || 0
     this.#fontSize = args.fontSize || settings.itemFontSize
@@ -140,10 +140,10 @@ export class WTGuiItem {
   get brColor() { return this.#brColor }
   get fgColor() { return this.#fgColor }
   get bgImage() { return this.#bgImage }
-  get posX() { return this.#posX }
-  get posY() { return this.#posY }
   get width() { return this.#width }
   get height() { return this.#height }
+  get posX() { return this.#posX }
+  get posY() { return this.#posY }
   get brWidth() { return this.#brWidth }
   get radius() { return this.#radius }
   get imgOffsetX() { return this.#imgOffsetX }
