@@ -35,6 +35,10 @@ interface actionBindings {
 }
 
 interface settings extends actionBindings {
+  /** Width of the menu drawing area */
+  viewWidth:number
+  /** Height of the menu drawing area */
+  viewHeight:number
   /** Size of the mouse hitbox */
   mouseSize:number
   /** Speed to scroll menu items */
@@ -53,6 +57,8 @@ export class WTGuiSettings {
   constructor() { return false }  //  Prevent direct construction
 
   static #settings:settings = {
+    viewWidth: Number(0),
+    viewHeight: Number(0),
     mouseSize: Number(0),
     scrollSpeed: Number(100),
     defaultFont: '14px Arial',
@@ -83,6 +89,14 @@ export class WTGuiSettings {
   /** Get the GUI settings */
   static get settings() { return WTGuiSettings.#settings }
 
+  static set viewWidth(size:number) {
+    if(WTGui.data.initialized) return
+    WTGuiSettings.#settings.viewWidth = size
+  }
+  static set viewHeight(size:number) {
+    if(WTGui.data.initialized) return
+    WTGuiSettings.#settings.viewHeight = size
+  }
   /** Set the mouse size */
   static set mouseSize(size:number) {
     if(WTGui.data.initialized) return
@@ -121,7 +135,7 @@ export class WTGuiSettings {
   /**
    * Load input binding settings
    */
-  static loadInputBindings = () => {
+  static loadInputBindings = (_data:actionBindings) => {
     if(WTGui.data.initialized) return
   }
 }

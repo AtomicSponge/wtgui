@@ -15,24 +15,28 @@ import { WTGuiError } from './WTGuiError.js'
 import { isEmptyObject } from './algorithms.js'
 
 interface bgAnimation {
-  (ctx:CanvasRenderingContext2D, frameDelta:number, lastRender:number):void
+  animate(ctx:CanvasRenderingContext2D, frameDelta:number, lastRender:number):void
 }
 
 export class WTGuiRenderer {
   static #initialized:boolean = false  //  Flag if the renderer was initialized
 
-  static #mainCanvas:HTMLCanvasElement  //  Main 2d canvas
-  //static #menuCanvas:HTMLCanvasElement  //  2d canvas for rendering menus
-  static #ctx:CanvasRenderingContext2D  //  2d context for menu drawing
+  static #mainCanvas:HTMLCanvasElement      //  Main canvas
+  static #mainCtx:CanvasRenderingContext2D  //  Main rendering context
+  static #bgCanvas:HTMLCanvasElement        //  Background canvas
+  static #bgCtx:CanvasRenderingContext2D    //  Background rendering context
+  static #menuCanvas:HTMLCanvasElement      //  Menu canvas
+  static #menuCtx:CanvasRenderingContext2D  //  Menu rendering context
 
-  static #fpsCalc:number = 0               //  Store timed func to calculate fps
-  static #nextFrame:number = 0             //  Store the call to the animation frame
-  static #drawFps:boolean = false          //  Flag for drawing fps counter
-  static #fps:number = 0                   //  Store frame rate
-  static #step:number = 0                  //  Used to calculate fps
-  static #lastRender:number = 0            //  Last render time
-  static #frameDelta:number = 0            //  Time in ms between frames
-  static #bgAnimation:bgAnimation = () => {}  //  Background animation function
+  static #fpsCalc:number = 0                //  Store timed func to calculate fps
+  static #nextFrame:number = 0              //  Store the call to the animation frame
+  static #drawFps:boolean = false           //  Flag for drawing fps counter
+  static #fps:number = 0                    //  Store frame rate
+  static #step:number = 0                   //  Used to calculate fps
+  static #lastRender:number = 0             //  Last render time
+  static #frameDelta:number = 0             //  Time in ms between frames
+
+  static #bgAnimation:bgAnimation = {animate() {}}  //  Background animation object
 
   constructor() { return false }  //  Don't allow direct construction
 
@@ -50,15 +54,30 @@ export class WTGuiRenderer {
       tempCanvas.setAttribute('width', `${document.documentElement.clientWidth}`)
       tempCanvas.setAttribute('height', `${document.documentElement.clientHeight}`)
 
+      //  Configure main canvas & context
       WTGuiRenderer.#mainCanvas = tempCanvas
       WTGuiRenderer.#mainCanvas.style.display = 'none'
-      WTGuiRenderer.#ctx = <CanvasRenderingContext2D>WTGuiRenderer.#mainCanvas.getContext('2d', { willReadFrequently: true })
+      WTGuiRenderer.#mainCtx = <CanvasRenderingContext2D>WTGuiRenderer.#mainCanvas.getContext('2d')
+
+      //  Configure background canvas & context
+      WTGuiRenderer.#bgCanvas = document.createElement('canvas')
+      WTGuiRenderer.#bgCanvas.width = document.documentElement.clientWidth
+      WTGuiRenderer.#bgCanvas.height = document.documentElement.clientHeight
+      WTGuiRenderer.#bgCtx = <CanvasRenderingContext2D>WTGuiRenderer.#bgCanvas.getContext('2d')
+
+      //  Configure menu canvas & context
+      if(settings.viewWidth === 0 || settings.viewHeight === 0)
+        throw new WTGuiError(`Must define menu view size!`, WTGuiRenderer.start)
+      WTGuiRenderer.#menuCanvas = document.createElement('canvas')
+      WTGuiRenderer.#menuCanvas.width = settings.viewWidth
+      WTGuiRenderer.#menuCanvas.height = settings.viewHeight
+      WTGuiRenderer.#menuCtx = <CanvasRenderingContext2D>WTGuiRenderer.#menuCanvas.getContext('2d')
 
       const observer = new ResizeObserver(() => {
-        const temp = WTGuiRenderer.#ctx.getImageData(0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
         WTGuiRenderer.#mainCanvas.width = document.documentElement.clientWidth
         WTGuiRenderer.#mainCanvas.height = document.documentElement.clientHeight
-        WTGuiRenderer.#ctx.putImageData(temp, 0, 0, 0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
+        WTGuiRenderer.#bgCanvas.width = document.documentElement.clientWidth
+        WTGuiRenderer.#bgCanvas.height = document.documentElement.clientHeight
       })
       observer.observe(document.documentElement)
 
@@ -88,15 +107,15 @@ export class WTGuiRenderer {
   }
 
   /**
-   * Set the background animation function
-   * @param func New animation function
+   * Set the background animation object
+   * @param obj New animation object
    */
-  static setBgAnimation(func:bgAnimation) {
+  static setBgAnimation(obj:bgAnimation) {
     if(WTGui.data.initialized)
       throw new WTGuiError(`WTGui is already running!`, WTGuiRenderer.setBgAnimation)
-    if(!(func instanceof Function))
-      throw new WTGuiError(`Background animation must be a function!`, WTGuiRenderer.setBgAnimation)
-    WTGuiRenderer.#bgAnimation = func
+    if(!(obj instanceof Object))
+      throw new WTGuiError(`Background animation must be an object!`, WTGuiRenderer.setBgAnimation)
+    WTGuiRenderer.#bgAnimation = obj
   }
 
   /**
@@ -123,8 +142,8 @@ export class WTGuiRenderer {
    * @param currentMenu 
    */
   static #highlighter(menuItem:WTGuiItem, currentMenu:WTGuiMenu) {
-    WTGuiRenderer.#ctx.fillStyle = 'rgb(255,255,0)'
-    WTGuiRenderer.#ctx.fillRect(
+    WTGuiRenderer.#mainCtx.fillStyle = 'rgb(255,255,0)'
+    WTGuiRenderer.#mainCtx.fillRect(
       currentMenu.posX + (menuItem.posX - 10),
       currentMenu.posY + (menuItem.posY - 10),
       menuItem.width + 20, menuItem.height + 20)
@@ -137,14 +156,16 @@ export class WTGuiRenderer {
     if(WTGui.data.openedMenus.length === 0 || isEmptyObject(WTGui.data.currentMenu))
       WTGui.openMenu(settings.defaultMenu)
 
-    const currentMenu = WTGui.data.currentMenu
-    const ctx = WTGuiRenderer.#ctx
-
-    //  Clear the renderer
-    ctx.clearRect(0, 0, WTGuiRenderer.#mainCanvas.width, WTGuiRenderer.#mainCanvas.height)
+    WTGuiRenderer.#mainCtx.clearRect(0, 0, WTGuiRenderer.#bgCanvas.width, WTGuiRenderer.#bgCanvas.height)
 
     //  Run background animation function
-    WTGuiRenderer.#bgAnimation(ctx, WTGuiRenderer.#frameDelta, WTGuiRenderer.#lastRender)
+    WTGuiRenderer.#bgCtx.clearRect(0, 0, WTGuiRenderer.#bgCanvas.width, WTGuiRenderer.#bgCanvas.height)
+    WTGuiRenderer.#bgAnimation.animate(WTGuiRenderer.#bgCtx, WTGuiRenderer.#frameDelta, WTGuiRenderer.#lastRender)
+    WTGuiRenderer.#mainCtx.drawImage(WTGuiRenderer.#bgCanvas, 0, 0)
+
+    const currentMenu = WTGui.data.currentMenu
+    const ctx = WTGuiRenderer.#menuCtx
+    ctx.clearRect(0, 0, WTGuiRenderer.#menuCanvas.width, WTGuiRenderer.#menuCanvas.height)
 
     //  Render the menu
     if(currentMenu.bgImage !== '') {
@@ -194,6 +215,11 @@ export class WTGuiRenderer {
         ctx.fill()
       }
     })
+
+    //  Draw the rendered menu to the main context
+    const menuPosX = 0
+    const menuPosY = 0
+    WTGuiRenderer.#mainCtx.drawImage(WTGuiRenderer.#menuCanvas, menuPosX, menuPosY)
 
     //  Render FPS counter if enabled
     if(WTGuiRenderer.#drawFps) {
