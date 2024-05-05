@@ -18,12 +18,12 @@ export interface WTGuiItemArgs {
   title:string
   /** Item font */
   font?:string
-  /** Item background color */
-  bgColor:string
+  /** Item foreground color */
+  fgColor?:string
   /** Item border color */
   brColor?:string
-  /** Item foreground color */
-  fgColor:string
+  /** Item background color */
+  bgColor?:string
   /** Item position X */
   posX:number
   /** Item position Y */
@@ -83,9 +83,9 @@ export class WTGuiItem {
     this.#brWidth = args.brWidth || 1
     this.#radius = args.radius || 0
     this.#font = args.font || settings.defaultFont
-    this.#bgColor = args.bgColor
-    this.#brColor = args.brColor || this.#bgColor
-    this.#fgColor = args.fgColor
+    this.#fgColor = args.fgColor || settings.itemFgColor
+    this.#brColor = args.brColor || settings.itemBrColor
+    this.#bgColor = args.bgColor || settings.itemBgColor
 
     this.#bgImage = args.bgImage || ''
     this.#imgOffsetX = args.imgOffsetX || 0

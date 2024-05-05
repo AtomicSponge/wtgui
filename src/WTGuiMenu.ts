@@ -19,12 +19,12 @@ interface WTGuiMenuArgs {
   title:string
   /** Menu font */
   font?:string
-  /** Menu background color */
-  bgColor:string
+  /** Menu foreground color */
+  fgColor?:string
   /** Menu border color */
   brColor?:string
-  /** Menu foreground color */
-  fgColor:string
+  /** Menu background color */
+  bgColor?:string
   /** Menu position X */
   posX:number
   /** Menu position Y */
@@ -84,9 +84,9 @@ export class WTGuiMenu {
     this.#brWidth = args.brWidth || 1
     this.#radius = args.radius || 0
     this.#font = args.font || settings.defaultFont
-    this.#bgColor = args.bgColor
-    this.#brColor = args.brColor || this.#bgColor
-    this.#fgColor = args.fgColor
+    this.#fgColor = args.fgColor || settings.menuFgColor
+    this.#brColor = args.brColor || settings.menuBrColor
+    this.#bgColor = args.bgColor || settings.menuBgColor
     this.#bgImage = args.bgImage || ''
     this.#scaleImg = args.scaleImg || 0
     this.#imgOffsetX = args.imgOffsetX || 0

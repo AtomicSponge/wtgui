@@ -43,10 +43,22 @@ interface settings extends actionBindings {
   mouseSize:number
   /** Speed to scroll menu items */
   scrollSpeed:number
-  /** Default font size/face */
-  defaultFont:string
   /** Default menu to open when all are closed */
   defaultMenu:string
+  /** Global menu foreground color setting */
+  menuFgColor:string
+  /** Global menu border color setting */
+  menuBrColor:string
+  /** Global menu background color setting */
+  menuBgColor:string
+  /** Global item foreground color setting */
+  itemFgColor:string
+  /** Global item border color setting */
+  itemBrColor:string
+  /** Global item background color setting */
+  itemBgColor:string
+  /** Default font size/face */
+  defaultFont:string
   /** Font to use for rendering FPS */
   fpsFont:string
   /** Color to use for rendering FPS */
@@ -61,8 +73,14 @@ export class WTGuiSettings {
     viewHeight: Number(0),
     mouseSize: Number(0),
     scrollSpeed: Number(100),
-    defaultFont: '14px Arial',
     defaultMenu: 'main_menu',
+    menuFgColor: 'rgb(255,255,255)',
+    menuBrColor: 'rgb(255,0,0)',
+    menuBgColor: 'rgb(0,0,0,0)',
+    itemFgColor: 'rgb(255,255,255)',
+    itemBrColor: 'rgb(0,255,0)',
+    itemBgColor: 'rgb(0,255,0)',
+    defaultFont: '14px Arial',
     fpsFont: 'Bold 16px Arial',
     fpsColor: 'rgb(255,165,0)',
 
@@ -106,6 +124,48 @@ export class WTGuiSettings {
   static set scrollSpeed(speed:number) {
     if(WTGui.data.initialized) return
     WTGuiSettings.#settings.scrollSpeed = speed
+  }
+  /** Set the menu foreground color */
+  static set menuFgColor(color:string) {
+    if(WTGui.data.initialized) return
+    if(!testRgb(color) && !testHex(color))
+      throw new WTGuiError(`'${color}' - Bad color code while setting menu foreground color!`, WTGuiSettings.menuFgColor)
+    WTGuiSettings.#settings.menuFgColor = color
+  }
+  /** Set the menu border color */
+  static set menuBrColor(color:string) {
+    if(WTGui.data.initialized) return
+    if(!testRgb(color) && !testHex(color))
+      throw new WTGuiError(`'${color}' - Bad color code while setting menu border color!`, WTGuiSettings.menuBrColor)
+    WTGuiSettings.#settings.menuBrColor = color
+  }
+  /** Set the menu background color */
+  static set menuBgColor(color:string) {
+    if(WTGui.data.initialized) return
+    if(!testRgb(color) && !testHex(color))
+      throw new WTGuiError(`'${color}' - Bad color code while setting menu background color!`, WTGuiSettings.menuBgColor)
+    WTGuiSettings.#settings.menuBgColor = color
+  }
+  /** Set the menu foreground color */
+  static set itemFgColor(color:string) {
+    if(WTGui.data.initialized) return
+    if(!testRgb(color) && !testHex(color))
+      throw new WTGuiError(`'${color}' - Bad color code while setting menu foreground color!`, WTGuiSettings.itemFgColor)
+    WTGuiSettings.#settings.itemFgColor = color
+  }
+  /** Set the menu border color */
+  static set itemBrColor(color:string) {
+    if(WTGui.data.initialized) return
+    if(!testRgb(color) && !testHex(color))
+      throw new WTGuiError(`'${color}' - Bad color code while setting menu border color!`, WTGuiSettings.itemBrColor)
+    WTGuiSettings.#settings.itemBrColor = color
+  }
+  /** Set the menu background color */
+  static set itemBgColor(color:string) {
+    if(WTGui.data.initialized) return
+    if(!testRgb(color) && !testHex(color))
+      throw new WTGuiError(`'${color}' - Bad color code while setting menu background color!`, WTGuiSettings.itemBgColor)
+    WTGuiSettings.#settings.itemBgColor = color
   }
   /** Set the default font */
   static set defaultFont(font:string) {
