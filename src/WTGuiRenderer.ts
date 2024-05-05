@@ -28,8 +28,8 @@ export class WTGuiRenderer {
   static #menuCanvas:HTMLCanvasElement      //  Menu canvas
   static #menuCtx:CanvasRenderingContext2D  //  Menu rendering context
 
-  static #menuPosX:number = 0
-  static #menuPosY:number = 0
+  static #menuPosX:number = 0               //  Menu offset possition X
+  static #menuPosY:number = 0               //  Menu offset possition Y
 
   static #fpsCalc:number = 0                //  Store timed func to calculate fps
   static #nextFrame:number = 0              //  Store the call to the animation frame
