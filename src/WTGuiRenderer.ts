@@ -81,6 +81,7 @@ export class WTGuiRenderer {
       WTGuiRenderer.#menuPosX = (WTGuiRenderer.#mainCanvas.width - WTGuiRenderer.#menuCanvas.width) / 2
       WTGuiRenderer.#menuPosY = (WTGuiRenderer.#mainCanvas.height - WTGuiRenderer.#menuCanvas.height) / 2
 
+      //  Perform recalculation on window resize
       const observer = new ResizeObserver(() => {
         WTGuiRenderer.#mainCanvas.width = WTGuiRenderer.#bgCanvas.width = document.documentElement.clientWidth
         WTGuiRenderer.#mainCanvas.height = WTGuiRenderer.#bgCanvas.height = document.documentElement.clientHeight
