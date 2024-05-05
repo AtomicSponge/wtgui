@@ -99,7 +99,7 @@ export class WTGuiMenu {
     this.#selectableItems = []
 
     if(!testPixel(this.#fontSize))
-      throw new WTGuiMenuError(`'${this.#fontSize}' - Bad pixel format when setting menu font size!`, this.constructor)
+      throw new WTGuiMenuError(`'${this.#fontSize}' - Bad pixel format when setting font size in menu '${this.#id}`, this.constructor)
     if(!testRgb(this.#fgColor) && !testHex(this.#fgColor))
       throw new WTGuiMenuError(`'${this.#fgColor}' - Bad foreground color code in menu '${this.#id}'`, this.constructor)
     if(!testRgb(this.#brColor) && !testHex(this.#brColor))

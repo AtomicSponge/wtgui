@@ -99,7 +99,7 @@ export class WTGuiItem {
     this.#scrollable = false
 
     if(!testPixel(this.#fontSize))
-      throw new WTGuiMenuItemError(`'${this.#fontSize}' - Bad pixel format when setting item font size!`, this.constructor)
+      throw new WTGuiMenuItemError(`'${this.#fontSize}' - Bad pixel format when setting font size in item '${this.#id}`, this.constructor)
     if(!testRgb(this.#fgColor) && !testHex(this.#fgColor))
       throw new WTGuiMenuItemError(`'${this.#fgColor}' - Bad foreground color code in item '${this.#id}'.`, this.constructor)
     if(!testRgb(this.#brColor) && !testHex(this.#brColor))
