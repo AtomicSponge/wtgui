@@ -16,8 +16,10 @@ export interface WTGuiItemArgs {
   id:string
   /** Item title */
   title:string
-  /** Item font */
-  font?:string
+  /** Item font size */
+  fontSize?:string
+  /** Item font face */
+  fontFace?:string
   /** Item foreground color */
   fgColor?:string
   /** Item border color */
@@ -53,7 +55,8 @@ export interface WTGuiItemArgs {
 export class WTGuiItem {
   #id:string
   #title:string
-  #font:string
+  #fontSize:string
+  #fontFace:string
   #bgColor:string
   #brColor:string
   #fgColor:string
@@ -82,7 +85,8 @@ export class WTGuiItem {
     this.#height = args.height
     this.#brWidth = args.brWidth || 1
     this.#radius = args.radius || 0
-    this.#font = args.font || settings.defaultFont
+    this.#fontSize = args.fontSize || settings.itemFontSize
+    this.#fontFace = args.fontFace || settings.fontFace
     this.#fgColor = args.fgColor || settings.itemFgColor
     this.#brColor = args.brColor || settings.itemBrColor
     this.#bgColor = args.bgColor || settings.itemBgColor
@@ -94,10 +98,12 @@ export class WTGuiItem {
     this.#canSelect = false
     this.#scrollable = false
 
-    if(!testRgb(this.#bgColor) && !testHex(this.#bgColor))
-      throw new WTGuiMenuItemError(`'${this.#bgColor}' - Bad background color code in item '${this.#id}'.`, this.constructor)
     if(!testRgb(this.#fgColor) && !testHex(this.#fgColor))
       throw new WTGuiMenuItemError(`'${this.#fgColor}' - Bad foreground color code in item '${this.#id}'.`, this.constructor)
+    if(!testRgb(this.#brColor) && !testHex(this.#brColor))
+      throw new WTGuiMenuItemError(`'${this.#brColor}' - Bad border color code in item '${this.#id}'.`, this.constructor)
+    if(!testRgb(this.#bgColor) && !testHex(this.#bgColor))
+      throw new WTGuiMenuItemError(`'${this.#bgColor}' - Bad background color code in item '${this.#id}'.`, this.constructor)
   }
 
   onLeft() {}
@@ -106,7 +112,7 @@ export class WTGuiItem {
 
   get id() { return this.#id }
   get title() { return this.#title }
-  get font() { return this.#font }
+  get font() { return this.#fontSize + ' ' + this.#fontFace }
   get bgColor() { return this.#bgColor }
   get brColor() { return this.#brColor }
   get fgColor() { return this.#fgColor }

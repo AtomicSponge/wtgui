@@ -9,7 +9,7 @@
 
 import { WTGui } from "./WTGui.js"
 import { WTGuiError } from "./WTGuiError.js"
-import { testHex, testRgb } from './algorithms.js'
+import { testHex, testRgb, testPixel } from './algorithms.js'
 
 interface actionBindings {
   actionBindings: {
@@ -57,8 +57,12 @@ interface settings extends actionBindings {
   itemBrColor:string
   /** Global item background color setting */
   itemBgColor:string
-  /** Default font size/face */
-  defaultFont:string
+  /** Global menu font size */
+  menuFontSize:string
+  /** Global item font size */
+  itemFontSize:string
+  /** Global font face */
+  fontFace:string
   /** Font to use for rendering FPS */
   fpsFont:string
   /** Color to use for rendering FPS */
@@ -80,7 +84,9 @@ export class WTGuiSettings {
     itemFgColor: 'rgb(255,255,255)',
     itemBrColor: 'rgb(0,255,0)',
     itemBgColor: 'rgb(0,255,0)',
-    defaultFont: '14px Arial',
+    menuFontSize: '24px',
+    itemFontSize: '16px',
+    fontFace: 'Arial',
     fpsFont: 'Bold 16px Arial',
     fpsColor: 'rgb(255,165,0)',
 
@@ -167,10 +173,24 @@ export class WTGuiSettings {
       throw new WTGuiError(`'${color}' - Bad color code while setting menu background color!`, WTGuiSettings.itemBgColor)
     WTGuiSettings.#settings.itemBgColor = color
   }
-  /** Set the default font */
-  static set defaultFont(font:string) {
+  /** Set the global menu font size */
+  static set menuFontSize(fontSize:string) {
     if(WTGui.data.initialized) return
-    WTGuiSettings.#settings.defaultFont = font
+    if(!testPixel(fontSize))
+      throw new WTGuiError(`'${fontSize}' - Bad pixel format when setting menu font size!`, WTGuiSettings.menuFontSize)
+    WTGuiSettings.#settings.menuFontSize = fontSize
+  }
+  /** Set the global item font size */
+  static set itemFontSize(fontSize:string) {
+    if(WTGui.data.initialized) return
+    if(!testPixel(fontSize))
+      throw new WTGuiError(`'${fontSize}' - Bad pixel format when setting item font size!`, WTGuiSettings.itemFontSize)
+    WTGuiSettings.#settings.itemFontSize = fontSize
+  }
+  /** Set the global font face */
+  static set fontFace(fontFace:string) {
+    if(WTGui.data.initialized) return
+    WTGuiSettings.#settings.fontFace = fontFace
   }
   /** Set the FPS font */
   static set fpsFont(font:string) {
