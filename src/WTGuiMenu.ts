@@ -23,6 +23,8 @@ interface WTGuiMenuArgs {
   titleY?:number
   /** Menu title text alignment */
   textAlign?:CanvasTextAlign
+  /** Menu title text baseline alignment */
+  textBaseline?:CanvasTextBaseline
   /** Menu font size */
   fontSize?:string
   /** Menu font face */
@@ -64,6 +66,7 @@ export class WTGuiMenu {
   #titleX:number
   #titleY:number
   #textAlign:CanvasTextAlign
+  #textBaseline:CanvasTextBaseline
   #fontSize:string
   #fontFace:string
   #bgColor:string
@@ -89,9 +92,8 @@ export class WTGuiMenu {
   constructor(args:WTGuiMenuArgs) {
     this.#id = args.id
     this.#title = args.title || ''
-    this.#titleX = args.titleX || 0
-    this.#titleY = args.titleY || 0
-    this.#textAlign = args.textAlign || 'start'
+    this.#textAlign = args.textAlign || 'center'
+    this.#textBaseline = args.textBaseline || 'top'
     this.#posX = args.posX
     this.#posY = args.posY
     this.#width = args.width
@@ -109,6 +111,9 @@ export class WTGuiMenu {
     this.#imgOffsetY = args.imgOffsetY || 0
     this.#items = []
     this.#selectableItems = []
+
+    this.#titleX = args.titleX || (this.#width / 2)
+    this.#titleY = args.titleY || this.#brWidth
 
     if(!testPixel(this.#fontSize))
       throw new WTGuiMenuError(`'${this.#fontSize}' - Bad pixel format when setting font size in menu '${this.#id}`, this.constructor)
@@ -139,6 +144,7 @@ export class WTGuiMenu {
   get titleX() { return this.#titleX }
   get titleY() { return this.#titleY }
   get textAlign() { return this.#textAlign }
+  get textBaseline() { return this.#textBaseline }
   get font() { return this.#fontSize + ' ' + this.#fontFace }
   get bgColor() { return this.#bgColor }
   get brColor() { return this.#brColor }

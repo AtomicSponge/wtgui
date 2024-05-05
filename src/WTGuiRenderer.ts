@@ -200,6 +200,7 @@ export class WTGuiRenderer {
       ctx.font = currentMenu.font
       ctx.fillStyle = currentMenu.fgColor
       ctx.textAlign = currentMenu.textAlign
+      ctx.textBaseline = currentMenu.textBaseline
       ctx.fillText(currentMenu.title, currentMenu.posX + currentMenu.titleX,
         currentMenu.posY + currentMenu.titleY)
     }
@@ -233,6 +234,7 @@ export class WTGuiRenderer {
       ctx.font = elm.font
       ctx.fillStyle = elm.fgColor
       ctx.textAlign = elm.textAlign
+      ctx.textBaseline = elm.textBaseline
       ctx.fillText(elm.title, currentMenu.posX + elm.posX + elm.titleX,
         currentMenu.posY + elm.posY + elm.titleY)
     })
