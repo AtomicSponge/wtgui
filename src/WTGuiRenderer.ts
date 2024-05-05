@@ -244,6 +244,10 @@ export class WTGuiRenderer {
     WTGuiRenderer.#nextFrame = window.requestAnimationFrame(WTGuiRenderer.#render)
   }
 
+  /** Get the width of the renderer */
+  static get width() { return WTGuiRenderer.#mainCanvas.width }
+  /** Get the height of the renderer */
+  static get height() { return WTGuiRenderer.#mainCanvas.height }
   /** Get the frames per second */
   static get fps() { return WTGuiRenderer.#fps }
   /** Get the menu X offset position  */
