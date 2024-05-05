@@ -46,6 +46,7 @@ export class WTGuiRenderer {
   /**
    * Start the renderer
    * @throws Throws error if the canvas is not found
+   * @throws Throws error if menu view size is not set
    * @throws Throws error if no menus were created
    */
   static start() {
