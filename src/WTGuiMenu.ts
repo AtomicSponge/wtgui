@@ -40,9 +40,9 @@ interface WTGuiMenuArgs {
   /** Menu height */
   height:number
   /** Menu position X (relative to the view area coordinates) */
-  posX:number
+  posX?:number
   /** Menu position Y (relative to the view area coordinates) */
-  posY:number
+  posY?:number
   /** Menu border width */
   brWidth?:number
   /** Menu border radius */
