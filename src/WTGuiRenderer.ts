@@ -15,29 +15,30 @@ import { WTGuiError } from './WTGuiError.js'
 import { isEmptyObject } from './algorithms.js'
 
 interface bgAnimation {
-  animate(ctx:CanvasRenderingContext2D, frameDelta:number, lastRender:number):void
+  animate(ctx:CanvasRenderingContext2D,
+    timeStamp:DOMHighResTimeStamp,
+    startTime:DOMHighResTimeStamp):void
 }
 
 export class WTGuiRenderer {
   static #initialized:boolean = false  //  Flag if the renderer was initialized
 
-  static #mainCanvas:HTMLCanvasElement      //  Main canvas
-  static #mainCtx:CanvasRenderingContext2D  //  Main rendering context
-  static #bgCanvas:HTMLCanvasElement        //  Background canvas
-  static #bgCtx:CanvasRenderingContext2D    //  Background rendering context
-  static #menuCanvas:HTMLCanvasElement      //  Menu canvas
-  static #menuCtx:CanvasRenderingContext2D  //  Menu rendering context
+  static #mainCanvas:HTMLCanvasElement        //  Main canvas
+  static #mainCtx:CanvasRenderingContext2D    //  Main rendering context
+  static #bgCanvas:HTMLCanvasElement          //  Background canvas
+  static #bgCtx:CanvasRenderingContext2D      //  Background rendering context
+  static #menuCanvas:HTMLCanvasElement        //  Menu canvas
+  static #menuCtx:CanvasRenderingContext2D    //  Menu rendering context
 
-  static #menuPosX:number = 0               //  Menu offset possition X
-  static #menuPosY:number = 0               //  Menu offset possition Y
+  static #menuPosX:number = 0                 //  Menu offset possition X
+  static #menuPosY:number = 0                 //  Menu offset possition Y
 
-  static #fpsCalc:number = 0                //  Store timed func to calculate fps
-  static #nextFrame:number = 0              //  Store the call to the animation frame
-  static #drawFps:boolean = false           //  Flag for drawing fps counter
-  static #fps:number = 0                    //  Store frame rate
-  static #step:number = 0                   //  Used to calculate fps
-  static #lastRender:number = 0             //  Last render time
-  static #frameDelta:number = 0             //  Time in ms between frames
+  static #fpsCalc:number = 0                  //  Store timed func to calculate fps
+  static #nextFrame:number = 0                //  Store the call to the animation frame
+  static #drawFps:boolean = false             //  Flag for drawing fps counter
+  static #fps:number = 0                      //  Store frame rate
+  static #step:number = 0                     //  Used to calculate fps
+  static #startTime:DOMHighResTimeStamp = 0   //  Start time of rendering
 
   static #bgAnimation:bgAnimation = {animate() {}}  //  Background animation object
 
@@ -101,7 +102,7 @@ export class WTGuiRenderer {
     WTGuiRenderer.#mainCanvas.style.display = 'block'
     WTGuiRenderer.#mainCanvas.focus()
     window.cancelAnimationFrame(WTGuiRenderer.#nextFrame)
-    WTGuiRenderer.#lastRender = <number>document.timeline.currentTime
+    WTGuiRenderer.#startTime = <DOMHighResTimeStamp>document.timeline.currentTime
     WTGuiRenderer.#nextFrame = window.requestAnimationFrame(WTGuiRenderer.#render)
   }
 
@@ -111,8 +112,7 @@ export class WTGuiRenderer {
   static stop() {
     WTGuiRenderer.#mainCanvas.style.display = 'none'
     window.cancelAnimationFrame(WTGuiRenderer.#nextFrame)
-    WTGuiRenderer.#fps = WTGuiRenderer.#step = 0
-    WTGuiRenderer.#frameDelta = WTGuiRenderer.#lastRender = 0
+    WTGuiRenderer.#startTime = WTGuiRenderer.#fps = WTGuiRenderer.#step = 0
   }
 
   /**
@@ -161,7 +161,7 @@ export class WTGuiRenderer {
   /*
    * Render draw method
    */
-  static #render() {
+  static #render(timeStamp:DOMHighResTimeStamp) {
     if(WTGui.data.openedMenus.length === 0 || isEmptyObject(WTGui.data.currentMenu))
       WTGui.openMenu(settings.defaultMenu)
 
@@ -170,7 +170,7 @@ export class WTGuiRenderer {
     //  Run background animation function
     WTGuiRenderer.#bgCtx.clearRect(0, 0, WTGuiRenderer.#bgCanvas.width, WTGuiRenderer.#bgCanvas.height)
     WTGuiRenderer.#bgAnimation.animate(WTGuiRenderer.#bgCtx,
-      WTGuiRenderer.#frameDelta, WTGuiRenderer.#lastRender)
+      timeStamp, WTGuiRenderer.#startTime)
     WTGuiRenderer.#mainCtx.drawImage(WTGuiRenderer.#bgCanvas, 0, 0)
 
     const currentMenu = WTGui.data.currentMenu
@@ -255,8 +255,6 @@ export class WTGuiRenderer {
     //  Update renderer info and request next frame
     if(WTGuiRenderer.#step === Number.MAX_VALUE) WTGuiRenderer.#step = 0
     WTGuiRenderer.#step++
-    WTGuiRenderer.#frameDelta = <number>document.timeline.currentTime - WTGuiRenderer.#lastRender
-    WTGuiRenderer.#lastRender = <number>document.timeline.currentTime
     WTGuiRenderer.#nextFrame = window.requestAnimationFrame(WTGuiRenderer.#render)
   }
 
