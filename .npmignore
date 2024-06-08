@@ -6,4 +6,6 @@ src
 
 index.ts
 tsconfig.json
+tsconfig.node.json
 typedoc.json
+vite.config.ts

@@ -1,45 +1,20 @@
 {
-  "name": "@wtfsystems/wtgui",
-  "version": "0.1.4",
-  "description": "WTGui - HTML5 Canvas Menu System",
-  "author": "Matthew Evans",
-  "license": "MIT",
-  "url": "https://www.npmjs.com/package/@wtfsystems/wtgui",
-  "homepage": "https://github.com/wtfsystems/wtgui#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wtfsystems/wtgui.git"
-  },
-  "keywords": [
-    "WtGui",
-    "HTML5",
-    "Canvas",
-    "DOM",
-    "Menu"
-  ],
-  "bugs": {
-    "url": "https://github.com/wtfsystems/wtgui/issues"
-  },
-  "scripts": {
-    "build": "unbuild",
-    "prepublishOnly": "unbuild"
-  },
+  "name": "gui-test",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
-    }
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
   },
-  "files": [
-    "./dist",
-    "LICENSE.md",
-    "README.md"
-  ],
+  "dependencies": {
+    "vue": "^3.4.21"
+  },
   "devDependencies": {
-    "typedoc": "^0.25.13",
-    "typescript": "^5.4.5",
-    "unbuild": "^2.0.0"
+    "@vitejs/plugin-vue": "^5.0.4",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vue-tsc": "^2.0.6"
   }
 }
