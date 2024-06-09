@@ -9,15 +9,15 @@ const props = defineProps<{
   //  Title display for menu
   title:String
   font:String
-  scale:Number
+  scale:number
   color?:String
-  borderSize?:Number
+  borderSize?:number
   borderColor?:String
 }>()
 
 const menuStyle = computed(() => {
   return `color: ${(props.color || 'red')};font-size: ${props.scale}em;` +
-    `border: ${(<number>(props.borderSize || 6) * <number>props.scale)}px ` +
+    `border: ${((props.borderSize || 6) * props.scale)}px ` +
     `solid ${(props.borderColor || 'red')};font-family: ${props.font};` +
     `border-radius: ${32 * <number>(props.scale)}px;`
 })
