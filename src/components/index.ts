@@ -5,4 +5,4 @@
  * @copyright MIT see LICENSE.md
  */
 
-export { default as HelloWorld } from './HelloWorld.vue'
+export { default as WTGuiButton } from './WTGuiButton.vue'
