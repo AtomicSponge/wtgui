@@ -10,15 +10,16 @@ const props = defineProps<{
   title:String
   font:String
   color?:String
-  borderSize?:String
+  borderSize?:Number
   borderColor?:String
-  scale?:String
+  scale?:Number
 }>()
 
 const menuStyle = computed(() => {
   return `color: ${(props.color || 'red')};font-size: ${props.scale || 1}em;` +
-    `border: ${(props.borderSize || '6px')} solid ${(props.borderColor || 'red')};` +
-    `font-family: ${props.font}`
+    `border: ${(<number>(props.borderSize || 6) * <number>(props.scale || 1))}px ` +
+    `solid ${(props.borderColor || 'red')};font-family: ${props.font};` +
+    `border-radius: ${32 * <number>(props.scale || 1)}px;`
 })
 
 provide('scale', props.scale || 1)
@@ -36,7 +37,6 @@ section
   line-height 1.5
   font-weight 400
   padding 32px
-  border-radius 32px
   display flex
   flex-flow column nowrap
   place-items center
