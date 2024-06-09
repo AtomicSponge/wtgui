@@ -33,7 +33,7 @@ section
   display flex
   flex-flow column nowrap
   place-items center
-  background-color inherit
+  background-color rgba(0, 0, 0, 0.0)
 h1
   font-size 2.8em
   margin-top 12px
