@@ -11,11 +11,13 @@ const props = defineProps<{
   color?:String
   borderSize?:String
   borderColor?:String
+  scale?:String
 }>()
 
 const menuStyle = computed(() => {
   return `color: ${(props.color || 'red')};` +
-    `border: ${(props.borderSize || '6px')} solid ${(props.borderColor || 'red')};`
+    `border: ${(props.borderSize || '6px')} solid ${(props.borderColor || 'red')};` +
+    `font-size: ${props.scale || 1}em;`
 })
 </script>
 
@@ -28,6 +30,9 @@ const menuStyle = computed(() => {
 
 <style lang="stylus" scoped>
 section
+  font-family Inter, system-ui, Avenir, Helvetica, Arial, sans-serif
+  line-height 1.5
+  font-weight 400
   padding 32px
   border-radius 32px
   display flex

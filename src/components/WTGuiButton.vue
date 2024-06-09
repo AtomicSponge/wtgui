@@ -10,7 +10,7 @@ defineProps<{
 
 <style lang="stylus" scoped>
 button
-  border-radius 8px
+  border-radius 32px
   border 3px solid
   padding 0.6em 1.2em
   margin 0.6em
