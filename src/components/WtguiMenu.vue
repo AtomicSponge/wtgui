@@ -10,7 +10,7 @@
 
 <style lang="stylus" scoped>
 section
-  border 1px solid red
+  border 3px solid red
   padding 12px
   border-radius 12px
   display flex
