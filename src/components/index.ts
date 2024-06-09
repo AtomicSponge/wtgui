@@ -7,6 +7,7 @@
 
 //  Menu
 export { default as WtguiMenu } from './WtguiMenu.vue'
+export { default as WtguiMenuRow } from './WtguiMenuRow.vue'
 
 //  Items
 export { default as WTGuiButton } from './WTGuiButton.vue'
