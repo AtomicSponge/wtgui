@@ -8,6 +8,7 @@ defineOptions({
 const props = defineProps<{
   //  Title display for menu
   title:String
+  font:String
   color?:String
   borderSize?:String
   borderColor?:String
@@ -15,9 +16,9 @@ const props = defineProps<{
 }>()
 
 const menuStyle = computed(() => {
-  return `color: ${(props.color || 'red')};` +
+  return `color: ${(props.color || 'red')};font-size: ${props.scale || 1}em;` +
     `border: ${(props.borderSize || '6px')} solid ${(props.borderColor || 'red')};` +
-    `font-size: ${props.scale || 1}em;`
+    `font-family: ${props.font}`
 })
 </script>
 
@@ -30,7 +31,6 @@ const menuStyle = computed(() => {
 
 <style lang="stylus" scoped>
 section
-  font-family Inter, system-ui, Avenir, Helvetica, Arial, sans-serif
   line-height 1.5
   font-weight 400
   padding 32px

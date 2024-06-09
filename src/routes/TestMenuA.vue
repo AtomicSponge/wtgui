@@ -13,7 +13,8 @@ const goToMain = () => {
 </script>
 
 <template>
-  <wtgui-menu title="Test Menu A">
+  <wtgui-menu title="Test Menu A"
+    font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
     <WTGuiButton msg="Main Menu" @click="goToMain"/>
   </wtgui-menu>
 </template>

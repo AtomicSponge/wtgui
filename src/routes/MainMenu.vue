@@ -18,7 +18,8 @@ const goToTestB = () => {
 </script>
 
 <template>
-  <wtgui-menu title="Main Menu" color="green" border-color="green" scale="2">
+  <wtgui-menu title="Main Menu" color="green" border-color="green" scale="2"
+    font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
     <wtgui-menu-row>
       <WTGuiButton msg="Test Menu A" @click="goToTestA"/>
       <WTGuiButton msg="Test Menu B" @click="goToTestB"/>
