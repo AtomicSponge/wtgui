@@ -16,6 +16,7 @@ button
   font-size 1em
   font-weight 500
   font-family inherit
+  color #ffffff
   background-color #1a1a1a
   cursor pointer
   transition border-color 0.25s

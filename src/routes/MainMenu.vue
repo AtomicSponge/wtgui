@@ -2,6 +2,7 @@
 import { useRouter } from 'vue-router'
 
 import WtguiMenu from '../components/WtguiMenu.vue'
+import WTGuiButton from '../components/WTGuiButton.vue'
 
 const router = useRouter()
 
@@ -18,8 +19,8 @@ const goToTestB = () => {
 <template>
   <wtgui-menu>
     <h1>Main Menu</h1>
-    <button @click="goToTestA">Test Menu A</button>
-    <button @click="goToTestB">Test Menu B</button>
+    <WTGuiButton msg="Test Menu A" @click="goToTestA"/>
+    <WTGuiButton msg="Test Menu B" @click="goToTestB"/>
   </wtgui-menu>
 </template>
 
