@@ -5,11 +5,11 @@ defineProps<{
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
+  <h2>{{ msg }}</h2>
 </template>
 
 <style lang="stylus" scoped>
-h1
-  font-size 3.2em
-  line-height 1.1
+h2
+  font-size 2.0em
+  line-height 0.8
 </style>
