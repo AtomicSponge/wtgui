@@ -16,4 +16,6 @@ section
   display flex
   flex-flow column nowrap
   place-items center
+  color red
+  background-color inherit
 </style>
