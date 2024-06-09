@@ -1,12 +1,21 @@
 <script setup lang="ts">
-defineProps<{
+import { computed } from 'vue'
+
+const props = defineProps<{
   //  Title display for menu
   title:String
+  borderSize?:String
+  borderColor?:String
 }>()
+
+const menuStyle = computed(() => {
+  return 'border: ' + (props.borderSize || '3px') +
+    ' solid ' + (props.borderColor || 'red') + ';'
+})
 </script>
 
 <template>
-  <section>
+  <section :style="menuStyle">
     <h1>{{ title }}</h1>
     <slot></slot>
   </section>
