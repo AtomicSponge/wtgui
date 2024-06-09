@@ -28,6 +28,7 @@
   "module": "./dist/wtgui.js",
   "exports": {
     ".": {
+      "types": "./dist/wtgui.d.ts",
       "import": "./dist/wtgui.js",
       "require": "./dist/wtgui.umd.cjs"
     }
