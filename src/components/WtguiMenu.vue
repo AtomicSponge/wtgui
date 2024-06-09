@@ -15,7 +15,7 @@ const props = defineProps<{
 
 const menuStyle = computed(() => {
   return `color: ${(props.color || 'red')};` +
-    `border: ${(props.borderSize || '3px')} solid ${(props.borderColor || 'red')};`
+    `border: ${(props.borderSize || '6px')} solid ${(props.borderColor || 'red')};`
 })
 </script>
 
