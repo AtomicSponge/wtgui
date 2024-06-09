@@ -4,13 +4,14 @@ import { computed } from 'vue'
 const props = defineProps<{
   //  Title display for menu
   title:String
+  color?:String
   borderSize?:String
   borderColor?:String
 }>()
 
 const menuStyle = computed(() => {
-  return 'border: ' + (props.borderSize || '3px') +
-    ' solid ' + (props.borderColor || 'red') + ';'
+  return `color: ${(props.color || 'red')};` +
+    `border: ${(props.borderSize || '3px')} solid ${(props.borderColor || 'red')};`
 })
 </script>
 
