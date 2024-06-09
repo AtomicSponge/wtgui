@@ -12,9 +12,6 @@ defineProps<{
 </template>
 
 <style lang="stylus" scoped>
-h1
-  font-size 2.8em
-  line-height 0.8
 section
   border 3px solid red
   padding 12px
@@ -24,4 +21,7 @@ section
   place-items center
   color red
   background-color inherit
+h1
+  font-size 2.8em
+  line-height 0.8
 </style>
