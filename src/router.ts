@@ -1,3 +1,10 @@
+/**
+ * @author Matthew Evans
+ * @module wtfsystems/wtgui
+ * @see README.md
+ * @copyright MIT see LICENSE.md
+ */
+
 import { createRouter, createWebHistory } from 'vue-router'
 
 const MainMenu = () => import('./routes/MainMenu.vue')

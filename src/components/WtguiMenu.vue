@@ -1,5 +1,6 @@
 <script setup lang="ts">
 defineProps<{
+  //  Title display for menu
   title:String
 }>()
 </script>
