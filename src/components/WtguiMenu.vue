@@ -15,8 +15,8 @@ defineProps<{
 <style lang="stylus" scoped>
 section
   border 3px solid red
-  padding 12px
-  border-radius 12px
+  padding 32px
+  border-radius 32px
   display flex
   flex-flow column nowrap
   place-items center
@@ -24,5 +24,6 @@ section
   background-color inherit
 h1
   font-size 2.8em
-  line-height 0.8
+  margin-top 12px
+  margin-bottom 24px
 </style>
