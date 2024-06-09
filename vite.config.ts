@@ -5,7 +5,6 @@ import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 
 const LIBRARY_NAME = 'wtgui'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(), cssInjectedByJsPlugin(),
