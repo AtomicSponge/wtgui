@@ -1,17 +1,23 @@
 <script setup lang="ts">
+import { computed, inject } from 'vue'
+
 defineProps<{
   msg: string
 }>()
+
+const scale = <number>inject('scale')
+
+const buttonStyle = computed(() => {
+  return `border-radius: ${16 * scale}px;border: ${3 * scale}px solid;`
+})
 </script>
 
 <template>
-  <button type="button">{{ msg }}</button>
+  <button :style="buttonStyle">{{ msg }}</button>
 </template>
 
 <style lang="stylus" scoped>
 button
-  border-radius 32px
-  border 3px solid
   padding 0.6em 1.2em
   margin 0.6em
   font-size 1.6em

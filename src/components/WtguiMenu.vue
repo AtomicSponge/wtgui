@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, provide } from 'vue'
 
 defineOptions({
   inheritAttrs: false
@@ -20,6 +20,8 @@ const menuStyle = computed(() => {
     `border: ${(props.borderSize || '6px')} solid ${(props.borderColor || 'red')};` +
     `font-family: ${props.font}`
 })
+
+provide('scale', props.scale || 1)
 </script>
 
 <template>
