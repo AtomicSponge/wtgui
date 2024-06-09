@@ -11,13 +11,14 @@ defineProps<{
 <style lang="stylus" scoped>
 button
   border-radius 8px
-  border 1px solid transparent
+  border 1px solid red
   padding 0.6em 1.2em
+  margin 0.6em
   font-size 1em
-  font-weight 500
+  font-weight 800
   font-family inherit
   color inherit
-  background-color #1a1a1a
+  background-color inherit
   cursor pointer
   transition border-color 0.25s
 button:hover
