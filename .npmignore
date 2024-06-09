@@ -4,8 +4,7 @@ node_modules
 docs
 src
 
-index.ts
+index.html
 tsconfig.json
 tsconfig.node.json
-typedoc.json
 vite.config.ts

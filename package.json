@@ -1,21 +1,53 @@
 {
   "name": "@wtfsystems/wtgui",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "0.2.0",
+  "description": "WTGui - Experimental Menu System",
+  "author": "Matthew Evans",
+  "license": "MIT",
+  "url": "https://www.npmjs.com/package/@wtfsystems/wtgui",
+  "homepage": "https://github.com/wtfsystems/wtgui#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wtfsystems/wtgui.git"
+  },
+  "keywords": [
+    "WtGui",
+    "Menu",
+    "Vue"
+  ],
+  "bugs": {
+    "url": "https://github.com/wtfsystems/wtgui/issues"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
+  "type": "module",
+  "main": "./dist/wtgui.umd.cjs",
+  "module": "./dist/wtgui.js",
+  "exports": {
+    ".": {
+      "import": "./dist/wtgui.js",
+      "require": "./dist/wtgui.umd.cjs"
+    }
+  },
+  "files": [
+    "./dist",
+    "LICENSE.md",
+    "README.md"
+  ],
   "dependencies": {
-    "vue": "^3.4.21"
+    "vue": "^3.4.27",
+    "vue-router": "^4.3.2"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.0.4",
-    "typescript": "^5.2.2",
-    "vite": "^5.2.0",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "stylus": "^0.63.0",
+    "stylus-loader": "^8.1.0",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.13",
     "vite-plugin-css-injected-by-js": "^3.5.1",
-    "vue-tsc": "^2.0.6"
+    "vue-tsc": "^2.0.21"
   }
 }

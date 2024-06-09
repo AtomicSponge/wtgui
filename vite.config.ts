@@ -6,9 +6,7 @@ const LIBRARY_NAME = 'wtgui'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(), cssInjectedByJsPlugin()
-  ],
+  plugins: [ vue(), cssInjectedByJsPlugin() ],
   build: {
     cssCodeSplit: true,
     target: 'esnext',
