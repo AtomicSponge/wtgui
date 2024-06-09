@@ -35,7 +35,7 @@ section
   place-items center
   background-color rgba(0, 0, 0, 0.0)
 h1
-  font-size 2.8em
+  font-size 4.20em
   margin-top 12px
   margin-bottom 24px
 </style>

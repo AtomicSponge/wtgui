@@ -14,7 +14,7 @@ button
   border 3px solid
   padding 0.6em 1.2em
   margin 0.6em
-  font-size 1em
+  font-size 1.6em
   font-weight 800
   font-family inherit
   color inherit
