@@ -9,20 +9,20 @@ const props = defineProps<{
   //  Title display for menu
   title:String
   font:String
+  scale:Number
   color?:String
   borderSize?:Number
   borderColor?:String
-  scale?:Number
 }>()
 
 const menuStyle = computed(() => {
-  return `color: ${(props.color || 'red')};font-size: ${props.scale || 1}em;` +
-    `border: ${(<number>(props.borderSize || 6) * <number>(props.scale || 1))}px ` +
+  return `color: ${(props.color || 'red')};font-size: ${props.scale}em;` +
+    `border: ${(<number>(props.borderSize || 6) * <number>props.scale)}px ` +
     `solid ${(props.borderColor || 'red')};font-family: ${props.font};` +
-    `border-radius: ${32 * <number>(props.scale || 1)}px;`
+    `border-radius: ${32 * <number>(props.scale)}px;`
 })
 
-provide('scale', props.scale || 1)
+provide('scale', props.scale)
 </script>
 
 <template>
