@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+defineOptions({
+  inheritAttrs: false
+})
+
 const props = defineProps<{
   //  Title display for menu
   title:String
@@ -24,13 +28,11 @@ const menuStyle = computed(() => {
 
 <style lang="stylus" scoped>
 section
-  border 3px solid red
   padding 32px
   border-radius 32px
   display flex
   flex-flow column nowrap
   place-items center
-  color red
   background-color inherit
 h1
   font-size 2.8em
