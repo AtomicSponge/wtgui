@@ -6,32 +6,41 @@ defineOptions({
 })
 
 const props = defineProps<{
+  /** List of values to display in selection */
   values:Array<string>
+  /** Index of the default selected item */
   default?:number
 }>()
 
 const emit = defineEmits<{
+  /** Emit selected value from the props array */
   (e: 'selected', value:string):void
 }>()
 
+/** Selected index */
 const idx = ref(0)
+/** Reference to the CSS style of the display text */
 const selectStyle = ref('')
 
 const scale = <number>inject('scale')
 const focusColor = <string>inject('focus-color')
 
+/** Compute button CSS */
 const buttonStyle = computed(() => {
   return `border-radius: ${16 * scale}px;` +
   `border: ${3 * scale}px solid; color: inherit;`
 })
 
+/** Compute button focus CSS */
 const buttonFocusStyle = computed(() => {
   return `border-radius: ${16 * scale}px;` + 
   `border: ${3 * scale}px solid ${focusColor};` +
   `color: ${focusColor};`
 })
 
+/** Reference to the left button active style */
 const activeStyleLeft = ref(toValue(buttonStyle))
+/** Reference to the right button active style */
 const activeStyleRight = ref(toValue(buttonStyle))
 
 /**

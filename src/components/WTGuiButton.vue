@@ -2,6 +2,7 @@
 import { ref, computed, toValue, inject } from 'vue'
 
 defineProps<{
+  /** Display message for the button */
   msg:string
 }>()
 
@@ -9,14 +10,17 @@ const scale = <number>inject('scale')
 const color = <string>inject('color')
 const focusColor = <string>inject('focus-color')
 
+/** Compute button CSS style */
 const buttonStyle = computed(() => {
   return `border: ${3 * scale}px solid ${color};border-radius: ${16 * scale}px;`
 })
 
+/** Compute button focused CSS style */
 const buttonFocusStyle = computed(() => {
   return `border: ${3 * scale}px solid ${focusColor};border-radius: ${16 * scale}px;`
 })
 
+/** Reference to the button's current style */
 const currentStyle = ref(toValue(buttonStyle))
 
 /** Make a button active */

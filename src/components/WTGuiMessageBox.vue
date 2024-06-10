@@ -6,7 +6,9 @@ defineOptions({
 })
 
 const props = defineProps<{
+  /** Message to display */
   msg:string
+  /** Border thickness */
   borderSize?:number
 }>()
 
@@ -14,28 +16,35 @@ const scale = <number>inject('scale')
 const color = <string>inject('color')
 const focusColor = <string>inject('focus-color')
 
+/** Compute the general CSS to apply to the modal */
 const modalGeneralStyle = computed(() => {
   return `border-radius: ${32 * scale}px;padding: 2em;` +
   `border: ${(props.borderSize || 6) * scale}px solid ${color}; color: ${color};` +
   `background-color: rgba(0, 0, 0, 0.95);`
 })
 
+/** Modal's hidden CSS */
 const modalHidden = `display: none; ${toValue(modalGeneralStyle)}`
+/** Modal's display CSS */
 const modalVisable = `display: flex;flex-flow: column nowrap;place-items: center;`+
   `z-index: 99;position: absolute;${toValue(modalGeneralStyle)}`
 
+/** Reference to the current modal CSS style */
 const modalStyle = ref(modalVisable)
 
+/** Compute button CSS style */
 const buttonStyle = computed(() => {
   return `border: ${3 * scale}px solid ${color};border-radius: ${16 * scale}px;` +
     `color: ${color}`
 })
 
+/** Compute button focused CSS style */
 const buttonFocusStyle = computed(() => {
   return `border: ${3 * scale}px solid ${focusColor};border-radius: ${16 * scale}px;` +
     `color: ${color}`
 })
 
+/** Reference to the current button CSS style */
 const btnCurrentStyle = ref(toValue(buttonStyle))
 
 /** Make a button active */

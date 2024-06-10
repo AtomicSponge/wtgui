@@ -6,11 +6,11 @@ defineOptions({
 })
 
 const props = defineProps({
-  //  Title display for menu
+  /** Title display for menu */
   title: { type: String, required: true },
-  //  CSS Font type for menu
+  /** CSS Font type for menu */
   font:  { type: String, required: true },
-  //  Scale factor for menu
+  /** Scale factor for menu */
   scale: {
     type: Number,
     required: true,
@@ -18,15 +18,15 @@ const props = defineProps({
       return [1, 2, 3, 4].includes(<number>value)
     }
   },
-  //  CSS color for menu
+  /** CSS color for menu */
   color: { type: String, default: 'red' },
-  //  CSS focus color for menu
+  /** CSS focus color for menu */
   focusColor: { type: String, default: '#646cff' },
-  //  Border thickness
+  /** Border thickness */
   borderSize: { type: Number, default: 6 },
-  //  CSS color for the menu border
+  /** CSS color for the menu border */
   borderColor: { type: String, default: 'red' },
-  //  Opaquency of the menu
+  /** Opaquency of the menu */
   opaquency: {
     type: Number,
     validator(value) {
@@ -36,6 +36,7 @@ const props = defineProps({
   }
 })
 
+/** Compute the CSS style for the menu */
 const menuStyle = computed(() => {
   return `color: ${props.color};font-size: ${props.scale}em;` +
     `border: ${(props.borderSize * props.scale)}px ` +
