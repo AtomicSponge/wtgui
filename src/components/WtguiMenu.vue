@@ -32,7 +32,7 @@ const props = defineProps({
     validator(value) {
       return (<number>value >= 0.0 && <number>value <= 1.0)
     },
-    default: 0.4
+    default: 0.30
   }
 })
 
