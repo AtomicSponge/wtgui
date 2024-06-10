@@ -17,7 +17,7 @@ const goToMain = () => {
   <wtgui-menu title="Test Menu A" :scale="2" focus-color="pink" :opaquency="1"
     font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
     <WTGuiLabel msg="This menu is scaled"/>
-    <WTGuiButton msg="Main Menu" @click="goToMain"/>
+    <WTGuiButton msg="Main Menu" @click="goToMain" @select="goToMain"/>
   </wtgui-menu>
 </template>
 

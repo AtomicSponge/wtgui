@@ -21,8 +21,8 @@ const goToTestB = () => {
   <wtgui-menu title="Main Menu" color="green" border-color="green" :scale="1"
     font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
     <wtgui-menu-row>
-      <WTGuiButton msg="Test Menu A" @click="goToTestA"/>
-      <WTGuiButton msg="Test Menu B" @click="goToTestB"/>
+      <WTGuiButton msg="Test Menu A" @click="goToTestA" @select="goToTestA"/>
+      <WTGuiButton msg="Test Menu B" @click="goToTestB" @select="goToTestB"/>
     </wtgui-menu-row>
   </wtgui-menu>
 </template>

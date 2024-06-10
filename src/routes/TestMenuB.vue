@@ -33,7 +33,7 @@ const showMessageBox = ref(false)
         @selected="(v) => currentSelection = v"/>
     </wtgui-menu-row>
     <WTGuiButton msg="Click Me" @click="showMessageBox = true"/>
-    <WTGuiButton msg="Main Menu" @click="goToMain"/>
+    <WTGuiButton msg="Main Menu" @click="goToMain" @select="goToMain"/>
     <!-- Hidden until `click me` button is selected -->
     <WTGuiMessageBox :msg="currentSelection" v-model="showMessageBox"/>
   </wtgui-menu>
