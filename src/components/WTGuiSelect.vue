@@ -2,7 +2,7 @@
 import { ref, computed, toValue, inject } from 'vue'
 
 defineProps<{
-  msg: string
+  values: Array<String>
 }>()
 
 const scale = <number>inject('scale')
@@ -47,7 +47,7 @@ const makeInactive = (event:any) => {
       @mouseleave="makeInactive">
       &#8592;
     </button>
-    <h2>{{ msg }}</h2>
+    <h2>{{ values[0] }}</h2>
     <button
       id="btnRight"
       :style="activeStyleRight"
