@@ -18,23 +18,23 @@ const buttonFocusStyle = computed(() => {
 
 const _btnStyle = toValue(buttonStyle)
 const _btnFocusStyle = toValue(buttonFocusStyle)
-const activeStyle = ref(_btnStyle)
+const currentStyle = ref(_btnStyle)
 
 /** Make a button active */
 const makeActive = () => {
-  activeStyle.value = _btnFocusStyle
+  currentStyle.value = _btnFocusStyle
 }
 
 /** Make a button inactive */
 const makeInactive = () => {
-  activeStyle.value = _btnStyle
+  currentStyle.value = _btnStyle
 }
 </script>
 
 <template>
   <div>
     <button
-      :style="activeStyle"
+      :style="currentStyle"
       @focusin="makeActive"
       @focusout="makeInactive"
       @mouseenter="makeActive"

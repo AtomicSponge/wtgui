@@ -6,6 +6,7 @@ import WtguiMenuRow from '../components/WtguiMenuRow.vue'
 import WTGuiLabel from '../components/WTGuiLabel.vue'
 import WTGuiButton from '../components/WTGuiButton.vue'
 import WTGuiSelect from '../components/WTGuiSelect.vue'
+import WTGuiMessageBox from '../components/WTGuiMessageBox.vue'
 
 const router = useRouter()
 
@@ -22,7 +23,10 @@ const goToMain = () => {
       <WTGuiLabel msg="Select me:"/>
       <WTGuiSelect :values="[ 'Hello World', 'testing', 'test' ]" :default="1"/>
     </wtgui-menu-row>
+    <WTGuiButton msg="Click Me" @click=""/>
     <WTGuiButton msg="Main Menu" @click="goToMain"/>
+
+    <WTGuiMessageBox msg="TESTING!"/>
   </wtgui-menu>
 </template>
 
