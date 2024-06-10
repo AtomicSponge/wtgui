@@ -2,6 +2,8 @@
 import { useRouter } from 'vue-router'
 
 import WtguiMenu from '../components/WtguiMenu.vue'
+import WtguiMenuRow from '../components/WtguiMenuRow.vue'
+import WTGuiLabel from '../components/WTGuiLabel.vue'
 import WTGuiButton from '../components/WTGuiButton.vue'
 import WTGuiSelect from '../components/WTGuiSelect.vue'
 
@@ -16,7 +18,10 @@ const goToMain = () => {
 <template>
   <wtgui-menu title="Test Menu B" color="yellow" border-color="yellow" :scale="1"
     font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
-    <WTGuiSelect :values="[ 'Hello World', 'testing', 'test' ]" :default="1"/>
+    <wtgui-menu-row>
+      <WTGuiLabel msg="Select me:"/>
+      <WTGuiSelect :values="[ 'Hello World', 'testing', 'test' ]" :default="1"/>
+    </wtgui-menu-row>
     <WTGuiButton msg="Main Menu" @click="goToMain"/>
   </wtgui-menu>
 </template>
