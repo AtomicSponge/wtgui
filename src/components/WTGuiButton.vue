@@ -20,7 +20,7 @@ const buttonStyle = computed(() => {
 button
   padding 0.6em 1.2em
   margin 0.6em
-  font-size 1.6em
+  font-size 1.4em
   font-weight 800
   font-family inherit
   color inherit
@@ -31,5 +31,5 @@ button:hover
   border-color #646cff
 button:focus,
 button:focus-visible
-  outline 4px auto -webkit-focus-ring-color
+  border-color #646cff
 </style>
