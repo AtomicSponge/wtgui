@@ -75,7 +75,6 @@ const makeBtnInactive = () => {
 
 /** Hide the modal on confirmation */
 const hideModal = () => {
-  //modalStyle.value = modalHidden
   visible.value = false
 }
 </script>
