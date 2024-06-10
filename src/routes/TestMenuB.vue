@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 
 import WtguiMenu from '../components/WtguiMenu.vue'
 import WtguiMenuRow from '../components/WtguiMenuRow.vue'
@@ -8,12 +7,6 @@ import WTGuiLabel from '../components/WTGuiLabel.vue'
 import WTGuiButton from '../components/WTGuiButton.vue'
 import WTGuiSelect from '../components/WTGuiSelect.vue'
 import WTGuiMessageBox from '../components/WTGuiMessageBox.vue'
-
-const router = useRouter()
-
-const goToMain = () => {
-  router.push('/')
-}
 
 const selectionValues = [ 'Hello World', 'testing', 'test' ]
 const startSelect = 1
@@ -32,8 +25,8 @@ const showMessageBox = ref(false)
         :default="startSelect"
         @selected="(v) => currentSelection = v"/>
     </wtgui-menu-row>
-    <WTGuiButton msg="Click Me" @click="showMessageBox = true"/>
-    <WTGuiButton msg="Main Menu" @click="goToMain" @select="goToMain"/>
+    <WTGuiButton msg="Click Me" :action="() => { showMessageBox = true }"/>
+    <WTGuiButton msg="Main Menu" goto="/"/>
     <!-- Hidden until `click me` button is selected -->
     <WTGuiMessageBox :msg="currentSelection" v-model="showMessageBox"/>
   </wtgui-menu>

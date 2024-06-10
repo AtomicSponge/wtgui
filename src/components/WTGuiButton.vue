@@ -6,11 +6,20 @@
 
 <script setup lang="ts">
 import { ref, computed, toValue, inject } from 'vue'
+import { useRouter } from 'vue-router'
 
-defineProps<{
+const router = useRouter()
+
+const props = defineProps<{
   /** Display message for the button */
   msg:string
+  goto?:string
+  action?:Function
 }>()
+
+const goToMenu = () => {
+  router.push(<string>props.goto)
+}
 
 /** Get scale from the menu props */
 const scale = <number>inject('scale')
@@ -44,13 +53,27 @@ const makeInactive = () => {
 </script>
 
 <template>
-  <div>
+  <div v-show="props.goto !== undefined">
     <button
       :style="currentStyle"
       @focusin="makeActive"
       @focusout="makeInactive"
       @mouseenter="makeActive"
-      @mouseleave="makeInactive">
+      @mouseleave="makeInactive"
+      @click="goToMenu"
+      @select="goToMenu">
+      {{ msg }}
+    </button>
+  </div>
+  <div v-show="props.action !== undefined">
+    <button
+      :style="currentStyle"
+      @focusin="makeActive"
+      @focusout="makeInactive"
+      @mouseenter="makeActive"
+      @mouseleave="makeInactive"
+      @click="<Function>action"
+      @select="<Function>action">
       {{ msg }}
     </button>
   </div>
