@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, computed, toValue, inject } from 'vue'
 
+defineOptions({
+  inheritAttrs: false
+})
+
 const props = defineProps<{
   msg:string
   borderSize?:number
