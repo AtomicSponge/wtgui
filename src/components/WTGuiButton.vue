@@ -6,13 +6,14 @@ defineProps<{
 }>()
 
 const scale = <number>inject('scale')
+const focusColor = <string>inject('focus-color')
 
 const buttonStyle = computed(() => {
   return `border-radius: ${16 * scale}px;border: ${3 * scale}px solid;`
 })
 
 const buttonFocusStyle = computed(() => {
-  return `border-radius: ${16 * scale}px;border: ${3 * scale}px solid #646cff;`
+  return `border-radius: ${16 * scale}px;border: ${3 * scale}px solid ${focusColor};`
 })
 
 const _btnStyle = toValue(buttonStyle)

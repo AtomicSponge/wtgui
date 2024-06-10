@@ -25,6 +25,10 @@ const props = defineProps({
     type: String,
     default: 'red'
   },
+  focusColor: {
+    type: String,
+    default: '#646cff'
+  },
   borderSize: {
     type: Number,
     default: 6
@@ -43,6 +47,7 @@ const menuStyle = computed(() => {
 })
 
 provide('scale', props.scale)
+provide('focus-color', props.focusColor)
 </script>
 
 <template>
