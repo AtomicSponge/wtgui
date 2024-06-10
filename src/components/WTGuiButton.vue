@@ -19,12 +19,12 @@ const color = <string>inject('color')
 /** Get focus color from the menu props */
 const focusColor = <string>inject('focus-color')
 
-/** Compute button CSS style */
+/** Compute button CSS */
 const buttonStyle = computed(() => {
   return `border: ${3 * scale}px solid ${color};border-radius: ${16 * scale}px;`
 })
 
-/** Compute button focused CSS style */
+/** Compute button focused CSS */
 const buttonFocusStyle = computed(() => {
   return `border: ${3 * scale}px solid ${focusColor};border-radius: ${16 * scale}px;`
 })

@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed, toValue, inject } from 'vue'
+import { ref, computed, toRef, toValue, inject } from 'vue'
 
 defineOptions({
   inheritAttrs: false
@@ -17,6 +17,9 @@ const props = defineProps<{
   /** Border thickness */
   borderSize?:number
 }>()
+
+/** Model flag to show the message box */
+const visible = defineModel()
 
 /** Get scale from the menu props */
 const scale = <number>inject('scale')
@@ -35,25 +38,29 @@ const modalGeneralStyle = computed(() => {
 /** Modal's hidden CSS */
 const modalHidden = `display: none; ${toValue(modalGeneralStyle)}`
 /** Modal's display CSS */
-const modalVisable = `display: flex;flex-flow: column nowrap;place-items: center;`+
+const modalVisible = `display: flex;flex-flow: column nowrap;place-items: center;`+
   `z-index: 99;position: absolute;${toValue(modalGeneralStyle)}`
 
-/** Reference to the current modal CSS style */
-const modalStyle = ref(modalVisable)
+/** Compute the current modal CSS */
+const modalComputedStyle = computed(() => {
+  return visible.value ? modalVisible : modalHidden
+})
+/** Reference to the current modal CSS */
+const modalStyle = ref(toRef(modalComputedStyle))
 
-/** Compute button CSS style */
+/** Compute button CSS */
 const buttonStyle = computed(() => {
   return `border: ${3 * scale}px solid ${color};border-radius: ${16 * scale}px;` +
     `color: ${color}`
 })
 
-/** Compute button focused CSS style */
+/** Compute button focused CSS */
 const buttonFocusStyle = computed(() => {
   return `border: ${3 * scale}px solid ${focusColor};border-radius: ${16 * scale}px;` +
     `color: ${color}`
 })
 
-/** Reference to the current button CSS style */
+/** Reference to the current button CSS */
 const btnCurrentStyle = ref(toValue(buttonStyle))
 
 /** Make a button active */
@@ -68,7 +75,8 @@ const makeBtnInactive = () => {
 
 /** Hide the modal on confirmation */
 const hideModal = () => {
-  modalStyle.value = modalHidden
+  //modalStyle.value = modalHidden
+  visible.value = false
 }
 </script>
 
