@@ -52,7 +52,6 @@ button
   color inherit
   background-color inherit
   cursor pointer
-  transition border-color 0.25s
 button:focus,
 button:focus-visible
   outline none
