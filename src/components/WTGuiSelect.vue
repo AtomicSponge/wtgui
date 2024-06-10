@@ -1,3 +1,9 @@
+<!--
+  @wtfsystems/wtgui
+  By:  Matthew Evans
+  See LICENSE.md
+-->
+
 <script setup lang="ts">
 import { ref, computed, toValue, inject, onMounted } from 'vue'
 
