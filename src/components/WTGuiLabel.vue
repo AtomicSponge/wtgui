@@ -16,4 +16,6 @@ defineProps<{
 h2
   font-size 1.6em
   line-height 0.2
+  padding-left 0.6em
+  padding-right 0.6em
 </style>
