@@ -28,7 +28,9 @@ const idx = ref(0)
 /** Reference to the CSS style of the display text */
 const selectStyle = ref('')
 
+/** Get scale from the menu props */
 const scale = <number>inject('scale')
+/** Get focus color from the menu props */
 const focusColor = <string>inject('focus-color')
 
 /** Compute button CSS */

@@ -12,8 +12,11 @@ defineProps<{
   msg:string
 }>()
 
+/** Get scale from the menu props */
 const scale = <number>inject('scale')
+/** Get color from the menu props */
 const color = <string>inject('color')
+/** Get focus color from the menu props */
 const focusColor = <string>inject('focus-color')
 
 /** Compute button CSS style */
