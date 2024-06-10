@@ -34,7 +34,7 @@ const visible = ref(false)
     </wtgui-menu-row>
     <WTGuiButton msg="Click Me" @click="visible = true"/>
     <WTGuiButton msg="Main Menu" @click="goToMain"/>
-
+    <!-- Hidden until `click me` button is selected -->
     <WTGuiMessageBox :msg="currentSelection" v-model="visible"/>
   </wtgui-menu>
 </template>
