@@ -8,7 +8,7 @@ defineProps<{
 const scale = <number>inject('scale')
 const focusColor = <string>inject('focus-color')
 
-const generalStyle = computed(() => {
+const modalGeneralStyle = computed(() => {
   return `border-radius: ${16 * scale}px;` +
   `border: ${3 * scale}px solid; color: inherit;` +
   `flex-flow: column nowrap;place-items: center;`
@@ -17,9 +17,7 @@ const generalStyle = computed(() => {
 const modalHidden = 'display: hidden;'
 const modalVisable = 'display: flex;'
 
-const modalCSS = `${generalStyle} ${modalHidden}`
-
-const modalStyle = ref(modalCSS)
+const modalStyle = ref(`${modalHidden} ${toValue(modalGeneralStyle)}`)
 
 const buttonStyle = computed(() => {
   return `border-radius: ${16 * scale}px;border: ${3 * scale}px solid;`
@@ -34,12 +32,12 @@ const _btnFocusStyle = toValue(buttonFocusStyle)
 const btnActiveStyle = ref(_btnStyle)
 
 /** Make a button active */
-const makeActive = () => {
+const makeBtnActive = () => {
   btnActiveStyle.value = _btnFocusStyle
 }
 
 /** Make a button inactive */
-const makeInactive = () => {
+const makeBtnInactive = () => {
   btnActiveStyle.value = _btnStyle
 }
 </script>
@@ -50,10 +48,10 @@ const makeInactive = () => {
     <div>
       <button
         :style="btnActiveStyle"
-        @focusin="makeActive"
-        @focusout="makeInactive"
-        @mouseenter="makeActive"
-        @mouseleave="makeInactive">
+        @focusin="makeBtnActive"
+        @focusout="makeBtnInactive"
+        @mouseenter="makeBtnActive"
+        @mouseleave="makeBtnInactive">
         OK
       </button>
     </div>
