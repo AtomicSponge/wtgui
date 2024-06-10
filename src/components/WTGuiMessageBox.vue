@@ -18,7 +18,7 @@ const modalGeneralStyle = computed(() => {
   `border: ${(props.borderSize || 6) * scale}px solid; color: inherit;`
 })
 
-const modalHidden = `display: hidden; ${toValue(modalGeneralStyle)}`
+const modalHidden = `display: none; ${toValue(modalGeneralStyle)}`
 //const modalVisable = `display: flex;flex-flow: column nowrap;place-items: center; ${toValue(modalGeneralStyle)}`
 
 const modalStyle = ref(modalHidden)
