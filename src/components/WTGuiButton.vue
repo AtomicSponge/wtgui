@@ -20,10 +20,12 @@ const _btnStyle = toValue(buttonStyle)
 const _btnFocusStyle = toValue(buttonFocusStyle)
 const activeStyle = ref(_btnStyle)
 
+/** Make a button active */
 const makeActive = () => {
   activeStyle.value = _btnFocusStyle
 }
 
+/** Make a button inactive */
 const makeInactive = () => {
   activeStyle.value = _btnStyle
 }

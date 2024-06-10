@@ -24,8 +24,8 @@ const activeStyleLeft = ref(_btnStyle)
 const activeStyleRight = ref(_btnStyle)
 
 /**
- * 
- * @param event 
+ * Make a button active
+ * @param event Event information
  */
 const makeActive = (event:any) => {
   if(event.currentTarget.id === 'btnLeft')
@@ -35,8 +35,8 @@ const makeActive = (event:any) => {
 }
 
 /**
- * 
- * @param event 
+ * Make a button inactive
+ * @param event Event information
  */
 const makeInactive = (event:any) => {
   if(event.currentTarget.id === 'btnLeft')
@@ -45,12 +45,12 @@ const makeInactive = (event:any) => {
     activeStyleRight.value = _btnStyle
 }
 
-/**  */
+/** Decrease index on left select */
 const selectLeft = () => {
   if(idx.value > 0) --idx.value
 }
 
-/**  */
+/** Increase index on right select */
 const selectRight = () => {
   if(idx.value < props.values.length - 1) ++idx.value
 }
