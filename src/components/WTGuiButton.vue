@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, toValue, computed, inject } from 'vue'
+import { ref, computed, toValue, inject } from 'vue'
 
 defineProps<{
   msg: string
