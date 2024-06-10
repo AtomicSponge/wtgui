@@ -59,6 +59,7 @@ const selectRight = () => {
   if(idx.value < props.values.length - 1) ++idx.value
 }
 
+//  On mount, set the width to the max array element length
 onMounted(() => {
   const longest = props.values.reduce((a, b) => {
     return a.length > b.length ? a : b
