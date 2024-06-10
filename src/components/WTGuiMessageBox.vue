@@ -11,24 +11,28 @@ const props = defineProps<{
 }>()
 
 const scale = <number>inject('scale')
+const color = <string>inject('color')
 const focusColor = <string>inject('focus-color')
 
 const modalGeneralStyle = computed(() => {
   return `border-radius: ${32 * scale}px;padding: 2em;` +
-  `border: ${(props.borderSize || 6) * scale}px solid; color: inherit;`
+  `border: ${(props.borderSize || 6) * scale}px solid ${color}; color: ${color};` +
+  `background-color: rgba(0, 0, 0, 0.5);`
 })
 
 const modalHidden = `display: none; ${toValue(modalGeneralStyle)}`
 const modalVisable = `display: flex;flex-flow: column nowrap;place-items: center; ${toValue(modalGeneralStyle)}`
 
-const modalStyle = ref(modalHidden)
+const modalStyle = ref(modalVisable)
 
 const buttonStyle = computed(() => {
-  return `border-radius: ${16 * scale}px;border: ${3 * scale}px solid;`
+  return `border: ${3 * scale}px solid ${color};border-radius: ${16 * scale}px;` +
+    `color: ${color}`
 })
 
 const buttonFocusStyle = computed(() => {
-  return `border-radius: ${16 * scale}px;border: ${3 * scale}px solid ${focusColor};`
+  return `border: ${3 * scale}px solid ${focusColor};border-radius: ${16 * scale}px;` +
+    `color: ${color}`
 })
 
 const _btnStyle = toValue(buttonStyle)
@@ -77,7 +81,7 @@ button
   font-size 1.6em
   font-weight 800
   font-family inherit
-  background-color inherit
+  background-color rgba(0, 0, 0, 0)
   cursor pointer
 button:focus,
 button:focus-visible

@@ -45,6 +45,7 @@ const menuStyle = computed(() => {
 })
 
 provide('scale', props.scale)
+provide('color', props.color)
 provide('focus-color', props.focusColor)
 </script>
 
