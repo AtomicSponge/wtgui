@@ -20,20 +20,22 @@ const _btnStyle = toValue(buttonStyle)
 const _btnFocusStyle = toValue(buttonFocusStyle)
 const activeStyle = ref(_btnStyle)
 
-const switchState = () => {
-  if(activeStyle.value === _btnStyle)
-    activeStyle.value = _btnFocusStyle
-  else activeStyle.value = _btnStyle
+const makeActive = () => {
+  activeStyle.value = _btnFocusStyle
+}
+
+const makeInactive = () => {
+  activeStyle.value = _btnStyle
 }
 </script>
 
 <template>
   <button
     :style="activeStyle"
-    @focusin="switchState"
-    @focusout="switchState"
-    @mouseenter="switchState"
-    @mouseleave="switchState">
+    @focusin="makeActive"
+    @focusout="makeInactive"
+    @mouseenter="makeActive"
+    @mouseleave="makeInactive">
     {{ msg }}
   </button>
 </template>
