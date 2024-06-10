@@ -1,7 +1,7 @@
 <!--
   @wtfsystems/wtgui
   By:  Matthew Evans
-  See LICENSE.md
+  copyright MIT see LICENSE.md
 -->
 
 <script setup lang="ts">
