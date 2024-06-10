@@ -15,6 +15,10 @@ const goToMain = () => {
   router.push('/')
 }
 
+const selectionValues = [ 'Hello World', 'testing', 'test' ]
+const startSelect = 1
+const currentSelection = ref('')
+
 </script>
 
 <template>
@@ -22,12 +26,15 @@ const goToMain = () => {
     font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
     <wtgui-menu-row>
       <WTGuiLabel msg="Select me:"/>
-      <WTGuiSelect :values="[ 'Hello World', 'testing', 'test' ]" :default="1"/>
+      <WTGuiSelect
+        :values="selectionValues"
+        :default="startSelect"
+        @selected="(v) => currentSelection = v"/>
     </wtgui-menu-row>
     <WTGuiButton msg="Click Me" @click=""/>
     <WTGuiButton msg="Main Menu" @click="goToMain"/>
 
-    <WTGuiMessageBox msg="TESTING!"/>
+    <WTGuiMessageBox :msg="currentSelection"/>
   </wtgui-menu>
 </template>
 
