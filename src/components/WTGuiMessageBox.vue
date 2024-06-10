@@ -10,7 +10,7 @@ const focusColor = <string>inject('focus-color')
 
 const modalGeneralStyle = computed(() => {
   return `border-radius: ${16 * scale}px;` +
-  `border: ${3 * scale}px solid; color: inherit;` +
+  `border: ${6 * scale}px solid; color: inherit;` +
   `flex-flow: column nowrap;place-items: center;`
 })
 
