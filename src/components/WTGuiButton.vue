@@ -2,7 +2,7 @@
 import { ref, computed, toValue, inject } from 'vue'
 
 defineProps<{
-  msg:String
+  msg:string
 }>()
 
 const scale = <number>inject('scale')

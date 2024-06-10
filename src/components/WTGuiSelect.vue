@@ -6,7 +6,8 @@ defineOptions({
 })
 
 const props = defineProps<{
-  values:Array<String>
+  values:Array<string>
+  default?:number
 }>()
 
 const idx = ref(0)
@@ -70,6 +71,9 @@ onMounted(() => {
   })
   const width = Math.round(longest.length / 2)
   selectStyle.value = `width: ${width}em`
+
+  //  If default was set, set default index
+  if(props.default) idx.value = props.default
 })
 </script>
 
