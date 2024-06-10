@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, toValue, inject } from 'vue'
 
-defineProps<{
-  msg: string
+const props = defineProps<{
+  msg:string
+  borderSize?:number
 }>()
 
 const scale = <number>inject('scale')
@@ -10,7 +11,7 @@ const focusColor = <string>inject('focus-color')
 
 const modalGeneralStyle = computed(() => {
   return `border-radius: ${16 * scale}px;` +
-  `border: ${6 * scale}px solid; color: inherit;` +
+  `border: ${(props.borderSize || 6) * scale}px solid; color: inherit;` +
   `flex-flow: column nowrap;place-items: center;`
 })
 
