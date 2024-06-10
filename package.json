@@ -13,7 +13,9 @@
   "keywords": [
     "WtGui",
     "Menu",
-    "Vue"
+    "Vue",
+    "Vuejs",
+    "Vue3"
   ],
   "bugs": {
     "url": "https://github.com/wtfsystems/wtgui/issues"
