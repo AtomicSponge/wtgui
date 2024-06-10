@@ -11,11 +11,14 @@ const scale = <number>inject('scale')
 const focusColor = <string>inject('focus-color')
 
 const buttonStyle = computed(() => {
-  return `border-radius: ${16 * scale}px;border: ${3 * scale}px solid;`
+  return `border-radius: ${16 * scale}px;` +
+  `border: ${3 * scale}px solid; color: inherit;`
 })
 
 const buttonFocusStyle = computed(() => {
-  return `border-radius: ${16 * scale}px;border: ${3 * scale}px solid ${focusColor};`
+  return `border-radius: ${16 * scale}px;` + 
+  `border: ${3 * scale}px solid ${focusColor};` +
+  `color: ${focusColor};`
 })
 
 const _btnStyle = toValue(buttonStyle)
@@ -87,13 +90,16 @@ div
   display flex
   flex-flow row nowrap
   place-items center
+h2
+  font-size 1.6em
+  margin-top 0.2em
+  margin-bottom 0.2em
 button
-  padding 0.4em 0.8em
+  padding 0.2em 0.6em
   margin 0.6em
   font-size 1.6em
   font-weight 800
   font-family inherit
-  color inherit
   background-color inherit
   cursor pointer
 button:focus,
