@@ -19,7 +19,7 @@ const modalGeneralStyle = computed(() => {
 })
 
 const modalHidden = `display: none; ${toValue(modalGeneralStyle)}`
-//const modalVisable = `display: flex;flex-flow: column nowrap;place-items: center; ${toValue(modalGeneralStyle)}`
+const modalVisable = `display: flex;flex-flow: column nowrap;place-items: center; ${toValue(modalGeneralStyle)}`
 
 const modalStyle = ref(modalHidden)
 
@@ -44,21 +44,25 @@ const makeBtnActive = () => {
 const makeBtnInactive = () => {
   btnCurrentStyle.value = _btnStyle
 }
+
+/** Hide the modal on confirmation */
+const hideModal = () => {
+  modalStyle.value = modalHidden
+}
 </script>
 
 <template>
   <div :style="modalStyle">
-    <div><h2>{{ msg }}</h2></div>
-    <div>
-      <button
-        :style="btnCurrentStyle"
-        @focusin="makeBtnActive"
-        @focusout="makeBtnInactive"
-        @mouseenter="makeBtnActive"
-        @mouseleave="makeBtnInactive">
-        OK
-      </button>
-    </div>
+    <h2>{{ msg }}</h2>
+    <button
+      :style="btnCurrentStyle"
+      @focusin="makeBtnActive"
+      @focusout="makeBtnInactive"
+      @mouseenter="makeBtnActive"
+      @mouseleave="makeBtnInactive"
+      @click="hideModal">
+      OK
+    </button>
   </div>
 </template>
 
