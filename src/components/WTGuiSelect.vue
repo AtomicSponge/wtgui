@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref, computed, toValue, inject } from 'vue'
 
-defineProps<{
+const props = defineProps<{
   values: Array<String>
 }>()
+
+const idx = ref(0)
 
 const scale = <number>inject('scale')
 const focusColor = <string>inject('focus-color')
@@ -21,6 +23,10 @@ const _btnFocusStyle = toValue(buttonFocusStyle)
 const activeStyleLeft = ref(_btnStyle)
 const activeStyleRight = ref(_btnStyle)
 
+/**
+ * 
+ * @param event 
+ */
 const makeActive = (event:any) => {
   if(event.currentTarget.id === 'btnLeft')
     activeStyleLeft.value = _btnFocusStyle
@@ -28,11 +34,25 @@ const makeActive = (event:any) => {
     activeStyleRight.value = _btnFocusStyle
 }
 
+/**
+ * 
+ * @param event 
+ */
 const makeInactive = (event:any) => {
   if(event.currentTarget.id === 'btnLeft')
     activeStyleLeft.value = _btnStyle
   if(event.currentTarget.id === 'btnRight')
     activeStyleRight.value = _btnStyle
+}
+
+/**  */
+const selectLeft = () => {
+  if(idx.value > 0) --idx.value
+}
+
+/**  */
+const selectRight = () => {
+  if(idx.value < props.values.length - 1) ++idx.value
 }
 </script>
 
@@ -44,17 +64,19 @@ const makeInactive = (event:any) => {
       @focusin="makeActive"
       @focusout="makeInactive"
       @mouseenter="makeActive"
-      @mouseleave="makeInactive">
+      @mouseleave="makeInactive"
+      @click="selectLeft">
       &#8592;
     </button>
-    <h2>{{ values[0] }}</h2>
+    <h2>{{ values[idx] }}</h2>
     <button
       id="btnRight"
       :style="activeStyleRight"
       @focusin="makeActive"
       @focusout="makeInactive"
       @mouseenter="makeActive"
-      @mouseleave="makeInactive">
+      @mouseleave="makeInactive"
+      @click="selectRight">
       &#8594;
     </button>
   </div>
