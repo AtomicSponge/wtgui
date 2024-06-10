@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref, computed, toValue, inject } from 'vue'
+import { ref, computed, toValue, inject, onMounted } from 'vue'
 
 const props = defineProps<{
   values: Array<String>
 }>()
 
 const idx = ref(0)
+const selectStyle = ref('')
 
 const scale = <number>inject('scale')
 const focusColor = <string>inject('focus-color')
@@ -57,6 +58,14 @@ const selectLeft = () => {
 const selectRight = () => {
   if(idx.value < props.values.length - 1) ++idx.value
 }
+
+onMounted(() => {
+  const longest = props.values.reduce((a, b) => {
+    return a.length > b.length ? a : b
+  })
+  const width = Math.round(longest.length / 2)
+  selectStyle.value = `width: ${width}em`
+})
 </script>
 
 <template>
@@ -71,7 +80,7 @@ const selectRight = () => {
       @click="selectLeft">
       &#8592;
     </button>
-    <h2>{{ values[idx] }}</h2>
+    <h2 :style="selectStyle">{{ values[idx] }}</h2>
     <button
       id="btnRight"
       :style="activeStyleRight"
