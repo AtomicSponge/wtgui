@@ -14,3 +14,5 @@ npm i @wtfsystems/wtgui
 -----
 
 ## Usage
+
+See example in source: <https://github.com/wtfsystems/wtgui>
