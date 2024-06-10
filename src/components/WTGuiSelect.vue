@@ -10,6 +10,10 @@ const props = defineProps<{
   default?:number
 }>()
 
+const emit = defineEmits<{
+  (e: 'selected', value:string):void
+}>()
+
 const idx = ref(0)
 const selectStyle = ref('')
 
@@ -55,11 +59,13 @@ const makeInactive = (event:any) => {
 /** Decrease index on left select */
 const selectLeft = () => {
   if(idx.value > 0) --idx.value
+  emit('selected', `${props.values[idx.value]}`)
 }
 
 /** Increase index on right select */
 const selectRight = () => {
   if(idx.value < props.values.length - 1) ++idx.value
+  emit('selected', `${props.values[idx.value]}`)
 }
 
 //  On mount, set the width to the max array element length
@@ -72,6 +78,7 @@ onMounted(() => {
 
   //  If default was set, set default index
   if(props.default) idx.value = props.default
+  emit('selected', `${props.values[idx.value]}`)
 })
 </script>
 
