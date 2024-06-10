@@ -88,6 +88,7 @@ const hideModal = () => {
       @focusout="makeBtnInactive"
       @mouseenter="makeBtnActive"
       @mouseleave="makeBtnInactive"
+      @select="hideModal"
       @click="hideModal">
       OK
     </button>

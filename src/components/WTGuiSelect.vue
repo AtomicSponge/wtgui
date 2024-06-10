@@ -108,7 +108,8 @@ onMounted(() => {
       @focusout="makeInactive"
       @mouseenter="makeActive"
       @mouseleave="makeInactive"
-      @click="selectLeft">
+      @click="selectLeft"
+      @select="selectLeft">
       &#8592;
     </button>
     <h2 :style="selectStyle">{{ values[idx] }}</h2>
@@ -119,7 +120,8 @@ onMounted(() => {
       @focusout="makeInactive"
       @mouseenter="makeActive"
       @mouseleave="makeInactive"
-      @click="selectRight">
+      @click="selectRight"
+      @select="selectRight">
       &#8594;
     </button>
   </div>
