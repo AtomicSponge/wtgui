@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { ref, toValue, computed, inject } from 'vue'
 
 defineProps<{
   msg: string
@@ -10,10 +10,31 @@ const scale = <number>inject('scale')
 const buttonStyle = computed(() => {
   return `border-radius: ${16 * scale}px;border: ${3 * scale}px solid;`
 })
+
+const buttonFocusStyle = computed(() => {
+  return `border-radius: ${16 * scale}px;border: ${3 * scale}px solid #646cff;`
+})
+
+const _btnStyle = toValue(buttonStyle)
+const _btnFocusStyle = toValue(buttonFocusStyle)
+const activeStyle = ref(_btnStyle)
+
+const switchState = () => {
+  if(activeStyle.value === _btnStyle)
+    activeStyle.value = _btnFocusStyle
+  else activeStyle.value = _btnStyle
+}
 </script>
 
 <template>
-  <button :style="buttonStyle">{{ msg }}</button>
+  <button
+    :style="activeStyle"
+    @focusin="switchState"
+    @focusout="switchState"
+    @mouseenter="switchState"
+    @mouseleave="switchState">
+    {{ msg }}
+  </button>
 </template>
 
 <style lang="stylus" scoped>
