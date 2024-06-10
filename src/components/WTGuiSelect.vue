@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, toValue, inject, onMounted } from 'vue'
 
+defineOptions({
+  inheritAttrs: false
+})
+
 const props = defineProps<{
-  values: Array<String>
+  values:Array<String>
 }>()
 
 const idx = ref(0)

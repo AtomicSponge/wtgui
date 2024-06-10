@@ -1,6 +1,10 @@
 <script setup lang="ts">
+defineOptions({
+  inheritAttrs: false
+})
+
 defineProps<{
-  msg: string
+  msg:String
 }>()
 </script>
 
@@ -10,6 +14,6 @@ defineProps<{
 
 <style lang="stylus" scoped>
 h2
-  font-size 2.0em
-  line-height 0.8
+  font-size 1.6em
+  line-height 0.2
 </style>
