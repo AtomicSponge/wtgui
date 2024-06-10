@@ -18,7 +18,7 @@ const goToMain = () => {
 const selectionValues = [ 'Hello World', 'testing', 'test' ]
 const startSelect = 1
 const currentSelection = ref('')
-const visible = ref(false)
+const showMessageBox = ref(false)
 
 </script>
 
@@ -32,10 +32,10 @@ const visible = ref(false)
         :default="startSelect"
         @selected="(v) => currentSelection = v"/>
     </wtgui-menu-row>
-    <WTGuiButton msg="Click Me" @click="visible = true"/>
+    <WTGuiButton msg="Click Me" @click="showMessageBox = true"/>
     <WTGuiButton msg="Main Menu" @click="goToMain"/>
     <!-- Hidden until `click me` button is selected -->
-    <WTGuiMessageBox :msg="currentSelection" v-model="visible"/>
+    <WTGuiMessageBox :msg="currentSelection" v-model="showMessageBox"/>
   </wtgui-menu>
 </template>
 
