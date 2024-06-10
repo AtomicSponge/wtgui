@@ -23,7 +23,7 @@ const showMessageBox = ref(false)
       <WTGuiSelect
         :values="selectionValues"
         :default="startSelect"
-        @selected="(v) => currentSelection = v"/>
+        @selected="(v:string) => currentSelection = v"/>
     </wtgui-menu-row>
     <WTGuiButton msg="Click Me" :action="() => { showMessageBox = true }"/>
     <WTGuiButton msg="Main Menu" goto="/"/>
