@@ -17,18 +17,16 @@ const buttonFocusStyle = computed(() => {
   return `border: ${3 * scale}px solid ${focusColor};border-radius: ${16 * scale}px;`
 })
 
-const _btnStyle = toValue(buttonStyle)
-const _btnFocusStyle = toValue(buttonFocusStyle)
-const currentStyle = ref(_btnStyle)
+const currentStyle = ref(toValue(buttonStyle))
 
 /** Make a button active */
 const makeActive = () => {
-  currentStyle.value = _btnFocusStyle
+  currentStyle.value = toValue(buttonFocusStyle)
 }
 
 /** Make a button inactive */
 const makeInactive = () => {
-  currentStyle.value = _btnStyle
+  currentStyle.value = toValue(buttonStyle)
 }
 </script>
 

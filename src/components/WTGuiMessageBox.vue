@@ -17,11 +17,12 @@ const focusColor = <string>inject('focus-color')
 const modalGeneralStyle = computed(() => {
   return `border-radius: ${32 * scale}px;padding: 2em;` +
   `border: ${(props.borderSize || 6) * scale}px solid ${color}; color: ${color};` +
-  `background-color: rgba(0, 0, 0, 0.5);`
+  `background-color: rgba(0, 0, 0, 0.95);`
 })
 
 const modalHidden = `display: none; ${toValue(modalGeneralStyle)}`
-const modalVisable = `display: flex;flex-flow: column nowrap;place-items: center; ${toValue(modalGeneralStyle)}`
+const modalVisable = `display: flex;flex-flow: column nowrap;place-items: center;`+
+  `z-index: 99;position: absolute;${toValue(modalGeneralStyle)}`
 
 const modalStyle = ref(modalVisable)
 
@@ -35,18 +36,16 @@ const buttonFocusStyle = computed(() => {
     `color: ${color}`
 })
 
-const _btnStyle = toValue(buttonStyle)
-const _btnFocusStyle = toValue(buttonFocusStyle)
-const btnCurrentStyle = ref(_btnStyle)
+const btnCurrentStyle = ref(toValue(buttonStyle))
 
 /** Make a button active */
 const makeBtnActive = () => {
-  btnCurrentStyle.value = _btnFocusStyle
+  btnCurrentStyle.value = toValue(buttonFocusStyle)
 }
 
 /** Make a button inactive */
 const makeBtnInactive = () => {
-  btnCurrentStyle.value = _btnStyle
+  btnCurrentStyle.value = toValue(buttonStyle)
 }
 
 /** Hide the modal on confirmation */

@@ -27,10 +27,8 @@ const buttonFocusStyle = computed(() => {
   `color: ${focusColor};`
 })
 
-const _btnStyle = toValue(buttonStyle)
-const _btnFocusStyle = toValue(buttonFocusStyle)
-const activeStyleLeft = ref(_btnStyle)
-const activeStyleRight = ref(_btnStyle)
+const activeStyleLeft = ref(toValue(buttonStyle))
+const activeStyleRight = ref(toValue(buttonStyle))
 
 /**
  * Make a button active
@@ -38,9 +36,9 @@ const activeStyleRight = ref(_btnStyle)
  */
 const makeActive = (event:any) => {
   if(event.currentTarget.id === 'btnLeft')
-    activeStyleLeft.value = _btnFocusStyle
+    activeStyleLeft.value = toValue(buttonFocusStyle)
   if(event.currentTarget.id === 'btnRight')
-    activeStyleRight.value = _btnFocusStyle
+    activeStyleRight.value = toValue(buttonFocusStyle)
 }
 
 /**
@@ -49,9 +47,9 @@ const makeActive = (event:any) => {
  */
 const makeInactive = (event:any) => {
   if(event.currentTarget.id === 'btnLeft')
-    activeStyleLeft.value = _btnStyle
+    activeStyleLeft.value = toValue(buttonStyle)
   if(event.currentTarget.id === 'btnRight')
-    activeStyleRight.value = _btnStyle
+    activeStyleRight.value = toValue(buttonStyle)
 }
 
 /** Decrease index on left select */
