@@ -30,14 +30,16 @@ const makeInactive = () => {
 </script>
 
 <template>
-  <button
-    :style="activeStyle"
-    @focusin="makeActive"
-    @focusout="makeInactive"
-    @mouseenter="makeActive"
-    @mouseleave="makeInactive">
-    {{ msg }}
-  </button>
+  <div>
+    <button
+      :style="activeStyle"
+      @focusin="makeActive"
+      @focusout="makeInactive"
+      @mouseenter="makeActive"
+      @mouseleave="makeInactive">
+      {{ msg }}
+    </button>
+  </div>
 </template>
 
 <style lang="stylus" scoped>

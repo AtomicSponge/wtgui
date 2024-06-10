@@ -16,5 +16,5 @@ section
   flex-flow row nowrap
   place-items center
   color inherit
-  background-color inherit
+  background-color background-color rgba(0, 0, 0, 0.0)
 </style>

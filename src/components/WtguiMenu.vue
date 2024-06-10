@@ -6,14 +6,11 @@ defineOptions({
 })
 
 const props = defineProps({
-  title: {
-    type: String,
-    required: true
-  },
-  font:  {
-    type: String,
-    required: true
-  },
+  //  Title display for menu
+  title: { type: String, required: true },
+  //  CSS Font type for menu
+  font:  { type: String, required: true },
+  //  Scale factor for menu
   scale: {
     type: Number,
     required: true,
@@ -21,21 +18,21 @@ const props = defineProps({
       return [1, 2, 3, 4].includes(<number>value)
     }
   },
-  color: {
-    type: String,
-    default: 'red'
-  },
-  focusColor: {
-    type: String,
-    default: '#646cff'
-  },
-  borderSize: {
+  //  CSS color for menu
+  color: { type: String, default: 'red' },
+  //  CSS focus color for menu
+  focusColor: { type: String, default: '#646cff' },
+  //  Border thickness
+  borderSize: { type: Number, default: 6 },
+  //  CSS color for the menu border
+  borderColor: { type: String, default: 'red' },
+  //  Opaquency of the menu
+  opaquency: {
     type: Number,
-    default: 6
-  },
-  borderColor: {
-    type: String,
-    default: 'red'
+    validator(value) {
+      return (<number>value >= 0.0 && <number>value <= 1.0)
+    },
+    default: 0.4
   }
 })
 
@@ -43,7 +40,8 @@ const menuStyle = computed(() => {
   return `color: ${props.color};font-size: ${props.scale}em;` +
     `border: ${(props.borderSize * props.scale)}px ` +
     `solid ${props.borderColor};font-family: ${props.font};` +
-    `border-radius: ${(32 * props.scale)}px;`
+    `border-radius: ${(32 * props.scale)}px;` +
+    `background-color: rgba(0, 0, 0, ${props.opaquency})`
 })
 
 provide('scale', props.scale)
@@ -65,7 +63,6 @@ section
   display flex
   flex-flow column nowrap
   place-items center
-  background-color rgba(0, 0, 0, 0.0)
 h1
   font-size 3.0em
   margin-top 0.2em
