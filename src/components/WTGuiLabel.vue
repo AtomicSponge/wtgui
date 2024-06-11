@@ -10,6 +10,7 @@ defineOptions({
 })
 
 defineProps<{
+  /** Display label */
   label:String
 }>()
 </script>
