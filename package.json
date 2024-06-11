@@ -27,13 +27,13 @@
     "prepublishOnly": "vue-tsc && vite build"
   },
   "type": "module",
-  "main": "./dist/wtgui.umd.cjs",
-  "module": "./dist/wtgui.js",
+  "main": "./dist/wtgui.umd.js",
+  "module": "./dist/wtgui.es.js",
   "exports": {
     ".": {
       "types": "./dist/wtgui.d.ts",
-      "import": "./dist/wtgui.js",
-      "require": "./dist/wtgui.umd.cjs"
+      "import": "./dist/wtgui.es.js",
+      "require": "./dist/wtgui.umd.js"
     }
   },
   "files": [
