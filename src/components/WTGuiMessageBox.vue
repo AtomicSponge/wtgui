@@ -12,8 +12,8 @@ defineOptions({
 })
 
 const props = defineProps<{
-  /** Message to display */
-  msg:string
+  /** Display label */
+  label:string
   /** Border thickness */
   borderSize?:number
 }>()
@@ -81,7 +81,7 @@ const hideModal = ():void => {
 
 <template>
   <div :style="modalStyle">
-    <h2>{{ msg }}</h2>
+    <h2>{{ label }}</h2>
     <button
       :style="btnCurrentStyle"
       @focusin="makeBtnActive"

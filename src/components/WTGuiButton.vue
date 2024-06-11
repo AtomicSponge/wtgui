@@ -11,9 +11,11 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const props = defineProps<{
-  /** Display message for the button */
-  msg:string
+  /** Display label for the button */
+  label:string
+  /** Go to a menu */
   goto?:string
+  /** Set action function */
   action?:Function
 }>()
 
@@ -63,7 +65,7 @@ const goToMenu = ():void => {
       @mouseleave="makeInactive"
       @click="goToMenu"
       @select="goToMenu">
-      {{ msg }}
+      {{ label }}
     </button>
   </div>
   <div v-show="props.action !== undefined">
@@ -75,7 +77,7 @@ const goToMenu = ():void => {
       @mouseleave="makeInactive"
       @click="<Function>action"
       @select="<Function>action">
-      {{ msg }}
+      {{ label }}
     </button>
   </div>
 </template>

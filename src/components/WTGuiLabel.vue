@@ -10,12 +10,12 @@ defineOptions({
 })
 
 defineProps<{
-  msg:String
+  label:String
 }>()
 </script>
 
 <template>
-  <h2>{{ msg }}</h2>
+  <h2>{{ label }}</h2>
 </template>
 
 <style lang="stylus" scoped>

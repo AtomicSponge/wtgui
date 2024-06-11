@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 defineProps<{
-  msg: string
+  label: string
 }>()
 </script>
 

@@ -20,16 +20,16 @@ const showMessageBox = ref(false)
   <wtgui-menu title="Test Menu B" color="yellow" border-color="yellow" :scale="1"
     font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
     <wtgui-menu-row>
-      <WTGuiLabel msg="Select me:"/>
+      <WTGuiLabel label="Select me:"/>
       <WTGuiSelect
         :values="selectionValues"
         :default="startSelect"
         @selected="(v:string) => currentSelection = v"/>
     </wtgui-menu-row>
-    <WTGuiButton msg="Click Me" :action="() => { showMessageBox = true }"/>
-    <WTGuiButton msg="Main Menu" goto="/"/>
+    <WTGuiButton label="Click Me" :action="() => { showMessageBox = true }"/>
+    <WTGuiButton label="Main Menu" goto="/"/>
     <!-- Hidden until `click me` button is selected -->
-    <WTGuiMessageBox :msg="currentSelection" v-model="showMessageBox"/>
+    <WTGuiMessageBox :label="currentSelection" v-model="showMessageBox"/>
   </wtgui-menu>
 </template>
 
