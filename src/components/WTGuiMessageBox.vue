@@ -11,6 +11,10 @@ defineOptions({
   inheritAttrs: false
 })
 
+const vFocus = {
+  mounted: (el:HTMLElement) => el.focus()
+}
+
 const props = defineProps<{
   /** Display label */
   label:string
@@ -82,7 +86,7 @@ const hideModal = ():void => {
 <template>
   <div :style="modalStyle">
     <h2>{{ label }}</h2>
-    <button
+    <button v-focus
       :style="btnCurrentStyle"
       @focusin="makeBtnActive"
       @focusout="makeBtnInactive"
