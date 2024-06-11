@@ -8,6 +8,10 @@
 import { ref, computed, toValue, inject } from 'vue'
 import { useRouter } from 'vue-router'
 
+defineOptions({
+  inheritAttrs: false
+})
+
 const router = useRouter()
 
 const props = defineProps<{
