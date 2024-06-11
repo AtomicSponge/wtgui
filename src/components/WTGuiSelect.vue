@@ -13,14 +13,14 @@ defineOptions({
 
 const props = defineProps<{
   /** List of values to display in selection */
-  values:Array<string>
+  values:Array<any>
   /** Index of the default selected item */
   default?:number
 }>()
 
 const emit = defineEmits<{
   /** Emit selected value from the props array */
-  (e: 'selected', value:string):void
+  (e: 'selected', value:any):void
 }>()
 
 /** Selected index */
@@ -51,40 +51,6 @@ const activeStyleLeft = ref(toValue(buttonStyle))
 /** Reference to the right button active style */
 const activeStyleRight = ref(toValue(buttonStyle))
 
-/**
- * Make a button active
- * @param event Event information
- */
-const makeActive = (event:any) => {
-  if(event.currentTarget.id === 'btnLeft')
-    activeStyleLeft.value = toValue(buttonFocusStyle)
-  if(event.currentTarget.id === 'btnRight')
-    activeStyleRight.value = toValue(buttonFocusStyle)
-}
-
-/**
- * Make a button inactive
- * @param event Event information
- */
-const makeInactive = (event:any) => {
-  if(event.currentTarget.id === 'btnLeft')
-    activeStyleLeft.value = toValue(buttonStyle)
-  if(event.currentTarget.id === 'btnRight')
-    activeStyleRight.value = toValue(buttonStyle)
-}
-
-/** Decrease index on left select */
-const selectLeft = () => {
-  if(idx.value > 0) --idx.value
-  emit('selected', `${props.values[idx.value]}`)
-}
-
-/** Increase index on right select */
-const selectRight = () => {
-  if(idx.value < props.values.length - 1) ++idx.value
-  emit('selected', `${props.values[idx.value]}`)
-}
-
 //  On mount, set the width to the max array element length
 onMounted(() => {
   const longest = props.values.reduce((a, b) => {
@@ -97,6 +63,40 @@ onMounted(() => {
   if(props.default) idx.value = props.default
   emit('selected', `${props.values[idx.value]}`)
 })
+
+/**
+ * Make a button active
+ * @param event Event information
+ */
+const makeActive = (event:any):void => {
+  if(event.currentTarget.id === 'btnLeft')
+    activeStyleLeft.value = toValue(buttonFocusStyle)
+  if(event.currentTarget.id === 'btnRight')
+    activeStyleRight.value = toValue(buttonFocusStyle)
+}
+
+/**
+ * Make a button inactive
+ * @param event Event information
+ */
+const makeInactive = (event:any):void => {
+  if(event.currentTarget.id === 'btnLeft')
+    activeStyleLeft.value = toValue(buttonStyle)
+  if(event.currentTarget.id === 'btnRight')
+    activeStyleRight.value = toValue(buttonStyle)
+}
+
+/** Decrease index on left select */
+const selectLeft = ():void => {
+  if(idx.value > 0) --idx.value
+  emit('selected', `${props.values[idx.value]}`)
+}
+
+/** Increase index on right select */
+const selectRight = ():void => {
+  if(idx.value < props.values.length - 1) ++idx.value
+  emit('selected', `${props.values[idx.value]}`)
+}
 </script>
 
 <template>

@@ -64,17 +64,17 @@ const buttonFocusStyle = computed(() => {
 const btnCurrentStyle = ref(toValue(buttonStyle))
 
 /** Make a button active */
-const makeBtnActive = () => {
+const makeBtnActive = ():void => {
   btnCurrentStyle.value = toValue(buttonFocusStyle)
 }
 
 /** Make a button inactive */
-const makeBtnInactive = () => {
+const makeBtnInactive = ():void => {
   btnCurrentStyle.value = toValue(buttonStyle)
 }
 
 /** Hide the modal on confirmation */
-const hideModal = () => {
+const hideModal = ():void => {
   visible.value = false
 }
 </script>

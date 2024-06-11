@@ -17,10 +17,6 @@ const props = defineProps<{
   action?:Function
 }>()
 
-const goToMenu = () => {
-  router.push(<string>props.goto)
-}
-
 /** Get scale from the menu props */
 const scale = <number>inject('scale')
 /** Get color from the menu props */
@@ -42,13 +38,18 @@ const buttonFocusStyle = computed(() => {
 const currentStyle = ref(toValue(buttonStyle))
 
 /** Make a button active */
-const makeActive = () => {
+const makeActive = ():void => {
   currentStyle.value = toValue(buttonFocusStyle)
 }
 
 /** Make a button inactive */
-const makeInactive = () => {
+const makeInactive = ():void => {
   currentStyle.value = toValue(buttonStyle)
+}
+
+/** Go to a menu */
+const goToMenu = ():void => {
+  router.push(<string>props.goto)
 }
 </script>
 

@@ -9,6 +9,7 @@ import WTGuiSelect from '../components/WTGuiSelect.vue'
 import WTGuiMessageBox from '../components/WTGuiMessageBox.vue'
 
 const selectionValues = [ 'Hello World', 'testing', 'test' ]
+//const selectionValues = [ 1, 2, 3 ]
 const startSelect = 1
 const currentSelection = ref('')
 const showMessageBox = ref(false)
