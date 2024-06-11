@@ -49,7 +49,7 @@ const makeInactive = ():void => {
 
 /** Go to a menu */
 const goToMenu = ():void => {
-  router.push(<string>props.goto)
+  if(props.goto !== undefined) router.push(props.goto)
 }
 </script>
 
