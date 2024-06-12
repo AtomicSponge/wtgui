@@ -4,15 +4,15 @@ layout: home
 
 hero:
   name: "WTGui Documentation"
-  text: "Experimental VueJS Menu System"
+  text: "Experimental Vue Menu System"
   tagline: WIP
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: Get Started
+      link: /getstarted
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: API Documentation
+      link: /api-documentation
 
 features:
   - title: Feature A

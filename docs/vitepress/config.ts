@@ -5,26 +5,27 @@ export default defineConfig({
   outDir: './.vitepress/docs/wtgui',
   base: '/docs/wtgui/',
   title: "WTGui Documentation",
-  description: "Experimental VueJS Menu System",
+  description: "Experimental Vue Menu System",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      { text: 'Examples', link: '/api-examples' }
     ],
 
     sidebar: [
       {
         text: 'Examples',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
+          { text: 'Get Started', link: '/getstarted' },
+          { text: 'API Documentation', link: '/api-documentation' },
+          { text: 'Examples', link: '/api-examples' }
         ]
       }
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/wtfsystems/wtgui' }
     ]
   }
 })
