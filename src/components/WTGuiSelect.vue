@@ -58,23 +58,6 @@ const activeStyleLeft = ref(toValue(buttonStyle))
 /** Reference to the right button active style */
 const activeStyleRight = ref(toValue(buttonStyle))
 
-//  On mount, set the width to the max array element length
-onMounted(() => {
-  const longest = props.values.reduce((a, b) => {
-    return a.length > b.length ? a : b
-  })
-  const width = Math.round(longest.length / 2)
-  selectStyle.value = `width: ${width}em`
-
-  //  If default was set, set default index
-  if(props.default) idx.value = props.default
-  emit('selected', `${props.values[idx.value]}`)
-
-  //  Load audio if provided in props
-  if(props.sound === undefined) return
-  audioFile = new Audio(props.sound)
-})
-
 /**
  * Make a button active
  * @param event Event information
@@ -110,6 +93,24 @@ const selectRight = ():void => {
   if(idx.value < props.values.length - 1) ++idx.value
   emit('selected', `${props.values[idx.value]}`)
 }
+
+onMounted(() => {
+  //  Set the width to the max array element length
+  const longest = props.values.reduce((a, b) => {
+    return a.length > b.length ? a : b
+  })
+  const width = Math.round(longest.length / 2)
+  selectStyle.value = `width: ${width}em`
+
+  //  If default was set, set default index
+  if(props.default) idx.value = props.default
+  emit('selected', `${props.values[idx.value]}`)
+
+  //  Load audio if provided in props
+  if(props.sound === undefined) return
+  audioFile = new Audio(props.sound)
+})
+
 </script>
 
 <template>
