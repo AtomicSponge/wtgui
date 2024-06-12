@@ -126,7 +126,7 @@ const selectRight = ():void => {
       &#8592;
     </button>
     <audio v-show="props.sound" :src="props.sound"></audio>
-    <h2 :style="selectStyle">{{ values[idx] }}</h2>
+    <h2 :style="selectStyle" tabindex="0">{{ values[idx] }}</h2>
     <button
       id="btnRight"
       :style="activeStyleRight"

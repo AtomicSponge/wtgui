@@ -11,12 +11,12 @@ defineOptions({
 
 defineProps<{
   /** Display label */
-  label:String
+  label:string
 }>()
 </script>
 
 <template>
-  <h2>{{ label }}</h2>
+  <div><h2>{{ label }}</h2></div>
 </template>
 
 <style lang="stylus" scoped>
