@@ -110,7 +110,6 @@ onMounted(() => {
   if(props.sound === undefined) return
   audioFile = new Audio(props.sound)
 })
-
 </script>
 
 <template>
