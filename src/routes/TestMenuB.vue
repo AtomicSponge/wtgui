@@ -22,12 +22,19 @@ const showMessageBox = ref(false)
     <wtgui-menu-row>
       <WTGuiLabel label="Select me:"/>
       <WTGuiSelect
+        sound="./src/assets/click.wav"
         :values="selectionValues"
         :default="startSelect"
         @selected="(v:string) => currentSelection = v"/>
     </wtgui-menu-row>
-    <WTGuiButton label="Click Me" :action="() => { showMessageBox = true }"/>
-    <WTGuiButton label="Main Menu" goto="/"/>
+    <WTGuiButton
+      sound="./src/assets/click.wav"
+      label="Click Me"
+      :action="() => { showMessageBox = true }"/>
+    <WTGuiButton
+      sound="./src/assets/click.wav"
+      label="Main Menu"
+      goto="/"/>
     <!-- Hidden until `click me` button is selected -->
     <WTGuiMessageBox :label="currentSelection" v-model="showMessageBox"/>
   </wtgui-menu>

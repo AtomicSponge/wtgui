@@ -21,6 +21,8 @@ const props = defineProps<{
   goto?:string
   /** Set action function */
   action?:Function
+  /** Sound file to play */
+  sound?:string
 }>()
 
 /** Get scale from the menu props */
@@ -57,9 +59,14 @@ const makeInactive = ():void => {
 const goToMenu = ():void => {
   if(props.goto !== undefined) router.push(props.goto)
 }
+
+const doAction = ():void => {
+  if(props.action !== undefined) props.action()
+}
 </script>
 
 <template>
+  <audio v-show="props.sound" :src="props.sound"></audio>
   <div v-show="props.goto !== undefined">
     <button
       :style="currentStyle"
@@ -79,8 +86,8 @@ const goToMenu = ():void => {
       @focusout="makeInactive"
       @mouseenter="makeActive"
       @mouseleave="makeInactive"
-      @click="<Function>action"
-      @select="<Function>action">
+      @click="doAction"
+      @select="doAction">
       {{ label }}
     </button>
   </div>

@@ -7,6 +7,8 @@
 <script setup lang="ts">
 import { ref, computed, toValue, inject, onMounted } from 'vue'
 
+const audioContext = new AudioContext()
+
 defineOptions({
   inheritAttrs: false
 })
@@ -16,6 +18,8 @@ const props = defineProps<{
   values:Array<any>
   /** Index of the default selected item */
   default?:number
+  /** Sound file to play */
+  sound?:string
 }>()
 
 const emit = defineEmits<{
@@ -114,6 +118,7 @@ const selectRight = ():void => {
       @select="selectLeft">
       &#8592;
     </button>
+    <audio v-show="props.sound" :src="props.sound"></audio>
     <h2 :style="selectStyle">{{ values[idx] }}</h2>
     <button
       id="btnRight"
