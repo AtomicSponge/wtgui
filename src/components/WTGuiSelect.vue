@@ -129,7 +129,9 @@ onMounted(() => {
       :style="selectStyle"
       tabindex="0"
       @keyup.left="selectLeft"
-      @keyup.right="selectRight">
+      @keyup.right="selectRight"
+      @keyup.a="selectLeft"
+      @keyup.d="selectRight">
       {{ values[idx] }}
     </h2>
     <button
