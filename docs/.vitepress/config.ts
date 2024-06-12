@@ -15,7 +15,7 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Examples',
+        text: 'Navigation',
         items: [
           { text: 'Get Started', link: '/getstarted' },
           {
