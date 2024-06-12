@@ -32,6 +32,7 @@ const color = <string>inject('color')
 /** Get focus color from the menu props */
 const focusColor = <string>inject('focus-color')
 
+/** Audio file if provided from props */
 let audioFile:HTMLAudioElement
 
 /** Compute button CSS */
