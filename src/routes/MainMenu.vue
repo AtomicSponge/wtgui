@@ -9,8 +9,14 @@ import WTGuiButton from '../components/WTGuiButton.vue'
   <wtgui-menu title="Main Menu" color="green" border-color="green" :scale="1"
     font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
     <wtgui-menu-row>
-      <WTGuiButton label="Test Menu A" goto="/testa"/>
-      <WTGuiButton label="Test Menu B" goto="/testb"/>
+      <WTGuiButton
+        sound="./src/assets/click.wav"
+        label="Test Menu A"
+        goto="/testa"/>
+      <WTGuiButton
+        sound="./src/assets/click.wav"
+        label="Test Menu B"
+        goto="/testb"/>
     </wtgui-menu-row>
   </wtgui-menu>
 </template>
