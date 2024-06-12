@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed, toRef, toValue, inject } from 'vue'
+import { ref, computed, toRef, toValue, onMounted, inject } from 'vue'
 
 defineOptions({
   inheritAttrs: false
@@ -16,6 +16,8 @@ const props = defineProps<{
   label:string
   /** Border thickness */
   borderSize?:number
+  /** Sound file to play */
+  sound?:string
 }>()
 
 /** Model flag to show the message box */
@@ -27,6 +29,9 @@ const scale = <number>inject('scale')
 const color = <string>inject('color')
 /** Get focus color from the menu props */
 const focusColor = <string>inject('focus-color')
+
+/** Audio file if provided from props */
+let audioFile:HTMLAudioElement
 
 /** Compute the general CSS to apply to the modal */
 const modalGeneralStyle = computed(() => {
@@ -75,8 +80,15 @@ const makeBtnInactive = ():void => {
 
 /** Hide the modal on confirmation */
 const hideModal = ():void => {
+  if(props.sound !== undefined) audioFile.play()
   visible.value = false
 }
+
+onMounted(() => {
+  //  On mount, load audio if provided
+  if(props.sound === undefined) return
+  audioFile = new Audio(props.sound)
+})
 </script>
 
 <template>
