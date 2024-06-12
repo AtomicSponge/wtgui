@@ -37,6 +37,9 @@ const color = <string>inject('color')
 /** Get focus color from the menu props */
 const focusColor = <string>inject('focus-color')
 
+/** Audio file if provided from props */
+let audioFile:HTMLAudioElement
+
 /** Compute button CSS */
 const buttonStyle = computed(() => {
   return `border-radius: ${16 * scale}px;` +
@@ -66,6 +69,10 @@ onMounted(() => {
   //  If default was set, set default index
   if(props.default) idx.value = props.default
   emit('selected', `${props.values[idx.value]}`)
+
+  //  Load audio if provided in props
+  if(props.sound === undefined) return
+  audioFile = new Audio(props.sound)
 })
 
 /**
@@ -92,12 +99,14 @@ const makeInactive = (event:any):void => {
 
 /** Decrease index on left select */
 const selectLeft = ():void => {
+  if(props.sound !== undefined) audioFile.play()
   if(idx.value > 0) --idx.value
   emit('selected', `${props.values[idx.value]}`)
 }
 
 /** Increase index on right select */
 const selectRight = ():void => {
+  if(props.sound !== undefined) audioFile.play()
   if(idx.value < props.values.length - 1) ++idx.value
   emit('selected', `${props.values[idx.value]}`)
 }
