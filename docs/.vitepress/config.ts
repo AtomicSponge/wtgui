@@ -3,6 +3,7 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   outDir: './.vitepress/docs/wtgui',
+  base: '/docs/wtgui/',
   title: "WTGui Documentation",
   description: "Experimental VueJS Menu System",
   themeConfig: {
