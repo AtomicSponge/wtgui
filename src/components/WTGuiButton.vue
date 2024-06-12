@@ -64,6 +64,7 @@ const goToMenu = ():void => {
   router.push(props.goto)
 }
 
+/** Perform an action function */
 const doAction = ():void => {
   if(props.action === undefined) return
   if(props.sound !== undefined) audioFile.play()
