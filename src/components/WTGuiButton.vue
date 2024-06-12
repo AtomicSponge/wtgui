@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed, toValue, inject } from 'vue'
+import { ref, computed, toValue, onMounted, inject } from 'vue'
 import { useRouter } from 'vue-router'
 
 defineOptions({
@@ -32,6 +32,8 @@ const color = <string>inject('color')
 /** Get focus color from the menu props */
 const focusColor = <string>inject('focus-color')
 
+let audioFile:HTMLAudioElement
+
 /** Compute button CSS */
 const buttonStyle = computed(() => {
   return `border: ${3 * scale}px solid ${color};border-radius: ${16 * scale}px;`
@@ -57,12 +59,21 @@ const makeInactive = ():void => {
 
 /** Go to a menu */
 const goToMenu = ():void => {
-  if(props.goto !== undefined) router.push(props.goto)
+  if(props.goto === undefined) return
+  if(props.sound !== undefined) audioFile.play()
+  router.push(props.goto)
 }
 
 const doAction = ():void => {
-  if(props.action !== undefined) props.action()
+  if(props.action === undefined) return
+  if(props.sound !== undefined) audioFile.play()
+  props.action()
 }
+
+onMounted(() => {
+  if(props.sound === undefined) return
+  audioFile = new Audio(props.sound)
+})
 </script>
 
 <template>

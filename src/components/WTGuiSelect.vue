@@ -7,8 +7,6 @@
 <script setup lang="ts">
 import { ref, computed, toValue, inject, onMounted } from 'vue'
 
-const audioContext = new AudioContext()
-
 defineOptions({
   inheritAttrs: false
 })
