@@ -73,6 +73,7 @@ const doAction = ():void => {
 }
 
 onMounted(() => {
+  //  On mount, load audio if provided
   if(props.sound === undefined) return
   audioFile = new Audio(props.sound)
 })
@@ -80,6 +81,7 @@ onMounted(() => {
 
 <template>
   <audio v-show="props.sound" :src="props.sound"></audio>
+  <!-- Render goToMenu button -->
   <div v-show="props.goto !== undefined">
     <button
       :style="currentStyle"
@@ -92,6 +94,7 @@ onMounted(() => {
       {{ label }}
     </button>
   </div>
+  <!-- Render action button -->
   <div v-show="props.action !== undefined">
     <button
       :style="currentStyle"
