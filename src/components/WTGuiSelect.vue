@@ -114,28 +114,30 @@ const selectRight = ():void => {
 
 <template>
   <div>
+    <audio v-show="props.sound" :src="props.sound"></audio>
     <button
       id="btnLeft"
+      tabindex="-1"
       :style="activeStyleLeft"
-      @focusin="makeActive"
-      @focusout="makeInactive"
       @mouseenter="makeActive"
       @mouseleave="makeInactive"
-      @click="selectLeft"
-      @select="selectLeft">
+      @click="selectLeft">
       &#8592;
     </button>
-    <audio v-show="props.sound" :src="props.sound"></audio>
-    <h2 :style="selectStyle" tabindex="0">{{ values[idx] }}</h2>
+    <h2
+      :style="selectStyle"
+      tabindex="0"
+      @keyup.left="selectLeft"
+      @keyup.right="selectRight">
+      {{ values[idx] }}
+    </h2>
     <button
       id="btnRight"
+      tabindex="-1"
       :style="activeStyleRight"
-      @focusin="makeActive"
-      @focusout="makeInactive"
       @mouseenter="makeActive"
       @mouseleave="makeInactive"
-      @click="selectRight"
-      @select="selectRight">
+      @click="selectRight">
       &#8594;
     </button>
   </div>
@@ -150,6 +152,9 @@ h2
   font-size 1.6em
   margin-top 0.2em
   margin-bottom 0.2em
+h2:focus,
+h2:focus-visible
+  outline none
 button
   padding 0.2em 0.6em
   margin 0.6em
