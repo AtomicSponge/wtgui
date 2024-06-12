@@ -18,7 +18,19 @@ export default defineConfig({
         text: 'Examples',
         items: [
           { text: 'Get Started', link: '/getstarted' },
-          { text: 'API Documentation', link: '/api-documentation' },
+          {
+            text: 'API Documentation',
+            link: '/api-documentation',
+            items: [ 
+              { text: 'WTGuiButton', link: '/components/wtguibutton' },
+              { text: 'WTGuiInputSetting', link: '/components/wtguiinputsetting' },
+              { text: 'WTGuiLabel', link: '/components/wtguilabel' },
+              { text: 'WtguiMenu', link: '/components/wtguimenu' },
+              { text: 'WtguiMenuRow', link: '/components/wtguimenurow' },
+              { text: 'WTGuiMessageBox', link: '/components/wtguimessagebox' },
+              { text: 'WTGuiSelect', link: '/components/wtguiselect' }
+            ]
+          },
           { text: 'Examples', link: '/api-examples' }
         ]
       }
