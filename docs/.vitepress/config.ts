@@ -22,11 +22,11 @@ export default defineConfig({
             text: 'API Documentation',
             link: '/api-documentation',
             items: [ 
+              { text: 'WtguiMenu', link: '/components/wtguimenu' },
+              { text: 'WtguiMenuRow', link: '/components/wtguimenurow' },
               { text: 'WTGuiButton', link: '/components/wtguibutton' },
               { text: 'WTGuiInputSetting', link: '/components/wtguiinputsetting' },
               { text: 'WTGuiLabel', link: '/components/wtguilabel' },
-              { text: 'WtguiMenu', link: '/components/wtguimenu' },
-              { text: 'WtguiMenuRow', link: '/components/wtguimenurow' },
               { text: 'WTGuiMessageBox', link: '/components/wtguimessagebox' },
               { text: 'WTGuiSelect', link: '/components/wtguiselect' }
             ]
