@@ -68,6 +68,10 @@ const doInput = (event:any):void => {
   }
 }
 
+/**
+ * Capture a keypress
+ * @param event Fired event
+ */
 const captureKey = (event:any):void => {
   if(showInputMessageBox.value && event.type) {
     showInputMessageBox.value = false
