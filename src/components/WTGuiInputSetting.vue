@@ -13,8 +13,11 @@ defineOptions({
 })
 
 const props = defineProps<{
+  /** Display label for the input setting */
   label:string
+  /** Sound for message box on open */
   soundOpen:string
+  /** Sound for message box on close */
   soundClose:string
 }>()
 
@@ -28,19 +31,22 @@ const focusColor = <string>inject('focus-color')
 /** Model for tracking the setting value */
 const settingValue = defineModel()
 
+/** Computed value for input CSS */
 const inputStyle = computed(() => {
   return `border-radius: ${16 * scale}px;` +
     `border: ${3 * scale}px solid; color: ${color};`
 })
 
+/** Computed value for input focused CSS */
 const inputFocusedStyle = computed(() => {
   return `border-radius: ${16 * scale}px;` + 
     `border: ${3 * scale}px solid ${focusColor};` +
     `color: ${focusColor};`
 })
 
+/** Reference to the current CSS style */
 const currentStyle = ref(toValue(inputStyle))
-
+/** Reference to the input capture field */
 const inputField = ref()
 
 /** Reference for displaying the input message box */
@@ -75,7 +81,7 @@ const doInput = (event:any):void => {
  * @param event Fired event
  */
 const captureKey = (event:any):void => {
-  if(showInputMessageBox.value && event.type) {
+  if(showInputMessageBox.value && event.type === 'keydown') {
     window.removeEventListener('keydown', captureKey)
     showInputMessageBox.value = false
     settingValue.value = event.key
@@ -108,14 +114,14 @@ onMounted(() => {
     <WTGuiMessageBox
       label="Press a key or button"
       :show-close="false"
-      :sound-open
-      :sound-close
+      :soundOpen
+      :soundClose
       v-model="showInputMessageBox"/>
     <WTGuiMessageBox
       label="Setting applied"
       :show-close="true"
-      :sound-open
-      :sound-close
+      :soundOpen
+      :soundClose
       v-model="showAppliedMessageBox"/>
   </div>
 </template>
