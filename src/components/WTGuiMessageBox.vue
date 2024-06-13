@@ -14,6 +14,8 @@ defineOptions({
 const props = defineProps<{
   /** Display label */
   label:string
+  /** Show the close (OK) button */
+  showClose:boolean
   /** Border thickness */
   borderSize?:number
   /** Sound file to play on open */
@@ -75,6 +77,8 @@ const buttonFocusStyle = computed(() => {
 /** Reference to the current button CSS */
 const btnCurrentStyle = ref(toValue(buttonStyle))
 
+/** Reference to the label */
+const hiddenBtn = ref()
 /** Reference to the confirm button */
 const confirmBtn = ref()
 
@@ -99,6 +103,12 @@ const hideModal = ():void => {
 }
 
 onMounted(() => {
+  //  If no confirmation button, close on keypress
+  if(props.showClose === false) {
+    hiddenBtn.value.addEventListener('keyup', () => {
+      hideModal()
+    })
+  }
   //  Load audio if provided
   if(props.soundOpen !== undefined)
     audioFileOpen = new Audio(props.soundOpen)
@@ -110,17 +120,19 @@ onUpdated(() => {
   //  Play audio and give focus
   if(toValue(visible) === true) {
     if(props.soundOpen !== undefined) audioFileOpen.play()
-    confirmBtn.value.focus()
+    if(props.showClose) confirmBtn.value.focus()
+    else hiddenBtn.value.focus()
   }
 })
 </script>
 
 <template>
   <div :style="modalStyle" :class="modalZoom">
-    <h2>{{ label }}</h2>
+    <h2>{{ props.label }}</h2>
     <button
       ref="confirmBtn"
       :style="btnCurrentStyle"
+      v-show="props.showClose"
       @focusin="makeBtnActive"
       @focusout="makeBtnInactive"
       @mouseenter="makeBtnActive"
@@ -129,6 +141,11 @@ onUpdated(() => {
       @select="hideModal"
       @click="hideModal">
       OK
+    </button>
+    <button
+      ref="hiddenBtn"
+      class="hidden"
+      v-show="!props.showClose">
     </button>
   </div>
 </template>
@@ -149,6 +166,21 @@ button
 button:focus,
 button:focus-visible
   outline none
+.hidden
+  border none
+  padding 0em 0em
+  margin 0em
+.hidden:focus,
+.hidden:focus-visible
+  outline none
+.modal-zoom
+  -webkit-animation-name zoom
+  -webkit-animation-duration 0.3s
+  animation-name zoom
+  animation-duration 0.3s
+.out
+  animation-name zoom-out
+  animation-duration 0.3s
 
 /* Zoom in */
 @-webkit-keyframes zoom
@@ -165,13 +197,4 @@ button:focus-visible
 @keyframes zoom-out
   from { transform:scale(1) }
   to { transform:scale(0) }
-
-.modal-zoom
-  -webkit-animation-name zoom
-  -webkit-animation-duration 0.3s
-  animation-name zoom
-  animation-duration 0.3s
-.out
-  animation-name zoom-out
-  animation-duration 0.3s
 </style>

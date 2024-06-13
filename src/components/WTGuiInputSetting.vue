@@ -25,7 +25,8 @@ const focusColor = <string>inject('focus-color')
 
 const value = defineModel()
 
-const showMessageBox = ref(false)
+const showInputMessageBox = ref(false)
+const showAppliedMessageBox = ref(false)
 
 </script>
 
@@ -36,10 +37,17 @@ const showMessageBox = ref(false)
       {{ value }}
     </div>
     <WTGuiMessageBox
+      label="Press a key or button"
+      :show-close="false"
       sound-open="./src/assets/click.wav"
       sound-close="./src/assets/click.wav"
+      v-model="showInputMessageBox"/>
+    <WTGuiMessageBox
       label="Setting applied"
-      v-model="showMessageBox"/>
+      :show-close="true"
+      sound-open="./src/assets/click.wav"
+      sound-close="./src/assets/click.wav"
+      v-model="showAppliedMessageBox"/>
   </div>
 </template>
 
