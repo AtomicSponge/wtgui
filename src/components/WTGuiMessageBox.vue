@@ -72,6 +72,7 @@ const buttonFocusStyle = computed(() => {
 /** Reference to the current button CSS */
 const btnCurrentStyle = ref(toValue(buttonStyle))
 
+/** Reference to the confirm button */
 const confirmBtn = ref()
 
 /** Make a button active */
