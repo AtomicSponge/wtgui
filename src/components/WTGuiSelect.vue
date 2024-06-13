@@ -47,14 +47,14 @@ let width:Number = 0
 /** Compute button CSS */
 const buttonStyle = computed(() => {
   return `border-radius: ${16 * scale}px;` +
-  `border: ${3 * scale}px solid; color: ${color};`
+    `border: ${3 * scale}px solid; color: ${color};`
 })
 
 /** Compute button focus CSS */
 const buttonFocusStyle = computed(() => {
   return `border-radius: ${16 * scale}px;` + 
-  `border: ${3 * scale}px solid ${focusColor};` +
-  `color: ${focusColor};`
+    `border: ${3 * scale}px solid ${focusColor};` +
+    `color: ${focusColor};`
 })
 
 /** Reference to the left button active style */

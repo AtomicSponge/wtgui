@@ -23,18 +23,55 @@ const color = <string>inject('color')
 /** Get focus color from the menu props */
 const focusColor = <string>inject('focus-color')
 
-const value = defineModel()
+/** Model for tracking the setting value */
+const settingValue = defineModel()
 
+const inputStyle = computed(() => {
+  return `border-radius: ${16 * scale}px;` +
+    `border: ${3 * scale}px solid; color: ${color};`
+})
+
+const inputFocusedStyle = computed(() => {
+  return `border-radius: ${16 * scale}px;` + 
+    `border: ${3 * scale}px solid ${focusColor};` +
+    `color: ${focusColor};`
+})
+
+const currentStyle = ref(toValue(inputStyle))
+
+const inputField = ref()
+
+/** Reference for displaying the input message box */
 const showInputMessageBox = ref(false)
+/** Reference for displaying the applied message box */
 const showAppliedMessageBox = ref(false)
 
+/** Set input CSS on focus in */
+const focusIn = ():void => {
+  currentStyle.value = toValue(inputFocusedStyle)
+}
+
+/** Set input CSS on focus out */
+const focusOut = ():void => {
+  currentStyle.value = toValue(inputStyle)
+}
+
+onMounted(() => {
+  //  Set the focus listener
+  inputField.value.addEventListener('focusin', focusIn)
+  inputField.value.addEventListener('focusout', focusOut)
+})
 </script>
 
 <template>
   <div class="main">
     <h2>{{ props.label }}</h2>
-    <div class="input" tabindex="0">
-      {{ value }}
+    <div
+      ref="inputField"
+      class="input"
+      :style="currentStyle"
+      tabindex="0">
+      {{ settingValue }}
     </div>
     <WTGuiMessageBox
       label="Press a key or button"
@@ -57,8 +94,6 @@ const showAppliedMessageBox = ref(false)
   flex-flow row nowrap
   place-items center
 .input
-  border 3px solid
-  border-radius 16px
   padding 0.2em 0.6em
   margin 0.6em
   font-size 1.6em
