@@ -18,7 +18,7 @@ import { WTGuiSelect } from '@wtfsystems/wtgui'
 | selected | string | Returns the selected value |
 
 ::: tip
-The event fires on mount and each time the selected value changes, so it
+The event fires on mount and each time the value changes, so it
 will always contain the current selected value.
 :::
 
