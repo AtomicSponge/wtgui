@@ -98,21 +98,13 @@ const selectRight = ():void => {
   emit('selected', `${props.values[idx.value]}`)
 }
 
-/**
- * 
- * @param event 
- */
-const focusIn = (_event:FocusEvent):void => {
-  console.log(_event)
+/** Set selection CSS on focus in */
+const focusIn = ():void => {
   selectStyle.value = `width: ${width}em; color: ${focusColor};`
 }
 
-/**
- * 
- * @param event 
- */
- const focusOut = (_event:FocusEvent):void => {
-  console.log(_event)
+/** Set selection CSS on focus out */
+const focusOut = ():void => {
   selectStyle.value = `width: ${width}em;`
 }
 
