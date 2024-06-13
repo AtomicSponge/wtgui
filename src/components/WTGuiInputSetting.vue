@@ -56,10 +56,22 @@ const focusOut = ():void => {
   currentStyle.value = toValue(inputStyle)
 }
 
+/**
+ * On space, enter or click, ask for new input value
+ * @param event Fired event
+ */
+const doInput = (event:any):void => {
+  if(event.key === " " || event.key === "Enter" || event.type === 'click') {
+    showInputMessageBox.value = true
+  }
+}
+
 onMounted(() => {
   //  Set the focus listener
   inputField.value.addEventListener('focusin', focusIn)
   inputField.value.addEventListener('focusout', focusOut)
+  inputField.value.addEventListener('click', doInput)
+  inputField.value.addEventListener('keyup', doInput)
 })
 </script>
 
