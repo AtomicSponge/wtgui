@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed, toRef, toValue, onMounted, inject } from 'vue'
+import { ref, computed, onUpdated, toRef, toValue, onMounted, inject } from 'vue'
 
 defineOptions({
   inheritAttrs: false
@@ -16,8 +16,10 @@ const props = defineProps<{
   label:string
   /** Border thickness */
   borderSize?:number
-  /** Sound file to play */
-  sound?:string
+  /** Sound file to play on open */
+  soundOpen?:string
+  /** Sound file to play on close */
+  soundClose?:string
 }>()
 
 /** Model flag to show the message box */
@@ -30,8 +32,10 @@ const color = <string>inject('color')
 /** Get focus color from the menu props */
 const focusColor = <string>inject('focus-color')
 
-/** Audio file if provided from props */
-let audioFile:HTMLAudioElement
+/** Open Audio file if provided from props */
+let audioFileOpen:HTMLAudioElement
+/** Close Audio file if provided from props */
+let audioFileClose:HTMLAudioElement
 
 /** Compute the general CSS to apply to the modal */
 const modalGeneralStyle = computed(() => {
@@ -80,14 +84,21 @@ const makeBtnInactive = ():void => {
 
 /** Hide the modal on confirmation */
 const hideModal = ():void => {
-  if(props.sound !== undefined) audioFile.play()
+  if(props.soundClose !== undefined) audioFileClose.play()
   visible.value = false
 }
 
 onMounted(() => {
   //  On mount, load audio if provided
-  if(props.sound === undefined) return
-  audioFile = new Audio(props.sound)
+  if(props.soundOpen !== undefined)
+    audioFileOpen = new Audio(props.soundOpen)
+  if(props.soundClose !== undefined)
+    audioFileClose = new Audio(props.soundClose)
+})
+
+onUpdated(() => {
+  if(toValue(visible) === true && props.soundOpen !== undefined)
+    audioFileOpen.play()
 })
 </script>
 

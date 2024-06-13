@@ -37,7 +37,8 @@ const showMessageBox = ref(false)
       goto="/"/>
     <!-- Hidden until `click me` button is selected -->
     <WTGuiMessageBox
-      sound="./src/assets/click.wav"
+      sound-open="./src/assets/click.wav"
+      sound-close="./src/assets/click.wav"
       :label="currentSelection"
       v-model="showMessageBox"/>
   </wtgui-menu>
