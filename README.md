@@ -2,7 +2,7 @@
 
 ### :construction: :rotating_light: WIP :rotating_light:  :construction:
 
-### Experimental menu system using VueJS
+### Experimental menu system using Vue3
 
 -----
 

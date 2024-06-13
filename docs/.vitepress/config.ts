@@ -5,7 +5,7 @@ export default defineConfig({
   outDir: './.vitepress/docs/wtgui',
   base: '/docs/wtgui/',
   title: "WTGui Documentation",
-  description: "Experimental Vue Menu System",
+  description: "Experimental Vue3 Menu System",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [

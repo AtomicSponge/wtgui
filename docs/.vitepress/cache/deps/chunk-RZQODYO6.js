@@ -6975,8 +6975,7 @@ function useScrollLock(element, initialState = false) {
     set(v) {
       if (v)
         lock();
-      else
-        unlock();
+      else unlock();
     }
   });
 }
@@ -7318,8 +7317,7 @@ function useStorageAsync(key, initialValue, storage, options = {}) {
           data.value = mergeDefaults(value, rawInit);
         else if (type === "object" && !Array.isArray(value))
           data.value = { ...rawInit, ...value };
-        else
-          data.value = value;
+        else data.value = value;
       } else {
         data.value = await serializer.read(rawValue);
       }
@@ -8074,8 +8072,7 @@ function useUserMedia(options = {}) {
     (v) => {
       if (v)
         _start();
-      else
-        _stop();
+      else _stop();
     },
     { immediate: true }
   );
@@ -9170,4 +9167,4 @@ vitepress/lib/vue-demi.mjs:
    * @license MIT
    *)
 */
-//# sourceMappingURL=chunk-VNXCVSQ6.js.map
+//# sourceMappingURL=chunk-RZQODYO6.js.map
