@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed, toValue, inject, onMounted, onUnmounted } from 'vue'
+import { ref, computed, toValue, inject, onMounted } from 'vue'
 
 defineOptions({
   inheritAttrs: false
@@ -141,12 +141,6 @@ onMounted(() => {
   //  Load audio if provided in props
   if(props.sound === undefined) return
   audioFile = new Audio(props.sound)
-})
-
-onUnmounted(() => {
-  // Remove the focus listener
-  selectFocus.value.removeEventListener('focusin', focusIn)
-  selectFocus.value.removeEventListener('focusout', focusOut)
 })
 </script>
 
