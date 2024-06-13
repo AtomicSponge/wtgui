@@ -115,7 +115,6 @@ onMounted(() => {
       label="Press a key or button"
       :show-close="false"
       :soundOpen
-      :soundClose
       v-model="showInputMessageBox"/>
     <WTGuiMessageBox
       label="Setting applied"
