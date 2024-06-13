@@ -21,5 +21,7 @@ This requires the [Vue Router](https://router.vuejs.org/) to be installed and co
 ## Documentation
 <https://www.wtfsystems.net/docs/wtgui/>
 
+-----
+
 ## Usage
 See example in source: <https://github.com/wtfsystems/wtgui>
