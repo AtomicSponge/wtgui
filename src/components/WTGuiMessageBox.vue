@@ -57,6 +57,7 @@ const modalComputedStyle = computed(() => {
 /** Reference to the current modal CSS */
 const modalStyle = ref(toRef(modalComputedStyle))
 
+/** Reference to the modal zoom CSS */
 const modalZoom = ref('modal-zoom')
 
 /** Compute button CSS */
