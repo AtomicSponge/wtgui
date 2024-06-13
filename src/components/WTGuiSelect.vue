@@ -85,14 +85,26 @@ const makeInactive = (event:any):void => {
 }
 
 /** Decrease index on left select */
-const selectLeft = ():void => {
+const selectLeft = (event:any):void => {
+  if(event.currentTarget.id === 'selection') {
+    activeStyleLeft.value = toValue(buttonFocusStyle)
+    setTimeout(() => {
+      activeStyleLeft.value = toValue(buttonStyle)
+    }, 100)
+  }
   if(props.sound !== undefined) audioFile.play()
   if(idx.value > 0) --idx.value
   emit('selected', `${props.values[idx.value]}`)
 }
 
 /** Increase index on right select */
-const selectRight = ():void => {
+const selectRight = (event:any):void => {
+  if(event.currentTarget.id === 'selection') {
+    activeStyleRight.value = toValue(buttonFocusStyle)
+    setTimeout(() => {
+      activeStyleRight.value = toValue(buttonStyle)
+    }, 100)
+  }
   if(props.sound !== undefined) audioFile.play()
   if(idx.value < props.values.length - 1) ++idx.value
   emit('selected', `${props.values[idx.value]}`)
@@ -149,6 +161,7 @@ onUnmounted(() => {
       &#8592;
     </button>
     <h2
+      id="selection"
       ref="selectFocus"
       :style="selectStyle"
       tabindex="0"
