@@ -16,3 +16,21 @@ import { WTGuiButton } from '@wtfsystems/wtgui'
 ::: danger
 Don't use the `goto` and `action` properties at the same time!  There is no internal check preventing this and doing so will cause strange behavior.
 :::
+
+## Menu Example
+
+```vue
+<WTGuiButton
+  sound="./src/assets/click.wav"
+  label="Main Menu"
+  goto="/"/>
+```
+
+## Action Example
+
+```vue
+<WTGuiButton
+  sound="./src/assets/click.wav"
+  label="Click Me"
+  :action="() => { showMessageBox = true }"/>
+```
