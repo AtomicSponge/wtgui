@@ -6,7 +6,7 @@ import WTGuiButton from '../components/WTGuiButton.vue'
 </script>
 
 <template>
-  <wtgui-menu title="Main Menu" color="green" border-color="green" :scale="1"
+  <wtgui-menu title="Main Menu" color="green" border-color="orange" :scale="1"
     font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
     <wtgui-menu-row>
       <WTGuiButton
