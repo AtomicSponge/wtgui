@@ -10,6 +10,9 @@ import { WTGuiInputSetting } from '@wtfsystems/wtgui'
 |-------|:------------------:|--------|------------------------------|
 | label | :white_check_mark: | string | Text to display on the label |
 
+## Modal
+Bind to a ref to track the input value.  See example below.
+
 ## Example
 ```vue{2,7}
 <script>
