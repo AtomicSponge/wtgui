@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "WTGui Documentation"
   text: "Experimental Vue Menu System"
-  tagline: WIP
+  tagline: A component library for creating a menu system
   actions:
     - theme: brand
       text: Get Started
