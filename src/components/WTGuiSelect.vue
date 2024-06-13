@@ -15,7 +15,7 @@ const props = defineProps<{
   /** List of values to display in selection */
   values:Array<any>
   /** Index of the default selected item */
-  default?:number
+  defaultIdx?:number
   /** Sound file to play */
   sound?:string
 }>()
@@ -103,7 +103,7 @@ onMounted(() => {
   selectStyle.value = `width: ${width}em`
 
   //  If default was set, set default index
-  if(props.default) idx.value = props.default
+  if(props.defaultIdx) idx.value = props.defaultIdx
   emit('selected', `${props.values[idx.value]}`)
 
   //  Load audio if provided in props

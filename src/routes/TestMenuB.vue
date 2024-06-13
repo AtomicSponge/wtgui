@@ -24,7 +24,7 @@ const showMessageBox = ref(false)
       <WTGuiSelect
         sound="./src/assets/click.wav"
         :values="selectionValues"
-        :default="startSelect"
+        :default-idx="startSelect"
         @selected="(v:string) => currentSelection = v"/>
     </wtgui-menu-row>
     <WTGuiButton
