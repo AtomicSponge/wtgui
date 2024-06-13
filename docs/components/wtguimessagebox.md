@@ -4,6 +4,16 @@
 import { WTGuiMessageBox } from '@wtfsystems/wtgui'
 ```
 
+```vue{1}
+const showMessageBox = ref(false)  //  Flip to true to show message box
+
+<WTGuiMessageBox
+      sound-open="./src/assets/open.wav"
+      sound-close="./src/assets/close.wav"
+      label="Your text here"
+      v-model="showMessageBox"/>
+```
+
 ## Properties
 
 | Name        | Required           | Type     | Purpose                             |
