@@ -86,6 +86,7 @@ const makeInactive = (event:any):void => {
 
 /** Decrease index on left select */
 const selectLeft = (event:any):void => {
+  //  If the event was fired from the selection, animate button
   if(event.currentTarget.id === 'selection') {
     activeStyleLeft.value = toValue(buttonFocusStyle)
     setTimeout(() => {
@@ -99,6 +100,7 @@ const selectLeft = (event:any):void => {
 
 /** Increase index on right select */
 const selectRight = (event:any):void => {
+  //  If the event was fired from the selection, animate button
   if(event.currentTarget.id === 'selection') {
     activeStyleRight.value = toValue(buttonFocusStyle)
     setTimeout(() => {
