@@ -2,6 +2,8 @@
 
 ### :construction: :rotating_light: WIP :rotating_light:  :construction:
 
+<p align="center"><img style="height: 48px;" src="./public/wte_logo.png"></p>
+
 ### Experimental menu system using Vue3
 
 -----
