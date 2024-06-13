@@ -17,7 +17,9 @@ import { WTGuiMessageBox } from '@wtfsystems/wtgui'
 ## Example
 
 ```vue{1}
+<script>
 const showMessageBox = ref(false)  //  Flip to true to show message box
+</script>
 
 <WTGuiMessageBox
   label="Your text here"

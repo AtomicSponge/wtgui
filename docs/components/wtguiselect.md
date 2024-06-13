@@ -25,8 +25,10 @@ will always contain the current selected value.
 
 ## Example
 
-```vue{1,7}
+```vue{2,9}
+<script>
 const currentSelection = ref('')
+</script>
 
 <WTGuiSelect
   sound="./src/assets/click.wav"
