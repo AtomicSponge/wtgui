@@ -108,8 +108,7 @@ onMounted(() => {
 onUpdated(() => {
   //  Play audio and give focus
   if(toValue(visible) === true) {
-    if(props.soundOpen !== undefined)
-      audioFileOpen.play()    
+    if(props.soundOpen !== undefined) audioFileOpen.play()
     confirmBtn.value.focus()
   }
 })
