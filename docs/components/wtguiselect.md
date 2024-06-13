@@ -25,6 +25,8 @@ will always contain the current selected value.
 ## Example
 
 ```vue {5}
+const currentSelection = ref('')
+
 <WTGuiSelect
   sound="./src/assets/click.wav"
   :values="[1, 2, 3, 4, 5]"
