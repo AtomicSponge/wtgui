@@ -13,7 +13,9 @@ defineOptions({
 })
 
 const props = defineProps<{
-  label: string
+  label:string
+  soundOpen:string
+  soundClose:string
 }>()
 
 /** Get scale from the menu props */
@@ -106,14 +108,14 @@ onMounted(() => {
     <WTGuiMessageBox
       label="Press a key or button"
       :show-close="false"
-      sound-open="./src/assets/click.wav"
-      sound-close="./src/assets/click.wav"
+      :sound-open
+      :sound-close
       v-model="showInputMessageBox"/>
     <WTGuiMessageBox
       label="Setting applied"
       :show-close="true"
-      sound-open="./src/assets/click.wav"
-      sound-close="./src/assets/click.wav"
+      :sound-open
+      :sound-close
       v-model="showAppliedMessageBox"/>
   </div>
 </template>

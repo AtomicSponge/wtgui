@@ -22,6 +22,8 @@ const showMessageBox = ref(false)
     font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
     <WTGuiInputSetting
       label="Select this >"
+      sound-open="./src/assets/open.wav"
+      sound-close="./src/assets/close.wav"
       v-model="inputValue"/>
     <WTGuiSelect
       label="Select me:"
@@ -41,8 +43,8 @@ const showMessageBox = ref(false)
     <WTGuiMessageBox
       :label="currentSelection"
       :show-close="true"
-      sound-open="./src/assets/click.wav"
-      sound-close="./src/assets/click.wav"
+      sound-open="./src/assets/open.wav"
+      sound-close="./src/assets/close.wav"
       v-model="showMessageBox"/>
   </wtgui-menu>
 </template>
