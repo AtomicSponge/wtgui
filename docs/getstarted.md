@@ -1,6 +1,8 @@
 # Get Started
 
-```
+Install via NPM:
+
+```npm
 npm install @wtfsystems/wtgui
 ```
 
