@@ -40,7 +40,7 @@ const focusColor = <string>inject('focus-color')
 /** Audio file if provided from props */
 let audioFile:HTMLAudioElement
 /** Globaly store calculated width */
-let width:Number
+let width:Number = 0
 
 /** Compute button CSS */
 const buttonStyle = computed(() => {
@@ -105,7 +105,7 @@ const focusIn = ():void => {
 
 /** Set selection CSS on focus out */
 const focusOut = ():void => {
-  selectStyle.value = `width: ${width}em;`
+  selectStyle.value = `width: ${width}em; color: ${color};`
 }
 
 onMounted(() => {
@@ -118,7 +118,7 @@ onMounted(() => {
     return a.length > b.length ? a : b
   })
   width = Math.round(longest.length / 2)
-  selectStyle.value = `width: ${width}em;`
+  selectStyle.value = `width: ${width}em; color: ${color};`
 
   //  If default was set, set default index
   if(props.defaultIdx) idx.value = props.defaultIdx
