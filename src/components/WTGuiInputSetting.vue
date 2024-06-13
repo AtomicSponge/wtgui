@@ -79,7 +79,7 @@ const captureKey = (event:any):void => {
     settingValue.value = event.key
     setTimeout(() => {
       showAppliedMessageBox.value = true
-    }, 100)
+    }, 250)
   }
 }
 
