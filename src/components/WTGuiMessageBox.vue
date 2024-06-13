@@ -72,6 +72,8 @@ const buttonFocusStyle = computed(() => {
 /** Reference to the current button CSS */
 const btnCurrentStyle = ref(toValue(buttonStyle))
 
+const confirmBtn = ref()
+
 /** Make a button active */
 const makeBtnActive = ():void => {
   btnCurrentStyle.value = toValue(buttonFocusStyle)
@@ -89,7 +91,7 @@ const hideModal = ():void => {
 }
 
 onMounted(() => {
-  //  On mount, load audio if provided
+  //  Load audio if provided
   if(props.soundOpen !== undefined)
     audioFileOpen = new Audio(props.soundOpen)
   if(props.soundClose !== undefined)
@@ -97,8 +99,12 @@ onMounted(() => {
 })
 
 onUpdated(() => {
-  if(toValue(visible) === true && props.soundOpen !== undefined)
-    audioFileOpen.play()
+  //  Play audio and give focus
+  if(toValue(visible) === true) {
+    confirmBtn.value.focus()
+    if(props.soundOpen !== undefined)
+      audioFileOpen.play()
+  }
 })
 </script>
 
@@ -106,6 +112,7 @@ onUpdated(() => {
   <div :style="modalStyle">
     <h2>{{ label }}</h2>
     <button
+      ref="confirmBtn"
       :style="btnCurrentStyle"
       @focusin="makeBtnActive"
       @focusout="makeBtnInactive"
