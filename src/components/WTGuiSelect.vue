@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed, toValue, inject, onMounted } from 'vue'
+import { ref, computed, toValue, inject, onMounted, onUnmounted } from 'vue'
 
 defineOptions({
   inheritAttrs: false
@@ -39,6 +39,8 @@ const focusColor = <string>inject('focus-color')
 
 /** Audio file if provided from props */
 let audioFile:HTMLAudioElement
+/** Globaly store calculated width */
+let width:Number
 
 /** Compute button CSS */
 const buttonStyle = computed(() => {
@@ -57,6 +59,8 @@ const buttonFocusStyle = computed(() => {
 const activeStyleLeft = ref(toValue(buttonStyle))
 /** Reference to the right button active style */
 const activeStyleRight = ref(toValue(buttonStyle))
+/** Reference to the selection for input focusing */
+const selection = ref()
 
 /**
  * Make a button active
@@ -94,13 +98,35 @@ const selectRight = ():void => {
   emit('selected', `${props.values[idx.value]}`)
 }
 
+/**
+ * 
+ * @param event 
+ */
+const focusIn = (_event:FocusEvent):void => {
+  console.log(_event)
+  selectStyle.value = `width: ${width}em; color: ${focusColor};`
+}
+
+/**
+ * 
+ * @param event 
+ */
+ const focusOut = (_event:FocusEvent):void => {
+  console.log(_event)
+  selectStyle.value = `width: ${width}em;`
+}
+
 onMounted(() => {
+  //  Set the focus listener
+  selection.value.addEventListener('focusin', focusIn)
+  selection.value.addEventListener('focusout', focusOut)
+
   //  Set the width to the max array element length
   const longest = props.values.reduce((a, b) => {
     return a.length > b.length ? a : b
   })
-  const width = Math.round(longest.length / 2)
-  selectStyle.value = `width: ${width}em`
+  width = Math.round(longest.length / 2)
+  selectStyle.value = `width: ${width}em;`
 
   //  If default was set, set default index
   if(props.defaultIdx) idx.value = props.defaultIdx
@@ -109,6 +135,12 @@ onMounted(() => {
   //  Load audio if provided in props
   if(props.sound === undefined) return
   audioFile = new Audio(props.sound)
+})
+
+onUnmounted(() => {
+  // Remove the focus listener
+  selection.value.removeEventListener('focusin', focusIn)
+  selection.value.removeEventListener('focusout', focusOut)
 })
 </script>
 
@@ -125,6 +157,7 @@ onMounted(() => {
       &#8592;
     </button>
     <h2
+      ref="selection"
       :style="selectStyle"
       tabindex="0"
       @keyup.left="selectLeft"
