@@ -10,4 +10,5 @@ import { WTGuiMessageBox } from '@wtfsystems/wtgui'
 |-------------|:------------------:|----------|-------------------------------------|
 | label       | :white_check_mark: | string   | Message to display                  |
 | border-size | :x:                | number   | Thickness of the border (default 6) |
-| sound       | :x:                | string   | Sound file to play on close press   |
+| sound-open  | :x:                | string   | Sound file to play on open          |
+| sound-close | :x:                | string   | Sound file to play on close press   |
