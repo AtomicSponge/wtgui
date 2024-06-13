@@ -2,7 +2,7 @@
 
 ### :construction: :rotating_light: WIP :rotating_light:  :construction:
 
-<p align="center"><img src="./public/wtgui_logo.png"/></p>
+<p align="center"><img src="https://github.com/wtfsystems/wtgui/blob/master/public/wtgui_logo.png"/></p>
 
 ### Experimental menu system using Vue3
 
