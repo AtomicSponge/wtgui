@@ -125,6 +125,7 @@ onUpdated(() => {
       @focusout="makeBtnInactive"
       @mouseenter="makeBtnActive"
       @mouseleave="makeBtnInactive"
+      @keyup.esc="hideModal"
       @select="hideModal"
       @click="hideModal">
       OK
