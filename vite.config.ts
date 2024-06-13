@@ -21,7 +21,7 @@ export default defineConfig({
       fileName: (format:string) => `${LIBRARY_NAME}.${ format }.js`
     },
     rollupOptions: {
-      external: [ 'vue' ],
+      external: [ 'vue', 'vueRouter' ],
       output: { 
         exports: 'named',
         globals: { vue: 'Vue' }
