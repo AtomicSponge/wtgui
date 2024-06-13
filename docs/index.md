@@ -15,11 +15,8 @@ hero:
       link: /api-documentation
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Still In Development!
+    details: Currently a work in progess! New features will be added.
+  - title: Check back later!
+    details: Working on the documentation
 ---
-
