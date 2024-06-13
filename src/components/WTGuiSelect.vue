@@ -12,6 +12,8 @@ defineOptions({
 })
 
 const props = defineProps<{
+  /** Display label */
+  label?:string
   /** List of values to display in selection */
   values:Array<any>
   /** Index of the default selected item */
@@ -146,6 +148,7 @@ onMounted(() => {
 
 <template>
   <div>
+    <h2 v-show="props.label">{{ props.label }}</h2>
     <audio v-show="props.sound" :src="props.sound"></audio>
     <button
       id="btnLeft"
