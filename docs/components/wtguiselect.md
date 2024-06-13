@@ -25,7 +25,7 @@ will always contain the current selected value.
 
 ## Example
 
-```vue {5}
+```vue{7}
 const currentSelection = ref('')
 
 <WTGuiSelect
