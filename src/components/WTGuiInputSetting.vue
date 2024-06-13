@@ -32,7 +32,7 @@ const showMessageBox = ref(false)
 <template>
   <div class="main">
     <h2>{{ props.label }}</h2>
-    <div class="input">
+    <div class="input" tabindex="0">
       {{ value }}
     </div>
     <WTGuiMessageBox
@@ -56,4 +56,7 @@ const showMessageBox = ref(false)
   font-size 1.6em
   font-weight 800
   cursor pointer
+.input:focus,
+.input:focus-visible
+  outline none
 </style>
