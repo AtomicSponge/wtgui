@@ -60,7 +60,7 @@ const activeStyleLeft = ref(toValue(buttonStyle))
 /** Reference to the right button active style */
 const activeStyleRight = ref(toValue(buttonStyle))
 /** Reference to the selection for input focusing */
-const selection = ref()
+const selectFocus = ref()
 
 /**
  * Make a button active
@@ -110,8 +110,8 @@ const focusOut = ():void => {
 
 onMounted(() => {
   //  Set the focus listener
-  selection.value.addEventListener('focusin', focusIn)
-  selection.value.addEventListener('focusout', focusOut)
+  selectFocus.value.addEventListener('focusin', focusIn)
+  selectFocus.value.addEventListener('focusout', focusOut)
 
   //  Set the width to the max array element length
   const longest = props.values.reduce((a, b) => {
@@ -131,8 +131,8 @@ onMounted(() => {
 
 onUnmounted(() => {
   // Remove the focus listener
-  selection.value.removeEventListener('focusin', focusIn)
-  selection.value.removeEventListener('focusout', focusOut)
+  selectFocus.value.removeEventListener('focusin', focusIn)
+  selectFocus.value.removeEventListener('focusout', focusOut)
 })
 </script>
 
@@ -149,7 +149,7 @@ onUnmounted(() => {
       &#8592;
     </button>
     <h2
-      ref="selection"
+      ref="selectFocus"
       :style="selectStyle"
       tabindex="0"
       @keyup.left="selectLeft"
