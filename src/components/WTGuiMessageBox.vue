@@ -57,6 +57,8 @@ const modalComputedStyle = computed(() => {
 /** Reference to the current modal CSS */
 const modalStyle = ref(toRef(modalComputedStyle))
 
+const modalZoom = ref('modal-zoom')
+
 /** Compute button CSS */
 const buttonStyle = computed(() => {
   return `border: ${3 * scale}px solid ${color};border-radius: ${16 * scale}px;` +
@@ -88,7 +90,11 @@ const makeBtnInactive = ():void => {
 /** Hide the modal on confirmation */
 const hideModal = ():void => {
   if(props.soundClose !== undefined) audioFileClose.play()
-  visible.value = false
+  modalZoom.value += ' out'
+  setTimeout(() => {
+    modalZoom.value = 'modal-zoom'
+    visible.value = false
+  }, 300)
 }
 
 onMounted(() => {
@@ -103,14 +109,14 @@ onUpdated(() => {
   //  Play audio and give focus
   if(toValue(visible) === true) {
     if(props.soundOpen !== undefined)
-      audioFileOpen.play()
+      audioFileOpen.play()    
     confirmBtn.value.focus()
   }
 })
 </script>
 
 <template>
-  <div :style="modalStyle">
+  <div :style="modalStyle" :class="modalZoom">
     <h2>{{ label }}</h2>
     <button
       ref="confirmBtn"
@@ -142,4 +148,29 @@ button
 button:focus,
 button:focus-visible
   outline none
+
+/* Zoom in */
+@-webkit-keyframes zoom
+  from { -webkit-transform:scale(1) }
+  to { -webkit-transform:scale(2) }
+@keyframes zoom
+  from { transform:scale(0.4) }
+  to { transform:scale(1) }
+
+/* Zoom out */
+@-webkit-keyframes zoom-out
+  from { transform:scale(1) }
+  to { transform:scale(0) }
+@keyframes zoom-out
+  from { transform:scale(1) }
+  to { transform:scale(0) }
+
+.modal-zoom
+  -webkit-animation-name zoom
+  -webkit-animation-duration 0.3s
+  animation-name zoom
+  animation-duration 0.3s
+.out
+  animation-name zoom-out
+  animation-duration 0.3s
 </style>
