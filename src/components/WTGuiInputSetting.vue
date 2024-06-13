@@ -74,10 +74,12 @@ const doInput = (event:any):void => {
  */
 const captureKey = (event:any):void => {
   if(showInputMessageBox.value && event.type) {
+    window.removeEventListener('keydown', captureKey)
     showInputMessageBox.value = false
     settingValue.value = event.key
-    showAppliedMessageBox.value = true
-    window.removeEventListener('keydown', captureKey)
+    setTimeout(() => {
+      showAppliedMessageBox.value = true
+    }, 100)
   }
 }
 
