@@ -4,6 +4,7 @@ import { ref } from 'vue'
 import WtguiMenu from '../components/WtguiMenu.vue'
 import WTGuiButton from '../components/WTGuiButton.vue'
 import WTGuiSelect from '../components/WTGuiSelect.vue'
+import WTGuiInputSetting from '../components/WTGuiInputSetting.vue'
 import WTGuiMessageBox from '../components/WTGuiMessageBox.vue'
 
 const selectionValues = [ 'Hello World', 'testing', 'test' ]
@@ -17,6 +18,7 @@ const showMessageBox = ref(false)
 <template>
   <wtgui-menu title="Test Menu B" color="yellow" border-color="yellow" :scale="1"
     font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
+    <WTGuiInputSetting label="TESTING"/>
     <WTGuiSelect
       label="Select me:"
       sound="./src/assets/click.wav"
