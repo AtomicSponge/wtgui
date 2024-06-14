@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed, onUpdated, toRef, toValue, onMounted, inject } from 'vue'
+import { inject, ref, computed, toRef, toValue, onMounted, onUpdated } from 'vue'
 
 defineOptions({
   inheritAttrs: false

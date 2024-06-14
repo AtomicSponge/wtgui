@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed, toValue, toRef, inject, onMounted } from 'vue'
+import { inject, ref, computed, toRef, toValue, onMounted } from 'vue'
 import WTGuiMessageBox from './WTGuiMessageBox.vue'
 
 defineOptions({
