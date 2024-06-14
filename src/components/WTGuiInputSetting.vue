@@ -22,7 +22,7 @@ const props = defineProps<{
 }>()
 
 /** Get scale from the menu props */
-const scale:{value:number} | undefined = inject('scale')
+const scale = toRef(<number>inject('scale'))
 /** Get color from the menu props */
 const color = <string>inject('color')
 /** Get focus color from the menu props */
@@ -33,14 +33,14 @@ const settingValue = defineModel()
 
 /** Computed value for input CSS */
 const inputStyle = computed(() => {
-  return `border-radius: ${16 * scale!.value}px;` +
-    `border: ${3 * scale!.value}px solid; color: ${color};`
+  return `border-radius: ${16 * toValue(scale)}px;` +
+    `border: ${3 * toValue(scale)}px solid; color: ${color};`
 })
 
 /** Computed value for input focused CSS */
 const inputFocusedStyle = computed(() => {
-  return `border-radius: ${16 * scale!.value}px;` + 
-    `border: ${3 * scale!.value}px solid ${focusColor};` +
+  return `border-radius: ${16 * toValue(scale)}px;` + 
+    `border: ${3 * toValue(scale)}px solid ${focusColor};` +
     `color: ${focusColor};`
 })
 
