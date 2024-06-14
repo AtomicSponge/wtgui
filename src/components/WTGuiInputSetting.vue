@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed, toValue, inject, onMounted } from 'vue'
+import { ref, computed, toValue, inject, watch, onMounted } from 'vue'
 import WTGuiMessageBox from './WTGuiMessageBox.vue'
 
 defineOptions({
@@ -86,6 +86,11 @@ const captureKey = (event:any):void => {
     settingValue.value = event.key  
   }
 }
+
+watch(scale!, () => {
+  //  If scale changes, reapply CSS
+  currentStyle.value = toValue(inputStyle)
+})
 
 onMounted(() => {
   //  Set the focus listener
