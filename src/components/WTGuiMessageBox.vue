@@ -28,7 +28,7 @@ const props = defineProps<{
 const visible = defineModel()
 
 /** Get scale from the menu props */
-const scale = <number>inject('scale')
+const scale:{value:number} | undefined = inject('scale')
 /** Get color from the menu props */
 const color = <string>inject('color')
 /** Get focus color from the menu props */
@@ -41,8 +41,8 @@ let audioFileClose:HTMLAudioElement
 
 /** Compute the general CSS to apply to the modal */
 const modalGeneralStyle = computed(() => {
-  return `border-radius: ${32 * scale}px;padding: 2em;` +
-  `border: ${(props.borderSize || 6) * scale}px solid ${color}; color: ${color};` +
+  return `border-radius: ${32 * scale!.value}px;padding: 2em;` +
+  `border: ${(props.borderSize || 6) * scale!.value}px solid ${color}; color: ${color};` +
   `background-color: rgba(0, 0, 0, 0.95);`
 })
 
@@ -64,14 +64,14 @@ const modalZoom = ref('modal-zoom')
 
 /** Compute button CSS */
 const buttonStyle = computed(() => {
-  return `border: ${3 * scale}px solid ${color};border-radius: ${16 * scale}px;` +
-    `color: ${color}`
+  return `border: ${3 * scale!.value}px solid ${color};` +
+    `border-radius: ${16 * scale!.value}px;color: ${color}`
 })
 
 /** Compute button focused CSS */
 const buttonFocusStyle = computed(() => {
-  return `border: ${3 * scale}px solid ${focusColor};border-radius: ${16 * scale}px;` +
-    `color: ${color}`
+  return `border: ${3 * scale!.value}px solid ${focusColor};` +
+    `border-radius: ${16 * scale!.value}px;color: ${color}`
 })
 
 /** Reference to the current button CSS */

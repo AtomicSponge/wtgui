@@ -33,7 +33,7 @@ const idx = ref(0)
 const selectStyle = ref('')
 
 /** Get scale from the menu props */
-const scale = <number>inject('scale')
+const scale:{value:number} | undefined = inject('scale')
 /** Get color from the menu props */
 const color = <string>inject('color')
 /** Get focus color from the menu props */
@@ -46,14 +46,14 @@ let width:Number = 0
 
 /** Compute button CSS */
 const buttonStyle = computed(() => {
-  return `border-radius: ${16 * scale}px;` +
-    `border: ${3 * scale}px solid; color: ${color};`
+  return `border-radius: ${16 * scale!.value}px;` +
+    `border: ${3 * scale!.value}px solid; color: ${color};`
 })
 
 /** Compute button focus CSS */
 const buttonFocusStyle = computed(() => {
-  return `border-radius: ${16 * scale}px;` + 
-    `border: ${3 * scale}px solid ${focusColor};` +
+  return `border-radius: ${16 * scale!.value}px;` + 
+    `border: ${3 * scale!.value}px solid ${focusColor};` +
     `color: ${focusColor};`
 })
 

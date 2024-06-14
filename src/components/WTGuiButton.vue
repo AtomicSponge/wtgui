@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed, toValue, onMounted, inject } from 'vue'
+import { inject, ref, computed, toValue, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { WTGuiError } from './WTGuiError.ts'
 
@@ -27,7 +27,7 @@ const props = defineProps<{
 }>()
 
 /** Get scale from the menu props */
-const scale = <number>inject('scale')
+const scale:{value:number} | undefined = inject('scale')
 /** Get color from the menu props */
 const color = <string>inject('color')
 /** Get focus color from the menu props */
@@ -38,12 +38,12 @@ let audioFile:HTMLAudioElement
 
 /** Compute button CSS */
 const buttonStyle = computed(() => {
-  return `border: ${3 * scale}px solid ${color};border-radius: ${16 * scale}px;`
+  return `border: ${3 * scale!.value}px solid ${color};border-radius: ${16 * scale!.value}px;`
 })
 
 /** Compute button focused CSS */
 const buttonFocusStyle = computed(() => {
-  return `border: ${3 * scale}px solid ${focusColor};border-radius: ${16 * scale}px;`
+  return `border: ${3 * scale!.value}px solid ${focusColor};border-radius: ${16 * scale!.value}px;`
 })
 
 /** Reference to the button's current style */
@@ -73,7 +73,13 @@ const doAction = ():void => {
   props.action()
 }
 
+watch(scale!, () => {
+  //  If scale changes, reapply CSS
+  currentStyle.value = toValue(buttonStyle)
+})
+
 onMounted(() => {
+  //  Throw error if both goto and action props are defined
   if(props.goto && props.action)
     throw new WTGuiError(`Only define either 'action' OR 'goto' properties!`, onMounted)
   
