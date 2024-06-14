@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed, toValue, inject, onMounted } from 'vue'
+import { ref, computed, toValue, inject, watch, onMounted } from 'vue'
 
 defineOptions({
   inheritAttrs: false
@@ -123,6 +123,12 @@ const focusIn = ():void => {
 const focusOut = ():void => {
   selectStyle.value = `width: ${width}em; color: ${color};`
 }
+
+watch(scale!, () => {
+  //  If scale changes, reapply CSS
+  activeStyleLeft.value = toValue(buttonStyle)
+  activeStyleRight.value = toValue(buttonStyle)
+})
 
 onMounted(() => {
   //  Set the focus listener
