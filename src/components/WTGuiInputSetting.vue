@@ -55,13 +55,11 @@ const showInputMessageBox = ref(false)
 /** Set input CSS on focus in */
 const focusIn = ():void => {
   currentStyle.value = toValue(inputFocusedStyle)
-  console.log('in')
 }
 
 /** Set input CSS on focus out */
 const focusOut = ():void => {
   currentStyle.value = toValue(inputStyle)
-  console.log('out')
 }
 
 /**
