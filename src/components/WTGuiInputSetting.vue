@@ -51,8 +51,6 @@ const inputField = ref()
 
 /** Reference for displaying the input message box */
 const showInputMessageBox = ref(false)
-/** Reference for displaying the applied message box */
-const showAppliedMessageBox = ref(false)
 
 /** Set input CSS on focus in */
 const focusIn = ():void => {
@@ -85,11 +83,7 @@ const doInput = (event:any):void => {
 const captureKey = (event:any):void => {
   if(showInputMessageBox.value && event.type === 'keydown') {
     window.removeEventListener('keydown', captureKey)
-    showInputMessageBox.value = false
     settingValue.value = event.key
-    setTimeout(() => {
-      showAppliedMessageBox.value = true
-    }, 250)
   }
 }
 
@@ -117,13 +111,8 @@ onMounted(() => {
       label="Press a key or button"
       :show-close="false"
       :soundOpen
-      v-model="showInputMessageBox"/>
-    <WTGuiMessageBox
-      label="Setting applied"
-      :show-close="true"
-      :soundOpen
       :soundClose
-      v-model="showAppliedMessageBox"/>
+      v-model="showInputMessageBox"/>
   </div>
 </template>
 
