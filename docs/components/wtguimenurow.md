@@ -10,7 +10,7 @@ none
 
 ## Example
 
-```vue
+```vue{3}
 <wtgui-menu-row>
 
 <!-- menu items go here -->

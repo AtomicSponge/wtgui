@@ -19,7 +19,7 @@ Don't use the `goto` and `action` properties at the same time!  There is no inte
 
 ## Menu Example
 
-```vue
+```vue{4}
 <WTGuiButton
   sound="./src/assets/click.wav"
   label="Main Menu"
@@ -28,7 +28,7 @@ Don't use the `goto` and `action` properties at the same time!  There is no inte
 
 ## Action Example
 
-```vue
+```vue{4}
 <WTGuiButton
   sound="./src/assets/click.wav"
   label="Click Me"
