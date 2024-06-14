@@ -28,7 +28,7 @@ const props = defineProps<{
 const visible = defineModel()
 
 /** Get scale from the menu props */
-const scale:{value:number} | undefined = inject('scale')
+const scale = toValue(<number>inject('scale'))
 /** Get color from the menu props */
 const color = <string>inject('color')
 /** Get focus color from the menu props */
@@ -54,9 +54,9 @@ const outerStyle = ref(toRef(outerComputedStyle))
 
 /** Compute the general CSS to apply to the modal */
 const modalComputedStyle = computed(() => {
-  return `border-radius: ${32 * scale!.value}px;padding: 2em;background-color: rgba(0, 0, 0, 0.95);` +
-    `border: ${(props.borderSize || 6) * scale!.value}px solid ${color}; color: ${color};` +
-    `margin-left: auto;margin-right: auto;width: fit-content;max-width: ${800 * scale!.value}px;`
+  return `border-radius: ${32 * scale}px;padding: 2em;background-color: rgba(0, 0, 0, 0.95);` +
+    `border: ${(props.borderSize || 6) * scale}px solid ${color}; color: ${color};` +
+    `margin-left: auto;margin-right: auto;width: fit-content;max-width: ${800 * scale}px;`
 })
 
 /** Reference to the current modal CSS */
@@ -67,8 +67,8 @@ const modalZoom = ref('modal-zoom')
 
 /** Compute button focused CSS */
 const buttonComputedStyle = computed(() => {
-  return `border: ${3 * scale!.value}px solid ${focusColor};` +
-    `border-radius: ${16 * scale!.value}px;color: ${color};`
+  return `border: ${3 * scale}px solid ${focusColor};` +
+    `border-radius: ${16 * scale}px;color: ${color};`
 })
 
 /** Reference to the current button CSS */
