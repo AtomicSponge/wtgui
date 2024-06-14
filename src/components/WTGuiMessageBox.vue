@@ -65,35 +65,19 @@ const modalStyle = ref(toRef(modalComputedStyle))
 /** Reference to the modal zoom CSS */
 const modalZoom = ref('modal-zoom')
 
-/** Compute button CSS */
-const buttonStyle = computed(() => {
-  return `border: ${3 * scale!.value}px solid ${color};` +
-    `border-radius: ${16 * scale!.value}px;color: ${color};`
-})
-
 /** Compute button focused CSS */
-const buttonFocusStyle = computed(() => {
+const buttonComputedStyle = computed(() => {
   return `border: ${3 * scale!.value}px solid ${focusColor};` +
     `border-radius: ${16 * scale!.value}px;color: ${color};`
 })
 
 /** Reference to the current button CSS */
-const btnCurrentStyle = ref(toValue(buttonStyle))
+const buttonStyle = ref(toRef(buttonComputedStyle))
 
 /** Reference to the label */
 const hiddenBtn = ref()
 /** Reference to the confirm button */
 const confirmBtn = ref()
-
-/** Make a button active */
-const makeBtnActive = ():void => {
-  btnCurrentStyle.value = toValue(buttonFocusStyle)
-}
-
-/** Make a button inactive */
-const makeBtnInactive = ():void => {
-  btnCurrentStyle.value = toValue(buttonStyle)
-}
 
 /** Hide the modal on confirmation */
 const hideModal = ():void => {
@@ -136,12 +120,8 @@ onUpdated(() => {
         <h2>{{ props.label }}</h2>
         <button
           ref="confirmBtn"
-          :style="btnCurrentStyle"
+          :style="buttonStyle"
           v-show="props.showClose"
-          @focusin="makeBtnActive"
-          @focusout="makeBtnInactive"
-          @mouseenter="makeBtnActive"
-          @mouseleave="makeBtnInactive"
           @keyup.esc="hideModal"
           @select="hideModal"
           @click="hideModal">
