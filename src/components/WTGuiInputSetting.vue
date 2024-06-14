@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed, toValue, inject, watch, onMounted } from 'vue'
+import { ref, computed, toValue, toRef, inject, watch, onMounted } from 'vue'
 import WTGuiMessageBox from './WTGuiMessageBox.vue'
 
 defineOptions({
@@ -45,7 +45,7 @@ const inputFocusedStyle = computed(() => {
 })
 
 /** Reference to the current CSS style */
-const currentStyle = ref(toValue(inputStyle))
+const currentStyle = ref(toRef(inputStyle))
 /** Reference to the input capture field */
 const inputField = ref()
 
