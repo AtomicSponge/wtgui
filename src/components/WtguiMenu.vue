@@ -51,6 +51,7 @@ const menuStyle = computed(() => {
     `background-color: rgba(0, 0, 0, ${props.opaquency})`
 })
 
+/** Compute scale so sub items can update */
 provide('scale', computed(() => { return props.scale }))
 provide('color', props.color)
 provide('focus-color', props.focusColor)
