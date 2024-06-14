@@ -20,8 +20,8 @@ const props = defineProps({
   scale: {
     type: Number,
     required: true,
-    validator(value) {
-      return [1, 2, 3, 4].includes(<number>value)
+    validator(value:number) {
+      return [1, 2, 3, 4].includes(value)
     }
   },
   /** CSS color for menu */
@@ -35,8 +35,8 @@ const props = defineProps({
   /** Opaquency of the menu */
   opaquency: {
     type: Number,
-    validator(value) {
-      return (<number>value >= 0.0 && <number>value <= 1.0)
+    validator(value:number) {
+      return (value >= 0.0 && value <= 1.0)
     },
     default: 0.30
   }
