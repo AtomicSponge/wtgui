@@ -1,12 +1,15 @@
 <script setup lang="ts">
+import { inject } from 'vue'
+
 import WtguiMenu from '../components/WtguiMenu.vue'
 import WtguiMenuRow from '../components/WtguiMenuRow.vue'
 import WTGuiButton from '../components/WTGuiButton.vue'
 
+const scale = <number>inject('scale')
 </script>
 
 <template>
-  <wtgui-menu title="Main Menu" color="green" border-color="orange" :scale="1"
+  <wtgui-menu title="Main Menu" color="green" border-color="orange" :scale="scale"
     font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
     <wtgui-menu-row>
       <WTGuiButton
