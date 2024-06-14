@@ -20,7 +20,7 @@ const showMessageBox = ref(false)
 </script>
 
 <template>
-  <wtgui-menu title="Test Menu B" color="yellow" border-color="yellow" :scale="scale"
+  <wtgui-menu title="Test Menu B" color="yellow" border-color="orange" :scale="scale"
     font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
     <WTGuiInputSetting
       label="Select this >"
