@@ -39,23 +39,26 @@ let audioFileOpen:HTMLAudioElement
 /** Close Audio file if provided from props */
 let audioFileClose:HTMLAudioElement
 
+/** Show the message box */
+const outerShown = 'display: table;z-index: 99;'
+/** Hide the message box */
+const outerHidden = 'display: none;z-index: -99;'
+
+/** Compute if the message box is visable or not */
+const outerComputedStyle = computed(() => {
+  return visible.value ? outerShown : outerHidden
+})
+
+/** Reference to the current style for the outer div */
+const outerStyle = ref(toRef(outerComputedStyle))
+
 /** Compute the general CSS to apply to the modal */
-const modalGeneralStyle = computed(() => {
-  return `border-radius: ${32 * scale!.value}px;padding: 2em;` +
-  `border: ${(props.borderSize || 6) * scale!.value}px solid ${color}; color: ${color};` +
-  `background-color: rgba(0, 0, 0, 0.95);`
-})
-
-/** Modal's hidden CSS */
-const modalHidden = `display: none; ${toValue(modalGeneralStyle)}`
-/** Modal's display CSS */
-const modalVisible = `display: flex;flex-flow: column nowrap;place-items: center;`+
-  `z-index: 99;position: absolute;${toValue(modalGeneralStyle)}`
-
-/** Compute the current modal CSS */
 const modalComputedStyle = computed(() => {
-  return visible.value ? modalVisible : modalHidden
+  return `border-radius: ${32 * scale!.value}px;padding: 2em;background-color: rgba(0, 0, 0, 0.95);` +
+    `border: ${(props.borderSize || 6) * scale!.value}px solid ${color}; color: ${color};` +
+    `margin-left: auto;margin-right: auto;width: fit-content;max-width: ${800 * scale!.value}px;`
 })
+
 /** Reference to the current modal CSS */
 const modalStyle = ref(toRef(modalComputedStyle))
 
@@ -65,13 +68,13 @@ const modalZoom = ref('modal-zoom')
 /** Compute button CSS */
 const buttonStyle = computed(() => {
   return `border: ${3 * scale!.value}px solid ${color};` +
-    `border-radius: ${16 * scale!.value}px;color: ${color}`
+    `border-radius: ${16 * scale!.value}px;color: ${color};`
 })
 
 /** Compute button focused CSS */
 const buttonFocusStyle = computed(() => {
   return `border: ${3 * scale!.value}px solid ${focusColor};` +
-    `border-radius: ${16 * scale!.value}px;color: ${color}`
+    `border-radius: ${16 * scale!.value}px;color: ${color};`
 })
 
 /** Reference to the current button CSS */
@@ -127,30 +130,43 @@ onUpdated(() => {
 </script>
 
 <template>
-  <div :style="modalStyle" :class="modalZoom">
-    <h2>{{ props.label }}</h2>
-    <button
-      ref="confirmBtn"
-      :style="btnCurrentStyle"
-      v-show="props.showClose"
-      @focusin="makeBtnActive"
-      @focusout="makeBtnInactive"
-      @mouseenter="makeBtnActive"
-      @mouseleave="makeBtnInactive"
-      @keyup.esc="hideModal"
-      @select="hideModal"
-      @click="hideModal">
-      OK
-    </button>
-    <button
-      ref="hiddenBtn"
-      class="hidden"
-      v-show="!props.showClose">
-    </button>
+  <div :style="outerStyle" class="outer">
+    <div class="middle">
+      <div :style="modalStyle" :class="modalZoom">
+        <h2>{{ props.label }}</h2>
+        <button
+          ref="confirmBtn"
+          :style="btnCurrentStyle"
+          v-show="props.showClose"
+          @focusin="makeBtnActive"
+          @focusout="makeBtnInactive"
+          @mouseenter="makeBtnActive"
+          @mouseleave="makeBtnInactive"
+          @keyup.esc="hideModal"
+          @select="hideModal"
+          @click="hideModal">
+          OK
+        </button>
+        <button
+          ref="hiddenBtn"
+          class="hidden"
+          v-show="!props.showClose">
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <style lang="stylus" scoped>
+.outer
+  position absolute
+  top 0px
+  left 0px
+  height 100vh
+  width 100vw
+.middle
+  display table-cell
+  vertical-align middle
 h2
   font-size 1.6em
   margin-top 0.2em
