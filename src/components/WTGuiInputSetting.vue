@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { inject, ref, computed, toRef, toValue, onMounted } from 'vue'
+import { inject, ref, computed, toRef, toValue, watch, onMounted } from 'vue'
 import WTGuiMessageBox from './WTGuiMessageBox.vue'
 
 defineOptions({
@@ -33,19 +33,19 @@ const settingValue = defineModel()
 
 /** Computed value for input CSS */
 const inputStyle = computed(() => {
-  return `border-radius: ${16 * toValue(scale)}px;` +
-    `border: ${3 * toValue(scale)}px solid; color: ${color};`
+  return `border-radius: ${16 * scale.value}px;` +
+    `border: ${3 * scale.value}px solid; color: ${color};`
 })
 
 /** Computed value for input focused CSS */
 const inputFocusedStyle = computed(() => {
-  return `border-radius: ${16 * toValue(scale)}px;` + 
-    `border: ${3 * toValue(scale)}px solid ${focusColor};` +
+  return `border-radius: ${16 * scale.value}px;` + 
+    `border: ${3 * scale.value}px solid ${focusColor};` +
     `color: ${focusColor};`
 })
 
 /** Reference to the current CSS style */
-const currentStyle = ref(toRef(inputStyle))
+const currentStyle = ref(toValue(inputStyle))
 /** Reference to the input capture field */
 const inputField = ref()
 
@@ -55,11 +55,13 @@ const showInputMessageBox = ref(false)
 /** Set input CSS on focus in */
 const focusIn = ():void => {
   currentStyle.value = toValue(inputFocusedStyle)
+  console.log('in')
 }
 
 /** Set input CSS on focus out */
 const focusOut = ():void => {
   currentStyle.value = toValue(inputStyle)
+  console.log('out')
 }
 
 /**
@@ -87,10 +89,17 @@ const captureKey = (event:any):void => {
   }
 }
 
+watch(scale, () => {
+  //  If scale changes, reapply CSS
+  currentStyle.value = toValue(inputStyle)
+})
+
 onMounted(() => {
   //  Set the focus listener
   inputField.value.addEventListener('focusin', focusIn)
+  inputField.value.addEventListener('mouseenter', focusIn)
   inputField.value.addEventListener('focusout', focusOut)
+  inputField.value.addEventListener('mouseleave', focusOut)
   //  Set the input listener
   inputField.value.addEventListener('click', doInput)
   inputField.value.addEventListener('keyup', doInput)
