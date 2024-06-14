@@ -29,7 +29,7 @@ const props = defineProps({
   /** CSS focus color for menu */
   focusColor: { type: String, default: '#646cff' },
   /** Border thickness */
-  borderSize: { type: Number, default: 6 },
+  borderSize: { type: Number, default: 8 },
   /** CSS color for the menu border */
   borderColor: { type: String, default: 'red' },
   /** Opaquency of the menu */
