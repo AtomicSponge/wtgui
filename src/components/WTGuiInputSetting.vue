@@ -70,9 +70,7 @@ const doInput = (event:any):void => {
   if(event.key === " " || event.key === "Enter" || event.type === 'click') {
     showInputMessageBox.value = true
     //  Set a listener for capturing a new value
-    setTimeout(() => {
-      window.addEventListener('keydown', captureKey)
-    }, 250)
+    window.addEventListener('keydown', captureKey)
   }
 }
 
