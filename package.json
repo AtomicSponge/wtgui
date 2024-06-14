@@ -44,15 +44,13 @@
     "LICENSE.md",
     "README.md"
   ],
-  "dependencies": {
-    "vue": "^3.4.27",
-    "vue-router": "^4.3.3"
-  },
   "peerDependencies": {
-    "pinia": "^2.1.7"
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
+    "pinia": "^2.1.7",
     "stylus": "^0.63.0",
     "stylus-loader": "^8.1.0",
     "typescript": "^5.4.5",
@@ -60,6 +58,8 @@
     "vite-plugin-css-injected-by-js": "^3.5.1",
     "vite-plugin-dts": "^3.9.1",
     "vitepress": "^1.2.3",
-    "vue-tsc": "^2.0.21"
+    "vue-router": "^4.3.3",
+    "vue-tsc": "^2.0.21",
+    "vue": "^3.4.27"
   }
 }
