@@ -16,9 +16,9 @@ const props = defineProps<{
   /** Display label for the input setting */
   label:string
   /** Sound for message box on open */
-  soundOpen:string
+  soundOpen?:string
   /** Sound for message box on close */
-  soundClose:string
+  soundClose?:string
 }>()
 
 /** Get scale from the menu props */
