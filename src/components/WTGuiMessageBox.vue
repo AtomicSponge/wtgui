@@ -26,6 +26,8 @@ const props = defineProps<{
 
 /** Model flag to show the message box */
 const visible = defineModel()
+/** Durration of the zoom animation */
+const zoomTime:MsgBoxZoomTime = 300
 
 /** Get scale from the menu props */
 const scale = toValue(<number>inject('scale'))
@@ -86,7 +88,7 @@ const hideModal = ():void => {
   setTimeout(() => {
     modalZoom.value = 'modal-zoom'
     visible.value = false
-  }, 300)
+  }, zoomTime)
 }
 
 onMounted(() => {

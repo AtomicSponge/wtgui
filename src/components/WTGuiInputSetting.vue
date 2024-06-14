@@ -28,6 +28,9 @@ const color = <string>inject('color')
 /** Get focus color from the menu props */
 const focusColor = <string>inject('focus-color')
 
+/** Durration of the zoom animation */
+const zoomTime:MsgBoxZoomTime = 300
+
 /** Model for tracking the setting value */
 const settingValue = defineModel()
 
@@ -84,7 +87,7 @@ const captureKey = (event:any):void => {
     settingValue.value = event.key
     setTimeout(() => {
       showInputMessageBox.value = false
-    }, 300)
+    }, zoomTime)
   }
 }
 
