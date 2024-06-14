@@ -7,6 +7,7 @@
 <script setup lang="ts">
 import { ref, computed, toValue, onMounted, inject } from 'vue'
 import { useRouter } from 'vue-router'
+import { WTGuiError } from './WTGuiError.ts'
 
 defineOptions({
   inheritAttrs: false
@@ -73,6 +74,9 @@ const doAction = ():void => {
 }
 
 onMounted(() => {
+  if(props.goto && props.action)
+    throw new WTGuiError(`Only define either 'action' OR 'goto' properties!`, onMounted)
+  
   //  On mount, load audio if provided
   if(props.sound === undefined) return
   audioFile = new Audio(props.sound)
