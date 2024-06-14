@@ -120,15 +120,15 @@ onMounted(() => {
 h2
   font-size 1.6em
   line-height 0.2
-  padding-left 0.6em
-  padding-right 0.6em
+  padding 0.2em 0em
+  margin 0.3em 0.6em
 .main
   display flex
   flex-flow row nowrap
   place-items center
 .input
   padding 0.2em 0.6em
-  margin 0.6em
+  margin 0.3em 0.6em
   font-size 1.6em
   font-weight 800
   cursor pointer

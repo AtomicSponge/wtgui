@@ -195,14 +195,13 @@ div
   place-items center
 h2
   font-size 1.6em
-  margin-top 0.2em
-  margin-bottom 0.2em
+  margin 0.3em 0.2em
 h2:focus,
 h2:focus-visible
   outline none
 button
   padding 0.2em 0.6em
-  margin 0.6em
+  margin 0.3em 0.6em
   font-size 1.6em
   font-weight 800
   font-family inherit

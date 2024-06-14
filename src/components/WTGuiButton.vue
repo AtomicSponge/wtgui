@@ -122,7 +122,7 @@ onMounted(() => {
 <style lang="stylus" scoped>
 button
   padding 0.6em 1.2em
-  margin 0.6em
+  margin 0.3em 0.6em
   font-size 1.4em
   font-weight 800
   font-family inherit
