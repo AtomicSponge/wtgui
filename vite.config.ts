@@ -18,7 +18,7 @@ export default defineConfig({
     lib: {
       entry: './src/components/index.ts',
       name: LIBRARY_NAME,
-      fileName: (format:string) => `${LIBRARY_NAME}.${ format }.js`
+      fileName: (format:string) => `${LIBRARY_NAME}.${format}.js`
     },
     rollupOptions: {
       external: [ 'vue', 'vueRouter' ],
