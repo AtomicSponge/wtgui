@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { inject, ref, computed, toRef, toValue, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { WTGuiError } from './WTGuiError.ts'
+import { WTGuiError } from '../lib/WTGuiError.ts'
 
 defineOptions({
   inheritAttrs: false
