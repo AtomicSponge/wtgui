@@ -5,7 +5,6 @@ const scaleOptions = [ 1, 2, 3, 4 ]
 const scaleSelected = ref(1)
 
 provide('scale', scaleSelected)
-
 </script>
 
 <template>
