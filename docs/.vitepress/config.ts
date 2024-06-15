@@ -23,6 +23,7 @@ export default defineConfig({
             link: '/api-documentation',
             items: [ 
               { text: 'WtguiMenu', link: '/components/wtguimenu' },
+              { text: 'WtguiMenuColumn', link: '/components/wtguimenucolumn' },
               { text: 'WtguiMenuRow', link: '/components/wtguimenurow' },
               { text: 'WTGuiButton', link: '/components/wtguibutton' },
               { text: 'WTGuiInputSetting', link: '/components/wtguiinputsetting' },
