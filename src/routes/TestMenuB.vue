@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue'
+import { ref } from 'vue'
 
 import { inputStore } from '../stores/inputStore'
+import { scaleStore } from '../stores/scaleStore'
 import { selectionStore } from '../stores/selectionStore'
 
 import WTGuiButton from '../components/WTGuiButton.vue'
@@ -9,7 +10,7 @@ import WTGuiSelect from '../components/WTGuiSelect.vue'
 import WTGuiInputSetting from '../components/WTGuiInputSetting.vue'
 import WTGuiMessageBox from '../components/WTGuiMessageBox.vue'
 
-const scale = <number>inject('scale')
+const scale = scaleStore()
 
 const input = inputStore()
 const selection = selectionStore()
@@ -20,7 +21,7 @@ const showMessageBox = ref(false)
 </script>
 
 <template>
-  <wtgui-menu title="Test Menu B" color="yellow" border-color="orange" :scale="scale"
+  <wtgui-menu title="Test Menu B" color="yellow" border-color="orange" :scale="scale.value"
     font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
     <WTGuiInputSetting
       label="Select this >"
