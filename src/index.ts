@@ -9,6 +9,7 @@ import type { App, Plugin } from 'vue'
 
 //  Menus - regestered in plugin
 import WtguiMenu from './components/WtguiMenu.vue'
+import WtguiMenuColumn from './components/WtguiMenuColumn.vue'
 import WtguiMenuRow from './components/WtguiMenuRow.vue'
 
 //  Items - called via import
@@ -22,6 +23,7 @@ export { default as WTGuiSelect } from './components/WTGuiSelect.vue'
 export const WTGui:Plugin = {
   install: (app:App) => {
     app.component('WtguiMenu', WtguiMenu)
+    app.component('WtguiMenuColumn', WtguiMenuColumn)
     app.component('WtguiMenuRow', WtguiMenuRow)
   }
 }
