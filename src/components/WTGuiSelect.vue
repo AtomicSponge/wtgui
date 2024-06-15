@@ -144,7 +144,7 @@ onMounted(() => {
 
   //  If default was set, set default index
   if(props.defaultIdx) idx.value = props.defaultIdx
-  emit('selected', `${props.values[idx.value]}`)
+  emit('selected', props.values[idx.value])
 
   //  Load audio if provided in props
   if(props.sound === undefined) return
