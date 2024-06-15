@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, inject } from 'vue'
 
-import WtguiMenu from '../components/WtguiMenu.vue'
 import WTGuiButton from '../components/WTGuiButton.vue'
 import WTGuiSelect from '../components/WTGuiSelect.vue'
 import WTGuiInputSetting from '../components/WTGuiInputSetting.vue'

@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { inject } from 'vue'
 
-import WtguiMenu from '../components/WtguiMenu.vue'
-import WtguiMenuRow from '../components/WtguiMenuRow.vue'
 import WTGuiButton from '../components/WTGuiButton.vue'
 
 const scale = <number>inject('scale')
