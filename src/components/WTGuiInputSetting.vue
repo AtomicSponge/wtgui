@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { inject, ref, computed, toRef, toValue, watch, onMounted } from 'vue'
+import { inject, ref, computed, toRef, toValue, watch, onMounted, onBeforeUnmount } from 'vue'
 import WTGuiMessageBox from './WTGuiMessageBox.vue'
 
 defineOptions({
@@ -105,6 +105,16 @@ onMounted(() => {
   //  Set the input listener
   inputField.value.addEventListener('click', doInput)
   inputField.value.addEventListener('keyup', doInput)
+})
+
+onBeforeUnmount(() => {
+  //  Remove all listeners
+  inputField.value.removeEventListener('focusin', focusIn)
+  inputField.value.removeEventListener('mouseenter', focusIn)
+  inputField.value.removeEventListener('focusout', focusOut)
+  inputField.value.removeEventListener('mouseleave', focusOut)
+  inputField.value.removeEventListener('click', doInput)
+  inputField.value.removeEventListener('keyup', doInput)
 })
 </script>
 

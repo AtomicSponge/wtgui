@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { inject, ref, computed, toRef, toValue, onMounted, onUpdated } from 'vue'
+import { inject, ref, computed, toRef, toValue, onMounted, onUpdated, onBeforeUnmount } from 'vue'
 
 defineOptions({
   inheritAttrs: false
@@ -94,9 +94,7 @@ const hideModal = ():void => {
 onMounted(() => {
   //  If no confirmation button, close on keypress
   if(props.showClose === false) {
-    hiddenBtn.value.addEventListener('keyup', () => {
-      hideModal()
-    })
+    hiddenBtn.value.addEventListener('keyup', hideModal)
   }
   //  Load audio if provided
   if(props.soundOpen !== undefined)
@@ -112,6 +110,11 @@ onUpdated(() => {
     if(props.showClose) confirmBtn.value.focus()
     else hiddenBtn.value.focus()
   }
+})
+
+onBeforeUnmount(() => {
+  //  Remove event listener
+  hiddenBtn.value.removeEventListener('keyup', hideModal)
 })
 </script>
 
