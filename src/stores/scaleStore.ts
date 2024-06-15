@@ -7,14 +7,9 @@
 
 import { defineStore } from 'pinia'
 
-interface State {
-  options:Array<number>
-  value:number
-}
-
 /** Store value for the Scale test */
 export const scaleStore = defineStore('scale', {
-  state: ():State => ({
+  state: () => ({
     options: [ 1, 2, 3, 4 ],
     value: 1
   }),
