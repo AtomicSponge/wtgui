@@ -97,7 +97,7 @@ const selectLeft = (event:any):void => {
   }
   if(props.sound !== undefined) audioFile.play()
   if(idx.value > 0) --idx.value
-  emit('selected', `${props.values[idx.value]}`)
+  emit('selected', props.values[idx.value])
 }
 
 /** Increase index on right select */
@@ -111,7 +111,7 @@ const selectRight = (event:any):void => {
   }
   if(props.sound !== undefined) audioFile.play()
   if(idx.value < props.values.length - 1) ++idx.value
-  emit('selected', `${props.values[idx.value]}`)
+  emit('selected', props.values[idx.value])
 }
 
 /** Set selection CSS on focus in */

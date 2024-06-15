@@ -7,8 +7,12 @@
 
 import { defineStore } from 'pinia'
 
+interface State {
+  value:string
+}
+
 /** Store value for the inputSetting test */
 export const inputStore = defineStore('input', {
-  state: () => ({ value: '?' }),
+  state: ():State => ({ value: '?' }),
   actions: { set (v:string) { this.value = v } }
 })

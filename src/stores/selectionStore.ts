@@ -7,9 +7,14 @@
 
 import { defineStore } from 'pinia'
 
+interface State {
+  options:Array<string>
+  value:string
+}
+
 /** Store value for the Selection test */
 export const selectionStore = defineStore('selection', {
-  state: () => ({
+  state: ():State => ({
     options: [ 'Hello World', 'testing', 'test' ],
     value: 'testing'
   }),
