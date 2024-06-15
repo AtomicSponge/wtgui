@@ -1,0 +1,16 @@
+/**
+ * @author Matthew Evans
+ * @module wtfsystems/wtgui
+ * @see README.md
+ * @copyright MIT see LICENSE.md
+ */
+
+import { defineStore } from 'pinia'
+
+export const selectionStore = defineStore('selection', {
+  state: () => ({
+    options: [ 'Hello World', 'testing', 'test' ],
+    value: ''
+  }),
+  actions: { set(value:string) { this.value = value } }
+})

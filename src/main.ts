@@ -14,6 +14,7 @@ import './style.styl'
 //import { WTGui } from '@wtfsystems/wtgui'
 import { WTGui } from './index.ts'
 
+//  Optional, but recommended
 const pinia = createPinia()
 
 createApp(App)

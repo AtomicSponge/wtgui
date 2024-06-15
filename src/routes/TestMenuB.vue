@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, inject } from 'vue'
 
+import { inputStore } from '../stores/inputStore'
+import { selectionStore } from '../stores/selectionStore'
+
 import WTGuiButton from '../components/WTGuiButton.vue'
 import WTGuiSelect from '../components/WTGuiSelect.vue'
 import WTGuiInputSetting from '../components/WTGuiInputSetting.vue'
@@ -8,12 +11,10 @@ import WTGuiMessageBox from '../components/WTGuiMessageBox.vue'
 
 const scale = <number>inject('scale')
 
-const inputValue = ref('?')
+const input = inputStore()
+const selection = selectionStore()
 
-const selectionValues = [ 'Hello World', 'testing', 'test' ]
-//const selectionValues = [ 1, 2, 3 ]
 const startSelect = 1
-const currentSelection = ref('')
 const showMessageBox = ref(false)
 
 </script>
@@ -25,13 +26,13 @@ const showMessageBox = ref(false)
       label="Select this >"
       sound-open="./src/assets/open.wav"
       sound-close="./src/assets/close.wav"
-      v-model="inputValue"/>
+      v-model="input.value"/>
     <WTGuiSelect
       label="Select me:"
       sound="./src/assets/click.wav"
-      :values="selectionValues"
+      :values="selection.options"
       :default-idx="startSelect"
-      @selected="(v:string) => currentSelection = v"/>
+      @selected="(v:string) => selection.set(v)"/>
     <WTGuiButton
       sound="./src/assets/click.wav"
       label="Click Me"
@@ -42,7 +43,7 @@ const showMessageBox = ref(false)
       goto="/"/>
     <!-- Hidden until `click me` button is selected -->
     <WTGuiMessageBox
-      :label="currentSelection"
+      :label="selection.value"
       :show-close="true"
       sound-open="./src/assets/open.wav"
       sound-close="./src/assets/close.wav"
