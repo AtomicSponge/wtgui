@@ -26,6 +26,8 @@ const props = defineProps({
   },
   /** CSS color for menu */
   color: { type: String, default: 'rgb(255, 0, 0)' },
+  /** CSS color for the title font */
+  titleColor: { type: String, default: 'rgb(255, 0, 0)' },
   /** CSS focus color for menu */
   focusColor: { type: String, default: 'rgb(100, 108, 255)' },
   /** Border thickness */
@@ -48,7 +50,12 @@ const menuStyle = computed(() => {
     `border: ${(props.borderSize * props.scale)}px ` +
     `solid ${props.borderColor};font-family: ${props.font};` +
     `border-radius: ${(32 * props.scale)}px;` +
-    `background-color: rgba(0, 0, 0, ${props.opaquency})`
+    `background-color: rgba(0, 0, 0, ${props.opaquency});`
+})
+
+/** Compute the CSS style for the title */
+const titleStyle = computed(() => {
+  return `color: ${props.titleColor};`
 })
 
 //  Compute scale so sub items can update
@@ -59,7 +66,7 @@ provide('focus-color', props.focusColor)
 
 <template>
   <section :style="menuStyle">
-    <h1>{{ title }}</h1>
+    <h1 :style="titleStyle">{{ title }}</h1>
     <slot></slot>
   </section>
 </template>

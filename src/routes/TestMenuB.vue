@@ -21,8 +21,8 @@ const showMessageBox = ref(false)
 </script>
 
 <template>
-  <wtgui-menu title="Test Menu B" color="yellow" border-color="orange" :scale="scale.value"
-    font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
+  <wtgui-menu title="Test Menu B" color="yellow" title-color="orange" border-color="orange"
+    :scale="scale.value" font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
     <WTGuiInputSetting
       label="Select this >"
       sound-open="./src/assets/open.wav"
