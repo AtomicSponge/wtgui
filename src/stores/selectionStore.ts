@@ -13,5 +13,5 @@ export const selectionStore = defineStore('selection', {
     options: [ 'Hello World', 'testing', 'test' ],
     value: ''
   }),
-  actions: { set(value:string) { this.value = value } }
+  actions: { set(v:string) { this.value = v } }
 })
