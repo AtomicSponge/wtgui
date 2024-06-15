@@ -7,6 +7,7 @@
 
 import { defineStore } from 'pinia'
 
+/** Store value for the Selection test */
 export const selectionStore = defineStore('selection', {
   state: () => ({
     options: [ 'Hello World', 'testing', 'test' ],
