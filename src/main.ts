@@ -11,9 +11,12 @@ import App from './App.vue'
 import router from './router.ts'
 import './style.styl'
 
+import { WTGui } from './index.ts'
+
 const pinia = createPinia()
 
 createApp(App)
+  .use(WTGui)
   .use(router)
   .use(pinia)
   .mount('#app')

@@ -16,7 +16,7 @@ export default defineConfig({
     outDir: './dist',
     minify: true,
     lib: {
-      entry: './src/components/index.ts',
+      entry: './src/index.ts',
       name: LIBRARY_NAME,
       fileName: (format:string) => `${LIBRARY_NAME}.${format}.js`
     },
