@@ -23,7 +23,7 @@ Don't use the `goto` and `action` properties at the same time!  There is no inte
 <WTGuiButton
   sound="./src/assets/click.wav"
   label="Main Menu"
-  goto="/"/>
+  goto="/someroute"/>  <!-- this is the Vue Router route! -->
 ```
 
 ## Action Example
