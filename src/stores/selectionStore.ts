@@ -11,7 +11,7 @@ import { defineStore } from 'pinia'
 export const selectionStore = defineStore('selection', {
   state: () => ({
     options: [ 'Hello World', 'testing', 'test' ],
-    value: ''
+    value: 'testing'
   }),
   actions: { set(v:string) { this.value = v } }
 })

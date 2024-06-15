@@ -14,7 +14,7 @@ const scale = <number>inject('scale')
 const input = inputStore()
 const selection = selectionStore()
 
-const startSelect = 1
+const startIdx = selection.options.indexOf(selection.value)
 const showMessageBox = ref(false)
 
 </script>
@@ -31,7 +31,7 @@ const showMessageBox = ref(false)
       label="Select me:"
       sound="./src/assets/click.wav"
       :values="selection.options"
-      :default-idx="startSelect"
+      :default-idx="startIdx"
       @selected="(v:string) => selection.set(v)"/>
     <WTGuiButton
       sound="./src/assets/click.wav"
