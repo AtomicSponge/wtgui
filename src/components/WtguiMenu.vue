@@ -25,13 +25,13 @@ const props = defineProps({
     }
   },
   /** CSS color for menu */
-  color: { type: String, default: 'red' },
+  color: { type: String, default: 'rgb(255, 0, 0)' },
   /** CSS focus color for menu */
-  focusColor: { type: String, default: '#646cff' },
+  focusColor: { type: String, default: 'rgb(100, 108, 255)' },
   /** Border thickness */
   borderSize: { type: Number, default: 8 },
   /** CSS color for the menu border */
-  borderColor: { type: String, default: 'red' },
+  borderColor: { type: String, default: 'rgb(255, 0, 0)' },
   /** Opaquency of the menu */
   opaquency: {
     type: Number,
