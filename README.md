@@ -21,5 +21,11 @@ This requires the [Vue Router](https://router.vuejs.org/) to be installed and co
 
 -----
 
-## Usage
-See example in source: <https://github.com/wtfsystems/wtgui>
+## Demo
+
+```
+git clone https://github.com/wtfsystems/wtgui.git
+cd wtgui
+npm ci
+npm run dev
+```
