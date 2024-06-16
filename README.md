@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/wtfsystems/wtgui/blob/master/public/wtgui_logo.png"/>
+<img src="./public/wtgui_logo.png"/>
 </p>
 <h3 align="center">Experimental menu system using Vue3</h3>
 
