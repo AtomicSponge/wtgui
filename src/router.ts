@@ -18,7 +18,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  //  Don't need navigation so using memory
+  //  Don't need navigation so using memory history
   history: createMemoryHistory(),
   routes
 })
