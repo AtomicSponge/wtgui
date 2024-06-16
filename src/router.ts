@@ -5,7 +5,7 @@
  * @copyright MIT see LICENSE.md
  */
 
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createMemoryHistory } from 'vue-router'
 
 const MainMenu = () => import('./routes/MainMenu.vue')
 const TestMenuA = () => import('./routes/TestMenuA.vue')
@@ -18,7 +18,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createMemoryHistory(),
   routes
 })
 
