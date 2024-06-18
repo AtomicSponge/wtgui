@@ -64,8 +64,7 @@ provide('color', props.color)
 provide('focus-color', props.focusColor)
 
 const menu = ref()
-const menuItems = ref()
-const currentItem = ref()
+let menuItems:Array<Element> = []
 
 /**
  * Navigate up or down in the menu
@@ -86,8 +85,12 @@ const navigateMenu = (event:any):void => {
 
 onMounted(() => {
   window.addEventListener('keyup', navigateMenu)
-  var focusable = document.querySelectorAll('button, select, h2 [tabindex]:not([tabindex="-1"])')
-  console.log(focusable)
+
+  let focusable = menu.value.querySelectorAll(`[tabindex]:not([tabindex='-1'])`)
+  focusable.forEach((item:Element) => {
+    if(item.checkVisibility()) menuItems.push(item)
+  })
+  console.log(menuItems)
 })
 
 onBeforeUnmount(() => {
