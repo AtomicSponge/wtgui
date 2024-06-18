@@ -80,7 +80,7 @@ section
   flex-flow column nowrap
   place-items center
 h1
-  font-size 3.0em
+  font-size 2.6em
   margin-top 0.2em
   margin-bottom 0.2em
 </style>
