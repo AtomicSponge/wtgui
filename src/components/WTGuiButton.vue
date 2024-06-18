@@ -123,7 +123,7 @@ onMounted(() => {
 button
   padding 0.6em 1.2em
   margin 0.3em 0.6em
-  font-size 1.4em
+  font-size 1.2em
   font-weight 800
   font-family inherit
   color inherit

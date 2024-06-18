@@ -21,7 +21,7 @@ defineProps<{
 
 <style lang="stylus" scoped>
 h2
-  font-size 1.6em
+  font-size 1.4em
   line-height 0.2
   padding-left 0.6em
   padding-right 0.6em

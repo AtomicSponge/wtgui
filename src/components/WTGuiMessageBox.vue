@@ -153,13 +153,13 @@ onBeforeUnmount(() => {
   display table-cell
   vertical-align middle
 h2
-  font-size 1.6em
+  font-size 1.4em
   margin-top 0.2em
   margin-bottom 0.2em
 button
   padding 0.2em 0.6em
   margin 0.6em
-  font-size 1.6em
+  font-size 1.4em
   font-weight 800
   font-family inherit
   background-color rgba(0, 0, 0, 0)

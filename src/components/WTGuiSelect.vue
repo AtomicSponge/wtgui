@@ -200,7 +200,7 @@ div
   flex-flow row nowrap
   place-items center
 h2
-  font-size 1.6em
+  font-size 1.4em
   margin 0.3em 0.2em
 h2:focus,
 h2:focus-visible
@@ -208,7 +208,7 @@ h2:focus-visible
 button
   padding 0.2em 0.6em
   margin 0.3em 0.6em
-  font-size 1.6em
+  font-size 1.4em
   font-weight 800
   font-family inherit
   background-color inherit
