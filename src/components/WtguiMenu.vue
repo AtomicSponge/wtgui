@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { computed, provide } from 'vue'
+import { computed, provide, onMounted, onBeforeUnmount } from 'vue'
 
 defineOptions({
   inheritAttrs: false
@@ -62,6 +62,27 @@ const titleStyle = computed(() => {
 provide('scale', computed(() => { return props.scale }))
 provide('color', props.color)
 provide('focus-color', props.focusColor)
+
+const navigateMenu = (event:any):void => {
+  switch(event.key) {
+    case 'w':
+    case 'ArrowUp':
+      console.log('nav up')
+      break
+    case 's':
+    case 'ArrowDown':
+      console.log('nav down')
+      break
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keyup', navigateMenu)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keyup', navigateMenu)
+})
 </script>
 
 <template>
