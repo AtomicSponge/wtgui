@@ -107,8 +107,10 @@ onUpdated(() => {
   //  Play audio and give focus
   if(toValue(visible) === true) {
     if(props.soundOpen !== undefined) audioFileOpen.play()
-    if(props.showClose) confirmBtn.value.focus()
-    else hiddenBtn.value.focus()
+    setTimeout(() => {
+      if(props.showClose) confirmBtn.value.focus()
+      else hiddenBtn.value.focus()
+    }, zoomTime)
   }
 })
 

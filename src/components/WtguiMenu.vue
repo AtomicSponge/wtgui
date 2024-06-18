@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed, provide, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, provide, onMounted, onUpdated, onBeforeUnmount } from 'vue'
 
 defineOptions({
   inheritAttrs: false
@@ -103,6 +103,10 @@ onMounted(() => {
     if(item.checkVisibility()) menuItems.push(item)
   })
   //  Focus first menu item
+  document.getElementById(menuItems[menuIdx].id)?.focus()
+})
+
+onUpdated(() => {
   document.getElementById(menuItems[menuIdx].id)?.focus()
 })
 
