@@ -77,7 +77,9 @@ const doInput = (event:any):void => {
   if(event.key === " " || event.key === "Enter" || event.type === 'click') {
     showInputMessageBox.value = true
     //  Set a listener for capturing a new value
-    window.addEventListener('keydown', captureKey)
+    setTimeout(() => {
+      window.addEventListener('keydown', captureKey)
+    }, zoomTime)
   }
 }
 
@@ -110,7 +112,7 @@ onMounted(() => {
   inputField.value.addEventListener('mouseleave', focusOut)
   //  Set the input listener
   inputField.value.addEventListener('click', doInput)
-  inputField.value.addEventListener('keyup', doInput)
+  inputField.value.addEventListener('keydown', doInput)
 })
 
 onBeforeUnmount(() => {
@@ -120,7 +122,7 @@ onBeforeUnmount(() => {
   inputField.value.removeEventListener('focusout', focusOut)
   inputField.value.removeEventListener('mouseleave', focusOut)
   inputField.value.removeEventListener('click', doInput)
-  inputField.value.removeEventListener('keyup', doInput)
+  inputField.value.removeEventListener('keydown', doInput)
 })
 </script>
 
