@@ -77,11 +77,13 @@ const navigateMenu = (event:any):void => {
     case 'ArrowUp':
       if(menuIdx > 0) --menuIdx
       document.getElementById(menuItems[menuIdx].id)?.focus()
+      console.log(document.getElementById(menuItems[menuIdx].id))
       break
     case 's':
     case 'ArrowDown':
       if(menuIdx < menuItems.length - 1) ++menuIdx
       document.getElementById(menuItems[menuIdx].id)?.focus()
+      console.log(document.getElementById(menuItems[menuIdx].id))
       break
   }
 }

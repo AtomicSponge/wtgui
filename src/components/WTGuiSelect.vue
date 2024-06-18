@@ -6,6 +6,7 @@
 
 <script setup lang="ts">
 import { inject, ref, computed, toRef, toValue, watch, onMounted, onBeforeUnmount } from 'vue'
+import { generateId } from '../lib/generateId'
 
 defineOptions({
   inheritAttrs: false
@@ -26,6 +27,8 @@ const emit = defineEmits<{
   /** Emit selected value from the props array */
   (e: 'selected', value:any):void
 }>()
+
+const selectId = generateId()
 
 /** Selected index */
 const idx = ref(0)
@@ -89,7 +92,7 @@ const makeInactive = (event:any):void => {
 /** Decrease index on left select */
 const selectLeft = (event:any):void => {
   //  If the event was fired from the selection, animate button
-  if(event.currentTarget.id === 'selection') {
+  if(event.currentTarget.id === selectId) {
     activeStyleLeft.value = toValue(buttonFocusStyle)
     setTimeout(() => {
       activeStyleLeft.value = toValue(buttonStyle)
@@ -103,7 +106,7 @@ const selectLeft = (event:any):void => {
 /** Increase index on right select */
 const selectRight = (event:any):void => {
   //  If the event was fired from the selection, animate button
-  if(event.currentTarget.id === 'selection') {
+  if(event.currentTarget.id === selectId) {
     activeStyleRight.value = toValue(buttonFocusStyle)
     setTimeout(() => {
       activeStyleRight.value = toValue(buttonStyle)
@@ -172,7 +175,7 @@ onBeforeUnmount(() => {
       &#8592;
     </button>
     <h2
-      id="selection"
+      :id="selectId"
       ref="selectFocus"
       :style="selectStyle"
       tabindex="0"

@@ -7,6 +7,7 @@
 <script setup lang="ts">
 import { inject, ref, computed, toRef, toValue, watch, onMounted, onBeforeUnmount } from 'vue'
 import WTGuiMessageBox from './WTGuiMessageBox.vue'
+import { generateId } from '../lib/generateId'
 
 defineOptions({
   inheritAttrs: false
@@ -27,6 +28,8 @@ const scale = toRef(<number>inject('scale'))
 const color = <string>inject('color')
 /** Get focus color from the menu props */
 const focusColor = <string>inject('focus-color')
+
+const inputId = generateId()
 
 /** Durration of the zoom animation */
 const zoomTime:MsgBoxZoomTime = 300
@@ -125,6 +128,7 @@ onBeforeUnmount(() => {
     <h2>{{ props.label }}</h2>
     <div
       ref="inputField"
+      :id="inputId"
       class="input"
       :style="currentStyle"
       tabindex="0">
