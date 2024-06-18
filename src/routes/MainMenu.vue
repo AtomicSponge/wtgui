@@ -9,16 +9,14 @@ const scale = scaleStore()
 <template>
   <wtgui-menu title="Main Menu" color="green" title-color="aqua" border-color="orange"
     :scale="scale.value" font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
-    <wtgui-menu-row>
-      <WTGuiButton
-        sound="./src/assets/click.wav"
-        label="Test Menu A"
-        goto="/testa"/>
-      <WTGuiButton
-        sound="./src/assets/click.wav"
-        label="Test Menu B"
-        goto="/testb"/>
-    </wtgui-menu-row>
+    <WTGuiButton
+      sound="./src/assets/click.wav"
+      label="Test Menu A"
+      goto="/testa"/>
+    <WTGuiButton
+      sound="./src/assets/click.wav"
+      label="Test Menu B"
+      goto="/testb"/>
   </wtgui-menu>
 </template>
 
