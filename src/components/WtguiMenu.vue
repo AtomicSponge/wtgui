@@ -65,6 +65,7 @@ provide('focus-color', props.focusColor)
 
 const menu = ref()
 let menuItems:Array<Element> = []
+let menuIdx = 0
 
 /**
  * Navigate up or down in the menu
@@ -74,11 +75,13 @@ const navigateMenu = (event:any):void => {
   switch(event.key) {
     case 'w':
     case 'ArrowUp':
-      console.log('nav up')
+      if(menuIdx > 0) --menuIdx
+      document.getElementById(menuItems[menuIdx].id)?.focus()
       break
     case 's':
     case 'ArrowDown':
-      console.log('nav down')
+      if(menuIdx < menuItems.length - 1) ++menuIdx
+      document.getElementById(menuItems[menuIdx].id)?.focus()
       break
   }
 }
@@ -90,7 +93,7 @@ onMounted(() => {
   focusable.forEach((item:Element) => {
     if(item.checkVisibility()) menuItems.push(item)
   })
-  console.log(menuItems[0].id)
+  document.getElementById(menuItems[menuIdx].id)?.focus()
 })
 
 onBeforeUnmount(() => {
