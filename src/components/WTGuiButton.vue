@@ -7,6 +7,7 @@
 <script setup lang="ts">
 import { inject, ref, computed, toRef, toValue, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { generateId } from '../lib/generateId'
 import { WTGuiError } from '../lib/WTGuiError'
 
 defineOptions({
@@ -32,6 +33,8 @@ const scale = toRef(<number>inject('scale'))
 const color = <string>inject('color')
 /** Get focus color from the menu props */
 const focusColor = <string>inject('focus-color')
+
+const buttonId = generateId()
 
 /** Audio file if provided from props */
 let audioFile:HTMLAudioElement
@@ -95,6 +98,7 @@ onMounted(() => {
   <div v-show="props.goto !== undefined">
     <button
       :style="currentStyle"
+      :id="buttonId"
       tabindex="0"
       @focusin="makeActive"
       @focusout="makeInactive"
@@ -109,6 +113,7 @@ onMounted(() => {
   <div v-show="props.action !== undefined">
     <button
       :style="currentStyle"
+      :id="buttonId"
       tabindex="0"
       @focusin="makeActive"
       @focusout="makeInactive"

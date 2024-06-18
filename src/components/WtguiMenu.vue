@@ -90,7 +90,7 @@ onMounted(() => {
   focusable.forEach((item:Element) => {
     if(item.checkVisibility()) menuItems.push(item)
   })
-  console.log(menuItems)
+  console.log(menuItems[0].id)
 })
 
 onBeforeUnmount(() => {
