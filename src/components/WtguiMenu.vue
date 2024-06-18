@@ -75,6 +75,7 @@ let menuIdx = 0
  * @param event Input event
  */
 const navigateMenu = (event:any):void => {
+  //  Prevent tab navigation
   if(event.key.toLowerCase() === 'tab') {
     event.preventDefault()
     return
