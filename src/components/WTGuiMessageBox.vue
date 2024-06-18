@@ -94,7 +94,7 @@ const hideModal = ():void => {
 onMounted(() => {
   //  If no confirmation button, close on keypress
   if(props.showClose === false) {
-    hiddenBtn.value.addEventListener('keyup', hideModal)
+    hiddenBtn.value.addEventListener('keydown', hideModal)
   }
   //  Load audio if provided
   if(props.soundOpen !== undefined)
@@ -114,7 +114,7 @@ onUpdated(() => {
 
 onBeforeUnmount(() => {
   //  Remove event listener
-  hiddenBtn.value.removeEventListener('keyup', hideModal)
+  hiddenBtn.value.removeEventListener('keydown', hideModal)
 })
 </script>
 
