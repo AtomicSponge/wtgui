@@ -75,14 +75,18 @@ let menuIdx = 0
  * @param event Input event
  */
 const navigateMenu = (event:any):void => {
-  switch(event.key) {
+  if(event.key.toLowerCase() === 'tab') {
+    event.preventDefault()
+    return
+  }
+  switch(event.key.toLowerCase()) {
     case 'w':
-    case 'ArrowUp':
+    case 'arrowup':
       if(menuIdx > 0) --menuIdx
       document.getElementById(menuItems[menuIdx].id)?.focus()
       break
     case 's':
-    case 'ArrowDown':
+    case 'arrowdown':
       if(menuIdx < menuItems.length - 1) ++menuIdx
       document.getElementById(menuItems[menuIdx].id)?.focus()
       break
@@ -99,7 +103,7 @@ const stopTab = (event:any):void => {
 }
 
 onMounted(() => {
-  window.addEventListener('keyup', navigateMenu)
+  window.addEventListener('keydown', navigateMenu)
   window.addEventListener('keydown', stopTab)
 
   //  Get the menu items
@@ -112,7 +116,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener('keyup', navigateMenu)
+  window.removeEventListener('keydown', navigateMenu)
   window.removeEventListener('keydown', stopTab)
 })
 </script>
