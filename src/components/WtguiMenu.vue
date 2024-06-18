@@ -5,7 +5,7 @@
 -->
 
 <script setup lang="ts">
-import { computed, provide, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, provide, onMounted, onBeforeUnmount } from 'vue'
 
 defineOptions({
   inheritAttrs: false
@@ -63,6 +63,14 @@ provide('scale', computed(() => { return props.scale }))
 provide('color', props.color)
 provide('focus-color', props.focusColor)
 
+const menu = ref()
+const menuItems = ref()
+const currentItem = ref()
+
+/**
+ * Navigate up or down in the menu
+ * @param event Input event
+ */
 const navigateMenu = (event:any):void => {
   switch(event.key) {
     case 'w':
@@ -78,6 +86,8 @@ const navigateMenu = (event:any):void => {
 
 onMounted(() => {
   window.addEventListener('keyup', navigateMenu)
+  var focusable = document.querySelectorAll('button, select, h2 [tabindex]:not([tabindex="-1"])')
+  console.log(focusable)
 })
 
 onBeforeUnmount(() => {
@@ -86,7 +96,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section :style="menuStyle">
+  <section ref="menu" :style="menuStyle">
     <h1 :style="titleStyle">{{ title }}</h1>
     <slot></slot>
   </section>
