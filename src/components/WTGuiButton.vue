@@ -95,6 +95,7 @@ onMounted(() => {
   <div v-show="props.goto !== undefined">
     <button
       :style="currentStyle"
+      tabindex="0"
       @focusin="makeActive"
       @focusout="makeInactive"
       @mouseenter="makeActive"
@@ -108,6 +109,7 @@ onMounted(() => {
   <div v-show="props.action !== undefined">
     <button
       :style="currentStyle"
+      tabindex="0"
       @focusin="makeActive"
       @focusout="makeInactive"
       @mouseenter="makeActive"
