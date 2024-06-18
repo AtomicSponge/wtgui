@@ -34,6 +34,7 @@ const color = <string>inject('color')
 /** Get focus color from the menu props */
 const focusColor = <string>inject('focus-color')
 
+/** Generated ID for the button */
 const buttonId = generateId()
 
 /** Audio file if provided from props */

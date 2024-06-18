@@ -28,6 +28,7 @@ const emit = defineEmits<{
   (e: 'selected', value:any):void
 }>()
 
+/** Generated ID for the selection */
 const selectId = generateId()
 
 /** Selected index */

@@ -63,8 +63,11 @@ provide('scale', computed(() => { return props.scale }))
 provide('color', props.color)
 provide('focus-color', props.focusColor)
 
+/** Reference to the menu */
 const menu = ref()
+/** Generated list of menu items */
 let menuItems:Array<Element> = []
+/** Current menu item */
 let menuIdx = 0
 
 /**
@@ -77,13 +80,11 @@ const navigateMenu = (event:any):void => {
     case 'ArrowUp':
       if(menuIdx > 0) --menuIdx
       document.getElementById(menuItems[menuIdx].id)?.focus()
-      console.log(document.getElementById(menuItems[menuIdx].id))
       break
     case 's':
     case 'ArrowDown':
       if(menuIdx < menuItems.length - 1) ++menuIdx
       document.getElementById(menuItems[menuIdx].id)?.focus()
-      console.log(document.getElementById(menuItems[menuIdx].id))
       break
   }
 }
@@ -91,10 +92,12 @@ const navigateMenu = (event:any):void => {
 onMounted(() => {
   window.addEventListener('keyup', navigateMenu)
 
+  //  Get the menu items
   let focusable = menu.value.querySelectorAll(`[tabindex]:not([tabindex='-1'])`)
   focusable.forEach((item:Element) => {
     if(item.checkVisibility()) menuItems.push(item)
   })
+  //  Focus first menu item
   document.getElementById(menuItems[menuIdx].id)?.focus()
 })
 

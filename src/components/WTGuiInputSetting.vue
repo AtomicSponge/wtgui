@@ -29,6 +29,7 @@ const color = <string>inject('color')
 /** Get focus color from the menu props */
 const focusColor = <string>inject('focus-color')
 
+/** Generated ID for the input field */
 const inputId = generateId()
 
 /** Durration of the zoom animation */
