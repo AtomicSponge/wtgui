@@ -93,18 +93,8 @@ const navigateMenu = (event:any):void => {
   }
 }
 
-/**
- * Prevent tab navigation
- * @param event Input event
- */
-const stopTab = (event:any):void => {
-  if(event.key.toLowerCase() !== 'tab') return
-  event.preventDefault()
-}
-
 onMounted(() => {
   window.addEventListener('keydown', navigateMenu)
-  window.addEventListener('keydown', stopTab)
 
   //  Get the menu items
   let focusable = menu.value.querySelectorAll(`[tabindex]:not([tabindex='-1'])`)
@@ -117,7 +107,6 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', navigateMenu)
-  window.removeEventListener('keydown', stopTab)
 })
 </script>
 
