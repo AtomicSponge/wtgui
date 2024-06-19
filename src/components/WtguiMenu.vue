@@ -99,7 +99,6 @@ const navigateMenu = (event:any):void => {
  * @param event Mouse enter event
  */
 const mouseFocus = (event:any):void => {
-  console.log(event.target)
   event.preventDefault()
   menuItems.forEach((item:Element, idx:number) => {
     if(event.target.id === item.id) menuIdx = idx
