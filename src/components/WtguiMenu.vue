@@ -94,13 +94,25 @@ const navigateMenu = (event:any):void => {
   }
 }
 
+/**
+ * Give item focus on mouse over
+ * @param event Mouse enter event
+ */
+const mouseFocus = (event:any):void => {
+  event.preventDefault()
+  event.target.focus()
+}
+
 onMounted(() => {
   window.addEventListener('keydown', navigateMenu)
 
   //  Get the menu items
   let focusable = menu.value.querySelectorAll(`[tabindex]:not([tabindex='-1'])`)
   focusable.forEach((item:Element) => {
-    if(item.checkVisibility()) menuItems.push(item)
+    if(item.checkVisibility()){
+      menuItems.push(item)
+      item.addEventListener('mouseenter', mouseFocus)
+    }
   })
   //  Focus first menu item
   document.getElementById(menuItems[menuIdx].id)?.focus()
@@ -112,6 +124,9 @@ onUpdated(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', navigateMenu)
+  menuItems.forEach((item:Element) => {
+    item.removeEventListener('mouseenter', mouseFocus)
+  })
 })
 </script>
 
