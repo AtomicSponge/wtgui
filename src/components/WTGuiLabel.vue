@@ -19,7 +19,7 @@ const props = defineProps<{
 }>()
 
 const labelStyle = computed(() => {
-  return `color: ${props.fontColor || 'inherit'}`
+  return `color: ${props.fontColor || 'inherit'};`
 })
 
 </script>
