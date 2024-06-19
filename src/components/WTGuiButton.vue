@@ -8,7 +8,6 @@
 import { inject, ref, computed, toRef, toValue, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { generateId } from '../lib/generateId'
-import { WTGuiError } from '../lib/WTGuiError'
 
 defineOptions({
   inheritAttrs: false
@@ -83,10 +82,10 @@ watch(scale, () => {
 })
 
 onMounted(() => {
-  //  Throw error if both goto and action props are defined
+  //  Warn if both goto and action props are defined
   if(props.goto && props.action)
-    throw new WTGuiError(`Only define either 'action' OR 'goto' properties!`, onMounted)
-  
+    console.warn(`Only define either 'action' OR 'goto' properties!`)
+
   //  On mount, load audio if provided
   if(props.sound === undefined) return
   audioFile = new Audio(props.sound)
