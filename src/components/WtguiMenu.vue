@@ -76,19 +76,19 @@ let menuIdx = 0
  */
 const navigateMenu = (event:any):void => {
   //  Prevent tab navigation
-  if(event.key.toLowerCase() === 'tab') {
+  if (event.key.toLowerCase() === 'tab') {
     event.preventDefault()
     return
   }
-  switch(event.key.toLowerCase()) {
+  switch (event.key.toLowerCase()) {
     case 'w':
     case 'arrowup':
-      if(menuIdx > 0) --menuIdx
+      if (menuIdx > 0) --menuIdx
       document.getElementById(menuItems[menuIdx].id)?.focus()
       break
     case 's':
     case 'arrowdown':
-      if(menuIdx < menuItems.length - 1) ++menuIdx
+      if (menuIdx < menuItems.length - 1) ++menuIdx
       document.getElementById(menuItems[menuIdx].id)?.focus()
       break
   }
@@ -99,7 +99,11 @@ const navigateMenu = (event:any):void => {
  * @param event Mouse enter event
  */
 const mouseFocus = (event:any):void => {
+  console.log(event)
   event.preventDefault()
+  //menuItems.forEach((item:Element) => {
+    //
+  //})
   event.target.focus()
 }
 
@@ -109,7 +113,7 @@ onMounted(() => {
   //  Get the menu items
   const focusable = menu.value.querySelectorAll(`[tabindex]:not([tabindex='-1'])`)
   focusable.forEach((item:Element) => {
-    if(item.checkVisibility()){
+    if (item.checkVisibility()) {
       menuItems.push(item)
       item.addEventListener('mouseenter', mouseFocus)
     }
