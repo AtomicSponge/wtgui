@@ -5,18 +5,27 @@
 -->
 
 <script setup lang="ts">
+import { inject, ref, computed, toRef, toValue, watch, onMounted, onBeforeUnmount } from 'vue'
+
 defineOptions({
   inheritAttrs: false
 })
 
-defineProps<{
+const props = defineProps<{
   /** Display label */
   label:string
+  /** Font color */
+  fontColor?:string
 }>()
+
+const labelStyle = computed(() => {
+  return `color: ${props.fontColor || 'inherit'}`
+})
+
 </script>
 
 <template>
-  <div><h2>{{ label }}</h2></div>
+  <div><h2 :style="labelStyle">{{ label }}</h2></div>
 </template>
 
 <style lang="stylus" scoped>
