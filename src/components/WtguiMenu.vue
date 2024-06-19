@@ -80,6 +80,15 @@ const navigateMenu = (event:any):void => {
     event.preventDefault()
     return
   }
+
+  //  Check if any items in the list are focused
+  let focusCheck = false
+  menuItems.forEach((item:Element) => {
+    if(item === document.activeElement) focusCheck = true
+  })
+  //  Quit if not (prevents pop-up focus loss)
+  if(!focusCheck) return
+
   switch (event.key.toLowerCase()) {
     case 'w':
     case 'arrowup':
