@@ -107,7 +107,7 @@ onMounted(() => {
   window.addEventListener('keydown', navigateMenu)
 
   //  Get the menu items
-  let focusable = menu.value.querySelectorAll(`[tabindex]:not([tabindex='-1'])`)
+  const focusable = menu.value.querySelectorAll(`[tabindex]:not([tabindex='-1'])`)
   focusable.forEach((item:Element) => {
     if(item.checkVisibility()){
       menuItems.push(item)
