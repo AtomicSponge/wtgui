@@ -5,18 +5,6 @@
  * @copyright MIT see LICENSE.md
  */
 
-interface GamepadAPI {
-  controller:Gamepad | undefined
-  buttons:Array<string>
-  buttonsCache:Array<string>
-  buttonsStatus:Array<string>
-  axesStatus:Array<string>
-  connect:(event:any)=>void
-  disconnect:()=>void
-  update:()=>Array<string> | undefined
-  buttonPressed:()=>void
-}
-
 export const gamepadAPI:GamepadAPI = {
   controller: undefined,
   buttons: [],
