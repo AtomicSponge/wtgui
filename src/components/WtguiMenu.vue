@@ -115,8 +115,19 @@ const mouseFocus = (event:any):void => {
   event.target.focus()
 }
 
+const connectGamePad = (event:any):void => {
+  console.log(
+    "Gamepad connected at index %d: %s. %d buttons, %d axes.",
+    event.gamepad.index,
+    event.gamepad.id,
+    event.gamepad.buttons.length,
+    event.gamepad.axes.length,
+  )
+}
+
 onMounted(() => {
   window.addEventListener('keydown', navigateMenu)
+  window.addEventListener('gamepadconnected', connectGamePad)
 
   //  Get the menu items
   const focusable = menu.value.querySelectorAll(`[tabindex]:not([tabindex='-1'])`)
@@ -136,6 +147,7 @@ onUpdated(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', navigateMenu)
+  window.removeEventListener('gamepadconnected', connectGamePad)
   menuItems.forEach((item:Element) => {
     item.removeEventListener('mouseenter', mouseFocus)
   })
