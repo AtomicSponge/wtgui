@@ -11,11 +11,17 @@ defineOptions({
   inheritAttrs: false
 })
 
+/** Game title from options */
 const gameTitle = <string>inject('gameTitle')
+/** Font style from options */
 const fontStyle = <string>inject('fontStyle')
+/** Title color from options */
 const titleColor = <string>inject('titleColor')
+/** Border color from options */
 const borderColor = <string>inject('borderColor')
+/** Item color from options */
 const itemColor = <string>inject('itemColor')
+/** Focus color from options */
 const focusColor = <string>inject('focusColor')
 
 const props = defineProps({
