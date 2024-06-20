@@ -24,7 +24,7 @@ const currentScale = ref(scale.value)
       :default-idx="scaleIdx"
       @selected="(v:number) => currentScale = v"/>
     <WTGuiButton label="Apply" :action="() => { scale.set(currentScale) }"/>
-    <WTGuiButton label="Main Menu" goto="/"/>
+    <WTGuiButton label="Main Menu" goto="/main"/>
   </wtgui-menu>
 </template>
 

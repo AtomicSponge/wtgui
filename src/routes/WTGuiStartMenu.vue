@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, provide, onMounted, onUpdated, onBeforeUnmount } from 'vue'
+//import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import WtguiMenu from '../components/WtguiMenu.vue'
 import WTGuiLabel from '../components/WTGuiLabel.vue'

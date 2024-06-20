@@ -41,7 +41,7 @@ const showMessageBox = ref(false)
     <WTGuiButton
       sound="./src/assets/click.wav"
       label="Main Menu"
-      goto="/"/>
+      goto="/main"/>
     <!-- Hidden until `click me` button is selected -->
     <WTGuiMessageBox
       :label="selection.value"

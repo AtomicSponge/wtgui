@@ -6,14 +6,15 @@
  */
 
 import { createRouter, createMemoryHistory } from 'vue-router'
+//import { WTGuiStartMenu } from '@wtfsystems/wtgui'
+import WTGuiStartMenu from './routes/WTGuiStartMenu.vue'
 
-const StartMenu = () => import('./routes/WTGuiStartMenu.vue')
 const MainMenu = () => import('./routes/MainMenu.vue')
 const TestMenuA = () => import('./routes/TestMenuA.vue')
 const TestMenuB = () => import('./routes/TestMenuB.vue')
 
 const routes = [
-  { path: '/', component: StartMenu },
+  { path: '/', component: WTGuiStartMenu },
   { path: '/main', component: MainMenu },
   { path: '/testa', component: TestMenuA },
   { path: '/testb', component: TestMenuB }
