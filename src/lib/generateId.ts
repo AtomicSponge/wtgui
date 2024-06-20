@@ -1,4 +1,11 @@
 /**
+ * @author Matthew Evans
+ * @module wtfsystems/wtgui
+ * @see README.md
+ * @copyright MIT see LICENSE.md
+ */
+
+/**
  * Creates a random number for use in Ids
  * @returns A random number as a string
  */
