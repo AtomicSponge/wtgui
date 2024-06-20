@@ -10,6 +10,7 @@ const router = useRouter()
 const delay:MainMenuDelay = 300
 
 const goToMainButton = (event:any) => {
+  console.log(event)
   gamepadAPI.connect(event)
   setTimeout(() => {
     router.push('/main')
