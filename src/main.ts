@@ -23,8 +23,7 @@ createApp(App)
     fontStyle: 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
     titleColor: 'aqua',
     borderColor: 'orange',
-    itemColor: 'rgb(0, 255, 0)',
-    focusColor: 'rgb(100, 108, 255)'
+    itemColor: 'rgb(0, 255, 0)'
   })
   .use(router)
   .use(pinia)
