@@ -7,8 +7,7 @@ const scale = scaleStore()
 </script>
 
 <template>
-  <wtgui-menu title="Main Menu" color="green" title-color="aqua" border-color="orange"
-    :scale="scale.value" font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
+  <wtgui-menu title="Main Menu" :scale="scale.value">
     <WTGuiButton
       sound="./src/assets/click.wav"
       label="Test Menu A"
