@@ -72,6 +72,7 @@ const titleStyle = computed(() => {
   return `color: ${props.titleColor || titleColor};`
 })
 
+//  Provides to sub-items
 //  Compute scale so sub items can update
 provide('scale', computed(() => { return props.scale }))
 provide('color', props.color || itemColor)
