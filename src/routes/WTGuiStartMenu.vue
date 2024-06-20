@@ -7,7 +7,7 @@ import { gamepadAPI } from '../lib/gamepadApi'
 
 const router = useRouter()
 
-const delay:MainMenuDelay = 300
+const delay:MenuDelay = 300
 
 const goToMainButton = (event:any) => {
   console.log(event)
