@@ -20,15 +20,6 @@ export { default as WTGuiLabel } from './components/WTGuiLabel.vue'
 export { default as WTGuiMessageBox } from './components/WTGuiMessageBox.vue'
 export { default as WTGuiSelect } from './components/WTGuiSelect.vue'
 
-export interface WTGuiOptions {
-  gameTitle:string
-  fontStyle?:string
-  titleColor?:string
-  borderColor?:string
-  itemColor?:string
-  focusColor?:string
-}
-
 //  Export plugin
 export const WTGui:Plugin = {
   install: (app:App, options:WTGuiOptions) => {
