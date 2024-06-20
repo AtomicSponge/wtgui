@@ -1,6 +1,6 @@
 <script setup lang="ts">
 //import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { onMounted, onBeforeUnmount } from 'vue'
+import { inject, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import WtguiMenu from '../components/WtguiMenu.vue'
 import WTGuiLabel from '../components/WTGuiLabel.vue'
@@ -36,11 +36,11 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <wtgui-menu title="Game Title" color="green" title-color="aqua" border-color="orange"
+  <wtgui-menu color="green" title-color="aqua" border-color="orange"
   :scale="2" font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
     <WTGuiLabel
       label="Press a key or button"
-      font-color="pink"/>
+      font-color="green"/>
   </wtgui-menu>
 </template>
 

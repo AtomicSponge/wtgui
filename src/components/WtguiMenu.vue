@@ -5,17 +5,24 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed, provide, onMounted, onUpdated, onBeforeUnmount } from 'vue'
+import { ref, computed, provide, inject, onMounted, onUpdated, onBeforeUnmount } from 'vue'
 
 defineOptions({
   inheritAttrs: false
 })
 
+const gameTitle = <string>inject('gameTitle')
+const fontStyle = <string>inject('fontStyle')
+const titleColor = <string>inject('titleColor')
+const borderColor = <string>inject('borderColor')
+const itemColor = <string>inject('itemColor')
+const focusColor = <string>inject('focusColor')
+
 const props = defineProps({
   /** Title display for menu */
-  title: { type: String, required: true },
+  title: { type: String, default: undefined },
   /** CSS Font type for menu */
-  font:  { type: String, required: true },
+  font:  { type: String, default: undefined },
   /** Scale factor for menu */
   scale: {
     type: Number,
@@ -25,15 +32,15 @@ const props = defineProps({
     }
   },
   /** CSS color for menu */
-  color: { type: String, default: 'rgb(255, 0, 0)' },
+  color: { type: String, default: undefined },
   /** CSS color for the title font */
-  titleColor: { type: String, default: 'rgb(255, 0, 0)' },
+  titleColor: { type: String, default: undefined },
   /** CSS focus color for menu */
-  focusColor: { type: String, default: 'rgb(100, 108, 255)' },
+  focusColor: { type: String, default: undefined },
   /** Border thickness */
   borderSize: { type: Number, default: 8 },
   /** CSS color for the menu border */
-  borderColor: { type: String, default: 'rgb(255, 0, 0)' },
+  borderColor: { type: String, default: undefined },
   /** Opaquency of the menu */
   opaquency: {
     type: Number,
@@ -46,22 +53,23 @@ const props = defineProps({
 
 /** Compute the CSS style for the menu */
 const menuStyle = computed(() => {
-  return `color: ${props.color};font-size: ${props.scale}em;` +
+  return `color: ${props.color || itemColor};font-size: ${props.scale}em;` +
     `border: ${(props.borderSize * props.scale)}px ` +
-    `solid ${props.borderColor};font-family: ${props.font};` +
+    `solid ${props.borderColor || borderColor};` +
+    `font-family: ${props.font || fontStyle};` +
     `border-radius: ${(32 * props.scale)}px;` +
     `background-color: rgba(0, 0, 0, ${props.opaquency});`
 })
 
 /** Compute the CSS style for the title */
 const titleStyle = computed(() => {
-  return `color: ${props.titleColor};`
+  return `color: ${props.titleColor || titleColor};`
 })
 
 //  Compute scale so sub items can update
 provide('scale', computed(() => { return props.scale }))
-provide('color', props.color)
-provide('focus-color', props.focusColor)
+provide('color', props.color || itemColor)
+provide('focus-color', props.focusColor || focusColor)
 
 /** Reference to the menu */
 const menu = ref()
@@ -148,7 +156,7 @@ onBeforeUnmount(() => {
 
 <template>
   <section ref="menu" :style="menuStyle">
-    <h1 :style="titleStyle">{{ title }}</h1>
+    <h1 :style="titleStyle">{{ title || gameTitle }}</h1>
     <slot></slot>
   </section>
 </template>

@@ -13,8 +13,7 @@ const currentScale = ref(scale.value)
 </script>
 
 <template>
-  <wtgui-menu title="Test Menu A" :scale="scale.value" focus-color="pink" :opaquency="1"
-    font="Inter, system-ui, Avenir, Helvetica, Arial, sans-serif">
+  <wtgui-menu title="Test Menu A" :scale="scale.value" :opaquency="1">
     <WTGuiLabel
       label="This menu has no sound"
       font-color="pink"/>

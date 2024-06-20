@@ -18,7 +18,14 @@ import { WTGui } from './index.ts'
 const pinia = createPinia()
 
 createApp(App)
-  .use(WTGui)
+  .use(WTGui, {
+    gameTitle: 'WTGui Test',
+    fontStyle: 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
+    titleColor: 'aqua',
+    borderColor: 'orange',
+    itemColor: 'rgb(0, 255, 0)',
+    focusColor: 'rgb(100, 108, 255)'
+  })
   .use(router)
   .use(pinia)
   .mount('#app')
