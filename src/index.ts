@@ -7,8 +7,9 @@
 
 import type { App, Plugin } from 'vue'
 
-//  Menu - regestered in plugin
+//  Menus - regestered in plugin
 import WtguiMenu from './components/WtguiMenu.vue'
+import WTGuiStartMenu from './routes/WTGuiStartMenu.vue'
 
 //  Items - called via import
 export { default as WTGuiButton } from './components/WTGuiButton.vue'
@@ -21,5 +22,6 @@ export { default as WTGuiSelect } from './components/WTGuiSelect.vue'
 export const WTGui:Plugin = {
   install: (app:App) => {
     app.component('WtguiMenu', WtguiMenu)
+    app.component('WTGuiStartMenu', WTGuiStartMenu)
   }
 }

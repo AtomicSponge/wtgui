@@ -6,7 +6,6 @@
 
 <script setup lang="ts">
 import { ref, computed, provide, onMounted, onUpdated, onBeforeUnmount } from 'vue'
-import { gamepadAPI } from '../lib/gamepadApi'
 
 defineOptions({
   inheritAttrs: false
@@ -82,6 +81,8 @@ const navigateMenu = (event:any):void => {
     return
   }
 
+  if(menuItems[menuIdx] === undefined) return
+
   //  Check if any items in the list are focused
   let focusCheck = false
   menuItems.forEach((item:Element) => {
@@ -118,7 +119,6 @@ const mouseFocus = (event:any):void => {
 
 onMounted(() => {
   window.addEventListener('keydown', navigateMenu)
-  window.addEventListener('gamepadconnected', gamepadAPI.connect)
 
   //  Get the menu items
   const focusable = menu.value.querySelectorAll(`[tabindex]:not([tabindex='-1'])`)
@@ -129,16 +129,17 @@ onMounted(() => {
     }
   })
   //  Focus first menu item
-  document.getElementById(menuItems[menuIdx].id)?.focus()
+  if(menuItems[menuIdx] !== undefined)
+    document.getElementById(menuItems[menuIdx].id)?.focus()
 })
 
 onUpdated(() => {
-  document.getElementById(menuItems[menuIdx].id)?.focus()
+  if(menuItems[menuIdx] !== undefined)
+    document.getElementById(menuItems[menuIdx].id)?.focus()
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', navigateMenu)
-  window.removeEventListener('gamepadconnected', gamepadAPI.disconnect)
   menuItems.forEach((item:Element) => {
     item.removeEventListener('mouseenter', mouseFocus)
   })
