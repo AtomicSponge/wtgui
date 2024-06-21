@@ -9,7 +9,7 @@
  */
 
 /** Speed to scroll in milliseconds */
-const scrollSpeed:ButtonScrollSpeed = 50
+const scrollSpeed:ButtonScrollSpeed = 100
 /** Track animation frames */
 let gamepadPolling = 0
 
