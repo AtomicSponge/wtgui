@@ -21,6 +21,12 @@ export { default as WTGuiLabel } from './components/WTGuiLabel.vue'
 export { default as WTGuiMessageBox } from './components/WTGuiMessageBox.vue'
 export { default as WTGuiSelect } from './components/WTGuiSelect.vue'
 
+let animationFrame = 0
+
+const gamepadCallback = () => {
+  animationFrame = window.requestAnimationFrame(gamepadCallback)
+}
+
 //  Export plugin
 export const WTGui:Plugin = {
   install: (app:App, options:WTGuiOptions) => {
@@ -57,10 +63,11 @@ export const WTGui:Plugin = {
 
     app.directive('wtgui-gamepad', {
       mounted() {
-        //
+        animationFrame = window.requestAnimationFrame(gamepadCallback)
       },
 
       beforeUnmount() {
+        window.cancelAnimationFrame(animationFrame)
         gamepadAPI.disconnect
       }
     })
