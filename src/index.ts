@@ -21,6 +21,7 @@ export { default as WTGuiLabel } from './components/WTGuiLabel.vue'
 export { default as WTGuiMessageBox } from './components/WTGuiMessageBox.vue'
 export { default as WTGuiSelect } from './components/WTGuiSelect.vue'
 
+/** Track animation frames */
 let animationFrame = 0
 
 const gamepadCallback = () => {
