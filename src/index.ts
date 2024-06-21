@@ -74,8 +74,5 @@ export const WTGui:Plugin = {
         window.removeEventListener('gamepadconnected', startGamepad)
       }
     })
-
-    //  Provide the button cache
-    app.provide('buttonCache', () => { return gamepadAPI.buttonsCache })
   }
 }
