@@ -116,7 +116,7 @@ export const disconnectGamepad = ():void => {
 /**
  * Gamepad polling loop
  */
-export const gamepadCallback = ():void => {
+const gamepadCallback = ():void => {
   gamepadAPI.update()
 
   if (gamepadAPI.buttonPressed('DPad-Up', 'hold')) {
