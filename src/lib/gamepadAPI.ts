@@ -143,9 +143,9 @@ const gamepadCallback = ():void => {
   if (gamepadAPI.buttonPressed('A')) {
     window.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', code: 'Space' }))
     window.dispatchEvent(new KeyboardEvent('keyup', { key: ' ', code: 'Space' }))
+    //  Also simulate a mouse click on the active element if it's a button
     const elem = document.activeElement
-    if(elem !== null && elem.nodeName === 'BUTTON')
-      document.activeElement?.click()
+    if(elem !== null && elem instanceof HTMLButtonElement) elem.click()
   }
 
   if (gamepadAPI.buttonPressed('B')) {
