@@ -3,7 +3,6 @@ import { inject, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import WtguiMenu from '../components/WtguiMenu.vue'
 import WTGuiLabel from '../components/WTGuiLabel.vue'
-import { gamepadAPI } from '../lib/gamepadAPI'
 
 const router = useRouter()
 
@@ -17,22 +16,10 @@ const defaultScale = <number>inject('defaultScale')
 const delay:MenuDelay = 300
 
 /**
- * Go to the main menu on button press
+ * Go to the main menu on input
  * @param event Input event
  */
-const goToMainButton = (event:any) => {
-  //  Register a gamepad
-  gamepadAPI.connect(event)
-  setTimeout(() => {
-    router.push(mainMenuRoute)
-  }, delay)
-}
-
-/**
- * Go to the main menu on key press
- * @param event Input event
- */
-const goToMainKey = (event:any) => {
+const goToMain = (event:any) => {
   event.preventDefault()
   setTimeout(() => {
     router.push(mainMenuRoute)
@@ -40,13 +27,11 @@ const goToMainKey = (event:any) => {
 }
 
 onMounted(() => {
-  window.addEventListener('gamepadconnected', goToMainButton)
-  window.addEventListener('keydown', goToMainKey)
+  window.addEventListener('keydown', goToMain)
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener('gamepadconnected', goToMainButton)
-  window.removeEventListener('keydown', goToMainKey)
+  window.removeEventListener('keydown', goToMain)
 })
 </script>
 

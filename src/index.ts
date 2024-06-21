@@ -64,12 +64,13 @@ export const WTGui:Plugin = {
     //  Directive for gamepad input
     app.directive('wtgui-gamepad', {
       mounted() {
+        window.addEventListener('gamepadconnected', gamepadAPI.connect)
         animationFrame = window.requestAnimationFrame(gamepadCallback)
       },
 
       beforeUnmount() {
         window.cancelAnimationFrame(animationFrame)
-        gamepadAPI.disconnect
+        window.removeEventListener('gamepadconnected', gamepadAPI.disconnect)
       }
     })
   }
