@@ -143,6 +143,9 @@ const gamepadCallback = ():void => {
   if (gamepadAPI.buttonPressed('A')) {
     window.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', code: 'Space' }))
     window.dispatchEvent(new KeyboardEvent('keyup', { key: ' ', code: 'Space' }))
+    const elem = document.activeElement
+    if(elem !== null && elem.nodeName === 'BUTTON')
+      document.activeElement?.click()
   }
 
   if (gamepadAPI.buttonPressed('B')) {
