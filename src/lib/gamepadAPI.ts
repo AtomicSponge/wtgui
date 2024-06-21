@@ -29,7 +29,7 @@ const gamepadAPI:GamepadAPI = {
    * Connect a new gamepad
    * @param event Gamepad event
    */
-  connect(event:any) {
+  connect(event) {
     gamepadAPI.controller = event.gamepad
   },
 
