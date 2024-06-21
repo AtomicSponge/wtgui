@@ -6,7 +6,7 @@
  */
 
 import type { App, Plugin } from 'vue'
-import { connectGamepad, disconnectGamepad } from './lib/gamepadAPI'
+import { gamepadAPI } from './lib/gamepadAPI'
 
 //  Menu - regestered in plugin
 import WtguiMenu from './components/WtguiMenu.vue'
@@ -26,7 +26,7 @@ export { default as WTGuiSelect } from './components/WTGuiSelect.vue'
  * @param event Gamepad event
  */
 const startGamepad = (event:any) => {
-  connectGamepad(event)
+  gamepadAPI.connectGamepad(event)
 }
 
 //  Export plugin
@@ -70,9 +70,12 @@ export const WTGui:Plugin = {
       },
 
       beforeUnmount() {
-        disconnectGamepad()
+        gamepadAPI.disconnectGamepad()
         window.removeEventListener('gamepadconnected', startGamepad)
       }
     })
+
+    //  Provide the button cache
+    app.provide('buttonCache', () => { return gamepadAPI.buttonsCache })
   }
 }

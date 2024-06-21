@@ -31,6 +31,9 @@ interface GamepadAPI {
   disconnect:()=>void
   update:()=>Array<string> | undefined
   buttonPressed:(button:string, hold?:string)=>boolean
+  connectGamepad:(event:any)=>void
+  disconnectGamepad:()=>void
+  gamepadCallback:()=>void
 }
 
 /** Animation time equal to CSS value */

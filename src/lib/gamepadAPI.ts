@@ -13,7 +13,7 @@ const scrollSpeed:ButtonScrollSpeed = 100
 /** Track animation frames */
 let gamepadPolling = 0
 
-const gamepadAPI:GamepadAPI = {
+export const gamepadAPI:GamepadAPI = {
   controller: undefined,
   buttons: [
     'B', 'A', 'Y', 'X', 'LB', 'RB', 'LT', 'RT',
@@ -92,80 +92,80 @@ const gamepadAPI:GamepadAPI = {
       }
     }
     return newPress
-  }
-}
+  },
 
-/**
- * Connect the gamepad and start polling
- * @param event Gamepad event
- */
-export const connectGamepad = (event:any):void => {
-  gamepadAPI.connect(event)
-  gamepadPolling = setInterval(gamepadCallback, scrollSpeed)
-}
+  /**
+   * Connect the gamepad and start polling
+   * @param event Gamepad event
+   */
+  connectGamepad(event) {
+    gamepadAPI.connect(event)
+    gamepadPolling = setInterval(gamepadAPI.gamepadCallback, scrollSpeed)
+  },
 
-/**
- * Disconnect the gamepad and stop polling
- */
-export const disconnectGamepad = ():void => {
-  clearInterval(gamepadPolling)
-  gamepadPolling = 0
-  gamepadAPI.disconnect
-}
+  /**
+   * Disconnect the gamepad and stop polling
+   */
+  disconnectGamepad() {
+    clearInterval(gamepadPolling)
+    gamepadPolling = 0
+    gamepadAPI.disconnect
+  },
 
-/**
- * Gamepad polling loop
- * Fakes keyboard input
- */
-const gamepadCallback = ():void => {
-  gamepadAPI.update()
+  /**
+   * Gamepad polling loop
+   * Fakes keyboard input
+   */
+  gamepadCallback() {
+    gamepadAPI.update()
 
-  if (gamepadAPI.buttonPressed('DPad-Up', 'hold')) {
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'w', code: 'KeyW' }))
-    window.dispatchEvent(new KeyboardEvent('keyup', { key: 'w', code: 'KeyW' }))
-  }
+    if (gamepadAPI.buttonPressed('DPad-Up', 'hold')) {
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'w', code: 'KeyW' }))
+      window.dispatchEvent(new KeyboardEvent('keyup', { key: 'w', code: 'KeyW' }))
+    }
 
-  if (gamepadAPI.buttonPressed('DPad-Down', 'hold')) {
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: 's', code: 'KeyS' }))
-    window.dispatchEvent(new KeyboardEvent('keyup', { key: 's', code: 'KeyS' }))
-  }
+    if (gamepadAPI.buttonPressed('DPad-Down', 'hold')) {
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 's', code: 'KeyS' }))
+      window.dispatchEvent(new KeyboardEvent('keyup', { key: 's', code: 'KeyS' }))
+    }
 
-  if (gamepadAPI.buttonPressed('DPad-Left', 'hold')) {
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'a', code: 'KeyA' }))
-    window.dispatchEvent(new KeyboardEvent('keyup', { key: 'a', code: 'KeyA' }))
-  }
+    if (gamepadAPI.buttonPressed('DPad-Left', 'hold')) {
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'a', code: 'KeyA' }))
+      window.dispatchEvent(new KeyboardEvent('keyup', { key: 'a', code: 'KeyA' }))
+    }
 
-  if (gamepadAPI.buttonPressed('DPad-Right', 'hold')) {
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'd', code: 'KeyD' }))
-    window.dispatchEvent(new KeyboardEvent('keyup', { key: 'd', code: 'KeyD' }))
-  }
+    if (gamepadAPI.buttonPressed('DPad-Right', 'hold')) {
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'd', code: 'KeyD' }))
+      window.dispatchEvent(new KeyboardEvent('keyup', { key: 'd', code: 'KeyD' }))
+    }
 
-  if (gamepadAPI.buttonPressed('A')) {
-    //window.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', code: 'Space' }))
-    //window.dispatchEvent(new KeyboardEvent('keyup', { key: ' ', code: 'Space' }))
-    //  Simulate a mouse click on the active element if it's a button
-    const elem = document.activeElement
-    if(elem !== null && elem instanceof HTMLButtonElement) elem.click()
-  }
+    if (gamepadAPI.buttonPressed('A')) {
+      //window.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', code: 'Space' }))
+      //window.dispatchEvent(new KeyboardEvent('keyup', { key: ' ', code: 'Space' }))
+      //  Simulate a mouse click on the active element if it's a button
+      const elem = document.activeElement
+      if(elem !== null && elem instanceof HTMLButtonElement) elem.click()
+    }
 
-  if (gamepadAPI.buttonPressed('B')) {
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape' }))
-    window.dispatchEvent(new KeyboardEvent('keyup', { key: 'Escape', code: 'Escape' }))
-  }
+    if (gamepadAPI.buttonPressed('B')) {
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape' }))
+      window.dispatchEvent(new KeyboardEvent('keyup', { key: 'Escape', code: 'Escape' }))
+    }
 
-  //  All other buttons - just a catch for the title screen
-  if (gamepadAPI.buttonPressed('Y') ||
-      gamepadAPI.buttonPressed('X') ||
-      gamepadAPI.buttonPressed('LB') ||
-      gamepadAPI.buttonPressed('RB') ||
-      gamepadAPI.buttonPressed('LT') ||
-      gamepadAPI.buttonPressed('RT') ||
-      gamepadAPI.buttonPressed('Back') ||
-      gamepadAPI.buttonPressed('Start') ||
-      gamepadAPI.buttonPressed('Axis-Left') ||
-      gamepadAPI.buttonPressed('Axis-Right') ||
-      gamepadAPI.buttonPressed('Power')) {
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'g', code: 'KeyG' }))
-    window.dispatchEvent(new KeyboardEvent('keyup', { key: 'g', code: 'KeyG' }))
+    //  All other buttons - just a catch for the title screen
+    if (gamepadAPI.buttonPressed('Y') ||
+        gamepadAPI.buttonPressed('X') ||
+        gamepadAPI.buttonPressed('LB') ||
+        gamepadAPI.buttonPressed('RB') ||
+        gamepadAPI.buttonPressed('LT') ||
+        gamepadAPI.buttonPressed('RT') ||
+        gamepadAPI.buttonPressed('Back') ||
+        gamepadAPI.buttonPressed('Start') ||
+        gamepadAPI.buttonPressed('Axis-Left') ||
+        gamepadAPI.buttonPressed('Axis-Right') ||
+        gamepadAPI.buttonPressed('Power')) {
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'g', code: 'KeyG' }))
+      window.dispatchEvent(new KeyboardEvent('keyup', { key: 'g', code: 'KeyG' }))
+    }
   }
 }
