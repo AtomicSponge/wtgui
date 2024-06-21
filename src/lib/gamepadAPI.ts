@@ -141,12 +141,16 @@ const gamepadCallback = ():void => {
   }
 
   if (gamepadAPI.buttonPressed('A')) {
-    const event = new KeyboardEvent('keydown', { key: ' ', code: 'Space' })
-    window.dispatchEvent(event)
+    const eventa = new KeyboardEvent('keydown', { key: ' ', code: 'Space' })
+    window.dispatchEvent(eventa)
+    const eventb = new KeyboardEvent('keyup', { key: ' ', code: 'Space' })
+    window.dispatchEvent(eventb)
   }
 
   if (gamepadAPI.buttonPressed('B')) {
-    const event = new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape' })
-    window.dispatchEvent(event)
+    const eventa = new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape' })
+    window.dispatchEvent(eventa)
+    const eventb = new KeyboardEvent('keyup', { key: 'Escape', code: 'Escape' })
+    window.dispatchEvent(eventb)
   }
 }
