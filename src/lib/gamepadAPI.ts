@@ -3,14 +3,18 @@
  * @module wtfsystems/wtgui
  * @see README.md
  * @copyright MIT see LICENSE.md
+ * 
+ * Reference:
+ * https://developer.mozilla.org/en-US/docs/Games/Techniques/Controls_Gamepad_API
  */
 
 export const gamepadAPI:GamepadAPI = {
   controller: undefined,
   buttons: [
     'B', 'A', 'Y', 'X', 'LB', 'RB', 'LT', 'RT',
-    'Back','Start','Axis-Left','Axis-Right',
-    'DPad-Up','DPad-Down','DPad-Left','DPad-Right','','Power'
+    'Back', 'Start', 'Axis-Left', 'Axis-Right',
+    'DPad-Up', 'DPad-Down', 'DPad-Left', 'DPad-Right',
+    '', 'Power'
   ],
   buttonsCache: [],
   buttonsStatus: [],

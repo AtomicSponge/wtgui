@@ -26,8 +26,28 @@ let animationFrame = 0
 const gamepadCallback = () => {
   gamepadAPI.update()
 
-  if (gamepadAPI.buttonPressed("A", "hold")) {
-    console.log('test')
+  if (gamepadAPI.buttonPressed("DPad-Up", "hold")) {
+    console.log('up')
+  }
+
+  if (gamepadAPI.buttonPressed("DPad-Down", "hold")) {
+    console.log('down')
+  }
+
+  if (gamepadAPI.buttonPressed("DPad-Left", "hold")) {
+    console.log('left')
+  }
+
+  if (gamepadAPI.buttonPressed("DPad-Right", "hold")) {
+    console.log('right')
+  }
+
+  if (gamepadAPI.buttonPressed("A")) {
+    console.log('A')
+  }
+
+  if (gamepadAPI.buttonPressed("B")) {
+    console.log('B')
   }
 
   animationFrame = window.requestAnimationFrame(gamepadCallback)
