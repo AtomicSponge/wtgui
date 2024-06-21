@@ -38,27 +38,27 @@ const connectGamepad = (event:any):void => {
 const gamepadCallback = ():void => {
   gamepadAPI.update()
 
-  if (gamepadAPI.buttonPressed("DPad-Up", "hold")) {
+  if (gamepadAPI.buttonPressed('DPad-Up', 'hold')) {
     console.log('up')
   }
 
-  if (gamepadAPI.buttonPressed("DPad-Down", "hold")) {
+  if (gamepadAPI.buttonPressed('DPad-Down', 'hold')) {
     console.log('down')
   }
 
-  if (gamepadAPI.buttonPressed("DPad-Left", "hold")) {
+  if (gamepadAPI.buttonPressed('DPad-Left', 'hold')) {
     console.log('left')
   }
 
-  if (gamepadAPI.buttonPressed("DPad-Right", "hold")) {
+  if (gamepadAPI.buttonPressed('DPad-Right', 'hold')) {
     console.log('right')
   }
 
-  if (gamepadAPI.buttonPressed("A")) {
+  if (gamepadAPI.buttonPressed('A')) {
     console.log('A')
   }
 
-  if (gamepadAPI.buttonPressed("B")) {
+  if (gamepadAPI.buttonPressed('B')) {
     console.log('B')
   }
 }
