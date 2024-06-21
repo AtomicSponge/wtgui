@@ -8,6 +8,7 @@ import { gamepadAPI } from '../lib/gamepadApi'
 const router = useRouter()
 
 const mainMenu = <string>inject('mainMenu')
+const defaultScale = <number>inject('defaultScale')
 
 const delay:MenuDelay = 300
 
@@ -45,7 +46,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <wtgui-menu :scale="2">
+  <wtgui-menu :scale="defaultScale">
     <WTGuiLabel label="Press a key or button"/>
   </wtgui-menu>
 </template>

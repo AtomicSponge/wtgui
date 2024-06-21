@@ -16,6 +16,8 @@ interface WTGuiOptions {
   focusColor?:string
   /** Main menu name */
   mainMenu?:string
+  /** Main menu scaling */
+  defaultScale?:number
 }
 
 interface GamepadAPI {

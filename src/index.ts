@@ -46,5 +46,8 @@ export const WTGui:Plugin = {
 
     if(options.mainMenu === undefined) options.mainMenu = '/main'
     app.provide('mainMenu', options.mainMenu)
+
+    if(options.defaultScale === undefined) options.defaultScale = 2
+    app.provide('defaultScale', options.defaultScale)
   }
 }
