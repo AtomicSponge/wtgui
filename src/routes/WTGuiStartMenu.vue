@@ -8,7 +8,7 @@ import { gamepadAPI } from '../lib/gamepadApi'
 const router = useRouter()
 
 /** Main menu route provided from options */
-const mainMenu = <string>inject('mainMenu')
+const mainMenuRoute = <string>inject('mainMenuRoute')
 /** Game title from options */
 const gameTitle = <string>inject('gameTitle')
 /** Game title scale provided from options */
@@ -23,7 +23,7 @@ const delay:MenuDelay = 300
 const goToMainButton = (event:any) => {
   gamepadAPI.connect(event)
   setTimeout(() => {
-    router.push(mainMenu)
+    router.push(mainMenuRoute)
   }, delay)
 }
 
@@ -34,7 +34,7 @@ const goToMainButton = (event:any) => {
 const goToMainKey = (event:any) => {
   event.preventDefault()
   setTimeout(() => {
-    router.push(mainMenu)
+    router.push(mainMenuRoute)
   }, delay)
 }
 

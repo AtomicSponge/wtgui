@@ -8,7 +8,7 @@ import WTGuiLabel from '../components/WTGuiLabel.vue'
 import WTGuiSelect from '../components/WTGuiSelect.vue'
 
 /** Main menu route provided from options */
-const mainMenu = <string>inject('mainMenu')
+const mainMenuRoute = <string>inject('mainMenuRoute')
 
 const scale = scaleStore()
 const scaleIdx = scale.options.indexOf(scale.value)
@@ -26,7 +26,7 @@ const currentScale = ref(scale.value)
       :default-idx="scaleIdx"
       @selected="(v:number) => currentScale = v"/>
     <WTGuiButton label="Apply" :action="() => { scale.set(currentScale) }"/>
-    <WTGuiButton label="Main Menu" :goto="mainMenu"/>
+    <WTGuiButton label="Main Menu" :goto="mainMenuRoute"/>
   </wtgui-menu>
 </template>
 

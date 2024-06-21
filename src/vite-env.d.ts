@@ -15,7 +15,7 @@ interface WTGuiOptions {
   /** Focus color in CSS */
   focusColor?:string
   /** Main menu name */
-  mainMenu?:string
+  mainMenuRoute?:string
   /** Main menu scaling */
   defaultScale?:number
 }

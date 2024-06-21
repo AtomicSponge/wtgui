@@ -11,7 +11,7 @@ import WTGuiInputSetting from '../components/WTGuiInputSetting.vue'
 import WTGuiMessageBox from '../components/WTGuiMessageBox.vue'
 
 /** Main menu route provided from options */
-const mainMenu = <string>inject('mainMenu')
+const mainMenuRoute = <string>inject('mainMenuRoute')
 
 const scale = scaleStore()
 
@@ -44,7 +44,7 @@ const showMessageBox = ref(false)
     <WTGuiButton
       sound="./src/assets/click.wav"
       label="Main Menu"
-      :goto="mainMenu"/>
+      :goto="mainMenuRoute"/>
     <!-- Hidden until `click me` button is selected -->
     <WTGuiMessageBox
       :label="selection.value"
