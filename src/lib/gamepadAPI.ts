@@ -8,6 +8,11 @@
  * https://developer.mozilla.org/en-US/docs/Games/Techniques/Controls_Gamepad_API
  */
 
+/** Speed to scroll in milliseconds */
+const scrollSpeed:ButtonScrollSpeed = 50
+/** Track animation frames */
+let gamepadPolling = 0
+
 export const gamepadAPI:GamepadAPI = {
   controller: undefined,
   buttons: [
@@ -90,11 +95,6 @@ export const gamepadAPI:GamepadAPI = {
   }
 }
 
-/** Speed to scroll in milliseconds */
-const scrollSpeed:ButtonScrollSpeed = 50
-/** Track animation frames */
-let gamepadPolling = 0
-
 /**
  * Connect the gamepad and start polling
  * @param event Gamepad event
@@ -104,12 +104,18 @@ export const connectGamepad = (event:any):void => {
   gamepadPolling = setInterval(gamepadCallback, scrollSpeed)
 }
 
+/**
+ * Disconnect the gamepad and stop polling
+ */
 export const disconnectGamepad = ():void => {
   clearInterval(gamepadPolling)
   gamepadPolling = 0
   gamepadAPI.disconnect
 }
 
+/**
+ * Gamepad polling loop
+ */
 export const gamepadCallback = ():void => {
   gamepadAPI.update()
 

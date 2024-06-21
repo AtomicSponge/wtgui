@@ -21,6 +21,10 @@ export { default as WTGuiLabel } from './components/WTGuiLabel.vue'
 export { default as WTGuiMessageBox } from './components/WTGuiMessageBox.vue'
 export { default as WTGuiSelect } from './components/WTGuiSelect.vue'
 
+/**
+ * Connect the gamepad
+ * @param event Gamepad event
+ */
 const startGamepad = (event:any) => {
   connectGamepad(event)
 }
