@@ -6,7 +6,7 @@
  */
 
 import type { App, Plugin } from 'vue'
-import { gamepadAPI } from './lib/gamepadApi'
+import { gamepadAPI } from './lib/gamepadAPI'
 
 //  Menu - regestered in plugin
 import WtguiMenu from './components/WtguiMenu.vue'

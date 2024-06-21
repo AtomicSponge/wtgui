@@ -3,7 +3,7 @@ import { inject, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import WtguiMenu from '../components/WtguiMenu.vue'
 import WTGuiLabel from '../components/WTGuiLabel.vue'
-import { gamepadAPI } from '../lib/gamepadApi'
+import { gamepadAPI } from '../lib/gamepadAPI'
 
 const router = useRouter()
 
