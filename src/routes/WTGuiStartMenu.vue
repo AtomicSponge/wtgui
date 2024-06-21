@@ -11,14 +11,21 @@ const mainMenu = <string>inject('mainMenu')
 
 const delay:MenuDelay = 300
 
+/**
+ * Go to the main menu on button press
+ * @param event Input event
+ */
 const goToMainButton = (event:any) => {
-  console.log(event)
   gamepadAPI.connect(event)
   setTimeout(() => {
     router.push(mainMenu)
   }, delay)
 }
 
+/**
+ * Go to the main menu on key press
+ * @param event Input event
+ */
 const goToMainKey = (event:any) => {
   event.preventDefault()
   setTimeout(() => {
