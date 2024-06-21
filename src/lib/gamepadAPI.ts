@@ -141,9 +141,9 @@ const gamepadCallback = ():void => {
   }
 
   if (gamepadAPI.buttonPressed('A')) {
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', code: 'Space' }))
-    window.dispatchEvent(new KeyboardEvent('keyup', { key: ' ', code: 'Space' }))
-    //  Also simulate a mouse click on the active element if it's a button
+    //window.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', code: 'Space' }))
+    //window.dispatchEvent(new KeyboardEvent('keyup', { key: ' ', code: 'Space' }))
+    //  Simulate a mouse click on the active element if it's a button
     const elem = document.activeElement
     if(elem !== null && elem instanceof HTMLButtonElement) elem.click()
   }
@@ -151,5 +151,21 @@ const gamepadCallback = ():void => {
   if (gamepadAPI.buttonPressed('B')) {
     window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape' }))
     window.dispatchEvent(new KeyboardEvent('keyup', { key: 'Escape', code: 'Escape' }))
+  }
+
+  //  All other buttons - just a catch for the title screen
+  if (gamepadAPI.buttonPressed('Y') ||
+      gamepadAPI.buttonPressed('X') ||
+      gamepadAPI.buttonPressed('LB') ||
+      gamepadAPI.buttonPressed('RB') ||
+      gamepadAPI.buttonPressed('LT') ||
+      gamepadAPI.buttonPressed('RT') ||
+      gamepadAPI.buttonPressed('Back') ||
+      gamepadAPI.buttonPressed('Start') ||
+      gamepadAPI.buttonPressed('Axis-Left') ||
+      gamepadAPI.buttonPressed('Axis-Right') ||
+      gamepadAPI.buttonPressed('Power')) {
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'g', code: 'KeyG' }))
+    window.dispatchEvent(new KeyboardEvent('keyup', { key: 'g', code: 'KeyG' }))
   }
 }

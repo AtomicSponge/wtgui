@@ -12,7 +12,7 @@ import { connectGamepad, disconnectGamepad } from './lib/gamepadAPI'
 import WtguiMenu from './components/WtguiMenu.vue'
 
 //  Start menu - called via import
-export { default as WTGuiStartMenu } from './routes/WTGuiStartMenu.vue'
+export { default as WTGuiTitleScreen } from './routes/WTGuiTitleScreen.vue'
 
 //  Items - called via import
 export { default as WTGuiButton } from './components/WTGuiButton.vue'
