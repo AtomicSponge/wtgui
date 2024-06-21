@@ -24,6 +24,12 @@ export { default as WTGuiSelect } from './components/WTGuiSelect.vue'
 let animationFrame = 0
 
 const gamepadCallback = () => {
+  gamepadAPI.update()
+
+  if (gamepadAPI.buttonPressed("A")) {
+    console.log('test')
+  }
+
   animationFrame = window.requestAnimationFrame(gamepadCallback)
 }
 

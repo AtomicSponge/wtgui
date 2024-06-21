@@ -7,7 +7,12 @@
 
 export const gamepadAPI:GamepadAPI = {
   controller: undefined,
-  buttons: [],
+  //  Works, but need to figure out mappings
+  buttons: [
+    'DPad-Up','DPad-Down','DPad-Left','DPad-Right',
+    'Start','Back','Axis-Left','Axis-Right',
+    'LB','RB','Power','A','B','X','Y'
+  ],
   buttonsCache: [],
   buttonsStatus: [],
   axesStatus: [],
