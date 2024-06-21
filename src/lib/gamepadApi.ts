@@ -13,7 +13,6 @@ export const gamepadAPI:GamepadAPI = {
   axesStatus: [],
 
   connect(event:any) {
-    console.log('connected')
     gamepadAPI.controller = event.gamepad
   },
 

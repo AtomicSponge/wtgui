@@ -21,6 +21,7 @@ const delay:MenuDelay = 300
  * @param event Input event
  */
 const goToMainButton = (event:any) => {
+  //  Register a gamepad
   gamepadAPI.connect(event)
   setTimeout(() => {
     router.push(mainMenuRoute)
@@ -44,7 +45,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener('gamepadconnected', gamepadAPI.disconnect)
+  window.removeEventListener('gamepadconnected', goToMainButton)
   window.removeEventListener('keydown', goToMainKey)
 })
 </script>

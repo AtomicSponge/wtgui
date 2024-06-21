@@ -6,6 +6,7 @@
  */
 
 import type { App, Plugin } from 'vue'
+import { gamepadAPI } from './lib/gamepadApi'
 
 //  Menu - regestered in plugin
 import WtguiMenu from './components/WtguiMenu.vue'
@@ -23,8 +24,12 @@ export { default as WTGuiSelect } from './components/WTGuiSelect.vue'
 //  Export plugin
 export const WTGui:Plugin = {
   install: (app:App, options:WTGuiOptions) => {
+    //  Register the menu component
     app.component('WtguiMenu', WtguiMenu)
 
+    /**
+     * Register options
+     */
     if(options.gameTitle === undefined)
       console.warn('Must provide a Game Title option for WTGui!')
     app.provide('gameTitle', options.gameTitle)
@@ -49,5 +54,10 @@ export const WTGui:Plugin = {
 
     if(options.defaultScale === undefined) options.defaultScale = 2
     app.provide('defaultScale', options.defaultScale)
+
+    //  Disconnect gamepads before unmounting
+    app.directive('remove-gamepad', {
+      beforeUnmount() { gamepadAPI.disconnect }
+    })
   }
 }
