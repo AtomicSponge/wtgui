@@ -56,7 +56,7 @@ export const WTGui:Plugin = {
     app.provide('defaultScale', options.defaultScale)
 
     //  Disconnect gamepads before unmounting
-    app.directive('remove-gamepad', {
+    app.directive('wtgui-remove-gamepad', {
       beforeUnmount() { gamepadAPI.disconnect }
     })
   }
