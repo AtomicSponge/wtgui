@@ -120,26 +120,32 @@ const gamepadCallback = ():void => {
   gamepadAPI.update()
 
   if (gamepadAPI.buttonPressed('DPad-Up', 'hold')) {
-    console.log('up')
+    const event = new KeyboardEvent('keydown', { key: 'w', code: 'KeyW' })
+    window.dispatchEvent(event)
   }
 
   if (gamepadAPI.buttonPressed('DPad-Down', 'hold')) {
-    console.log('down')
+    const event = new KeyboardEvent('keydown', { key: 's', code: 'KeyS' })
+    window.dispatchEvent(event)
   }
 
   if (gamepadAPI.buttonPressed('DPad-Left', 'hold')) {
-    console.log('left')
+    const event = new KeyboardEvent('keydown', { key: 'a', code: 'KeyA' })
+    window.dispatchEvent(event)
   }
 
   if (gamepadAPI.buttonPressed('DPad-Right', 'hold')) {
-    console.log('right')
+    const event = new KeyboardEvent('keydown', { key: 'd', code: 'KeyD' })
+    window.dispatchEvent(event)
   }
 
   if (gamepadAPI.buttonPressed('A')) {
-    console.log('A')
+    const event = new KeyboardEvent('keydown', { key: ' ', code: 'Space' })
+    window.dispatchEvent(event)
   }
 
   if (gamepadAPI.buttonPressed('B')) {
-    console.log('B')
+    const event = new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape' })
+    window.dispatchEvent(event)
   }
 }
