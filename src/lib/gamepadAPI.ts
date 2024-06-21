@@ -13,7 +13,7 @@ const scrollSpeed:ButtonScrollSpeed = 50
 /** Track animation frames */
 let gamepadPolling = 0
 
-export const gamepadAPI:GamepadAPI = {
+const gamepadAPI:GamepadAPI = {
   controller: undefined,
   buttons: [
     'B', 'A', 'Y', 'X', 'LB', 'RB', 'LT', 'RT',
