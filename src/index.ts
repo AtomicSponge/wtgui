@@ -43,5 +43,8 @@ export const WTGui:Plugin = {
 
     if(options.focusColor === undefined) options.focusColor = 'rgb(100, 108, 255)'
     app.provide('focusColor', options.focusColor)
+
+    if(options.mainMenu === undefined) options.mainMenu = '/main'
+    app.provide('mainMenu', options.mainMenu)
   }
 }

@@ -14,6 +14,8 @@ interface WTGuiOptions {
   itemColor?:string
   /** Focus color in CSS */
   focusColor?:string
+  /** Main menu name */
+  mainMenu?:string
 }
 
 interface GamepadAPI {

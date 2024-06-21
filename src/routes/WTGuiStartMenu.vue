@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount } from 'vue'
+import { inject, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import WtguiMenu from '../components/WtguiMenu.vue'
 import WTGuiLabel from '../components/WTGuiLabel.vue'
@@ -7,20 +7,22 @@ import { gamepadAPI } from '../lib/gamepadApi'
 
 const router = useRouter()
 
+const mainMenu = <string>inject('mainMenu')
+
 const delay:MenuDelay = 300
 
 const goToMainButton = (event:any) => {
   console.log(event)
   gamepadAPI.connect(event)
   setTimeout(() => {
-    router.push('/main')
+    router.push(mainMenu)
   }, delay)
 }
 
 const goToMainKey = (event:any) => {
   event.preventDefault()
   setTimeout(() => {
-    router.push('/main')
+    router.push(mainMenu)
   }, delay)
 }
 
