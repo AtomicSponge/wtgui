@@ -121,23 +121,31 @@ const gamepadCallback = ():void => {
   gamepadAPI.update()
 
   if (gamepadAPI.buttonPressed('DPad-Up', 'hold')) {
-    const event = new KeyboardEvent('keydown', { key: 'w', code: 'KeyW' })
-    window.dispatchEvent(event)
+    const eventa = new KeyboardEvent('keydown', { key: 'w', code: 'KeyW' })
+    window.dispatchEvent(eventa)
+    const eventb = new KeyboardEvent('keyup', { key: 'w', code: 'KeyW' })
+    window.dispatchEvent(eventb)
   }
 
   if (gamepadAPI.buttonPressed('DPad-Down', 'hold')) {
-    const event = new KeyboardEvent('keydown', { key: 's', code: 'KeyS' })
-    window.dispatchEvent(event)
+    const eventa = new KeyboardEvent('keydown', { key: 's', code: 'KeyS' })
+    window.dispatchEvent(eventa)
+    const eventb = new KeyboardEvent('keyup', { key: 's', code: 'KeyS' })
+    window.dispatchEvent(eventb)
   }
 
   if (gamepadAPI.buttonPressed('DPad-Left', 'hold')) {
-    const event = new KeyboardEvent('keydown', { key: 'a', code: 'KeyA' })
-    window.dispatchEvent(event)
+    const eventa = new KeyboardEvent('keydown', { key: 'a', code: 'KeyA' })
+    window.dispatchEvent(eventa)
+    const eventb = new KeyboardEvent('keyup', { key: 'a', code: 'KeyA' })
+    window.dispatchEvent(eventb)
   }
 
   if (gamepadAPI.buttonPressed('DPad-Right', 'hold')) {
-    const event = new KeyboardEvent('keydown', { key: 'd', code: 'KeyD' })
-    window.dispatchEvent(event)
+    const eventa = new KeyboardEvent('keydown', { key: 'd', code: 'KeyD' })
+    window.dispatchEvent(eventa)
+    const eventb = new KeyboardEvent('keyup', { key: 'd', code: 'KeyD' })
+    window.dispatchEvent(eventb)
   }
 
   if (gamepadAPI.buttonPressed('A')) {
