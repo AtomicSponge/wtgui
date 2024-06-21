@@ -2,8 +2,8 @@
 </script>
 
 <template>
-  <main>
-    <RouterView />
+  <main v-wtgui-gamepad>
+    <RouterView/>
   </main>
 </template>
 
