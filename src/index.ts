@@ -61,6 +61,7 @@ export const WTGui:Plugin = {
     if(options.defaultScale === undefined) options.defaultScale = 2
     app.provide('defaultScale', options.defaultScale)
 
+    //  Directive for gamepad input
     app.directive('wtgui-gamepad', {
       mounted() {
         animationFrame = window.requestAnimationFrame(gamepadCallback)
