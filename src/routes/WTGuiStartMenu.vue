@@ -7,8 +7,10 @@ import { gamepadAPI } from '../lib/gamepadApi'
 
 const router = useRouter()
 
-/** Game title provided from options */
+/** Main menu route provided from options */
 const mainMenu = <string>inject('mainMenu')
+/** Game title from options */
+const gameTitle = <string>inject('gameTitle')
 /** Game title scale provided from options */
 const defaultScale = <number>inject('defaultScale')
 
@@ -48,7 +50,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <wtgui-menu :scale="defaultScale">
+  <wtgui-menu :title="gameTitle" :scale="defaultScale">
     <WTGuiLabel label="Press a key or button"/>
   </wtgui-menu>
 </template>

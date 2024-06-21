@@ -11,8 +11,6 @@ defineOptions({
   inheritAttrs: false
 })
 
-/** Game title from options */
-const gameTitle = <string>inject('gameTitle')
 /** Font style from options */
 const fontStyle = <string>inject('fontStyle')
 /** Title color from options */
@@ -26,7 +24,7 @@ const focusColor = <string>inject('focusColor')
 
 const props = defineProps({
   /** Title display for menu */
-  title: { type: String, default: undefined },
+  title: { type: String, required: true },
   /** CSS Font type for menu */
   font:  { type: String, default: undefined },
   /** Scale factor for menu */
@@ -163,7 +161,7 @@ onBeforeUnmount(() => {
 
 <template>
   <section ref="menu" :style="menuStyle">
-    <h1 :style="titleStyle">{{ title || gameTitle }}</h1>
+    <h1 :style="titleStyle">{{ title }}</h1>
     <slot></slot>
   </section>
 </template>
