@@ -89,3 +89,51 @@ export const gamepadAPI:GamepadAPI = {
     return newPress
   }
 }
+
+/** Speed to scroll in milliseconds */
+const scrollSpeed:ButtonScrollSpeed = 50
+/** Track animation frames */
+let gamepadPolling = 0
+
+/**
+ * Connect the gamepad and start polling
+ * @param event Gamepad event
+ */
+export const connectGamepad = (event:any):void => {
+  gamepadAPI.connect(event)
+  gamepadPolling = setInterval(gamepadCallback, scrollSpeed)
+}
+
+export const disconnectGamepad = ():void => {
+  clearInterval(gamepadPolling)
+  gamepadPolling = 0
+  gamepadAPI.disconnect
+}
+
+export const gamepadCallback = ():void => {
+  gamepadAPI.update()
+
+  if (gamepadAPI.buttonPressed('DPad-Up', 'hold')) {
+    console.log('up')
+  }
+
+  if (gamepadAPI.buttonPressed('DPad-Down', 'hold')) {
+    console.log('down')
+  }
+
+  if (gamepadAPI.buttonPressed('DPad-Left', 'hold')) {
+    console.log('left')
+  }
+
+  if (gamepadAPI.buttonPressed('DPad-Right', 'hold')) {
+    console.log('right')
+  }
+
+  if (gamepadAPI.buttonPressed('A')) {
+    console.log('A')
+  }
+
+  if (gamepadAPI.buttonPressed('B')) {
+    console.log('B')
+  }
+}

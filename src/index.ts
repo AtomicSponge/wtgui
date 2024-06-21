@@ -6,7 +6,7 @@
  */
 
 import type { App, Plugin } from 'vue'
-import { gamepadAPI } from './lib/gamepadAPI'
+import { connectGamepad, disconnectGamepad } from './lib/gamepadAPI'
 
 //  Menu - regestered in plugin
 import WtguiMenu from './components/WtguiMenu.vue'
@@ -21,46 +21,8 @@ export { default as WTGuiLabel } from './components/WTGuiLabel.vue'
 export { default as WTGuiMessageBox } from './components/WTGuiMessageBox.vue'
 export { default as WTGuiSelect } from './components/WTGuiSelect.vue'
 
-/** Speed to scroll in milliseconds */
-const scrollSpeed:ButtonScrollSpeed = 50
-/** Track animation frames */
-let gamepadPolling = 0
-
-/**
- * Connect the gamepad and start polling
- * @param event Gamepad event
- */
-const connectGamepad = (event:any):void => {
-  gamepadAPI.connect(event)
-  gamepadPolling = setInterval(gamepadCallback, scrollSpeed)
-}
-
-const gamepadCallback = ():void => {
-  gamepadAPI.update()
-
-  if (gamepadAPI.buttonPressed('DPad-Up', 'hold')) {
-    console.log('up')
-  }
-
-  if (gamepadAPI.buttonPressed('DPad-Down', 'hold')) {
-    console.log('down')
-  }
-
-  if (gamepadAPI.buttonPressed('DPad-Left', 'hold')) {
-    console.log('left')
-  }
-
-  if (gamepadAPI.buttonPressed('DPad-Right', 'hold')) {
-    console.log('right')
-  }
-
-  if (gamepadAPI.buttonPressed('A')) {
-    console.log('A')
-  }
-
-  if (gamepadAPI.buttonPressed('B')) {
-    console.log('B')
-  }
+const startGamepad = (event:any) => {
+  connectGamepad(event)
 }
 
 //  Export plugin
@@ -100,13 +62,12 @@ export const WTGui:Plugin = {
     //  Directive for gamepad input
     app.directive('wtgui-gamepad', {
       mounted() {
-        window.addEventListener('gamepadconnected', connectGamepad)
+        window.addEventListener('gamepadconnected', startGamepad)
       },
 
       beforeUnmount() {
-        clearInterval(gamepadPolling)
-        gamepadPolling = 0
-        window.removeEventListener('gamepadconnected', gamepadAPI.disconnect)
+        disconnectGamepad()
+        window.removeEventListener('gamepadconnected', startGamepad)
       }
     })
   }
