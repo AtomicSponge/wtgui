@@ -7,7 +7,9 @@ import { gamepadAPI } from '../lib/gamepadApi'
 
 const router = useRouter()
 
+/** Game title provided from options */
 const mainMenu = <string>inject('mainMenu')
+/** Game title scale provided from options */
 const defaultScale = <number>inject('defaultScale')
 
 const delay:MenuDelay = 300
