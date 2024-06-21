@@ -20,6 +20,7 @@ interface WTGuiOptions {
   defaultScale?:number
 }
 
+/** Gamepad API */
 interface GamepadAPI {
   controller:Gamepad | undefined
   buttons:Array<string>
@@ -34,4 +35,5 @@ interface GamepadAPI {
 
 /** Animation time equal to CSS value */
 type MsgBoxZoomTime = 300
+/** Delay time for menu transition */
 type MenuDelay = 300
