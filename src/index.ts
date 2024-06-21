@@ -21,10 +21,21 @@ export { default as WTGuiLabel } from './components/WTGuiLabel.vue'
 export { default as WTGuiMessageBox } from './components/WTGuiMessageBox.vue'
 export { default as WTGuiSelect } from './components/WTGuiSelect.vue'
 
+/** Speed to scroll in milliseconds */
+const scrollSpeed:ButtonScrollSpeed = 50
 /** Track animation frames */
-let animationFrame = 0
+let gamepadPolling = 0
 
-const gamepadCallback = () => {
+/**
+ * Connect the gamepad and start polling
+ * @param event Gamepad event
+ */
+const connectGamepad = (event:any):void => {
+  gamepadAPI.connect(event)
+  gamepadPolling = setInterval(gamepadCallback, scrollSpeed)
+}
+
+const gamepadCallback = ():void => {
   gamepadAPI.update()
 
   if (gamepadAPI.buttonPressed("DPad-Up", "hold")) {
@@ -50,8 +61,6 @@ const gamepadCallback = () => {
   if (gamepadAPI.buttonPressed("B")) {
     console.log('B')
   }
-
-  animationFrame = window.requestAnimationFrame(gamepadCallback)
 }
 
 //  Export plugin
@@ -91,12 +100,12 @@ export const WTGui:Plugin = {
     //  Directive for gamepad input
     app.directive('wtgui-gamepad', {
       mounted() {
-        window.addEventListener('gamepadconnected', gamepadAPI.connect)
-        animationFrame = window.requestAnimationFrame(gamepadCallback)
+        window.addEventListener('gamepadconnected', connectGamepad)
       },
 
       beforeUnmount() {
-        window.cancelAnimationFrame(animationFrame)
+        clearInterval(gamepadPolling)
+        gamepadPolling = 0
         window.removeEventListener('gamepadconnected', gamepadAPI.disconnect)
       }
     })

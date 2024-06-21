@@ -37,3 +37,5 @@ interface GamepadAPI {
 type MsgBoxZoomTime = 300
 /** Delay time for menu transition */
 type MenuDelay = 300
+/** Button scroll speed in milliseconds */
+type ButtonScrollSpeed = 50
