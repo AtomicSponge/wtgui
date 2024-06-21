@@ -15,6 +15,7 @@ const TestMenuB = () => import('./routes/TestMenuB.vue')
 
 const routes = [
   { path: '/', component: WTGuiStartMenu },
+  //  WTGui assumes /main, can be changed in options
   { path: '/main', component: MainMenu },
   { path: '/testa', component: TestMenuA },
   { path: '/testb', component: TestMenuB }
