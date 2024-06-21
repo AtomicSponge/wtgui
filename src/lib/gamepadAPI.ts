@@ -115,6 +115,7 @@ export const disconnectGamepad = ():void => {
 
 /**
  * Gamepad polling loop
+ * Fakes keyboard input
  */
 const gamepadCallback = ():void => {
   gamepadAPI.update()
