@@ -20,14 +20,23 @@ export const gamepadAPI:GamepadAPI = {
   buttonsStatus: [],
   axesStatus: [],
 
+  /**
+   * Connect a new gamepad
+   * @param event Gamepad event
+   */
   connect(event:any) {
     gamepadAPI.controller = event.gamepad
   },
 
+  /** Disconnect gamepad */
   disconnect() {
     delete gamepadAPI.controller
   },
 
+  /**
+   * Poll gamepad
+   * @returns Pressed buttons (for debugging)
+   */
   update() {
     if(gamepadAPI.controller === undefined) return
 
@@ -58,6 +67,12 @@ export const gamepadAPI:GamepadAPI = {
     return pressed
   },
 
+  /**
+   * Check for a button press
+   * @param button Button to test for
+   * @param hold If button is being held
+   * @returns If the button is a new press
+   */
   buttonPressed(button, hold) {
     let newPress = false
 
