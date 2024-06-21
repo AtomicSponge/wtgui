@@ -40,7 +40,7 @@ export const gamepadAPI:GamepadAPI = {
     const axes = []
     if (gamepadAPI.controller.axes) {
       for (let a = 0; a < gamepadAPI.controller.axes.length; a++) {
-        axes.push(gamepadAPI.controller.axes[a].toFixed(2))
+        axes.push(Number(gamepadAPI.controller.axes[a].toFixed(2)))
       }
     }
 

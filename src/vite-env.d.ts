@@ -26,7 +26,7 @@ interface GamepadAPI {
   buttons:Array<string>
   buttonsCache:Array<string>
   buttonsStatus:Array<string>
-  axesStatus:Array<string>
+  axesStatus:Array<number>
   connect:(event:any)=>void
   disconnect:()=>void
   update:()=>Array<string> | undefined
