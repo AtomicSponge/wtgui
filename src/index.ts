@@ -26,7 +26,7 @@ let animationFrame = 0
 const gamepadCallback = () => {
   gamepadAPI.update()
 
-  if (gamepadAPI.buttonPressed("A")) {
+  if (gamepadAPI.buttonPressed("A", "hold")) {
     console.log('test')
   }
 
