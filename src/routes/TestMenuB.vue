@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 
 import { inputStore } from '../stores/inputStore'
 import { scaleStore } from '../stores/scaleStore'
@@ -9,6 +9,9 @@ import WTGuiButton from '../components/WTGuiButton.vue'
 import WTGuiSelect from '../components/WTGuiSelect.vue'
 import WTGuiInputSetting from '../components/WTGuiInputSetting.vue'
 import WTGuiMessageBox from '../components/WTGuiMessageBox.vue'
+
+/** Main menu route provided from options */
+const mainMenu = <string>inject('mainMenu')
 
 const scale = scaleStore()
 
@@ -41,7 +44,7 @@ const showMessageBox = ref(false)
     <WTGuiButton
       sound="./src/assets/click.wav"
       label="Main Menu"
-      goto="/main"/>
+      :goto="mainMenu"/>
     <!-- Hidden until `click me` button is selected -->
     <WTGuiMessageBox
       :label="selection.value"
