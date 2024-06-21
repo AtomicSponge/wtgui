@@ -24,23 +24,23 @@ export const gamepadAPI:GamepadAPI = {
     if(gamepadAPI.controller === undefined) return
 
     gamepadAPI.buttonsCache = []
-    for (let k = 0; k < gamepadAPI.buttonsStatus.length; k++) {
-      gamepadAPI.buttonsCache[k] = gamepadAPI.buttonsStatus[k]
+    for (let i = 0; i < gamepadAPI.buttonsStatus.length; i++) {
+      gamepadAPI.buttonsCache[i] = gamepadAPI.buttonsStatus[i]
     }
 
     const pressed = []
     if (gamepadAPI.controller.buttons) {
-      for (let b = 0; b < gamepadAPI.controller.buttons.length; b++) {
-        if (gamepadAPI.controller.buttons[b].pressed) {
-          pressed.push(gamepadAPI.buttons[b])
+      for (let j = 0; j < gamepadAPI.controller.buttons.length; j++) {
+        if (gamepadAPI.controller.buttons[j].pressed) {
+          pressed.push(gamepadAPI.buttons[j])
         }
       }
     }
 
     const axes = []
     if (gamepadAPI.controller.axes) {
-      for (let a = 0; a < gamepadAPI.controller.axes.length; a++) {
-        axes.push(Number(gamepadAPI.controller.axes[a].toFixed(2)))
+      for (let k = 0; k < gamepadAPI.controller.axes.length; k++) {
+        axes.push(Number(gamepadAPI.controller.axes[k].toFixed(2)))
       }
     }
 
@@ -50,5 +50,19 @@ export const gamepadAPI:GamepadAPI = {
     return pressed
   },
 
-  buttonPressed() {}
+  buttonPressed(button, hold) {
+    let newPress = false
+
+    for (let i = 0; i < gamepadAPI.buttonsStatus.length; i++) {
+      if (gamepadAPI.buttonsStatus[i] === button) {
+        newPress = true
+        if (!hold) {
+          for (let j = 0; j < gamepadAPI.buttonsCache.length; j++) {
+            newPress = (gamepadAPI.buttonsCache[j] !== button)
+          }
+        }
+      }
+    }
+    return newPress
+  }
 }

@@ -30,7 +30,7 @@ interface GamepadAPI {
   connect:(event:any)=>void
   disconnect:()=>void
   update:()=>Array<string> | undefined
-  buttonPressed:()=>void
+  buttonPressed:(button:string, hold:string)=>boolean
 }
 
 /** Animation time equal to CSS value */
