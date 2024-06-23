@@ -87,6 +87,8 @@ let menuIdx = 0
 /** Track animation frame for polling controller */
 let pollingFrame = 0
 
+const scrollSpeed:ButtonScrollSpeed = 200
+
 /**
  * Navigate up or down in the menu
  * @param event Input event
@@ -140,17 +142,19 @@ const mouseFocus = (event:any):void => {
  * Poll input from controller on animation frames
  * @param _lastframe 
  */
-const pollController = (_lastframe:DOMHighResTimeStamp) => {
+const pollController = async (_lastframe:DOMHighResTimeStamp) => {
   if (controller.value === null || controller.value === undefined) {
     //  Do nothing if no controller detected
   } else {
     if (controller.value.dpad.up.pressed) {
       if (menuIdx > 0) --menuIdx
       document.getElementById(menuItems[menuIdx].id)?.focus()
+      await new Promise(resolve => setTimeout(resolve, scrollSpeed))
     }
     if (controller.value.dpad.down.pressed) {
       if (menuIdx < menuItems.length - 1) ++menuIdx
       document.getElementById(menuItems[menuIdx].id)?.focus()
+      await new Promise(resolve => setTimeout(resolve, scrollSpeed))
     }
   }
 
