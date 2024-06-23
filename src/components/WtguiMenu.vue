@@ -166,16 +166,18 @@ onBeforeUnmount(() => {
   </section>
 </template>
 
-<style lang="stylus" scoped>
-section
-  line-height 1.5
-  font-weight 400
-  padding 1.4em 3em
-  display flex
-  flex-flow column nowrap
-  place-items center
-h1
-  font-size 2.6em
-  margin-top 0.2em
-  margin-bottom 0.2em
+<style scoped>
+section {
+  line-height: 1.5;
+  font-weight: 400;
+  padding: 1.4em 3em;
+  display: flex;
+  flex-flow: column nowrap;
+  place-items: center;
+}
+h1 {
+  font-size: 2.6em;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
 </style>

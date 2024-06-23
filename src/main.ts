@@ -9,7 +9,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router.ts'
-import './style.styl'
+import './style.css'
 
 //import { WTGui } from '@wtfsystems/wtgui'
 import { WTGui } from './index.ts'

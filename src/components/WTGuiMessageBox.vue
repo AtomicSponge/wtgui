@@ -144,60 +144,73 @@ onBeforeUnmount(() => {
   </div>
 </template>
 
-<style lang="stylus" scoped>
-.outer
-  position absolute
-  top 0px
-  left 0px
-  height 100vh
-  width 100vw
-.middle
-  display table-cell
-  vertical-align middle
-h2
-  font-size 1.4em
-  margin-top 0.2em
-  margin-bottom 0.2em
-button
-  padding 0.2em 0.6em
-  margin 0.6em
-  font-size 1.4em
-  font-weight 800
-  font-family inherit
-  background-color rgba(0, 0, 0, 0)
-  cursor pointer
+<style scoped>
+.outer {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100vh;
+  width: 100vw;
+}
+.middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+h2 {
+  font-size: 1.4em;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+button {
+  padding: 0.2em 0.6em;
+  margin: 0.6em;
+  font-size: 1.4em;
+  font-weight: 800;
+  font-family: inherit;
+  background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
 button:focus,
-button:focus-visible
-  outline none
-.hidden
-  border none
-  padding 0em 0em
-  margin 0em
+button:focus-visible {
+  outline: none;
+}
+.hidden {
+  border: none;
+  padding: 0em 0em;
+  margin: 0em;
+}
 .hidden:focus,
-.hidden:focus-visible
-  outline none
-.modal-zoom
-  -webkit-animation-name zoom
-  -webkit-animation-duration 0.3s
-  animation-name zoom
-  animation-duration 0.3s
-.out
-  animation-name zoom-out
-  animation-duration 0.3s
+.hidden:focus-visible {
+  outline: none;
+}
+.modal-zoom {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.3s;
+  animation-name: zoom;
+  animation-duration: 0.3s;
+}
+.out {
+  animation-name: zoom-out;
+  animation-duration: 0.3s;
+}
 
 /* Zoom in */
-@-webkit-keyframes zoom
+@-webkit-keyframes zoom {
   from { -webkit-transform:scale(1) }
   to { -webkit-transform:scale(2) }
-@keyframes zoom
+}
+@keyframes zoom {
   from { transform:scale(0.4) }
   to { transform:scale(1) }
+}
 
 /* Zoom out */
-@-webkit-keyframes zoom-out
+@-webkit-keyframes zoom-out {
   from { transform:scale(1) }
   to { transform:scale(0) }
-@keyframes zoom-out
+}
+@keyframes zoom-out {
   from { transform:scale(1) }
   to { transform:scale(0) }
+}
 </style>

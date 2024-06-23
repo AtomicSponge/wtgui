@@ -146,23 +146,27 @@ onBeforeUnmount(() => {
   </div>
 </template>
 
-<style lang="stylus" scoped>
-h2
-  font-size 1.4em
-  line-height 0.2
-  padding 0.2em 0em
-  margin 0.3em 0.6em
-.main
-  display flex
-  flex-flow row nowrap
-  place-items center
-.input
-  padding 0.2em 0.6em
-  margin 0.3em 0.6em
-  font-size 1.4em
-  font-weight 800
-  cursor pointer
+<style scoped>
+h2 {
+  font-size: 1.4em;
+  line-height: 0.2;
+  padding: 0.2em 0em;
+  margin: 0.3em 0.6em;
+}
+.main {
+  display: flex;
+  flex-flow: row nowrap;
+  place-items: center;
+}
+.input {
+  padding: 0.2em 0.6em;
+  margin: 0.3em 0.6em;
+  font-size: 1.4em;
+  font-weight: 800;
+  cursor: pointer;
+}
 .input:focus,
-.input:focus-visible
-  outline none
+.input:focus-visible {
+  outline: none;
+}
 </style>

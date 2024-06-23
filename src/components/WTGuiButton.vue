@@ -126,17 +126,19 @@ onMounted(() => {
   </div>
 </template>
 
-<style lang="stylus" scoped>
-button
-  padding 0.6em 1.2em
-  margin 0.3em 0.6em
-  font-size 1.2em
-  font-weight 800
-  font-family inherit
-  color inherit
-  background-color inherit
-  cursor pointer
+<style scoped>
+button {
+  padding: 0.6em 1.2em;
+  margin: 0.3em 0.6em;
+  font-size: 1.2em;
+  font-weight: 800;
+  font-family: inherit;
+  color: inherit;
+  background-color: inherit;
+  cursor: pointer;
+}
 button:focus,
-button:focus-visible
-  outline none
+button:focus-visible {
+  outline: none;
+}
 </style>

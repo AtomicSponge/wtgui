@@ -28,10 +28,11 @@ const labelStyle = computed(() => {
   <div><h2 :style="labelStyle">{{ label }}</h2></div>
 </template>
 
-<style lang="stylus" scoped>
-h2
-  font-size 1.4em
-  line-height 0.2
-  padding-left 0.6em
-  padding-right 0.6em
+<style scoped>
+h2 {
+  font-size: 1.4em;
+  line-height: 0.2;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+}
 </style>

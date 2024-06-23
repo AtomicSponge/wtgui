@@ -198,26 +198,31 @@ onBeforeUnmount(() => {
   </div>
 </template>
 
-<style lang="stylus" scoped>
-div
-  display flex
-  flex-flow row nowrap
-  place-items center
-h2
-  font-size 1.4em
-  margin 0.3em 0.2em
+<style scoped>
+div {
+  display: flex;
+  flex-flow: row nowrap;
+  place-items: center;
+}
+h2 {
+  font-size: 1.4em;
+  margin: 0.3em 0.2em;
+}
 h2:focus,
-h2:focus-visible
-  outline none
-button
-  padding 0.2em 0.6em
-  margin 0.3em 0.6em
-  font-size 1.4em
-  font-weight 800
-  font-family inherit
-  background-color inherit
-  cursor pointer
+h2:focus-visible {
+  outline: none;
+}
+button {
+  padding: 0.2em 0.6em;
+  margin: 0.3em 0.6em;
+  font-size: 1.4em;
+  font-weight: 800;
+  font-family: inherit;
+  background-color: inherit;
+  cursor: pointer;
+}
 button:focus,
-button:focus-visible
-  outline none
+button:focus-visible {
+  outline: none;
+}
 </style>
