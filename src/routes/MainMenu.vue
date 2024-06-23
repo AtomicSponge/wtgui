@@ -18,6 +18,3 @@ const scale = scaleStore()
       goto="/testb"/>
   </wtgui-menu>
 </template>
-
-<style lang="stylus" scoped>
-</style>

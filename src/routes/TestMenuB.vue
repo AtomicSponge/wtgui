@@ -54,6 +54,3 @@ const showMessageBox = ref(false)
       v-model="showMessageBox"/>
   </wtgui-menu>
 </template>
-
-<style lang="stylus" scoped>
-</style>

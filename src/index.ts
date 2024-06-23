@@ -6,7 +6,6 @@
  */
 
 import type { App, Plugin } from 'vue'
-import { gamepadAPI } from './lib/gamepadAPI'
 
 //  Menu - regestered in plugin
 import WtguiMenu from './components/WtguiMenu.vue'
@@ -20,14 +19,6 @@ export { default as WTGuiInputSetting } from './components/WTGuiInputSetting.vue
 export { default as WTGuiLabel } from './components/WTGuiLabel.vue'
 export { default as WTGuiMessageBox } from './components/WTGuiMessageBox.vue'
 export { default as WTGuiSelect } from './components/WTGuiSelect.vue'
-
-/**
- * Connect the gamepad
- * @param event Gamepad event
- */
-const startGamepad = (event:any) => {
-  gamepadAPI.connectGamepad(event)
-}
 
 //  Export plugin
 export const WTGui:Plugin = {
@@ -62,17 +53,5 @@ export const WTGui:Plugin = {
 
     if(options.defaultScale === undefined) options.defaultScale = 2
     app.provide('defaultScale', options.defaultScale)
-
-    //  Directive for gamepad input
-    app.directive('wtgui-gamepad', {
-      mounted() {
-        window.addEventListener('gamepadconnected', startGamepad)
-      },
-
-      beforeUnmount() {
-        gamepadAPI.disconnectGamepad()
-        window.removeEventListener('gamepadconnected', startGamepad)
-      }
-    })
   }
 }

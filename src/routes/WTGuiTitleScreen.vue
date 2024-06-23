@@ -40,6 +40,3 @@ onBeforeUnmount(() => {
     <WTGuiLabel label="Press a key or button"/>
   </wtgui-menu>
 </template>
-
-<style lang="stylus" scoped>
-</style>

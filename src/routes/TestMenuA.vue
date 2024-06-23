@@ -29,6 +29,3 @@ const currentScale = ref(scale.value)
     <WTGuiButton label="Main Menu" :goto="mainMenuRoute"/>
   </wtgui-menu>
 </template>
-
-<style lang="stylus" scoped>
-</style>
