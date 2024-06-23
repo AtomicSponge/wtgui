@@ -98,7 +98,7 @@ const navigateMenu = (event:any):void => {
     return
   }
 
-  if(menuItems[menuIdx] === undefined) return
+  if (menuItems[menuIdx] === undefined) return
 
   //  Check if any items in the list are focused
   let focusCheck = false
@@ -106,7 +106,7 @@ const navigateMenu = (event:any):void => {
     if(item === document.activeElement) focusCheck = true
   })
   //  Quit if not (prevents pop-up focus loss)
-  if(!focusCheck) return
+  if (!focusCheck) return
 
   switch (event.key.toLowerCase()) {
     case 'w':
@@ -141,15 +141,18 @@ const mouseFocus = (event:any):void => {
  * @param _lastframe 
  */
 const pollController = (_lastframe:DOMHighResTimeStamp) => {
-  if (controller?.value.dpad.up.pressed) {
+  if (controller.value === null) {
+    pollingFrame = window.requestAnimationFrame(pollController)
+  }
+  if (controller.value.dpad.up.pressed) {
     if (menuIdx > 0) --menuIdx
     document.getElementById(menuItems[menuIdx].id)?.focus()
   }
-  if (controller?.value.dpad.down.pressed) {
+  if (controller.value.dpad.down.pressed) {
     if (menuIdx < menuItems.length - 1) ++menuIdx
     document.getElementById(menuItems[menuIdx].id)?.focus()
   }
-  
+
   pollingFrame = window.requestAnimationFrame(pollController)
 }
 
@@ -166,14 +169,14 @@ onMounted(() => {
     }
   })
   //  Focus first menu item
-  if(menuItems[menuIdx] !== undefined)
+  if (menuItems[menuIdx] !== undefined)
     document.getElementById(menuItems[menuIdx].id)?.focus()
 
     pollingFrame = window.requestAnimationFrame(pollController)
 })
 
 onUpdated(() => {
-  if(menuItems[menuIdx] !== undefined)
+  if (menuItems[menuIdx] !== undefined)
     document.getElementById(menuItems[menuIdx].id)?.focus()
 })
 
