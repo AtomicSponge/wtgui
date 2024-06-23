@@ -141,17 +141,17 @@ const mouseFocus = (event:any):void => {
  * @param _lastframe 
  */
 const pollController = (_lastframe:DOMHighResTimeStamp) => {
-  if (controller.value === null) {
-    //  End early if no controller detected
-    pollingFrame = window.requestAnimationFrame(pollController)
-  }
-  if (controller.value.dpad.up.pressed) {
-    if (menuIdx > 0) --menuIdx
-    document.getElementById(menuItems[menuIdx].id)?.focus()
-  }
-  if (controller.value.dpad.down.pressed) {
-    if (menuIdx < menuItems.length - 1) ++menuIdx
-    document.getElementById(menuItems[menuIdx].id)?.focus()
+  if (controller.value === null || controller.value === undefined) {
+    //  Do nothing if no controller detected
+  } else {
+    if (controller.value.dpad.up.pressed) {
+      if (menuIdx > 0) --menuIdx
+      document.getElementById(menuItems[menuIdx].id)?.focus()
+    }
+    if (controller.value.dpad.down.pressed) {
+      if (menuIdx < menuItems.length - 1) ++menuIdx
+      document.getElementById(menuItems[menuIdx].id)?.focus()
+    }
   }
 
   pollingFrame = window.requestAnimationFrame(pollController)
