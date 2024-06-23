@@ -20,22 +20,6 @@ interface WTGuiOptions {
   defaultScale?:number
 }
 
-/** Gamepad API */
-interface GamepadAPI {
-  controller:Gamepad | undefined
-  buttons:Array<string>
-  buttonsCache:Array<string>
-  buttonsStatus:Array<string>
-  axesStatus:Array<number>
-  connect:(event:any)=>void
-  disconnect:()=>void
-  update:()=>Array<string> | undefined
-  buttonPressed:(button:string, hold?:string)=>boolean
-  connectGamepad:(event:any)=>void
-  disconnectGamepad:()=>void
-  gamepadCallback:()=>void
-}
-
 /** Animation time equal to CSS value */
 type MsgBoxZoomTime = 300
 /** Delay time for menu transition */

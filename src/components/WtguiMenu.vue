@@ -24,7 +24,7 @@ const borderColor = <string>inject('borderColor')
 const itemColor = <string>inject('itemColor')
 /** Focus color from options */
 const focusColor = <string>inject('focusColor')
-/** Detected controller */
+/** Detected controller if connected */
 const gamepad = <any>inject('gamepad')
 
 /** Controller if connected */
@@ -92,6 +92,8 @@ let menuItems:Array<Element> = []
 let menuIdx = 0
 /** Track animation frame for polling controller */
 let pollingFrame = 0
+
+let clicked = false
 /** Menu scroll speed */
 const scrollSpeed:ButtonScrollSpeed = 200
 
@@ -149,10 +151,7 @@ const mouseFocus = (event:any):void => {
 /** Poll input from controller on animation frames */
 const pollController = async ():Promise<void> => {
   if (controller.value === null || controller.value === undefined) {
-    //  Watch for connect events
-    onConnected(() => {
-      controller = mapGamepadToXbox360Controller(gamepad)
-    })
+    // do nothing
   } else {
     if (controller.value.dpad.up.pressed) {
       if (menuIdx > 0) --menuIdx
@@ -164,10 +163,22 @@ const pollController = async ():Promise<void> => {
       document.getElementById(menuItems[menuIdx].id)?.focus()
       await new Promise(resolve => setTimeout(resolve, scrollSpeed))
     }
+    if (controller.value.buttons.a.pressed) {
+      if(!clicked) {
+        document.getElementById(menuItems[menuIdx].id)?.click()
+        clicked = true
+        setTimeout(() => { clicked = false }, 900)
+      }
+    }
   }
 
   pollingFrame = window.requestAnimationFrame(pollController)
 }
+
+//  Watch for connect events
+onConnected(() => {
+  controller = mapGamepadToXbox360Controller(gamepad)
+})
 
 onMounted(() => {
   window.addEventListener('keydown', navigateMenu)
