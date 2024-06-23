@@ -6,6 +6,7 @@
 
 <script setup lang="ts">
 import { ref, computed, provide, inject, onMounted, onUpdated, onBeforeUnmount } from 'vue'
+import { useGamepad, mapGamepadToXbox360Controller } from '@vueuse/core'
 
 defineOptions({
   inheritAttrs: false
@@ -22,7 +23,10 @@ const itemColor = <string>inject('itemColor')
 /** Focus color from options */
 const focusColor = <string>inject('focusColor')
 /** Detected controller */
-const controller = <any>inject('controller')
+const gamepad = <any>inject('gamepad')
+
+let controller:any
+const { onConnected } = useGamepad()
 
 const props = defineProps({
   /** Title display for menu */
@@ -142,6 +146,9 @@ const mouseFocus = (event:any):void => {
 const pollController = async ():Promise<void> => {
   if (controller.value === null || controller.value === undefined) {
     //  Do nothing if no controller detected
+    onConnected(() => {
+      controller = mapGamepadToXbox360Controller(gamepad)
+    })
   } else {
     if (controller.value.dpad.up.pressed) {
       if (menuIdx > 0) --menuIdx
@@ -175,6 +182,7 @@ onMounted(() => {
     document.getElementById(menuItems[menuIdx].id)?.focus()
 
   //  Start polling controller
+  if(gamepad !== null) controller = mapGamepadToXbox360Controller(gamepad)
   pollingFrame = window.requestAnimationFrame(pollController)
 })
 
