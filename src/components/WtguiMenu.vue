@@ -21,6 +21,8 @@ const borderColor = <string>inject('borderColor')
 const itemColor = <string>inject('itemColor')
 /** Focus color from options */
 const focusColor = <string>inject('focusColor')
+/** Detected controller */
+const controller = <any>inject('controller')
 
 const props = defineProps({
   /** Title display for menu */
@@ -125,9 +127,11 @@ const navigateMenu = (event:any):void => {
 const mouseFocus = (event:any):void => {
   event.preventDefault()
   menuItems.forEach((item:Element, idx:number) => {
-    if(event.target.id === item.id) menuIdx = idx
+    if(event.target.id === item.id){
+      menuIdx = idx
+      document.getElementById(menuItems[menuIdx].id)?.focus()
+    }
   })
-  event.target.focus()
 }
 
 onMounted(() => {
@@ -139,6 +143,7 @@ onMounted(() => {
     if (item.checkVisibility()) {
       menuItems.push(item)
       item.addEventListener('mouseenter', mouseFocus)
+      item.addEventListener('mouseleave', mouseFocus)
     }
   })
   //  Focus first menu item
@@ -155,6 +160,7 @@ onBeforeUnmount(() => {
   window.removeEventListener('keydown', navigateMenu)
   menuItems.forEach((item:Element) => {
     item.removeEventListener('mouseenter', mouseFocus)
+    item.removeEventListener('mouseleave', mouseFocus)
   })
 })
 </script>
@@ -163,6 +169,8 @@ onBeforeUnmount(() => {
   <section ref="menu" :style="menuStyle">
     <h1 :style="titleStyle">{{ title }}</h1>
     <slot></slot>
+    {{ controller?.dpad.up.pressed }}
+    {{ controller?.dpad.down.pressed }}
   </section>
 </template>
 

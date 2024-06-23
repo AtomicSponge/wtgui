@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { provide, computed } from 'vue'
-import { useGamepad } from '@vueuse/core'
+import { useGamepad, mapGamepadToXbox360Controller } from '@vueuse/core'
 
-//  Set up the gamepad here so we can detect globally and inject into components
 const { gamepads } = useGamepad()
-provide('gamepad', computed(() => gamepads.value.find(g => g.mapping === 'standard')))
+const gamepad = computed(() => gamepads.value.find(g => g.mapping === 'standard'))
+const controller = mapGamepadToXbox360Controller(gamepad)
+
+provide('controller', controller)
 </script>
 
 <template>
