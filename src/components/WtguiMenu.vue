@@ -84,6 +84,8 @@ const menu = ref()
 let menuItems:Array<Element> = []
 /** Current menu item */
 let menuIdx = 0
+/** Track animation frame for polling controller */
+let pollingFrame = 0
 
 /**
  * Navigate up or down in the menu
@@ -134,6 +136,23 @@ const mouseFocus = (event:any):void => {
   })
 }
 
+/**
+ * Poll input from controller on animation frames
+ * @param _lastframe 
+ */
+const pollController = (_lastframe:DOMHighResTimeStamp) => {
+  if (controller?.value.dpad.up.pressed) {
+    if (menuIdx > 0) --menuIdx
+    document.getElementById(menuItems[menuIdx].id)?.focus()
+  }
+  if (controller?.value.dpad.down.pressed) {
+    if (menuIdx < menuItems.length - 1) ++menuIdx
+    document.getElementById(menuItems[menuIdx].id)?.focus()
+  }
+  
+  pollingFrame = window.requestAnimationFrame(pollController)
+}
+
 onMounted(() => {
   window.addEventListener('keydown', navigateMenu)
 
@@ -149,6 +168,8 @@ onMounted(() => {
   //  Focus first menu item
   if(menuItems[menuIdx] !== undefined)
     document.getElementById(menuItems[menuIdx].id)?.focus()
+
+    pollingFrame = window.requestAnimationFrame(pollController)
 })
 
 onUpdated(() => {
@@ -162,6 +183,7 @@ onBeforeUnmount(() => {
     item.removeEventListener('mouseenter', mouseFocus)
     item.removeEventListener('mouseleave', mouseFocus)
   })
+  window.cancelAnimationFrame(pollingFrame)
 })
 </script>
 
@@ -169,8 +191,6 @@ onBeforeUnmount(() => {
   <section ref="menu" :style="menuStyle">
     <h1 :style="titleStyle">{{ title }}</h1>
     <slot></slot>
-    {{ controller?.dpad.up.pressed }}
-    {{ controller?.dpad.down.pressed }}
   </section>
 </template>
 
