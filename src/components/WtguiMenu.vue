@@ -138,11 +138,8 @@ const mouseFocus = (event:any):void => {
   })
 }
 
-/**
- * Poll input from controller on animation frames
- * @param _lastframe 
- */
-const pollController = async (_lastframe:DOMHighResTimeStamp) => {
+/** Poll input from controller on animation frames */
+const pollController = async ():Promise<void> => {
   if (controller.value === null || controller.value === undefined) {
     //  Do nothing if no controller detected
   } else {
