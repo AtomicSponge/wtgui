@@ -8,6 +8,8 @@
 import { ref, computed, provide, inject, onMounted, onUpdated, onBeforeUnmount } from 'vue'
 import { useGamepad, mapGamepadToXbox360Controller } from '@vueuse/core'
 
+const { onConnected } = useGamepad()
+
 defineOptions({
   inheritAttrs: false
 })
@@ -25,8 +27,8 @@ const focusColor = <string>inject('focusColor')
 /** Detected controller */
 const gamepad = <any>inject('gamepad')
 
+/** Controller if connected */
 let controller:any
-const { onConnected } = useGamepad()
 
 const props = defineProps({
   /** Title display for menu */
@@ -145,7 +147,7 @@ const mouseFocus = (event:any):void => {
 /** Poll input from controller on animation frames */
 const pollController = async ():Promise<void> => {
   if (controller.value === null || controller.value === undefined) {
-    //  Do nothing if no controller detected
+    //  Watch for connect events
     onConnected(() => {
       controller = mapGamepadToXbox360Controller(gamepad)
     })
