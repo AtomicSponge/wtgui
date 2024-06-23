@@ -92,14 +92,14 @@ let menuItems:Array<Element> = []
 let menuIdx = 0
 /** Track animation frame for polling controller */
 let pollingFrame = 0
-
+/** Menu scroll speed */
 const scrollSpeed:ButtonScrollSpeed = 200
 
 /**
  * Navigate up or down in the menu
  * @param event Input event
  */
-const navigateMenu = (event:any):void => {
+const navigateMenu = async (event:any):Promise<void> => {
   //  Prevent tab navigation
   if (event.key.toLowerCase() === 'tab') {
     event.preventDefault()
@@ -121,11 +121,13 @@ const navigateMenu = (event:any):void => {
     case 'arrowup':
       if (menuIdx > 0) --menuIdx
       document.getElementById(menuItems[menuIdx].id)?.focus()
+      await new Promise(resolve => setTimeout(resolve, scrollSpeed))
       break
     case 's':
     case 'arrowdown':
       if (menuIdx < menuItems.length - 1) ++menuIdx
       document.getElementById(menuItems[menuIdx].id)?.focus()
+      await new Promise(resolve => setTimeout(resolve, scrollSpeed))
       break
   }
 }
