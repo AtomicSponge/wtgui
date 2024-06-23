@@ -142,6 +142,7 @@ const mouseFocus = (event:any):void => {
  */
 const pollController = (_lastframe:DOMHighResTimeStamp) => {
   if (controller.value === null) {
+    //  End early if no controller detected
     pollingFrame = window.requestAnimationFrame(pollController)
   }
   if (controller.value.dpad.up.pressed) {
@@ -172,7 +173,8 @@ onMounted(() => {
   if (menuItems[menuIdx] !== undefined)
     document.getElementById(menuItems[menuIdx].id)?.focus()
 
-    pollingFrame = window.requestAnimationFrame(pollController)
+  //  Start polling controller
+  pollingFrame = window.requestAnimationFrame(pollController)
 })
 
 onUpdated(() => {
